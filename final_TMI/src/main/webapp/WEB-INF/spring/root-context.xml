@@ -14,7 +14,6 @@
 		<property name="password" value="a1234"></property>
 	</bean>
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
