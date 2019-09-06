@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/*///////////////////////header전체 ///////////////////////*/
+#header {
+	width: 100%;
+	height: 66px;
+	background: linear-gradient(-120deg, #12c2e9, #c471ed, #f64f59);
+}
+
+/*///////////////////////header내용부분 ///////////////////////*/
+#header_content {
+	width: 1300px;
+}
+
+/********************** 로그인 부분 START **********************/
+#header_log {
+	float: right;
+	margin-right: 40px;
+	margin-top: 13px;
+}
+
+#header_log button {
+	font-family: 'Noto Sans KR', sans-serif;
+	opacity: 1;
+	transition: 0.3s;
+	cursor: pointer;
+	color: white;
+	background: rgba(0, 0, 0, 0);
+	height: 38px;
+	font-size: 16px;
+	font-weight: 100;
+	padding: 1px 21px;
+}
+
+#header_sign_in_out:hover, #header_sign_up:hover {
+	opacity: 0.75;
+}
+
+#header_sign_in_out {
+	border: 1px solid white;
+	border-radius: 19px;
+}
+
+#header_sign_up {
+	border: none;
+}
+/********************** 로그인 부분 END **********************/
+
+
+/*///////////////////////중앙 로고부분 ///////////////////////*/
+#header_logo {
+	font-size: 35px;
+	font-family: 'Dancing Script', cursive;
+	color: white;
+	font-weight: 700;
+	margin-top: 10px;
+	opacity: 0.9;
+	cursor: pointer;
+}
