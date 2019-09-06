@@ -5,40 +5,44 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import mapper.ProjectMapper;
 import mapper.TestMapper;
+import service.ProjectService;
 
 @Controller
+@RequestMapping("/project/*")
 public class ProjectController {
 	
-/*	@Autowired
-	private ProjectMapper mapper;
-	}*/
+	@Autowired
+	private ProjectService service;
 	
-	@RequestMapping("/project/home")
+	
+	@RequestMapping("/home")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
+		service.testPrn();
 		mav.setViewName("Home");
 		return mav;
 	}
 	
-	@RequestMapping("/project/management")
+	@RequestMapping("/management")
 	public ModelAndView ram_managementTest(ModelAndView mav) {
 		mav.setViewName("project/management");
 		return mav;
 	}
 	
-	@RequestMapping("/project/calander")
+	@RequestMapping("/calander")
 	public ModelAndView ram_calanderTest(ModelAndView mav) {
 		mav.setViewName("project/calander");
 		return mav;
 	}
 	
-	@RequestMapping("/project/schedule")
+	@RequestMapping("/schedule")
 	public ModelAndView ram_scheduleTest(ModelAndView mav) {
 		mav.setViewName("project/schedule");
 		return mav;
 	}
 	
-	@RequestMapping("/project/timeline")
+	@RequestMapping("/timeline")
 	public ModelAndView ram_timelineTest(ModelAndView mav) {
 		mav.setViewName("project/timeline");
 		return mav;
