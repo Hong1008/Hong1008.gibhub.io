@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+
+/* 드래그불가 */
+.no-drag {
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+/* 문서 전체 가운데정렬 */
+.center_box {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+}

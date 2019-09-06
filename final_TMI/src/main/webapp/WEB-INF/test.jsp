@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="include/header.jsp"%>
+<%@include file="include/Header.jsp"%>
 <%@include file="include/aside.jsp"%>
 <p>디비 메퍼 체크 ${test }</p>
 </body>
