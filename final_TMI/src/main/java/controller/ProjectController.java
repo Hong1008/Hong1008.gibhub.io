@@ -17,14 +17,15 @@ public class ProjectController {
 	private ProjectService service;
 	
 	
-	@RequestMapping("/home")
+	@RequestMapping("/home.do")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
 		service.testPrn();
+		
 		mav.setViewName("Home");
 		return mav;
 	}
 	
-	@RequestMapping("/management")
+	@RequestMapping("/management.do")
 	public ModelAndView ram_managementTest(ModelAndView mav) {
 		mav.setViewName("project/management");
 		return mav;
