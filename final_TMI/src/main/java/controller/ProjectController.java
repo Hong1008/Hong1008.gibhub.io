@@ -17,7 +17,7 @@ public class ProjectController {
 	private ProjectService service;
 	
 	
-	@RequestMapping("/home.do")
+	@RequestMapping("/home")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
 		service.testPrn();
 		
@@ -25,7 +25,7 @@ public class ProjectController {
 		return mav;
 	}
 	
-	@RequestMapping("/management.do")
+	@RequestMapping("/management")
 	public ModelAndView ram_managementTest(ModelAndView mav) {
 		mav.setViewName("project/management");
 		return mav;
