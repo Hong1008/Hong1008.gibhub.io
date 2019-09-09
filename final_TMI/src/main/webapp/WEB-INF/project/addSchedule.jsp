@@ -9,9 +9,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-------------------------------------- js,css연결 -------------------------------------->
-<script src="/tmi/js/project_addSchedule.js" type='text/javascript'></script>
-<link href='/tmi/css/project_addSchedule.css' type='text/css' rel='stylesheet'>
-<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
+<script src="../js/project_addSchedule.js" type='text/javascript'></script>
+<link href='../css/project_addSchedule.css' type='text/css' rel='stylesheet'>
+<link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link

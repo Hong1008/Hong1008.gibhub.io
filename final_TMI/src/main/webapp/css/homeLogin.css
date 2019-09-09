@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+#pro_div {
+	    margin: 45px 0px 0px 80px;
+    float: none !important;
+}
+
+.project {
+	width: 1600px;
+    height: 83px;
+    margin-bottom: 52px;
+    border-bottom: 1px solid;
+}
+
+.pro_header {
+	float: left;
+	width: 200px;
+	height: 100%;
+}
+
+.pro_body {
+	width: 1500px;
+	height: 100%;
+}
+
+.pro_name {
+font-size: 24px;
+    border-radius: 50px;
+    margin-top: 25px;
+    text-align: center;
+    height: 51px;
+    width: 180px;
+    margin-left: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.pro_body div , #pro_list div{
+	float: left;
+	font-size: 25px;
+	margin-left: 33px;
+	margin-right: 60px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 300;
+}
+
+#pro_list{
+	width: 1600px;
+    height: 60px;
+    padding-left: 202px;
+}
+.pro_body div p{
+	    display: inline-block;
+    font-size: 59px;
+    font-weight: 100;
+    font-family: 'Raleway';
+}
+.pro_per{
+	width:200px;
+}
+
+.pro_man{
+	margin-top: 26px;
+	width:200px;
+}
+
+.pro_dday{
+	width:200px;
+}
+
+.pro_end{
+	width:200px;
+}
+
+.pro_list_per{
+	width:200px;
+}
+
+.pro_list_man{
+	width:200px;
+}
+
+.pro_list_dday{
+	width:200px;
+}
+
+.pro_list_end{
+	width:200px;
+}
