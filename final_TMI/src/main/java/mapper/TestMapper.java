@@ -4,5 +4,5 @@ package mapper;
 
 public interface TestMapper {
 	
-	public int test();
+	//public int test();
 }
