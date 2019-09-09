@@ -10,7 +10,7 @@
 
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="/tmi/js/home.js" type='text/javascript'></script>
-<link href='/tmi/css/home.css' type='text/css' rel='stylesheet'>
+<link href='/tmi/css/homeLogout.css' type='text/css' rel='stylesheet'>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
