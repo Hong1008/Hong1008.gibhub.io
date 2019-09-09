@@ -18,7 +18,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/**" location="/" />
 
-	<!-- 채팅 웹소켓 -->
+	<!-- 채팅 웹소켓. -->
 	<websocket:handlers>
 		<websocket:mapping handler="chat" path="chatting" />
 		<websocket:handshake-interceptors>

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/chat/*")
 public class ChatController {
-
+//테스트
 	@RequestMapping("/chattingroom")
 	public ModelAndView park_chat(ModelAndView mav, HttpSession session) {
 		

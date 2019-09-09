@@ -116,7 +116,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-	<!-- 웹소켓 시작 -->
+	<!-- 웹소켓 시작. -->
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
 <dependency>
     <groupId>org.springframework</groupId>

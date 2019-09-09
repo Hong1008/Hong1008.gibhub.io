@@ -17,6 +17,7 @@ public class ChatEchoController extends TextWebSocketHandler {
 	
 	@Override
 	// 연결시
+	//테스트
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		usersInfo.add(session);
 		System.out.println(session+": 웹소켓접속");

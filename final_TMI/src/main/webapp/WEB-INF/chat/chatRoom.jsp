@@ -105,7 +105,7 @@ height: 871px;
 	<input type="button" value="기타버튼">
 	<input type="button" value="기타버튼">
 	<input type="button" value="기타버튼">
-	<input type="button" value="기타버튼">
+	<input type="button" value="기타버튼.">
 	</p>
 	<input type="text" id="message" />
 	<input type="button" id="sendBtn" value="전송" />
