@@ -14,17 +14,18 @@ body {
 
 #aside {
 	float: left;
-	background-color : rgb( 215, 86, 137);
 	width: 70px;
 	height: 100%;
-	background-color: rgb(215, 86, 137);
+	background-size: 2000%;
 }
+
 #aside .list .interval{
 margin-top: 30px;
 margin-left: 15px;
 width:40px;
 height:40px;
 }
+
  #aside #guideBox{
 display:none;
 left: 120%;
@@ -67,7 +68,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div id="aside">
+	<div id="aside"  class='tmi_skin tmi_skin01' >
 	<div class="list">
 	<a href="#"><img src="resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
 	<a href="#"><img src="resources/asideimg/calendar.png" class="interval" name="일정"></a>
