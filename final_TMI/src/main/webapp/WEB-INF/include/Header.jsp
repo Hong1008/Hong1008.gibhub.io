@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div id='header'>
+    <div id='header' class='tmi_skin tmi_skin01'>
         <div id="header_content" class='center_box'>
             <span id="header_logo" class='center_box no-drag'>TMI</span>
             <div id='header_log'>

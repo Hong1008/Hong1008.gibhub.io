@@ -34,11 +34,11 @@
 	<div id='bodywrap'>
 		<div id="signUpArea">
 			<div id="content" class='center_box'>
-				<div id='textArea' class='no-drag'>
-					<h1 class='no-drag'>
+				<div id='textArea'>
+					<h1 class='no-drag tmi_skin tmi_skin01'>
 						Project <br>Management
 					</h1>
-					<h3 class='no-drag'>JooSung is a project management tool
+					<h3 class='no-drag tmi_skin tmi_skin01'>JooSung is a project management tool
 						inspired by minimalism. From university team projects to business,
 						simple tasks make it easy and fast to control and manage projects.</h3>
 				</div>
@@ -52,7 +52,7 @@
 							id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
-								value="sign up for 주성">
+								value="sign up for 주성" class='tmi_skin tmi_skin01'>
 						<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
 						</div>
 						<div id="signInfo">By clicking “Sign up for GitHub”, you
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 		</div>
-		<div id='info'></div>
+		<div id='info' class='tmi_skin tmi_skin01'></div>
 		<div id='youtube'>
 			<iframe class='center_box' width="1280" height="720"
 				src="https://www.youtube.com/embed/4nKCAzdHm6A" frameborder="0"

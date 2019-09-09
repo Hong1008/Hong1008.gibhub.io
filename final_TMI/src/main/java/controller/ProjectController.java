@@ -12,15 +12,20 @@ import service.ProjectService;
 @Controller
 @RequestMapping("/project/*")
 public class ProjectController {
-	
+
 	@Autowired
 	private ProjectService service;
 	
 	
 	@RequestMapping("/home")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
-		service.testPrn();
-		mav.setViewName("Home");
+		mav.setViewName("Home_logOut");		
+		return mav;
+	}
+	
+	@RequestMapping("/home2")
+	public ModelAndView ram_homeTest2(ModelAndView mav) {
+		mav.setViewName("Home_logIn");
 		return mav;
 	}
 	
