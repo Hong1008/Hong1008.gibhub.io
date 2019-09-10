@@ -43,7 +43,7 @@
 
 							$.ajax({
 
-								url : "sign_in_do.do",
+								url : "sign_in_do",
 								data : {
 									id : $("#signinEmail").val(),
 									pwd : $("#signinPassword").val()
@@ -54,6 +54,7 @@
 								success : function(res) {
 									if (res == "true") {
 										alert("로그인성공");
+										location.href="home"
 									} else if (res == "false") {
 										alert("맞는아이디가없음");
 									} else if (res == "ip") {
@@ -71,7 +72,7 @@
 
 											$
 													.ajax({
-														url : 'sign_in_recaptcha.do',
+														url : 'sign_in_recaptcha',
 														type : 'post',
 														data : {
 															recaptcha : $(
@@ -247,12 +248,12 @@ label {
 		<div id='content'>
 			<div id='logo' class='center_div'>EasyTask</div>
 			<div id='SigninForm' class='center_div'>
-				<form action="sign_in_do.do" method="post">
+				<form action="sign_in_do" method="post">
 					<label for="signinEmail">email</label> <input type="text" name="id"
 						class='signinText' id='signinEmail'> <label
 						for="signinPassword">password</label> <input type="text"
 						name="pwd" class='signinText' id='signinPassword'> <a
-						href="forgot_pw.do" id='forgot'>forgot password?</a> <input
+						href="forgot_pw" id='forgot'>forgot password?</a> <input
 						type="button" id='signinSubmit' value='Sign in'>
 					<div id="google_id_login" style="text-align: center">
 						<a href="${google_url}"><img width="300" height="80"
@@ -264,7 +265,7 @@ label {
 				</form>
 				<div id='go_to_signUp'>
 					<p>
-						New to MaraTagn? <a href="sign_up.do">Create Acount</a>
+						New to MaraTagn? <a href="sign_up">Create Acount</a>
 					</p>
 				</div>
 

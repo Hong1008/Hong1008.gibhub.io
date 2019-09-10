@@ -13,20 +13,6 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 	
-	
-	@RequestMapping("/home")
-	public ModelAndView ram_homeTest(ModelAndView mav) {
-		mav.setViewName("Home_logOut");		
-		projectService.testPrn();
-		return mav;
-	}
-	
-	@RequestMapping("/home2")
-	public ModelAndView ram_homeTest2(ModelAndView mav) {
-		mav.setViewName("Home_logIn");
-		return mav;
-	}
-	
 	@RequestMapping("/management")
 	public ModelAndView ram_managementTest(ModelAndView mav) {
 		mav.setViewName("project/management");

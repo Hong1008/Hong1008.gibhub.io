@@ -35,7 +35,7 @@
 		
 			$.ajax({
 
-				url : "change_pwd_post.do?email="+$("#signinEmail").val(),
+				url : "change_pwd_post?email="+$("#signinEmail").val(),
 
 				type : "get",
 
@@ -151,7 +151,7 @@ label {
 		<div id='content'>
 			<div id='logo' class='center_div'>EasyTask</div>
 			<div id='SigninForm' class='center_div'>
-				<form action="change_pwd.do">
+				<form action="change_pwd">
 					<label for="signinEmail">Enter your email address and we
 						will send you a link to reset your password.</label> <input type="text"
 						name="email" class='signinText' id='signinEmail'
