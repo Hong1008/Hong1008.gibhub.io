@@ -37,6 +37,7 @@ $(document).ready(function(){
           if(res=="signin")
              {
              alert("로그인");
+             window.location.href = 'home';
              }
           else
              {
@@ -56,7 +57,7 @@ $(document).ready(function(){
                           type:"get",
                           success:function(res){
                        	 swal("Good job!", "가입성공!", "success");
-                            window.location.href = 'main.do';
+                            window.location.href = 'home';
                             
                           }
                             
@@ -65,7 +66,7 @@ $(document).ready(function(){
         		   
         		  } else {
         			  swal("Warning", "회원 가입 취소!","error");
-                      window.location.href = 'main.do';
+                      window.location.href = 'home';
         		  }
         		});
             

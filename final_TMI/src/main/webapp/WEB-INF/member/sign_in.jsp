@@ -54,6 +54,7 @@
 								success : function(res) {
 									if (res == "true") {
 										alert("로그인성공");
+										location.href="home"
 									} else if (res == "false") {
 										alert("맞는아이디가없음");
 									} else if (res == "ip") {

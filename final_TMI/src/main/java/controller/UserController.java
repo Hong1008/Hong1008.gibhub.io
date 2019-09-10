@@ -46,6 +46,7 @@ import service.UserService;
 
 
 @Controller
+
 public class UserController {
 
 	@Autowired
@@ -85,14 +86,15 @@ public class UserController {
 	}
 	//구글로그인 로그인했을때
 	@RequestMapping(value = "/googlelogin.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody String googlelogin(UserDTO dto) {
+	public @ResponseBody String googlelogin(UserDTO dto,HttpSession session,HttpServletRequest req) {
         
-		dto.setId(dto.getEmail());
+		dto.setId(dto.getEmail()+"_google");
 		int result=service.test_idProcess(dto);
 		String login="";
 		if(result==1)
 		{
 			//session 등록
+			session.setAttribute("id", dto.getEmail()+"_google");
 			login="signin";
 		}
 		else
@@ -157,9 +159,18 @@ public class UserController {
 	}
 
 	// 메인 뷰
-	@RequestMapping("/main.do")
-	public ModelAndView MainView(ModelAndView mav) {
-		mav.setViewName("/member/main");
+	@RequestMapping("/home")
+	public ModelAndView MainView(ModelAndView mav,HttpServletRequest req) {
+		HttpSession session=req.getSession();
+		if(session.getAttribute("id")==null)
+		{
+			mav.setViewName("/common/Home_logout");
+		}
+		else
+		{
+			mav.setViewName("common/Home_logIn");
+		}
+	
 		return mav;
 	}
 
@@ -189,24 +200,21 @@ public class UserController {
 	public @ResponseBody String Sign_in_do(UserDTO dto, HttpServletRequest req) {
 
 		String result="";
+		HttpSession session = req.getSession();
 		if (service.select_idProcess(dto) == null) {
 			result="false";
 		} else {
 			dto = service.select_idProcess(dto);
-			/*
-			HttpSession session = req.getSession();
-			session.setAttribute("id", dto.getId());
-			session.setAttribute("grade", dto.getGrade());*/
-			
-		
 			String ip=service.select_ipProcess(dto.getId());
 			String [] iplist=ip.split(",");
 			String ipreq= req.getRemoteAddr();
 			for (int i=0;i<iplist.length;i++)
 			{
-				//if(ipreq.equals(iplist[i]))
-				if(ipreq.equals("0"))
+				if(ipreq.equals(iplist[i]))
+				/*if(ipreq.equals("0"))*/
 				{
+					session.setAttribute("id", dto.getId());
+					session.setAttribute("grade", dto.getGrade());
 					return "true";
 				}
 				else
@@ -220,6 +228,14 @@ public class UserController {
 
 		return result;
 	}
+	//로그아웃
+	@RequestMapping("/sign_out.do")
+	public String sign_out(HttpSession session)
+	{
+		session.invalidate();
+		return "redirect:/home";
+	}
+	
 	
 	//로그인 > ip확인 >캡차 확인눌렀을때 
 	@RequestMapping("/sign_in_recaptcha.do")
@@ -227,6 +243,7 @@ public class UserController {
 	{
 		
 		String result="";
+		HttpSession session=req.getSession();
 		VerifyRecaptcha.setSecretKey("6Ld6HLYUAAAAADBVXoaB22rKK7FmA6aEBJCbrbq0");
 		String gRecaptchaResponse = req.getParameter("recaptcha");
 		try {
@@ -234,6 +251,7 @@ public class UserController {
 			{
 				dto.setIp(","+req.getRemoteAddr());
 			   service.update_ipProcess(dto);
+			   session.setAttribute("id", dto.getId());
 				result="0";
 			}
 			else
@@ -334,7 +352,7 @@ public class UserController {
 	// 구글 Callback호출 메소드
 		  @RequestMapping(value = "/oauth2callback.do", method = { RequestMethod.GET, RequestMethod.POST })
 		  public String googleCallback(Model model, @RequestParam String code,HttpServletResponse response,HttpServletRequest req) throws IOException {
-	        
+	        System.out.println("찍히나");
 		        //RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 		        RestTemplate restTemplate = new RestTemplate();
 		       MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
