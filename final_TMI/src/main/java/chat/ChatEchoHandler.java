@@ -1,4 +1,4 @@
-package controller;
+package chat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +11,11 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class ChatEchoController extends TextWebSocketHandler {
+public class ChatEchoHandler extends TextWebSocketHandler {
+	
 	private List<WebSocketSession> usersInfo = new ArrayList<>();//유저정보 넣는 리스트
 	private Map<WebSocketSession, String> roomList= new HashMap<>();//방정보 받는 리스트
+
 	
 	@Override
 	// 연결시
@@ -21,6 +23,7 @@ public class ChatEchoController extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		usersInfo.add(session);
 		System.out.println(session+": 웹소켓접속");
+		
 		/*roomList.put(session, roomNumber);*/
 	}
 	
@@ -42,5 +45,6 @@ public class ChatEchoController extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		usersInfo.remove(session);
 	}
+	
 
 }
