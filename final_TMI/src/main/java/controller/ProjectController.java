@@ -10,7 +10,6 @@ import service.ProjectService;
 @Controller
 @RequestMapping("/project/*")
 public class ProjectController {
-
 	@Autowired
 	private ProjectService projectService;
 	
