@@ -34,5 +34,7 @@
 		<beans:property name="prefix" value="/WEB-INF/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="controller"></context:component-scan>
+	
+	<beans:import resource="dispatcher-user.xml"/>
 </beans:beans>
