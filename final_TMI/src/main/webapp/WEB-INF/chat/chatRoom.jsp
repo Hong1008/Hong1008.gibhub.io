@@ -13,7 +13,7 @@
 
 
 		//연결
-		websocket = new WebSocket("ws://192.168.30.65:8090/tmi/chatting");
+		websocket = new WebSocket("ws://localhost:8090/tmi/chatting");
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;
 		websocket.onclose = onClose;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.ProjectDTO;
 import service.ProjectService;
 
 @Controller
@@ -17,7 +18,6 @@ public class ProjectController {
 	@RequestMapping("/home")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
 		mav.setViewName("Home_logOut");		
-		projectService.testPrn();
 		return mav;
 	}
 	
@@ -50,5 +50,12 @@ public class ProjectController {
 		mav.setViewName("project/timeline");
 		return mav;
 	}
+	
+	@RequestMapping("/insertProject")
+	public String insertProject(ProjectDTO pdto) {
+		projectService.insertProject(pdto);
+		return "redirect:/project/home2";
+	}
+
 
 }

@@ -4,53 +4,53 @@
 
 <!-- 회원가입 -->
 <insert id="insertMethod" parameterType="dto.UserDTO">
-insert into member(id,pwd,email,ip,grade,uuid) values(#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},0,#{uuid,jdbcType=VARCHAR})
+insert into member(mem_id,mem_pwd,mem_email,mem_ip,mem_grade,mem_uuid) values(#{mem_id,jdbcType=VARCHAR},#{mem_pwd,jdbcType=VARCHAR},#{mem_email,jdbcType=VARCHAR},#{mem_ip,jdbcType=VARCHAR},0,#{mem_uuid,jdbcType=VARCHAR})
 </insert>
 
-<!-- 이메일인증위한 uuid grade확인 -->
+<!-- 이메일인증위한 mem_uuid grade확인 -->
 <select id="FindEmailMethod" parameterType="string" resultType="dto.UserDTO">
-select uuid,grade from member where email=#{email}
+select mem_uuid,mem_grade from member where mem_email=#{mem_email}
 </select>
 <!-- 이메일 인증  -->
 <update id="UpdateGrade" parameterType="string">
-update member set grade=1 where uuid=#{uuid}
+update member set mem_grade=1 where mem_uuid=#{mem_uuid}
 </update>
 
 <!-- 비밀번호변경  -->
 <update id="UpdatePwd" parameterType="dto.UserDTO">
-update member set pwd=#{pwd} where uuid=#{uuid}
+update member set mem_pwd=#{mem_pwd} where mem_uuid=#{mem_uuid}
 </update>
-<!-- uuid 새로운거로 변경 -->
-<update id="UpdateUuid" parameterType="dto.UserDTO">
-update member set uuid=#{newuuid} where uuid=#{uuid}
+<!-- mem_uuid 새로운거로 변경 -->
+<update id="Updateuuid" parameterType="dto.UserDTO">
+update member set mem_uuid=#{mem_newuuid} where mem_uuid=#{mem_uuid}
 </update>
 
 <!--로그인  -->
 
 <select id="Select_id" parameterType="dto.UserDTO" resultType="dto.UserDTO">
-select * from member where id=#{id} and pwd=#{pwd} 
+select * from member where mem_id=#{mem_id} and mem_pwd=#{mem_pwd} 
 </select>
 
 <!-- 아이디 중복검사  -->
 <select id="Test_id" parameterType="dto.UserDTO" resultType="int">
-select count(*) from member where id=#{id}
+select count(*) from member where mem_id=#{mem_id}
 </select>
 <!-- ip 검사 -->
 <select id="Select_ip" parameterType="String" resultType="String">
-select ip from member where id=#{id}
+select mem_ip from member where mem_id=#{mem_id}
 </select>
 <!-- ip update -->
 <update id="Update_ip" parameterType="dto.UserDTO">
-update member set ip=concat(ip,#{ip}) where id=#{id}
+update member set mem_ip=concat(mem_ip,#{mem_ip}) where mem_id=#{mem_id}
 </update>
 
 <!-- email 중복검사 -->
 <select id="Test_email" parameterType="dto.UserDTO" resultType="int">
-select count(*) from member where email=#{email}
+select count(*) from member where mem_email=#{mem_email}
 </select>
 <!-- google 회원가입 -->
 <insert id="insert_google" parameterType="dto.UserDTO">
-insert into member(id,email,name) values (#{id},#{email},#{name})
+insert into member(mem_id,mem_email,mem_name) values (#{mem_id},#{mem_email},#{mem_name})
 </insert>
 
 </mapper>

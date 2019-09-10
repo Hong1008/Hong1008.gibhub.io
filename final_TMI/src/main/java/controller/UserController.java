@@ -87,7 +87,7 @@ public class UserController {
 	@RequestMapping(value = "/googlelogin.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String googlelogin(UserDTO dto) {
         
-		dto.setId(dto.getEmail());
+		dto.setMem_id(dto.getMem_email());
 		int result=service.test_idProcess(dto);
 		String login="";
 		if(result==1)
@@ -108,8 +108,8 @@ public class UserController {
 	@RequestMapping("/google_sign_up.do")
 	public @ResponseBody String googlelogin_signup(UserDTO dto)
 	{
-		dto.setId(dto.getEmail()+"_google");
-		dto.setEmail(dto.getEmail()+"_google");
+		dto.setMem_id(dto.getMem_email()+"_google");
+		dto.setMem_email(dto.getMem_email()+"_google");
 		service.insert_googleProcess(dto);
 		return "true";
 	}
@@ -125,8 +125,8 @@ public class UserController {
 	public String UserInsertMethod(UserDTO dto, HttpServletRequest req) {
         
 		UUID uid = UUID.randomUUID();
-		dto.setIp(req.getRemoteAddr());
-		dto.setUuid(uid.toString());
+		dto.setMem_ip(req.getRemoteAddr());
+		dto.setMem_uuid(uid.toString());
        
 		VerifyRecaptcha.setSecretKey("6Ld6HLYUAAAAADBVXoaB22rKK7FmA6aEBJCbrbq0");
 		String gRecaptchaResponse = req.getParameter("recaptcha");
@@ -140,7 +140,7 @@ public class UserController {
 						+ "        <img src=\"https://ww.namu.la/s/34f4f86a25e4f020f4f2df539231f36df7e209a1c08137102b7bf3eb9a884b270273333c6a3e576d2a0ddf7ac4e0f782de5319f1eef41d42f4a0b170156150f02b736b9019e792a2cf3340572f21cd4ca74789532b72c843e3baf3e5d9ca705c\" style=\"width: 50%;\">\r\n"
 						+ "<p >We heard that you lost your TMI password. Sorry about that!<br>\r\n"
 						+ "        But don’t worry! You can use the following link to reset your password:</p>\r\n"
-						+ "<a href='http://localhost:8090/tmi/confirm_email.do?uid=" + dto.getUuid() +
+						+ "<a href='http://localhost:8090/tmi/confirm_email.do?uid=" + dto.getMem_uuid() +
 
 						"' style='text-decoration: none;\r\n" + "    font-size: 27px;\r\n" + "    font-weight: bold;\r\n"
 						+ "    color: rgb(36, 173, 228);\r\n" + "\'>Click me!</a><br>";
@@ -199,7 +199,7 @@ public class UserController {
 			session.setAttribute("grade", dto.getGrade());*/
 			
 		
-			String ip=service.select_ipProcess(dto.getId());
+			String ip=service.select_ipProcess(dto.getMem_id());
 			String [] iplist=ip.split(",");
 			String ipreq= req.getRemoteAddr();
 			for (int i=0;i<iplist.length;i++)
@@ -232,7 +232,7 @@ public class UserController {
 		try {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse))
 			{
-				dto.setIp(","+req.getRemoteAddr());
+				dto.setMem_ip(","+req.getRemoteAddr());
 			   service.update_ipProcess(dto);
 				result="0";
 			}
@@ -255,13 +255,13 @@ public class UserController {
 	@RequestMapping("/sign_up.do")
 	public ModelAndView Sign_up_View(ModelAndView mav, HttpServletRequest req, UserDTO dto) {
 		if (req.getParameter("id") != null) {
-			dto.setId(req.getParameter("id"));
-			dto.setEmail(req.getParameter("email"));
-			dto.setPwd(req.getParameter("pwd"));
+			dto.setMem_id(req.getParameter("id"));
+			dto.setMem_email(req.getParameter("email"));
+			dto.setMem_pwd(req.getParameter("pwd"));
 		} else {
-			dto.setId("");
-			dto.setEmail("");
-			dto.setPwd("");
+			dto.setMem_id("");
+			dto.setMem_email("");
+			dto.setMem_pwd("");
 		}
 		mav.addObject("dto", dto);
 		mav.setViewName("/member/sign_up");
@@ -291,7 +291,7 @@ public class UserController {
 	@RequestMapping("/change_pwd.do")
 	public String Change_pwd_do(UserDTO dto) {
 		UUID uid = UUID.randomUUID();
-		dto.setNewuuid(uid.toString());
+		dto.setMem_newuuid(uid.toString());
 		try {
 		
 			service.update_pwdProcess(dto);
@@ -309,10 +309,10 @@ public class UserController {
 	public @ResponseBody String Change_pwd(ModelAndView mav, String email, UserDTO dto) {
 		String text = "";
 		dto = service.find_idProcess(email);
-		int grade = dto.getGrade();
-		String uid = dto.getUuid();
-		dto.setUuid(uid);
-		dto.setEmail(email);
+		int grade = dto.getMem_grade();
+		String uid = dto.getMem_uuid();
+		dto.setMem_uuid(uid);
+		dto.setMem_email(email);
 		System.out.println(grade + " " + uid + " " + email);
 
 		if (uid != null && grade != 0) {
@@ -320,7 +320,7 @@ public class UserController {
 			String content = "<div align='center' style='border:1px solid black'>\r\n"
 					+ "<h3 style='color:#ff5722; font-size:100%;'>비밀번호 변경 링크입니다</h3>\r\n"
 					+ "<div style='font-size:130%;'><strong><a href='http://localhost:8090/tmi/change_pwd_form.do?uuid="
-					+ dto.getUuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
+					+ dto.getMem_uuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
 
 			service.postmailProcess(dto, subject, content);
 			text = "Check your email.";
