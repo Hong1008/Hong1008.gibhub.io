@@ -18,12 +18,13 @@
 	<resources mapping="/**" location="/" />
 
 	<websocket:handlers>
-		<websocket:mapping handler="chat" path="chatting"/>
+		<websocket:mapping handler="chat" path="/chatting"/>
 		<websocket:handshake-interceptors>
 			<beans:bean
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
+	
 	<beans:bean class="chat.ChatEchoHandler" id="chat" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
