@@ -17,15 +17,14 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/**" location="/" />
 
-	<!-- 채팅 웹소켓. -->
 	<websocket:handlers>
-		<websocket:mapping handler="chat" path="chatting" />
+		<websocket:mapping handler="chat" path="chatting"/>
 		<websocket:handshake-interceptors>
 			<beans:bean
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-	<beans:bean class="controller.ChatEchoController" id="chat" />
+	<beans:bean class="chat.ChatEchoHandler" id="chat" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
