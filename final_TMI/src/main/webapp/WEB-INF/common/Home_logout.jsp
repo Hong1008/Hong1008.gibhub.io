@@ -40,13 +40,13 @@
 						simple tasks make it easy and fast to control and manage projects.</h3>
 				</div>
 				<div id='signForm'>
-					<form action="">
-						<label for="signUp_username">Username</label> <input type="text"
-							name="" id="signUp_username" class="signIn" autocomplete="off">
-						<label for="signUp_email">Email</label> <input type="text" name=""
-							id="signUp_email" class="signIn" autocomplete="off"> <label
-							for="signUp_password">Password</label> <input type="text" name=""
-							id="signUp_password" class="signIn" autocomplete="off">
+				 <form action="sign_up" method="post">
+                            <label for="signUp_username">Username</label>
+                            <input type="text" name="id" id="signUp_username" class="signIn" autocomplete="off">
+                            <label for="signUp_email">Email</label>
+                            <input type="text" name="email" id="signUp_email" class="signIn" autocomplete="off">
+                            <label for="signUp_password">Password</label>
+                            <input type="text" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
 								value="sign up for 주성" class='tmi_skin tmi_skin01'>

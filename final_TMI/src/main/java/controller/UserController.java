@@ -74,8 +74,7 @@ public class UserController {
 	public @ResponseBody int id_test(UserDTO dto)
 	{
 		int result=service.test_idProcess(dto);
-		return result;
-		
+		return result;		
 	}
 	//email 중복검사 
 	@RequestMapping("/email_test")
@@ -229,12 +228,12 @@ public class UserController {
 		return result;
 	}
 	//로그아웃
-	@RequestMapping("/sign_out")
+	@RequestMapping("**/sign_out")
 	public String sign_out(HttpSession session)
 	{
 		session.invalidate();
 		return "redirect:/home";
-	}
+	}	
 	
 	
 	//로그인 > ip확인 >캡차 확인눌렀을때 

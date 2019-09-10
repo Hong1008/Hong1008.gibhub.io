@@ -50,7 +50,7 @@ $(document).ready(function(){
         $(location).attr("href", "home");
     });
     $('#header_sign_out').on('click',function(){
-        $(location).attr("href", "sign_out.do");
+        $(location).attr("href", "sign_out");
     });
 })
 
