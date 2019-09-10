@@ -14,12 +14,13 @@ import service.ProjectService;
 public class ProjectController {
 
 	@Autowired
-	private ProjectService service;
+	private ProjectService projectService;
 	
 	
 	@RequestMapping("/home")
 	public ModelAndView ram_homeTest(ModelAndView mav) {
 		mav.setViewName("Home_logOut");		
+		projectService.testPrn();
 		return mav;
 	}
 	

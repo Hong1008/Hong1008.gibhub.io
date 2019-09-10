@@ -77,11 +77,11 @@ $(document).ready(function(){
 <body>
 	<div id="aside"  class='tmi_skin tmi_skin01' >
 	<div class="list">
-	<a href="#"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
-	<a href="#"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
+	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
+	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
 	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트?"></a>
 	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
-	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
+	<a href="/tmi/project/timeline"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅"></a>
 	</div>
 	<div id="guideBox"  class="arrow_box">
