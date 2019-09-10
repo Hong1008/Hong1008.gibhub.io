@@ -73,8 +73,7 @@ public class UserController {
 	public @ResponseBody int id_test(UserDTO dto)
 	{
 		int result=service.test_idProcess(dto);
-		return result;
-		
+		return result;		
 	}
 	//email 중복검사 
 	@RequestMapping("/email_test.do")
