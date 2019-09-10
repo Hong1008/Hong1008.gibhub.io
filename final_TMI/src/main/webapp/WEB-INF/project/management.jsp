@@ -20,8 +20,8 @@
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
+
 </head>
 <body>
-
 </body>
 </html>

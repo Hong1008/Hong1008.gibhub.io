@@ -5,14 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import mapper.ProjectMapper;
-import mapper.TestMapper;
 import service.ProjectService;
 
 @Controller
 @RequestMapping("/project/*")
 public class ProjectController {
-
 	@Autowired
 	private ProjectService projectService;
 	
