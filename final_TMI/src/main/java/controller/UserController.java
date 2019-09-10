@@ -70,7 +70,7 @@ public class UserController {
 	}
 
 	//아이디 중복검사 
-	@RequestMapping("/id_test.do")
+	@RequestMapping("/id_test")
 	public @ResponseBody int id_test(UserDTO dto)
 	{
 		int result=service.test_idProcess(dto);
@@ -78,14 +78,14 @@ public class UserController {
 		
 	}
 	//email 중복검사 
-	@RequestMapping("/email_test.do")
+	@RequestMapping("/email_test")
 	public @ResponseBody int email_test(UserDTO dto)
 	{
 		int result=service.test_emailProcess(dto);
 		return result;
 	}
 	//구글로그인 로그인했을때
-	@RequestMapping(value = "/googlelogin.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String googlelogin(UserDTO dto,HttpSession session,HttpServletRequest req) {
         
 		dto.setId(dto.getEmail()+"_google");
@@ -107,7 +107,7 @@ public class UserController {
 		return login;
 	}
 	//구글 로그인했을때 회원가입 안되있으면 회원가입
-	@RequestMapping("/google_sign_up.do")
+	@RequestMapping("/google_sign_up")
 	public @ResponseBody String googlelogin_signup(UserDTO dto)
 	{
 		dto.setId(dto.getEmail()+"_google");
@@ -123,7 +123,7 @@ public class UserController {
 	
 	// 회원가입
 	@ResponseBody
-	@RequestMapping(value = "/UserInsert.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/UserInsert", method = RequestMethod.POST)
 	public String UserInsertMethod(UserDTO dto, HttpServletRequest req) {
         
 		UUID uid = UUID.randomUUID();
@@ -142,7 +142,7 @@ public class UserController {
 						+ "        <img src=\"https://ww.namu.la/s/34f4f86a25e4f020f4f2df539231f36df7e209a1c08137102b7bf3eb9a884b270273333c6a3e576d2a0ddf7ac4e0f782de5319f1eef41d42f4a0b170156150f02b736b9019e792a2cf3340572f21cd4ca74789532b72c843e3baf3e5d9ca705c\" style=\"width: 50%;\">\r\n"
 						+ "<p >We heard that you lost your TMI password. Sorry about that!<br>\r\n"
 						+ "        But don’t worry! You can use the following link to reset your password:</p>\r\n"
-						+ "<a href='http://localhost:8090/tmi/confirm_email.do?uid=" + dto.getUuid() +
+						+ "<a href='http://localhost:8090/tmi/confirm_email?uid=" + dto.getUuid() +
 
 						"' style='text-decoration: none;\r\n" + "    font-size: 27px;\r\n" + "    font-weight: bold;\r\n"
 						+ "    color: rgb(36, 173, 228);\r\n" + "\'>Click me!</a><br>";
@@ -175,14 +175,14 @@ public class UserController {
 	}
 
 	// 비밀번호찾기 뷰
-	@RequestMapping("/forgot_pw.do")
+	@RequestMapping("/forgot_pw")
 	public ModelAndView Forgot_pw_View(ModelAndView mav) {
 		mav.setViewName("/member/forgot_pw");
 		return mav;
 	}
 
 	// 로그인 뷰
-	@RequestMapping("/sign_in.do")
+	@RequestMapping("/sign_in")
 	public ModelAndView Sign_in_View(ModelAndView mav) {
 	
 	   //구글로그인 url
@@ -196,7 +196,7 @@ public class UserController {
 
 	
 	// 로그인 버튼눌렀을시
-	@RequestMapping("/sign_in_do.do")
+	@RequestMapping("/sign_in_do")
 	public @ResponseBody String Sign_in_do(UserDTO dto, HttpServletRequest req) {
 
 		String result="";
@@ -229,7 +229,7 @@ public class UserController {
 		return result;
 	}
 	//로그아웃
-	@RequestMapping("/sign_out.do")
+	@RequestMapping("/sign_out")
 	public String sign_out(HttpSession session)
 	{
 		session.invalidate();
@@ -238,7 +238,7 @@ public class UserController {
 	
 	
 	//로그인 > ip확인 >캡차 확인눌렀을때 
-	@RequestMapping("/sign_in_recaptcha.do")
+	@RequestMapping("/sign_in_recaptcha")
 	public @ResponseBody String Sign_in_recaptcha(HttpServletRequest req,UserDTO dto)
 	{
 		
@@ -270,7 +270,7 @@ public class UserController {
 	
 
 	// 회원가입 뷰
-	@RequestMapping("/sign_up.do")
+	@RequestMapping("/sign_up")
 	public ModelAndView Sign_up_View(ModelAndView mav, HttpServletRequest req, UserDTO dto) {
 		if (req.getParameter("id") != null) {
 			dto.setId(req.getParameter("id"));
@@ -288,7 +288,7 @@ public class UserController {
 
 	// 이메일인증 뷰
 
-	@RequestMapping("/confirm_email.do")
+	@RequestMapping("/confirm_email")
 	public String confirm_emailMethod(HttpServletRequest request) {
 		String uid = request.getParameter("uid");
 
@@ -297,7 +297,7 @@ public class UserController {
 	}
 
 	// 비밀번호 변경폼 보이기
-	@RequestMapping("/change_pwd_form.do")
+	@RequestMapping("/change_pwd_form")
 	public String Change_pwd_form() {
 
 		return "/member/change_pwd";
@@ -306,7 +306,7 @@ public class UserController {
 	// 비밀번호 변경 하기 눌렀을시
 	// 나중 transaction 설정
 	// 보안위해서 한번쓰인 키는 바꿔줌
-	@RequestMapping("/change_pwd.do")
+	@RequestMapping("/change_pwd")
 	public String Change_pwd_do(UserDTO dto) {
 		UUID uid = UUID.randomUUID();
 		dto.setNewuuid(uid.toString());
@@ -323,7 +323,7 @@ public class UserController {
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
-	@RequestMapping("/change_pwd_post.do")
+	@RequestMapping("/change_pwd_post")
 	public @ResponseBody String Change_pwd(ModelAndView mav, String email, UserDTO dto) {
 		String text = "";
 		dto = service.find_idProcess(email);
@@ -337,7 +337,7 @@ public class UserController {
 			String subject = "EASY TASK[비밀번호 변경]";// 제목
 			String content = "<div align='center' style='border:1px solid black'>\r\n"
 					+ "<h3 style='color:#ff5722; font-size:100%;'>비밀번호 변경 링크입니다</h3>\r\n"
-					+ "<div style='font-size:130%;'><strong><a href='http://localhost:8090/tmi/change_pwd_form.do?uuid="
+					+ "<div style='font-size:130%;'><strong><a href='http://localhost:8090/tmi/change_pwd_form?uuid="
 					+ dto.getUuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
 
 			service.postmailProcess(dto, subject, content);
@@ -350,7 +350,7 @@ public class UserController {
 		return text; // ajax값 보내줌
 	}
 	// 구글 Callback호출 메소드
-		  @RequestMapping(value = "/oauth2callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+		  @RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
 		  public String googleCallback(Model model, @RequestParam String code,HttpServletResponse response,HttpServletRequest req) throws IOException {
 	        System.out.println("찍히나");
 		        //RestTemplate을 사용하여 Access Token 및 profile을 요청한다.

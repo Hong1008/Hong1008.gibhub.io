@@ -43,7 +43,7 @@
 									if ($("#signUpId").val() != "") {
 										$.ajax({
 
-											url : "id_test.do?id="
+											url : "id_test?id="
 													+ $("#signUpId").val(),
 											type : "get",
 											async : false,
@@ -70,7 +70,7 @@
 									{
 									$.ajax({
 
-										url : "email_test.do?email="
+										url : "email_test?email="
 												+ $("#signUpEmail").val(),
 										type : "get",
 										async : false,
@@ -125,7 +125,7 @@
 											else {
 												$
 														.ajax({
-															url : 'UserInsert.do',
+															url : 'UserInsert',
 															type : 'post',
 															data : {
 																recaptcha : $(
@@ -279,7 +279,7 @@ label {
 	<div id='content'>
 		<div id='logo' class='center_div'>EasyTask</div>
 		<div id='signUpForm' class='center_div'>
-			<form action="UserInsert.do" method="post">
+			<form action="UserInsert" method="post">
 				<label for="signUpEmail">id</label> <input type="text"
 					class='signUpText' name="id" id='signUpId' title="음냐"
 					value="${dto.id}"> <small class="swicthtext">Please

@@ -27,7 +27,7 @@ $(document).ready(function(){
     var name="<%=name%>";
     
     $.ajax({
-       url:"googlelogin.do?email="+email,
+       url:"googlelogin?email="+email,
        dataType:"text",
        type:"get",
        success:function(res)
@@ -52,7 +52,7 @@ $(document).ready(function(){
         		  if (willDelete) {
         			  
         			  $.ajax({
-                          url:"google_sign_up.do?email="+email+"&name="+name,
+                          url:"google_sign_up?email="+email+"&name="+name,
                           dataType:"text",
                           type:"get",
                           success:function(res){
@@ -72,8 +72,8 @@ $(document).ready(function(){
             
           
               /*   window.location.href = 'https://accounts.google.com/Logout?continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fsacu%3D1&il=true&zx=icxpgruz0yao';
-               window.location.href = 'main.do'; */
-             /*   window.location.href="https://accounts.google.com/Logout?&continue=http://localhost:8090/finalproject/main.do" */
+               window.location.href = 'main'; */
+             /*   window.location.href="https://accounts.google.com/Logout?&continue=http://localhost:8090/finalproject/main" */
                 }
                 
             
