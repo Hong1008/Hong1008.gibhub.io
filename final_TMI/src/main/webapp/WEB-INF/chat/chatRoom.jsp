@@ -12,10 +12,7 @@
 	$(document).ready(function() {
 
 		//연결
-<<<<<<< HEAD
-=======
 		//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
->>>>>>> branch 'master' of https://github.com/Hong1008/final_TMI.git
 		websocket = new WebSocket("ws://localhost:8090/tmi/chatting");
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;

@@ -8,14 +8,24 @@
 	</insert>
 	
 	<insert id="insertProTeam" parameterType="dto.Pro_TeamDTO">
-		insert into pro_team values (#{pro_id},#{id},#{level})
+		insert into pro_team values (pro_id_seq.currval,#{id},#{pt_level})
 	</insert>
 	
-	<select id="projectList" resultType="dto.ProjectDTO">
-		select * from project
+	<resultMap type="java.util.HashMap" id="proList">
+	<result javaType="string" column="pro_id" property="pro_id"/>
+		<result javaType="string" column="pro_name" property="pro_name"/>
+		<result javaType="string" column="pro_man" property="pro_man"/>
+		<result javaType="string" column="pro_dday" property="pro_dday"/>
+		<result javaType="string" column="pro_end" property="pro_end"/>
+	</resultMap>
+	
+	<select id="projectHomeList" resultMap="proList" parameterType="string">
+		select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end from
+		(select * from pro_team where id =#{id}) pt, project p, member m, pro_team pt2
+		where p.pro_id = pt.pro_id and pt2.id = m.id and pt2.pro_id = p.pro_id and pt2.pt_level=1
 	</select>
 	
-	<select id="proIdList" resultType="string">
-		select pro_id from project
+	<select id="proIdList" resultType="string" parameterType="string">
+		select pro_id from project where pro_id in (select pro_id from pro_team where id=#{id})
 	</select>
 </mapper>
