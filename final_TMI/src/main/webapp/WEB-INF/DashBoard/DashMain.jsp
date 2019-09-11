@@ -56,11 +56,15 @@ $(document).ready(function(){
      }
      $("#multi").pista(data, options);
    
-
-   //img select test
-   $('#test').click(function(){
-	   $(this).css('border-color','red').css('border-width','2');	
-	})
+   
+   $('.test').click(function(){
+	   
+	   $('.test').css('border','');
+	   $(this).css('border','3px solid lightgreen');
+	   
+   })
+   
+   
 });
 
 
@@ -99,55 +103,68 @@ var programmingSkills = [
 
 </head>
 <body>
-<%@include file="../include/Header.jsp"%>
+<%@include file="../include/header.jsp"%>
 <%@include file="../include/aside.jsp"%>
        
        
        
       <!--  modal 버튼  -->
 
-      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-small" style="width: 3%;float: right; margin-right: 0.2%">설정</button>   
+ 
+      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-small" style="width: 3%;float: right; margin-right: 0.2%;" >
+      <img src="../resources/Dash_images/changebg.png" style="width: 20px;">
+      </button>
        
-        <div id="id01" class="w3-modal">
-   		 <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 31%;" >
+       
+        <div id="id01" class="w3-modal" >
+    <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 31%" >
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('id01').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
         <h2 style="font-family: 'Hi Melody', cursive;">배경화면 바꾸기</h2>
       </header>
       <div class="w3-container" style="z-index:3;">
-
       
  <!--  이미지 사진 -->     
-      <div style="background-image:url('../resources/Dash_images/bg.jpg'); background-size:130px; width: 130px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      <input type="radio" name="selectbg" value="" checked="checked"> 
+      <div class="test" style="background-image:url('../resources/Dash_images/bg10.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
       </div>
-       <div style="background-image:url('../resources/Dash_images/bg1.png'); background-size:130px; width: 130px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      <input type="radio" name="selectbg" value="" > 
+      <div class="test" style="background-image:url('../resources/Dash_images/bg1.png'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
       </div>
-      
-       <img src="../resources/Dash_images/bg2.jpg" style="width: 130px; height: 90px; float: left; margin-left: 1%; margin-top: 1%; ">
-       <img src="../resources/Dash_images/bg3.jpg" style="width: 130px; height: 90px; float: left; margin-left: 1%; margin-top: 1%; ">
+      <div class="test" style="background-image:url('../resources/Dash_images/bg2.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/bg3.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>     
        </br>
-        <img src="../resources/Dash_images/bg5.png" style="width: 130px; height: 90px; float: left; margin-left: 2%; margin-top: 1%; ">
-        <img src="../resources/Dash_images/bg6.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-        <img src="../resources/Dash_images/bg7.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-        <img src="../resources/Dash_images/bg8.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-        </br>
-        <img src="../resources/Dash_images/su1.jpg" style="width: 130px; height: 90px;float: left; margin-left: 2%; margin-top: 1%; ">
-        <img src="../resources/Dash_images/su2.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%; ">
-        <img src="../resources/Dash_images/su3.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%; ">
-        <img src="../resources/Dash_images/su4.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%; ">
-        </br>
-       <img src="../resources/Dash_images/su5.jpg" style="width: 130px; height: 90px;float: left; margin-left: 2%; margin-top: 1%;">
-       <img src="../resources/Dash_images/su6.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-       <img src="../resources/Dash_images/su7.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-       <img src="../resources/Dash_images/su8.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
-      	
-
+       <div class="test" style="background-image:url('../resources/Dash_images/bg5.png'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
       </div>
-      <footer class="w3-container w3-teal" style="margin-top: 1%">
-        <p style="font-family: 'Hi Melody', cursive;">적용</p>
+      <div class="test" style="background-image:url('../resources/Dash_images/bg6.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+	  <div class="test" style="background-image:url('../resources/Dash_images/bg7.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>      
+	  <div class="test" style="background-image:url('../resources/Dash_images/bg8.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      </br>
+      <div class="test" style="background-image:url('../resources/Dash_images/su1.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/su2.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/su3.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/su4.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      </br>
+      <div class="test" style="background-image:url('../resources/Dash_images/su5.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>  
+      <div class="test" style="background-image:url('../resources/Dash_images/su6.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/su7.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      <div class="test" style="background-image:url('../resources/Dash_images/su8.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      </div>
+      </div>
+      <footer class="w3-container w3-teal" style="margin-top: 1%;">
+        <input type="button" class="w3-teal" style="font-family: 'Hi Melody', cursive; border: 0; outline: 0; cursor: pointer;" value="초기화" />
+        <input type="button" class="w3-teal" style="font-family: 'Hi Melody', cursive; float:right; border:0; outline:0; cursor: pointer;" value="적용" /> 
       </footer>
     </div>
   </div>
@@ -164,7 +181,7 @@ var programmingSkills = [
                <p class="text-uppercase mar-btm text-sm w3-xlarge">프로젝트 </p>
              <!--   <i class="fa fa-users fa-5x"></i> -->
                <hr>
-               <p class="h2 text-thin">254,487</p>
+               <p class="h2 text-thin">254,485</p>
                <small><span class="text-semibold">7%</span> Higher than
                   yesterday</small>
             </div>
@@ -276,24 +293,19 @@ var programmingSkills = [
             </div>
             <ul class="verticalCarouselGroup vc_list">
                 <li>
-                    <h5>Article 1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="w3-small">서누님 무슨무슨 일정입니다</p>
                 </li>
                 <li>
-                    <h5>Article 2</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 3</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 4</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 5</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
             </ul>
         </div>
@@ -302,7 +314,7 @@ var programmingSkills = [
         <script>
             $(".verticalCarousel1").verticalCarousel({
                 currentItem: 1,
-                showItems: 2,
+                showItems: 4,
             });
         </script>
             </div>
@@ -328,25 +340,20 @@ var programmingSkills = [
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
             <ul class="verticalCarouselGroup vc_list">
-                <li>
-                    <h5>Article 1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <li style="margin-bottom: 0.05%;">
+                    <p class="w3-small"> ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
-                <li>
-                    <h5>Article 2</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <li style="margin-bottom: 0.05%;">
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
-                <li>
-                    <h5>Article 3</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <li style="margin-bottom: 0.05%;">
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
-                <li>
-                    <h5>Article 4</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <li style="margin-bottom: 0.05%;">
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
-                <li>
-                    <h5>Article 5</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <li style="margin-bottom: 0.05%;">
+                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
             </ul>
         </div>
@@ -355,7 +362,7 @@ var programmingSkills = [
         <script>
             $(".verticalCarousel2").verticalCarousel({
                 currentItem: 1,
-                showItems: 2,
+                showItems: 4,
             });
         </script>
             </div>
@@ -371,23 +378,18 @@ var programmingSkills = [
             </div>
             <ul class="verticalCarouselGroup vc_list">
                 <li>
-                    <h5>Article 1</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 2</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 3</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 4</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
                 <li>
-                    <h5>Article 5</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </li>
             </ul>
@@ -397,7 +399,7 @@ var programmingSkills = [
         <script>
             $(".verticalCarousel3").verticalCarousel({
                 currentItem: 1,
-                showItems: 2,
+                showItems: 3,
             });
         </script>
         
@@ -410,13 +412,15 @@ var programmingSkills = [
                  
         </div><!--두번째틀 끝 -->    
       </div> <!--  전체틀 끝 -->
+      
+      
 
+      
 <script src="../js/Dash_svg-donut-chart-framework.js"></script>
 <script src="../js/Dash_jquery.pista.min.js"></script> <!-- 곡선그래프 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../js/Dash_an-skill-bar.js"></script>
 <script src="../js/Dash_DashMainGraph.js"></script>
-
 
 </body>
 </html>
