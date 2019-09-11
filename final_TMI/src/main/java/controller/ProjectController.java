@@ -1,8 +1,14 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.annotation.ProfileValueSourceConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ProjectDTO;
@@ -14,21 +20,16 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 	
-	
-	@RequestMapping("/home")
-	public ModelAndView ram_homeTest(ModelAndView mav) {
-		mav.setViewName("Home_logOut");		
-		return mav;
-	}
-	
-	@RequestMapping("/home2")
-	public ModelAndView ram_homeTest2(ModelAndView mav) {
-		mav.setViewName("Home_logIn");
-		return mav;
-	}
-	
 	@RequestMapping("/management")
-	public ModelAndView ram_managementTest(ModelAndView mav) {
+	public ModelAndView ram_managementTest(ModelAndView mav, HttpServletRequest req, @RequestParam(value="pro_id", required=false) String pro_id ) { 
+		HttpSession session = req.getSession();
+		if(session.getAttribute("pro_id")==null && pro_id != null) {
+			session.setAttribute("pro_id", pro_id);
+		}else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
+			session.removeAttribute("pro_id");
+			session.setAttribute("pro_id", pro_id);
+			
+		}
 		mav.setViewName("project/management");
 		return mav;
 	}
@@ -52,9 +53,10 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertProject")
-	public String insertProject(ProjectDTO pdto) {
-		projectService.insertProject(pdto);
-		return "redirect:/project/home2";
+	public String insertProject(ProjectDTO pdto,HttpServletRequest req) {
+		String id = req.getSession().getAttribute("id").toString();
+		projectService.insertProject(pdto,id);
+		return "redirect:/home";
 	}
 
 

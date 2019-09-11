@@ -20,8 +20,15 @@
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
+<!---------------------------------------- 어사이드연결 ---------------------------------------->
+<jsp:include page="../include/aside.jsp"></jsp:include>
 
 </head>
 <body>
+	<div class="btn-group">
+		<button class="btn btn-default" type="button">Left</button>
+		<button class="btn btn-default" type="button">Middle</button>
+		<button class="btn btn-default" type="button">Right</button>
+	</div>
 </body>
 </html>

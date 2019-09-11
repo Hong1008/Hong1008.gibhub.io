@@ -10,22 +10,16 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-------------------------------------- js,css연결 -------------------------------------->
-<script src="../js/home.js" type='text/javascript'></script>
-<link href='../css/homeLogin.css' type='text/css' rel='stylesheet'>
-<link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
+<script src="/tmi/js/home.js" type='text/javascript'></script>
+<link href='/tmi/css/homeLogin.css' type='text/css' rel='stylesheet'>
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
-
-<!---------------------------------------- 구글 로그인 연결 ---------------------------------------->
-<meta name="google-signin-client_id"
-	content="671834931461-oho886cp17h30uvureqappjn4q2ul6j1.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
-<jsp:include page="include/Header.jsp"></jsp:include>
+<jsp:include page="../include/Header.jsp"></jsp:include>
 
 <title>세계의 모든일 Task Universe</title>
 </head>
@@ -38,20 +32,30 @@
                 	<div class="pro_list_dday no-drag">남은시간</div>
                 	<div class="pro_list_end no-drag">종료일</div>
             </div>
-            <c:forEach items="${projectList }" var="dto">
-            	<div class='project'>
+			<c:forEach items="${projectList}" var="i">
+				<div class='project'>
                 	<div class="pro_header">
-                    	<div class="pro_name no-drag">${dto.pro_id }</div>
+                    	<div class="pro_name no-drag">${i.pro_id }</div>
                 	</div>
                 	<div class="pro_body">
-                		<div class="pro_per no-drag"><p>74</p>%</div>
-                		<div class="pro_man no-drag">홍철민</div>
-                		<div class="pro_dday no-drag"><p>27</p>day</div>
-                		<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
+                		<div class="no-drag">${i.pro_name }</div>
+                		<div class="no-drag">${i.pro_info }</div>
+                		<div class="no-drag">${i.pro_start }</div>
+                		<div class="no-drag">${i.pro_end }</div>
                 	</div>
 				</div>	
-            </c:forEach>
-			
+			</c:forEach>            
+			<div class='project'>
+                <div class="pro_header">
+                    <div class="pro_name no-drag">project01</div>
+                </div>
+                <div class="pro_body">
+                	<div class="pro_per no-drag"><p>74</p>%</div>
+                	<div class="pro_man no-drag">홍철민</div>
+                	<div class="pro_dday no-drag"><p>27</p>day</div>
+                	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
+                </div>
+			</div>
 			<form action="insertProject">
 				<input type="submit" value="프로젝트 추가">
 				<input type="text" name="pro_name">

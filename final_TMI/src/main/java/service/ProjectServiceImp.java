@@ -15,15 +15,21 @@ public class ProjectServiceImp implements ProjectService{
 	private ProjectMapper mapper;
 	
 	@Override
-	public void insertProject(ProjectDTO pdto) {
+	public void insertProject(ProjectDTO pdto, String id) {
 		// TODO Auto-generated method stub
 		mapper.insertProject(pdto);
+		//mapper.insertProTeam(null);
 	}
 	
 	@Override
-	public List<ProjectDTO> projectList(String mem_id) {
+	public List<ProjectDTO> projectList(String id) {
 		// TODO Auto-generated method stub
-		return mapper.projectList(mem_id);
+		return mapper.projectList(id);
 	}
 	
+	@Override
+	public List<Integer> proIdList(String id) {
+		// TODO Auto-generated method stub
+		return mapper.proIdList(id);
+	}
 }

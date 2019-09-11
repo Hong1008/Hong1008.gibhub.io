@@ -23,7 +23,7 @@
 	margin-top: 13px;
 }
 
-#header_log button {
+#header_log button,#header_log a {
 	font-family: 'Noto Sans KR', sans-serif;
 	opacity: 1;
 	transition: 0.3s;
@@ -35,6 +35,9 @@
 	font-weight: 100;
 	padding: 1px 21px;
 }
+#header_log a img {
+	width:40px;
+}
 
 #header_sign_in_out:hover, #header_sign_up:hover {
 	opacity: 0.75;
@@ -44,7 +47,10 @@
 	border: 1px solid white;
 	border-radius: 19px;
 }
-
+#header_sign_out{
+		border: 1px solid white;
+	border-radius: 19px;
+}
 #header_sign_up {
 	border: none;
 }

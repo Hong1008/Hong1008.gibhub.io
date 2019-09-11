@@ -2,63 +2,68 @@ package dto;
 
 public class UserDTO {
 
-	private String mem_id;
-	private String mem_email;
-	private String mem_pwd;
-	private String mem_ip;
-	private String mem_uuid;
-	private String mem_newuuid;
-	private String mem_name;
-	private int mem_grade;
-	public String getMem_id() {
-		return mem_id;
+	private String id;
+	private String email;
+	private String pwd;
+	private String ip;
+	private String uuid;
+	private String newuuid;
+	private String name;
+	private int grade;
+	public String getId() {
+		return id;
 	}
-	public void setMem_id(String mem_id) {
-		this.mem_id = mem_id;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getMem_email() {
-		return mem_email;
+	public String getEmail() {
+		return email;
 	}
-	public void setMem_email(String mem_email) {
-		this.mem_email = mem_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getMem_pwd() {
-		return mem_pwd;
+	public String getPwd() {
+		return pwd;
 	}
-	public void setMem_pwd(String mem_pwd) {
-		this.mem_pwd = mem_pwd;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
-	public String getMem_ip() {
-		return mem_ip;
+	public String getIp() {
+		return ip;
 	}
-	public void setMem_ip(String mem_ip) {
-		this.mem_ip = mem_ip;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
-	public String getMem_uuid() {
-		return mem_uuid;
+	public String getUuid() {
+		return uuid;
 	}
-	public void setMem_uuid(String mem_uuid) {
-		this.mem_uuid = mem_uuid;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
-	public String getMem_newuuid() {
-		return mem_newuuid;
+	public String getNewuuid() {
+		return newuuid;
 	}
-	public void setMem_newuuid(String mem_newuuid) {
-		this.mem_newuuid = mem_newuuid;
+	public void setNewuuid(String newuuid) {
+		this.newuuid = newuuid;
 	}
-	public String getMem_name() {
-		return mem_name;
+	public String getName() {
+		return name;
 	}
-	public void setMem_name(String mem_name) {
-		this.mem_name = mem_name;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public int getMem_grade() {
-		return mem_grade;
+	public int getGrade() {
+		return grade;
 	}
-	public void setMem_grade(int mem_grade) {
-		this.mem_grade = mem_grade;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
+
+
+	
 	
 	
 	
 }
+
+
