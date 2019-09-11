@@ -200,6 +200,7 @@ height: 60px;
 			<p></p>
 
 			<div id='insBox'>
+			<hr/>
 				<div id=fileBtn>
 					<label for="file" id="filelabel"><img id="fileInsImg" src="../resources/Chat_img/paperclip.png/"></label> <input type="file" id="file" />
 				</div>
