@@ -21,7 +21,7 @@ update member set grade=1 where uuid=#{uuid}
 update member set pwd=#{pwd} where uuid=#{uuid}
 </update>
 <!-- uuid 새로운거로 변경 -->
-<update id="UpdateUuid" parameterType="dto.UserDTO">
+<update id="Updateuuid" parameterType="dto.UserDTO">
 update member set uuid=#{newuuid} where uuid=#{uuid}
 </update>
 

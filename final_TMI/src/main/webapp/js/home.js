@@ -17,4 +17,9 @@ $(document).ready(function(){
       $('#header_sign_up').on('click',function(){
           $(location).attr("href", "sign_up.do");
       });
+      
+      $(".pro_header .pro_name").click(function(){
+    	  var pro_id = $(this).text();
+    	  location.href="project/management?pro_id="+pro_id;
+      })
 })

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,20 @@
                 	<div class="pro_list_man no-drag">프로젝트 매니저</div>
                 	<div class="pro_list_dday no-drag">남은시간</div>
                 	<div class="pro_list_end no-drag">종료일</div>
+            </div>
+			<c:forEach items="${projectList}" var="i">
+				<div class='project'>
+                	<div class="pro_header">
+                    	<div class="pro_name no-drag">${i.pro_id }</div>
                 	</div>
+                	<div class="pro_body">
+                		<div class="no-drag">${i.pro_name }</div>
+                		<div class="no-drag">${i.pro_info }</div>
+                		<div class="no-drag">${i.pro_start }</div>
+                		<div class="no-drag">${i.pro_end }</div>
+                	</div>
+				</div>	
+			</c:forEach>            
 			<div class='project'>
                 <div class="pro_header">
                     <div class="pro_name no-drag">project01</div>
@@ -42,26 +56,13 @@
                 	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
                 </div>
 			</div>
-						<div class='project'>
-                <div class="pro_header">
-                    <div class="pro_name">project02</div>
-                </div>
-                <div class="pro_body">                	
-                <div class="pro_per no-drag"><p>59</p>%</div>
-                	<div class="pro_man no-drag">이해람</div>
-                	<div class="pro_dday no-drag"><p>44</p>day</div>
-                	<div class="pro_end no-drag"><p>10</p>월<p>24</p>일</div></div>
-			</div>
-						<div class='project'>
-                <div class="pro_header">
-                    <div class="pro_name">project03</div>
-                </div>
-                <div class="pro_body">                
-                	<div class="pro_per no-drag"><p>112</p>%</div>
-                	<div class="pro_man no-drag">문주성</div>
-                	<div class="pro_dday no-drag"><p>2</p>day</div>
-                	<div class="pro_end no-drag"><p>09</p>월<p>11</p>일</div></div>
-			</div>
+			<form action="insertProject">
+				<input type="submit" value="프로젝트 추가">
+				<input type="text" name="pro_name">
+				<input type="text" name="pro_info">
+				<input type="date" name="pro_start">
+				<input type="date" name="pro_end">
+			</form>
 		</div>
 	</div>
 </body>

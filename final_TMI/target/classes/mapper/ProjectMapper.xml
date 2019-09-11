@@ -3,7 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ProjectMapper">
-	<select id="test" resultType="int">
-		select count(*) from tbl_board
+	<insert id="insertProject" parameterType="dto.ProjectDTO">
+		insert into project (pro_id,pro_name,pro_info,pro_start,pro_end) values (pro_id_seq.nextval,#{pro_name},#{pro_info},#{pro_start},#{pro_end})
+	</insert>
+	
+	<insert id="insertProTeam" parameterType="dto.Pro_TeamDTO">
+		insert into pro_team values (#{pro_id},#{id},#{level})
+	</insert>
+	
+	<select id="projectList" resultType="dto.ProjectDTO">
+		select * from project
+	</select>
+	
+	<select id="proIdList" resultType="string">
+		select pro_id from project
 	</select>
 </mapper>
