@@ -32,19 +32,28 @@
                 	<div class="pro_list_dday no-drag">남은시간</div>
                 	<div class="pro_list_end no-drag">종료일</div>
             </div>
-			<c:forEach items="${projectList}" var="i">
-				<div class='project'>
-                	<div class="pro_header">
-                    	<div class="pro_name no-drag">${i.pro_id }</div>
-                	</div>
-                	<div class="pro_body">
-                		<div class="no-drag">${i.pro_name }</div>
-                		<div class="no-drag">${i.pro_info }</div>
-                		<div class="no-drag">${i.pro_start }</div>
-                		<div class="no-drag">${i.pro_end }</div>
-                	</div>
-				</div>	
-			</c:forEach>            
+            <c:choose>
+            	<c:when test="${not empty projectHomeList }">
+            		<c:forEach items="${projectHomeList}" var="i">
+						<div class='project'>
+                			<div class="pro_header">
+                    			<div class="pro_name no-drag">${i.pro_name }
+                    				<input type="hidden" id="pro_id" value="${i.pro_id }">
+                    			</div>
+                			</div>
+                			<div class="pro_body">
+                				<div class="pro_per no-drag">${i.pro_name }</div>
+                				<div class="pro_man no-drag">${i.pro_man }</div>
+                				<div class="pro_dday no-drag">${i.pro_dday }</div>
+                				<div class="pro_end no-drag">${i.pro_end }</div>
+                			</div>
+						</div>	
+					</c:forEach>
+            	</c:when>
+            	<c:otherwise>
+            		<p>프로젝트를 생성해주세요</p>
+            	</c:otherwise>
+            </c:choose>            
 			<div class='project'>
                 <div class="pro_header">
                     <div class="pro_name no-drag">project01</div>
@@ -56,7 +65,7 @@
                 	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
                 </div>
 			</div>
-			<form action="insertProject">
+			<form action="project/insertProject">
 				<input type="submit" value="프로젝트 추가">
 				<input type="text" name="pro_name">
 				<input type="text" name="pro_info">

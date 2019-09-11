@@ -26,9 +26,12 @@
 </head>
 <body>
 	<div class="btn-group">
-		<button class="btn btn-default" type="button">Left</button>
-		<button class="btn btn-default" type="button">Middle</button>
-		<button class="btn btn-default" type="button">Right</button>
+		<button id="kanbanboard">칸반보드</button>
+		<button id="timeline">타임라인</button>
+		<button id="calender">달력</button>
+	</div>
+	<div class="showWhat">
+		<jsp:include page="kanbanboard.jsp"></jsp:include>
 	</div>
 </body>
 </html>

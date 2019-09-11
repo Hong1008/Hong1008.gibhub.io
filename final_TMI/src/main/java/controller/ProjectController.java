@@ -17,6 +17,7 @@ import service.ProjectService;
 @Controller
 @RequestMapping("/project/*")
 public class ProjectController {
+	
 	@Autowired
 	private ProjectService projectService;
 	
@@ -34,9 +35,15 @@ public class ProjectController {
 		return mav;
 	}
 	
-	@RequestMapping("/calander")
+	@RequestMapping("/kanbanboard")
+	public ModelAndView kanbanboard(ModelAndView mav) {
+		mav.setViewName("project/kanbanboard");
+		return mav;
+	}
+	
+	@RequestMapping("/calender")
 	public ModelAndView ram_calanderTest(ModelAndView mav) {
-		mav.setViewName("project/calander");
+		mav.setViewName("project/calender");
 		return mav;
 	}
 	
@@ -59,5 +66,9 @@ public class ProjectController {
 		return "redirect:/home";
 	}
 
+	@RequestMapping("/showWhat")
+	public String showWhat(String where) {
+		return "redirect:/project/"+where;
+	}
 
 }
