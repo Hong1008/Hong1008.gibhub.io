@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+
+<!-- 회원가입 -->
+<insert id="insertMethod" parameterType="dto.UserDTO">
+insert into member(id,pwd,email,ip,grade,uuid) values(#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},0,#{uuid,jdbcType=VARCHAR})
+</insert>
+
+<!-- 이메일인증위한 uuid grade확인 -->
+<select id="FindEmailMethod" parameterType="string" resultType="dto.UserDTO">
+select uuid,grade from member where email=#{email}
+</select>
+<!-- 이메일 인증  -->
+<update id="UpdateGrade" parameterType="string">
+update member set grade=1 where uuid=#{uuid}
+</update>
+
+<!-- 비밀번호변경  -->
+<update id="UpdatePwd" parameterType="dto.UserDTO">
+update member set pwd=#{pwd} where uuid=#{uuid}
+</update>
+<!-- uuid 새로운거로 변경 -->
+<update id="Updateuuid" parameterType="dto.UserDTO">
+update member set uuid=#{newuuid} where uuid=#{uuid}
+</update>
+
+<!--로그인  -->
+
+<select id="Select_id" parameterType="dto.UserDTO" resultType="dto.UserDTO">
+select * from member where id=#{id} and pwd=#{pwd} 
+</select>
+
+<!-- 아이디 중복검사  -->
+<select id="Test_id" parameterType="dto.UserDTO" resultType="int">
+select count(*) from member where id=#{id}
+</select>
+<!-- ip 검사 -->
+<select id="Select_ip" parameterType="String" resultType="String">
+select ip from member where id=#{id}
+</select>
+<!-- ip update -->
+<update id="Update_ip" parameterType="dto.UserDTO">
+update member set ip=concat(ip,#{ip}) where id=#{id}
+</update>
+
+<!-- email 중복검사 -->
+<select id="Test_email" parameterType="dto.UserDTO" resultType="int">
+select count(*) from member where email=#{email}
+</select>
+<!-- google 회원가입 -->
+<insert id="insert_google" parameterType="dto.UserDTO">
+insert into member(id,email,name) values (#{id},#{email},#{name})
+</insert>
+
+</mapper>
