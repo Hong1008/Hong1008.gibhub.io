@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 body {
 	position: absolute;
@@ -56,7 +57,9 @@ color:white;
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	$('.interval').hover(function(){
 		var h=$(this).offset().top-65;
@@ -83,6 +86,7 @@ $(document).ready(function(){
 	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
 	<a href="/tmi/project/timeline"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅"></a>
+
 	</div>
 	<div id="guideBox"  class="arrow_box">
 	</div>
