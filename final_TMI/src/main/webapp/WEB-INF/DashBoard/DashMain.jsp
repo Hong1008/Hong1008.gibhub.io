@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--추가  --> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../css/Dash_dashMain.css">
 <link rel="stylesheet" href="../css/Dash_an-skill-bar.css">
@@ -13,9 +14,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script> <!-- 도넛그래프  -->
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
+
+
+<!--추가  -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      	<link rel="stylesheet" href="../css/Dash_style.css">
+        <link rel="stylesheet" href="../css/Dash_jQuery.verticalCarousel.css">
+        
+        
+
+
 <script type="text/javascript">
+
 $(document).ready(function(){
    
+	  
    var data= [   { name:"first",
          data:[
              {value:12, date:"12/14/2019"},
@@ -42,6 +55,7 @@ $(document).ready(function(){
        width: 840,
      }
      $("#multi").pista(data, options);
+   
    
 });
 
@@ -73,12 +87,17 @@ var programmingSkills = [
       color: '#944DDB'
     },
 ];
+
+
+
+
 </script>
 
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
 <%@include file="../include/aside.jsp"%>
+       
        
        
       <!--  modal 버튼  -->
@@ -132,7 +151,6 @@ var programmingSkills = [
   </div>
 
 
-
    <!--  전체 틀-->
    <div class="grid_container">
       <!--  첫번째 틀-->
@@ -140,10 +158,9 @@ var programmingSkills = [
       <div class="board_first">
          <div class="board1">
 
-            <div class="w3-panel w3-pale-white w3-leftbar w3-border-black"
-               style="height: 90%">
+            <div class="w3-panel w3-pale-white w3-leftbar w3-border-black" style="height: 110%">
                <p class="text-uppercase mar-btm text-sm w3-xlarge">프로젝트 </p>
-               <i class="fa fa-users fa-5x"></i>
+             <!--   <i class="fa fa-users fa-5x"></i> -->
                <hr>
                <p class="h2 text-thin">254,487</p>
                <small><span class="text-semibold">7%</span> Higher than
@@ -156,12 +173,10 @@ var programmingSkills = [
             <div class="w3-panel w3-pale-white w3-leftbar w3-border-yellow"
                style="height: 90%">
                <p class="text-uppercase mar-btm text-sm w3-xlarge">전체 일정</p>
-               <i class="fa fa-comment fa-5x"></i>
+              <!--  <i class="fa fa-comment fa-5x"></i> -->
                <hr>
                <p class="h2 text-thin">873</p>
-               <small><span class="text-semibold"><i
-                     class="fa fa-unlock-alt fa-fw"></i> 154</span> Unapproved comments</small>
-
+               <small><span class="text-semibold"> 154</span> Unapproved comments</small>
             </div>
          </div>
 
@@ -171,11 +186,10 @@ var programmingSkills = [
             <div class="w3-panel w3-pale-white w3-leftbar w3-border-purple" 
                style="height: 90%">
                <p class="text-uppercase mar-btm text-sm w3-xlarge">남은 업무</p>
-               <i class="fa fa-shopping-cart fa-5x"></i>
+               <!-- <i class="fa fa-shopping-cart fa-5x"></i> -->
                <hr>
                <p class="h2 text-thin">2,423</p>
-               <small><span class="text-semibold"><i
-                     class="fa fa-shopping-cart fa-fw"></i> 954</span> Sales in this month</small>
+               <small><span class="text-semibold"> 954</span> Sales in this month</small>
             </div>
 
 
@@ -184,10 +198,10 @@ var programmingSkills = [
          <div class="board4">
               <div class="w3-panel w3-pale-sand w3-leftbar w3-border-dark-grey" style="height: 90%">
                  <p class="text-uppercase mar-btm text-sm w3-xlarge">완료업무</p>
-                       <i class="fa fa-dollar fa-5x"></i>
+                       <!-- <i class="fa fa-dollar fa-5x"></i> -->
                        <hr>
                        <p class="h2 text-thin">7,428</p>
-                       <small><span class="text-semibold"><i class="fa fa-dollar fa-fw"></i> 22,675</span> Total Earning</small>
+                       <small><span class="text-semibold"> 22,675</span> Total Earning</small>
               </div>
          </div>
          
@@ -198,45 +212,49 @@ var programmingSkills = [
       <div class="board_second">
          <!--  두번째 안에 6개 -->
          <div class="board_chart1">
-            <div class="w3-container w3-theme w3-card w3-large">
+          <div class="verticalCarouselHeader ">
+            <div class="w3-container w3-theme w3-large">
                     프로젝트 진행률 (곡선그래프)
+          </div>
           </div>
           <div id="multi"></div>  
          </div>
          
          <div class="board_chart2">
-            <div class="w3-container w3-theme w3-card w3-large">
+          <div class="verticalCarouselHeader ">
+            <div class="w3-container w3-theme  w3-large">
                 팀원별 기여도 (가로 막대차트)
+          </div>
           </div>
           
             <div class="container" >
                <div id="skill">
                      <div class="skillbar html" style="height:5%;">
                        <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">서누야</span>
+                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">15%</span>
                      </div>
                
                      <div class="skillbar css" style="height:5%;">
-                       <span class="title w3-small">이서누</span>
+                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">20%</span>
                        <div class="filled" data-width="20%"></div>
                      </div>
                
                      <div class="skillbar js" style="height:5%;">
-                       <span class="title w3-small">서누얌</span>
+                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">30%</span>
                        <div class="filled" data-width="30%"></div>
                      </div>
                
                      <div class="skillbar php" style="height:5%;">
-                       <span class="title w3-small">데헤헹</span>
+                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">40%</span>
                        <div class="filled" data-width="40%"></div>
                      </div>
                
                      <div class="skillbar sass" style="height:5%;">
-                       <span class="title w3-small">서누당</span>
+                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">50%</span>
                        <div class="filled" data-width="50%"></div>
                      </div>
@@ -245,92 +263,144 @@ var programmingSkills = [
 
          </div>
          
-         
+         <!----차트3 다가올 일정 ---->
          <div class="board_chart3" style="float: left;">
-         <div class="w3-card-4">
-            <div class="w3-container w3-theme w3-card w3-large">
-                 다가올일정
+         
+            <div class="verticalCarousel1">
+            <div class="verticalCarouselHeader ">
+                <h3 class="w3-theme  w3-large"> 다가올 일정</h3>
+                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
-            <ul class="w3-ul w3-border-top">
-                 <li class="w3-text-theme w3-small">
-                   <p>내용1입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용2입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용3입니다</p>
-                 </li>
-                  <li class="w3-text-theme w3-small">
-                   <p>내용4입니다</p>
-                 </li>
-                    <li class="w3-text-theme w3-small">
-                   <p>내용5입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small w3-center">
-                   <p>▼</p>
-                 </li>
-              </ul>
-            </div>
+            <ul class="verticalCarouselGroup vc_list">
+                <li>
+                    <h5>Article 1</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 2</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 3</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 4</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 5</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+            </ul>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+        <script>
+            $(".verticalCarousel1").verticalCarousel({
+                currentItem: 1,
+                showItems: 2,
+            });
+        </script>
             </div>
             
             
          <div class="board_chart6">
-            <div class="w3-container w3-theme w3-card w3-large">
+          <div class="verticalCarouselHeader ">
+            <div class="w3-container w3-theme w3-large">
                    나의 배정 업무
+          </div>
           </div>
             <svg id="svg" style="height: 80%;"></svg>
          </div>     
          
+         <!---- 차트 4 최근 일정 목록---->
+         
          <div class="board_chart4"  style="float: left;">
-          <div class="w3-card-4">
-            <div class="w3-container w3-theme w3-card w3-large">
-                 최근(등록) 일정 목록
+         
+            <div class="verticalCarousel2">
+            <div class="verticalCarouselHeader ">
+                <h3 class="w3-theme  w3-large"> 최근(등록)일정 목록</h3>
+                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
-            <ul class="w3-ul w3-border-top">
-                 <li class="w3-text-theme w3-small">
-                   <p>내용1입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용2입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용3입니다</p>
-                 </li>
-                   <li class="w3-text-theme w3-small">
-                   <p>내용4입니다</p>
-                 </li>
-                   <li class="w3-text-theme w3-small">
-                   <p>내용5입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small w3-center">
-                   <p>▼</p>
-                 </li>
-              </ul>
-            </div>
+            <ul class="verticalCarouselGroup vc_list">
+                <li>
+                    <h5>Article 1</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 2</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 3</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 4</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 5</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+            </ul>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+        <script>
+            $(".verticalCarousel2").verticalCarousel({
+                currentItem: 1,
+                showItems: 2,
+            });
+        </script>
             </div>
             
+            <!--  차트5 타임라인-->
            <div class="board_chart5">
-          <div class="w3-card-4">
-            <div class="w3-container w3-theme w3-card w3-large">
-                 타임라인
+            
+            <div class="verticalCarousel3">
+            <div class="verticalCarouselHeader ">
+                <h3 class="w3-theme  w3-large"> 타임라인</h3>
+                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
-            <ul class="w3-ul w3-border-top">
-                 <li class="w3-text-theme w3-small">
-                   <p>내용1입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용2입니다</p>
-                 </li>
-                 <li class="w3-text-theme w3-small">
-                   <p>내용3입니다</p>
-                 </li>
-                 
-                 <li class="w3-text-theme w3-small w3-center">
-                   <p>▼</p>
-                 </li>
-              </ul>
-            </div>
+            <ul class="verticalCarouselGroup vc_list">
+                <li>
+                    <h5>Article 1</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 2</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 3</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 4</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+                <li>
+                    <h5>Article 5</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </li>
+            </ul>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+        <script>
+            $(".verticalCarousel3").verticalCarousel({
+                currentItem: 1,
+                showItems: 2,
+            });
+        </script>
+        
+        
+        
             </div>
          
         <!--  modal 버튼 -->
@@ -338,6 +408,9 @@ var programmingSkills = [
                  
         </div><!--두번째틀 끝 -->    
       </div> <!--  전체틀 끝 -->
+      
+      
+
       
 <script src="../js/Dash_svg-donut-chart-framework.js"></script>
 <script src="../js/Dash_jquery.pista.min.js"></script> <!-- 곡선그래프 -->
