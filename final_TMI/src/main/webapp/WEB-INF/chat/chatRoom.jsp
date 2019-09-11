@@ -15,8 +15,9 @@
 		//연결
 
 		//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
-
-		websocket = new WebSocket("ws://192.168.30.65:8090/tmi/chatting");
+		//연결
+		//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
+		websocket = new WebSocket("ws://localhost:8090/tmi/chatting");
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;
 		websocket.onclose = onClose;

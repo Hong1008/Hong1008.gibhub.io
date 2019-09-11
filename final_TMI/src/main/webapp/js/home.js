@@ -19,7 +19,7 @@ $(document).ready(function(){
       });
       
       $(".pro_header .pro_name").click(function(){
-    	  var pro_id = $(this).text();
+    	  var pro_id = $(this).children('#pro_id').val();
     	  location.href="project/management?pro_id="+pro_id;
       })
 })
