@@ -17,7 +17,6 @@
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;
 		websocket.onclose = onClose;
-		
 
 		//엔터일때도
 		$('#message').keypress(function(event) {
@@ -44,7 +43,6 @@
 		});
 	});
 
-
 	//WebSocket이 연결된 경우 호출되는 함수
 	function onOpen(evt) {
 		console.log("웹 소켓에 연결 성공");
@@ -69,15 +67,16 @@
 	}
 </script>
 <style type="text/css">
-body{
-background-color: rgb(243, 238, 238);
+body {
+	background-color: rgb(243, 238, 238);
 }
+
 #contents {
 	width: 98%;
 	margin-left: 5%;
 }
-#chatBox {
 
+#chatBox {
 	float: left;
 	width: 60%;
 	height: 854px;
@@ -100,17 +99,21 @@ background-color: rgb(243, 238, 238);
 }
 
 #chatBox #message {
-	padding:10px 8px;
+float:left;
+	padding: 10px 8px;
 	margin-top: 20px;
-	margin-left: 20px;
-	width: 90%;
+	width: 80%;
 	height: 60px;
- 
 	resize: none;
+border: 1px solid rgb(123,104,238);
+border-left:none;
+outline: none;
 }
-#chatBox #insBox{
 
+#chatBox #insBox {
+	
 }
+
 #fileBox {
 	background-color: aqua;
 	float: right;
@@ -144,9 +147,8 @@ background-color: rgb(243, 238, 238);
 	float: left;
 }
 
-.replyMessage {
-word-break;
-	max-width:80%;
+.replyMessage {word-break;
+	max-width: 80%;
 	margin-top: 5px;
 	padding: 8px 14px;
 	border-radius: 30px;
@@ -157,7 +159,33 @@ word-break;
 		rgba(0, 0, 0, .12) !important;
 }
 
+#fileBtn input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+#fileBtn #filelabel{
+margin-left:20px;
+border: 1px solid rgb(123,104,238);
+border-right:none;
+background-color:white;
+ margin-top: 20px;
+   float:left;
+width: 80px;
+height: 80px;
+}
+#fileBtn #filelabel #fileInsImg{
+margin:10px 10px;
+width: 60px;
+height: 60px;
+}
 
+#fileBtn #fileInsImg:hover{transform:scale(1.1);}
 </style>
 </head>
 <jsp:include page="../include/Header.jsp"></jsp:include>
@@ -169,11 +197,13 @@ word-break;
 
 				<div id="chatMessage"></div>
 			</div>
-			<p>
-				
-			</p>
+			<p></p>
 
-			<div id='insBox'><!--  -->
+			<div id='insBox'>
+			<hr/>
+				<div id=fileBtn>
+					<label for="file" id="filelabel"><img id="fileInsImg" src="../resources/Chat_img/paperclip.png/"></label> <input type="file" id="file" />
+				</div>
 				<textarea id="message" cols="10" wrap="hard"></textarea>
 				<!-- <input type="text" id="message" /> -->
 			</div>
