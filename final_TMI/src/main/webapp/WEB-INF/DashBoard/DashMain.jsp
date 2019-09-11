@@ -56,7 +56,11 @@ $(document).ready(function(){
      }
      $("#multi").pista(data, options);
    
-   
+
+   //img select test
+   $('#test').click(function(){
+	   $(this).css('border-color','red').css('border-width','2');	
+	})
 });
 
 
@@ -95,27 +99,24 @@ var programmingSkills = [
 
 </head>
 <body>
-<%@include file="../include/header.jsp"%>
+<%@include file="../include/Header.jsp"%>
 <%@include file="../include/aside.jsp"%>
        
        
        
       <!--  modal 버튼  -->
 
- 
-      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-small" style="width: 3%;float: right; margin-right: 0.2%" >
-      <img src="../resources/Dash_images/changebg.png" style="width: 20px;">
-      </button>
+      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-small" style="width: 3%;float: right; margin-right: 0.2%">설정</button>   
        
-       
-        <div id="id01" class="w3-modal" >
-    <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 31%" >
+        <div id="id01" class="w3-modal">
+   		 <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 31%;" >
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('id01').style.display='none'" 
         class="w3-button w3-display-topright">&times;</span>
         <h2 style="font-family: 'Hi Melody', cursive;">배경화면 바꾸기</h2>
       </header>
       <div class="w3-container" style="z-index:3;">
+
       
  <!--  이미지 사진 -->     
       <div style="background-image:url('../resources/Dash_images/bg.jpg'); background-size:130px; width: 130px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
@@ -143,6 +144,7 @@ var programmingSkills = [
        <img src="../resources/Dash_images/su7.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
        <img src="../resources/Dash_images/su8.jpg" style="width: 130px; height: 90px;float: left; margin-top: 1%; margin-left: 1%;">
       	
+
       </div>
       <footer class="w3-container w3-teal" style="margin-top: 1%">
         <p style="font-family: 'Hi Melody', cursive;">적용</p>
@@ -408,15 +410,13 @@ var programmingSkills = [
                  
         </div><!--두번째틀 끝 -->    
       </div> <!--  전체틀 끝 -->
-      
-      
 
-      
 <script src="../js/Dash_svg-donut-chart-framework.js"></script>
 <script src="../js/Dash_jquery.pista.min.js"></script> <!-- 곡선그래프 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../js/Dash_an-skill-bar.js"></script>
 <script src="../js/Dash_DashMainGraph.js"></script>
+
 
 </body>
 </html>

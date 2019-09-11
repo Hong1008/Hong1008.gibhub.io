@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 body {
 	position: absolute;
@@ -17,15 +18,17 @@ position: relative;
 	float: left;
 	background-color : rgb( 215, 86, 137);
 	width: 50px;
-	height: 110%;
-	background-color: rgb(215, 86, 137);
+	height: 100%;
+	background-size: 2000%;
 }
+
 #aside .list .interval{
 margin-top: 30px;
 margin-left: 10px;
 width:24px;
 height:24px;
 }
+
  #aside #guideBox{
 display:none;
 left: 120%;
@@ -54,7 +57,9 @@ color:white;
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	$('.interval').hover(function(){
 		var h=$(this).offset().top-65;
@@ -73,14 +78,15 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div id="aside">
+	<div id="aside"  class='tmi_skin tmi_skin01' >
 	<div class="list">
-	<a href="#"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
-	<a href="#"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
+	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
+	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
 	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트?"></a>
 	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
-	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
+	<a href="/tmi/project/timeline"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅"></a>
+
 	</div>
 	<div id="guideBox"  class="arrow_box">
 	</div>
