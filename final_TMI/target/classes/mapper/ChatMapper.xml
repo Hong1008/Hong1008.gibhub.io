@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ChatMapper">
+	<insert id="insertChat" parameterType="dto.ChattingDTO">
+		insert into chat  (chat_id, chat_content, chat_time, id, pro_id) values (#{pro_id},#{chat_content},sysdate,#{id},#{pro_id})
+	</insert>
+	<select id="chatList" resultType="dto.ChattingDTO" parameterType="string">
+	select chat_id, chat_content, to_char(chat_time,'hh24:MI')as chat_time, to_char(chat_time,'yy.mm.dd')as chat_date,id from chat where pro_id=#{pro_id}
+	</select>
+</mapper>
+
