@@ -12,7 +12,8 @@
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="/tmi/js/home.js" type='text/javascript'></script>
 <link href='/tmi/css/homeLogin.css' type='text/css' rel='stylesheet'>
-<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>

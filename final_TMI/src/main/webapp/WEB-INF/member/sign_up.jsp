@@ -16,6 +16,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 <title>Insert title here</title>
 <!--수정사항  -->
 <!-- 캡차 추가되서 밑에밀림 실행해서 보면알꺼임  -->
@@ -215,7 +217,7 @@
 	padding-top: 15px;
 	margin-top: 300px;
 	width: 480px;
-	height: 750px;
+	height: 578px;
 	background: rgb(255, 255, 255);
 	border-radius: 5px;
 	border: 1px solid rgba(5, 5, 5, 0.2);
@@ -255,7 +257,7 @@ label {
 	font-weight: 100;
 	transition: 0.5s;
 	cursor: pointer;
-	margin-top: 61px;
+	margin-top: 17px;
 }
 
 #signUpSubmit:hover {
@@ -277,8 +279,8 @@ label {
 </head>
 <div id='bodywrap'>
 	<div id='content'>
-		<div id='logo' class='center_div'>EasyTask</div>
-		<div id='signUpForm' class='center_div'>
+		<div id='logo' class='center_div no-drag gotoHome'>EasyTask</div>
+		<div id='signUpForm' class='center_div '>
 			<form action="UserInsert" method="post">
 				<label for="signUpEmail">id</label> <input type="text"
 					class='signUpText' name="id" id='signUpId' title="음냐"
