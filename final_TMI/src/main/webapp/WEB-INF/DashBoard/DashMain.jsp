@@ -103,7 +103,7 @@ var programmingSkills = [
 
 </head>
 <body>
-<%@include file="../include/header.jsp"%>
+<%@include file="../include/Header.jsp"%>
 <%@include file="../include/aside.jsp"%>
        
        
