@@ -15,7 +15,6 @@
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -25,7 +24,8 @@
     <div id='header' class='tmi_skin tmi_skin01'>
         <div id="header_content" class='center_box'>
         	<c:if test="${not empty sessionScope.pro_id }">
-       			<select id="proIdList">
+        		<div class="center">
+       			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">
     	   			<c:forEach items="${sessionScope.projectHomeList }" var="i">
     	   				<c:choose>
     	   					<c:when test="${sessionScope.pro_id == i.pro_id }">
@@ -37,7 +37,7 @@
     	   				</c:choose>
     	   				
        				</c:forEach>
-       			</select> 	
+       			</select> </div>	
        		</c:if>
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log'>

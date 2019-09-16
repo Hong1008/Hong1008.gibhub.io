@@ -158,6 +158,7 @@ public class UserController {
 		if (session.getAttribute("id") == null) {
 			mav.setViewName("/common/Home_logout");
 		} else {
+			session.removeAttribute("pro_id");
 			session.setAttribute("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
