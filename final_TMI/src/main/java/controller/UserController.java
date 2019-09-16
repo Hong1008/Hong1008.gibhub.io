@@ -42,8 +42,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import common.VerifyRecaptcha;
 import dto.AuthInfo;
 import dto.UserDTO;
+import service.ProjectService;
 import service.UserService;
-
 
 @Controller
 
@@ -53,13 +53,16 @@ public class UserController {
 	private UserService service;
 
 	@Autowired
-	    private AuthInfo authInfo;
-	    
-	    @Autowired
-	    private GoogleOAuth2Template googleOAuth2Template;
-	    
-	    @Autowired
-	    private OAuth2Parameters googleOAuth2Parameters;
+	private ProjectService projectService;
+
+	@Autowired
+	private AuthInfo authInfo;
+
+	@Autowired
+	private GoogleOAuth2Template googleOAuth2Template;
+
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 
 	public void setService(UserService service) {
 		this.service = service;
@@ -69,69 +72,60 @@ public class UserController {
 		// TODO Auto-generated constructor stub
 	}
 
-	//아이디 중복검사 
+	// 아이디 중복검사
 	@RequestMapping("/id_test")
-	public @ResponseBody int id_test(UserDTO dto)
-	{
-		int result=service.test_idProcess(dto);
-		return result;		
-	}
-	//email 중복검사 
-	@RequestMapping("/email_test")
-	public @ResponseBody int email_test(UserDTO dto)
-	{
-		int result=service.test_emailProcess(dto);
+	public @ResponseBody int id_test(UserDTO dto) {
+		int result = service.test_idProcess(dto);
 		return result;
 	}
-	//구글로그인 로그인했을때
+
+	// email 중복검사
+	@RequestMapping("/email_test")
+	public @ResponseBody int email_test(UserDTO dto) {
+		int result = service.test_emailProcess(dto);
+		return result;
+	}
+
+	// 구글로그인 로그인했을때
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody String googlelogin(UserDTO dto,HttpSession session,HttpServletRequest req) {
-        
-		dto.setId(dto.getEmail()+"_google");
-		int result=service.test_idProcess(dto);
-		String login="";
-		if(result==1)
-		{
-			//session 등록
-			session.setAttribute("id", dto.getEmail()+"_google");
-			login="signin";
+	public @ResponseBody String googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
+
+		dto.setId(dto.getEmail() + "_google");
+		int result = service.test_idProcess(dto);
+		String login = "";
+		if (result == 1) {
+			// session 등록
+			session.setAttribute("id", dto.getEmail() + "_google");
+			login = "signin";
+		} else {
+			// 구글로그인 회원가입
+			login = "signup";
 		}
-		else
-		{
-			//구글로그인 회원가입
-			login="signup";
-		}
-		
-                  	
+
 		return login;
 	}
-	//구글 로그인했을때 회원가입 안되있으면 회원가입
+
+	// 구글 로그인했을때 회원가입 안되있으면 회원가입
 	@RequestMapping("/google_sign_up")
-	public @ResponseBody String googlelogin_signup(UserDTO dto)
-	{
-		dto.setId(dto.getEmail()+"_google");
-		dto.setEmail(dto.getEmail()+"_google");
+	public @ResponseBody String googlelogin_signup(UserDTO dto) {
+		dto.setId(dto.getEmail() + "_google");
+		dto.setEmail(dto.getEmail() + "_google");
 		service.insert_googleProcess(dto);
 		return "true";
 	}
 
-	
-	
-	
-	 
-	
 	// 회원가입
 	@ResponseBody
 	@RequestMapping(value = "/UserInsert", method = RequestMethod.POST)
 	public String UserInsertMethod(UserDTO dto, HttpServletRequest req) {
-        
+
 		UUID uid = UUID.randomUUID();
 		dto.setIp(req.getRemoteAddr());
 		dto.setUuid(uid.toString());
-       
+
 		VerifyRecaptcha.setSecretKey("6Ld6HLYUAAAAADBVXoaB22rKK7FmA6aEBJCbrbq0");
 		String gRecaptchaResponse = req.getParameter("recaptcha");
-	
+
 		// 0 = 성공, 1 = 실패, -1 = 오류
 		try {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
@@ -143,8 +137,8 @@ public class UserController {
 						+ "        But don’t worry! You can use the following link to reset your password:</p>\r\n"
 						+ "<a href='http://localhost:8090/tmi/confirm_email?uid=" + dto.getUuid() +
 
-						"' style='text-decoration: none;\r\n" + "    font-size: 27px;\r\n" + "    font-weight: bold;\r\n"
-						+ "    color: rgb(36, 173, 228);\r\n" + "\'>Click me!</a><br>";
+						"' style='text-decoration: none;\r\n" + "    font-size: 27px;\r\n"
+						+ "    font-weight: bold;\r\n" + "    color: rgb(36, 173, 228);\r\n" + "\'>Click me!</a><br>";
 				service.postmailProcess(dto, subject, content);
 				return "0";
 			} else {
@@ -159,17 +153,16 @@ public class UserController {
 
 	// 메인 뷰
 	@RequestMapping("/home")
-	public ModelAndView MainView(ModelAndView mav,HttpServletRequest req) {
-		HttpSession session=req.getSession();
-		if(session.getAttribute("id")==null)
-		{
+	public ModelAndView MainView(ModelAndView mav, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.getAttribute("id") == null) {
 			mav.setViewName("/common/Home_logout");
-		}
-		else
-		{
+		} else {
+			mav.addObject("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
+			session.setAttribute("pro_id_list", projectService.proIdList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
-	
+
 		return mav;
 	}
 
@@ -183,90 +176,84 @@ public class UserController {
 	// 로그인 뷰
 	@RequestMapping("/sign_in")
 	public ModelAndView Sign_in_View(ModelAndView mav) {
-	
-	   //구글로그인 url
+
+		// 구글로그인 url
 		String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-        System.out.println("/googleLogin, url : " + url);
-        mav.addObject("google_url", url);
-        
+		System.out.println("/googleLogin, url : " + url);
+		mav.addObject("google_url", url);
+
 		mav.setViewName("/member/sign_in");
 		return mav;
 	}
 
-	
 	// 로그인 버튼눌렀을시
 	@RequestMapping("/sign_in_do")
 	public @ResponseBody String Sign_in_do(UserDTO dto, HttpServletRequest req) {
 
-		String result="";
+		String result = "";
 		HttpSession session = req.getSession();
 		if (service.select_idProcess(dto) == null) {
-			result="false";
+			result = "false";
 		} else {
 			dto = service.select_idProcess(dto);
-			String ip=service.select_ipProcess(dto.getId());
-			String [] iplist=ip.split(",");
-			String ipreq= req.getRemoteAddr();
-			for (int i=0;i<iplist.length;i++)
-			{
-				if(ipreq.equals(iplist[i]))
-				/*if(ipreq.equals("0"))*/
+			/*
+			 * HttpSession session = req.getSession(); session.setAttribute("id",
+			 * dto.getId()); session.setAttribute("grade", dto.getGrade());
+			 */
+
+			String ip = service.select_ipProcess(dto.getId());
+			String[] iplist = ip.split(",");
+			String ipreq = req.getRemoteAddr();
+			for (int i = 0; i < iplist.length; i++) {
+				if (ipreq.equals(iplist[i]))
+				/* if(ipreq.equals("0")) */
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
 					return "true";
-				}
-				else
-				{
-					result="ip";
+				} else {
+					result = "ip";
 				}
 			}
-			
-			
+
 		}
 
 		return result;
 	}
-	//로그아웃
+
+	// 로그아웃
 	@RequestMapping("**/sign_out")
-	public String sign_out(HttpSession session)
-	{
+	public String sign_out(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";
-	}	
-	
-	
-	//로그인 > ip확인 >캡차 확인눌렀을때 
+	}
+
+	// 로그인 > ip확인 >캡차 확인눌렀을때
 	@RequestMapping("/sign_in_recaptcha")
-	public @ResponseBody String Sign_in_recaptcha(HttpServletRequest req,UserDTO dto)
-	{
-		
-		String result="";
-		HttpSession session=req.getSession();
+	public @ResponseBody String Sign_in_recaptcha(HttpServletRequest req, UserDTO dto) {
+
+		String result = "";
+		HttpSession session = req.getSession();
 		VerifyRecaptcha.setSecretKey("6Ld6HLYUAAAAADBVXoaB22rKK7FmA6aEBJCbrbq0");
 		String gRecaptchaResponse = req.getParameter("recaptcha");
 		try {
-			if (VerifyRecaptcha.verify(gRecaptchaResponse))
-			{
-				dto.setIp(","+req.getRemoteAddr());
-			   service.update_ipProcess(dto);
-			   session.setAttribute("id", dto.getId());
-				result="0";
-			}
-			else
-			{
-				result="1";
+			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
+				dto.setIp("," + req.getRemoteAddr());
+				service.update_ipProcess(dto);
+				session.setAttribute("id", dto.getId());
+				result = "0";
+			} else {
+				result = "1";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			result="-1";
+			result = "-1";
 		}
-	
+
 		return result;
-		
+
 	}
-	
 
 	// 회원가입 뷰
 	@RequestMapping("/sign_up")
@@ -310,7 +297,7 @@ public class UserController {
 		UUID uid = UUID.randomUUID();
 		dto.setNewuuid(uid.toString());
 		try {
-		
+
 			service.update_pwdProcess(dto);
 			service.update_uuidProcess(dto);
 		} catch (Exception e) {
@@ -348,36 +335,41 @@ public class UserController {
 
 		return text; // ajax값 보내줌
 	}
+
 	// 구글 Callback호출 메소드
-		  @RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
-		  public String googleCallback(Model model, @RequestParam String code,HttpServletResponse response,HttpServletRequest req) throws IOException {
-	        System.out.println("찍히나");
-		        //RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
-		        RestTemplate restTemplate = new RestTemplate();
-		       MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-		        parameters.add("code", code);
-		        parameters.add("client_id", authInfo.getClientId());
-		        parameters.add("client_secret", authInfo.getClientSecret());
-		        parameters.add("redirect_uri", googleOAuth2Parameters.getRedirectUri());
-		        parameters.add("grant_type", "authorization_code");
-		        HttpHeaders headers = new HttpHeaders();
-		        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-		        ResponseEntity<Map> responseEntity = restTemplate.exchange("https://www.googleapis.com/oauth2/v4/token", HttpMethod.POST, requestEntity, Map.class);
-		        Map<String, Object> responseMap = responseEntity.getBody();
-		 
-		        String[] tokens = ((String)responseMap.get("id_token")).split("\\.");
-		        Base64 base64 = new Base64(true);
-		        String body = new String(base64.decode(tokens[1]));
-		    
-		        //Jackson을 사용한 JSON을 자바 Map 형식으로 변환
-		        ObjectMapper mapper = new ObjectMapper();
-		        Map<String, String> result = mapper.readValue(body, Map.class);
-		        System.out.println(result.get("email"));
-		    System.out.println("Google login success");
-	       model.addAttribute("email", result.get("email"));
-	       model.addAttribute("name",result.get("name"));
-		    return "/member/google_signup";
-		  }
+	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String googleCallback(Model model, @RequestParam String code, HttpServletResponse response,
+			HttpServletRequest req) throws IOException {
+		System.out.println("찍히나");
+		// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
+		RestTemplate restTemplate = new RestTemplate();
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+		parameters.add("code", code);
+		parameters.add("client_id", authInfo.getClientId());
+		parameters.add("client_secret", authInfo.getClientSecret());
+		parameters.add("redirect_uri", googleOAuth2Parameters.getRedirectUri());
+		parameters.add("grant_type", "authorization_code");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(
+				parameters, headers);
+		ResponseEntity<Map> responseEntity = restTemplate.exchange("https://www.googleapis.com/oauth2/v4/token",
+				HttpMethod.POST, requestEntity, Map.class);
+		Map<String, Object> responseMap = responseEntity.getBody();
+
+		String[] tokens = ((String) responseMap.get("id_token")).split("\\.");
+		Base64 base64 = new Base64(true);
+		String body = new String(base64.decode(tokens[1]));
+
+		// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> result = mapper.readValue(body, Map.class);
+		System.out.println(result.get("email"));
+		System.out.println(result.get("name"));
+		System.out.println("Google login success");
+		model.addAttribute("email", result.get("email"));
+		model.addAttribute("name", result.get("name"));
+		return "/member/google_signup";
+	}
 
 }

@@ -1,18 +1,40 @@
 package dto;
 
 public class ChattingDTO {
-	private String projectId;
+	private String pro_id;
+	private String chat_id;
 	private String id;
-	private String content;
-	private String time;
+
+	private String chat_content;
+	private String chat_time;
+	private String chat_date;
+
 	public ChattingDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public String getProjectId() {
-		return projectId;
+	public String getPro_id() {
+		return pro_id;
 	}
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
+	public void setPro_id(String pro_id) {
+		this.pro_id = pro_id;
+	}
+	public String getChat_id() {
+		return chat_id;
+	}
+	public void setChat_id(String chat_id) {
+		this.chat_id = chat_id;
+	}
+	public String getChat_content() {
+		return chat_content;
+	}
+	public void setChat_content(String chat_content) {
+		this.chat_content = chat_content;
+	}
+	public String getChat_time() {
+		return chat_time;
+	}
+	public void setChat_time(String chat_time) {
+		this.chat_time = chat_time;
 	}
 	public String getId() {
 		return id;
@@ -20,17 +42,11 @@ public class ChattingDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getContent() {
-		return content;
+	public String getChat_date() {
+		return chat_date;
 	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setChat_date(String chat_date) {
+		this.chat_date = chat_date;
 	}
 	
 }

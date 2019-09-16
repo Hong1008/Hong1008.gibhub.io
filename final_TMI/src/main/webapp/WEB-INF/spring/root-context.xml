@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
-		<property name="username" value="hr"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@ec2-3-19-27-239.us-east-2.compute.amazonaws.com:1521:xe"></property>
+		<property name="username" value="hong"></property>
 		<property name="password" value="a1234"></property>
 	</bean>
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
@@ -28,7 +28,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<tx:annotation-driven/>
+	<tx:annotation-driven proxy-target-class="true"/>
 	<context:annotation-config></context:annotation-config>
 	
 	<mybatis-spring:scan base-package="mapper"/>

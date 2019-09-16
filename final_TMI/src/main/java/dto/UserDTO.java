@@ -9,42 +9,9 @@ public class UserDTO {
 	private String uuid;
 	private String newuuid;
 	private String name;
-	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getNewuuid() {
-		return newuuid;
-	}
-	public void setNewuuid(String newuuid) {
-		this.newuuid = newuuid;
-	}
 	private int grade;
 	public String getId() {
 		return id;
-	}
-	public String getIp() {
-		return ip;
-	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-	public String getUuid() {
-		return uuid;
-	}
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-	
-	public int getGrade() {
-		return grade;
-	}
-	public void setGrade(int grade) {
-		this.grade = grade;
 	}
 	public void setId(String id) {
 		this.id = id;
@@ -61,5 +28,42 @@ public class UserDTO {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public String getNewuuid() {
+		return newuuid;
+	}
+	public void setNewuuid(String newuuid) {
+		this.newuuid = newuuid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+
+	
+	
+	
 	
 }
+
+

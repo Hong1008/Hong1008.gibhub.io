@@ -35,6 +35,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	<context:component-scan base-package="controller"></context:component-scan>
+	<context:component-scan base-package="chat"></context:component-scan>
 	
 	<beans:import resource="dispatcher-user.xml"/>
 </beans:beans>
