@@ -30,6 +30,6 @@ $(document).ready(function(){
     
     $("#proIdList").change(function(){
   	  var pro_id = $(this).val();
-  	  location.href="management?pro_id="+pro_id;
+  	  location.href="/tmi/project/management?pro_id="+pro_id;
     })
 })
