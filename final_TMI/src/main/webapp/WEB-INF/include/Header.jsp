@@ -16,26 +16,23 @@
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap" rel="stylesheet">
 
-<script type="text/javascript">
-
-</script>
 </head>
 
 <body>
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
-<input type="hidden" id="sessionproIdList" value="${sessionScope.pro_id_list }" >
+<input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
     <div id='header' class='tmi_skin tmi_skin01'>
         <div id="header_content" class='center_box'>
         	<c:if test="${not empty sessionScope.pro_id }">
        			<select id="proIdList">
-    	   			<c:forEach items="${sessionScope.pro_id_list }" var="i">
+    	   			<c:forEach items="${sessionScope.projectHomeList }" var="i">
     	   				<c:choose>
-    	   					<c:when test="${sessionScope.pro_id == i }">
-    	   						<option class="pro_id" selected="selected">${i }</option>
+    	   					<c:when test="${sessionScope.pro_id == i.pro_id }">
+    	   						<option class="pro_id" selected="selected" value="${i.pro_id }">${i.pro_name }</option>
     	   					</c:when>
     	   					<c:otherwise>
-    	   						<option class="pro_id">${i }</option>
+    	   						<option class="pro_id" value="${i.pro_id }">${i.pro_name }</option>
     	   					</c:otherwise>
     	   				</c:choose>
     	   				
