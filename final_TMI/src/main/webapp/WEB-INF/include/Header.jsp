@@ -8,54 +8,14 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-------------------------------------- js,css연결 -------------------------------------->
-<!-- <script src="/tmi/js/header.js" type='text/javascript'></script> -->
+<script src="/tmi/js/header.js" type='text/javascript'></script> 
 <link href='/tmi/css/header.css' type='text/css' rel='stylesheet' >
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap" rel="stylesheet">
 
-<script type="text/javascript">
-$(document).ready(function(){	
-	var id=$('#sessionId').val();
-	
-	
-	if(id==null || id=="")
-       {
-		  $("#header_account").css("display","none");
-		  $("#header_sign_out").css("display","none");
-       }
-	else
-		{
-		  $('#header_sign_up').css("display","none");
-		  $('#header_sign_in_out').css("display","none");
-		  $("#header_account").css("display","inline");
-		  $("#header_sign_out").css("display","inline");
-		}
-	
-	  
-	  
-	  $('#header_sign_in_out').on('click',function(){
-        $(location).attr("href", "sign_in.do");
-    });
-    $('#header_sign_up').on('click',function(){
-        $(location).attr("href", "sign_up.do");
-    });
-    $('#header_account').on('click',function(){
-        $(location).attr("href", "home");
-    });
-    $('#header_sign_out').on('click',function(){
-        $(location).attr("href", "sign_out");
-    });
-    
-    $("#proIdList").change(function(){
-  	  var pro_id = $(this).val();
-  	  location.href="/tmi/project/management?pro_id="+pro_id;
-    })
-    
-})
-
-</script>
 </head>
 
 <body>
@@ -79,11 +39,22 @@ $(document).ready(function(){
        				</c:forEach>
        			</select> 	
        		</c:if>
-            <span id="header_logo" class='center_box no-drag'>TMI</span>
+            <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log'>
                 <button id='header_sign_up'>Sign up</button>
                 <button id='header_sign_in_out'>Sign in</button>
-                <a href="" id="header_account"><img src="/tmi/resources/common/account.png"/></a>
+                <a href="" id="header_account">
+                	<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 56 56" style="enable-background:new 0 0 56 56;" xml:space="preserve">
+<g>
+	<path d="M28,0C12.561,0,0,12.561,0,28s12.561,28,28,28s28-12.561,28-28S43.439,0,28,0z M28,54C13.663,54,2,42.336,2,28
+		S13.663,2,28,2s26,11.664,26,26S42.337,54,28,54z"/>
+	<path d="M40,16H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,16,40,16z"/>
+	<path d="M40,27H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,27,40,27z"/>
+	<path d="M40,38H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,38,40,38z"/>
+</g>
+</svg>
+                </a>
                 <button id="header_sign_out">Sign out</button>
             </div>
         </div>        

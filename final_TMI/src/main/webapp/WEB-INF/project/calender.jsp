@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="../js/project_calender.js" type='text/javascript'></script>
-<link href='../css/project_calender.css' type='text/css'
-	rel='stylesheet'>
+<link href='../css/project_calender.css' type='text/css'	rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link
