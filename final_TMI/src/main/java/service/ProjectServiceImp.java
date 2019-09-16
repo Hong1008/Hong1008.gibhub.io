@@ -41,4 +41,10 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		return mapper.proIdList(id);
 	}
+
+	@Override
+	public List<String> searchIdList(String id) {
+		// TODO Auto-generated method stub
+		return mapper.searchIdList(id);
+	}
 }
