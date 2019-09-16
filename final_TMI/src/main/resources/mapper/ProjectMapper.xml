@@ -28,4 +28,8 @@
 	<select id="proIdList" resultType="string" parameterType="string">
 		select pro_id from project where pro_id in (select pro_id from pro_team where id=#{id})
 	</select>
+	
+	<select id="searchIdList" resultType="string" parameterType="string">
+		select id from member where id like #{id} || '%'
+	</select>
 </mapper>

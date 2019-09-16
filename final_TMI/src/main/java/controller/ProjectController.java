@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import org.springframework.test.annotation.ProfileValueSourceConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ProjectDTO;
@@ -69,6 +72,11 @@ public class ProjectController {
 	@RequestMapping("/showWhat")
 	public String showWhat(String where) {
 		return "redirect:/project/"+where;
+	}
+	
+	@RequestMapping("/searchId")
+	public @ResponseBody List<String> searchId(String id) {
+		return projectService.searchIdList(id);
 	}
 
 }
