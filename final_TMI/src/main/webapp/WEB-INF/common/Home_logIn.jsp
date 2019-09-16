@@ -54,7 +54,7 @@
             		<p>프로젝트를 생성해주세요</p>
             	</c:otherwise>
             </c:choose>            
-			<div class='project'>
+			<!-- <div class='project'>
                 <div class="pro_header">
                     <div class="pro_name no-drag">project01</div>
                 </div>
@@ -64,7 +64,7 @@
                 	<div class="pro_dday no-drag"><p>27</p>day</div>
                 	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
                 </div>
-			</div>
+			</div> -->
 			<form action="project/insertProject">
 				<input type="submit" value="프로젝트 추가">
 				<input type="text" name="pro_name">
