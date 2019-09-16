@@ -32,7 +32,6 @@ public class ProjectController {
 		}else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
 			session.removeAttribute("pro_id");
 			session.setAttribute("pro_id", pro_id);
-			
 		}
 		mav.setViewName("project/management");
 		return mav;
