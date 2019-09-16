@@ -10,17 +10,63 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var websocket;
-	$(document).ready(function() {
-		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
-		//연결
+	//연결
+	//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
+	websocket = new WebSocket("ws://localhost:8090/tmi/chatting");
+	websocket.onopen = onOpen;
+	websocket.onmessage = onMessage;
+	websocket.onclose = onClose;
 
-		//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
-		//연결
-		//배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
-		websocket = new WebSocket("ws://localhost:8090/tmi/chatting");
-		websocket.onopen = onOpen;
-		websocket.onmessage = onMessage;
-		websocket.onclose = onClose;
+	
+	$(document).ready(function() {
+		var projectId = $('#projectId').val();
+		var userNick = $('#userNick').val();
+		$('#chatFileIns').click(function(){
+		    var formData = new FormData($('#frm')[0]);
+		    console.log(formData);
+			 $.ajax({
+		        url: 'chatInsertFile',
+		                processData: false,
+		                contentType: false,
+		                enctype: 'multipart/form-data',
+		            	dateType : 'json',
+		                data: formData,
+		                type: 'POST',
+		                success: function(data){
+		                	websocket.send(projectId + ":" + userNick + ":" + 'test');
+		                }
+		        }); 
+		})
+		$('#file').change(function() {
+			$('#filemodal').css('display', 'block');
+			$('#filemodal').css('visibility', 'visible');
+			$('#filemodal').css('z-index', '3');
+			
+			var filename=$('#file').val();
+			 filename=filename.split("\\");
+			 var filetype=filename[2];
+			 filetype=filetype.split('.');
+			 if(filetype[1]=='jpg'||filetype[1]=='png'||filetype[1]=='gif'){
+				 inputPreview(this);
+			 }else if(filetype[1]=='zip'){
+				 $('#filepreview').html('<img src="../resources/Chat_img/zip.png">');
+			 }else if(filetype[1]=='txt'){
+				 $('#filepreview').html('<img src="../resources/Chat_img/text.png">');
+			 }
+			$('#filename').append(filename[2]);
+			
+		})
+		function inputPreview(input){
+			if(input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#filepreview').html("<img src="+ e.target.result +">");
+		        }
+		        reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+		
 
 		//엔터일때도
 		$('#message').keypress(function(event) {
@@ -28,8 +74,6 @@
 				if (!event.shiftKey) {
 					event.preventDefault();
 					var msg = $('#message').val();
-					var projectId = $('#projectId').val();
-					var userNick = $('#userNick').val();
 					if (msg == "")
 						return false;
 					msg = msg.replace(/(?:\r\n|\r|\n)/g, '<br/>');
@@ -91,22 +135,107 @@
 </script>
 <style type="text/css">
 body {
+position:relative;
 	background-color: rgb(243, 238, 238);
+	min-width: 1060px;
 }
-
+#filemodal{
+position: fixed;
+visibility:hidden;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.2);
+}
+#fileShowBox {
+position:relative;
+top:40%;
+left: 50%;
+transform:translate(-50%,-50%);
+width:500px;
+height:700px;
+background-color: white;
+text-align: center;
+}
+#fileShowBox #filepreview img{
+width:100%;
+height:100%;
+}
+#filepreview{
+display: inline-block;
+margin:auto;
+margin-top:40px;
+margin-bottom:20px;
+width:300px;
+height:400px;
+box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+}
+#chatFileIns {
+  background-color: #c47135;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+#chatFileIns:before,
+#chatFileIns:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+#chatFileIns:before {
+  border-color: #c47135;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+#chatFileIns:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+#chatFileIns:hover{
+  background-color: #c47135;
+}
+#chatFileIns:hover:before,
+#chatFileIns:hover:after {
+  height: 100%;
+  width: 100%;
+}
 #contents {
-	width: 98%;
+position:relative;
+z-index:2;
+	width: 95%;
 	margin-left: 5%;
 }
 
 #chatBox {
 	float: left;
 	width: 60%;
-	height: 854px;
+	    height: 871px;
+	float: left;
 }
 
 #chatBox #chatArea {
-padding-bottom: 10px;
+	padding-bottom: 10px;
 	overflow: auto;
 	width: 100%;
 	height: 80%;
@@ -134,11 +263,13 @@ padding-bottom: 10px;
 	outline: none;
 }
 
-#chatBox #insBox #bar{
+
+#chatBox #insBox #bar {
 	margin-top: 20px;
 	margin-left: 5%;
-    width: 80%;
+	width: 80%;
 }
+
 #fileBtn input[type="file"] {
 	position: absolute;
 	width: 1px;
@@ -170,11 +301,12 @@ padding-bottom: 10px;
 #fileBtn #fileInsImg:hover {
 	transform: scale(1.1);
 }
+
 #fileBox {
 	background-color: aqua;
 	float: right;
 	width: 40%;
-	height: 854px;
+	    height: 871px;
 }
 
 .mewrap {
@@ -222,12 +354,23 @@ padding-bottom: 10px;
 		rgba(0, 0, 0, .12) !important;
 }
 
-
+.todaychk {
+	font-size: small;
+	color: gray;
+	text-align: center;
+}
 </style>
 </head>
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/aside.jsp"></jsp:include>
 <body>
+<div id="filemodal">
+	<div id="fileShowBox">
+	<div id="filepreview"></div>
+	<div id="filename"></div>
+	<button id="chatFileIns">보내기</button>
+	</div>
+	</div>
 	<div id="contents">
 		<div id="chatBox">
 			<div id="chatArea">
@@ -237,32 +380,39 @@ padding-bottom: 10px;
 					</c:when>
 					<c:otherwise>
 						<div id="chatMessage">
-						${chatList.chat_date}
-						<c:forEach items="${chatList}" var="dto">
-							<c:if test="${sessionScope.id==dto.id }">
-							
-									<div class='mewrap'>
-										<div class='inline' id='time'>${dto.chat_time}</div>
-										<br />
-										<div class='replyMessage'>${dto.chat_content}</div>
-										<br />
-									</div>
-								
-							</c:if>
-							<c:if test="${sessionScope.id!=dto.id }">
-								<div class='opwrap'>
-									<div id='img' class='inline'>
-										<img id='img' src='../resources/asideimg/chat.png'>
-									</div>
-									<div id='name' class='inline'>${dto.id}</div>
-									&nbsp;
-									<div class='inline' id='time'>${dto.chat_time}</div>
-									<br />
-									<div class='replyMessage'>${dto.chat_content}</div>
-									<br />
-								</div>
-							</c:if>
-						</c:forEach>
+							<%-- ${chatList.chat_date} --%>
+							<c:forEach items="${dateList}" var="date">
+								<c:forEach items="${chatList}" var="dto">
+									<c:if test="${date.chat_date==dto.chat_date}">
+										<c:if test="${sessionScope.id==dto.id }">
+
+											<div class='mewrap'>
+												<div class='inline' id='time'>${dto.chat_time}</div>
+												<br />
+												<div class='replyMessage'>${dto.chat_content}</div>
+												<br />
+											</div>
+
+										</c:if>
+										<c:if test="${sessionScope.id!=dto.id }">
+											<div class='opwrap'>
+												<div id='img' class='inline'>
+													<img id='img' src='../resources/asideimg/chat.png'>
+												</div>
+												<div id='name' class='inline'>${dto.id}</div>
+												&nbsp;
+												<div class='inline' id='time'>${dto.chat_time}</div>
+												<br />
+												<div class='replyMessage'>${dto.chat_content}</div>
+												<br />
+											</div>
+										</c:if>
+									</c:if>
+								</c:forEach>
+								<c:if test='${date.chat_date != today}'>
+									<div class="todaychk">${date.chat_date}</div>
+								</c:if>
+							</c:forEach>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -270,19 +420,19 @@ padding-bottom: 10px;
 			<p></p>
 
 			<div id='insBox'>
-				<hr id="bar"/>
+				<hr id="bar" />
 				<div id=fileBtn>
 					<label for="file" id="filelabel"><img id="fileInsImg"
-						src="../resources/Chat_img/paperclip.png/"></label> <input
-						type="file" id="file" />
+						src="../resources/Chat_img/paperclip.png/"></label> <form id="frm" method="post" enctype="multipart/form-data"><input
+						type="file" id="file" name="file" /></form>
 				</div>
 				<textarea id="message" cols="10" wrap="hard"></textarea>
-				<!-- <input type="text" id="message" /> -->
+				
 			</div>
 		</div>
 		<div id="fileBox"></div>
-		<input type="text" value="${sessionScope.id }" id="userNick">
-		<input type="text" value="${sessionScope.pro_id}" id="projectId">
+		<input type="hidden" value="${sessionScope.id }" id="userNick">
+		<input type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 </body>
 </html>
