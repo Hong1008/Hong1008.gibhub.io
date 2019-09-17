@@ -276,9 +276,9 @@ public class UserController {
 
 	@RequestMapping("/confirm_email")
 	public String confirm_emailMethod(HttpServletRequest request) {
-		String uid = request.getParameter("uid");
+		//String uid = request.getParameter("uid");
 
-		service.update_gradeProcess(uid);
+		//service.update_gradeProcess(uid);
 		return "/member/confirm_email";
 	}
 
