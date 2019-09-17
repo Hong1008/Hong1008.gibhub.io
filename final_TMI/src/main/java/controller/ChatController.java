@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import dto.FileDTO;
+import dto.ChattingDTO;
 import service.ChatService;
 
 @Controller
@@ -39,9 +38,9 @@ public class ChatController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/chatInsertFile")
-	public @ResponseBody void park_chatInsertFile(MultipartHttpServletRequest req, MultipartFile file, FileDTO dto) {
-		System.out.println(file);
+	@RequestMapping(value = "/chatInsertFile", produces="text/plain;charset=UTF-8")
+	public @ResponseBody String park_chatInsertFile(MultipartHttpServletRequest req, MultipartFile file, ChattingDTO dto) {
+		String fileName="";
 		// 경로
 		String root = req.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "temp" + File.separator;
@@ -60,6 +59,7 @@ public class ChatController {
 			try {
 				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
 				dto.setUpload(random + "_" + mf.getOriginalFilename());
+				fileName=dto.getUpload();
 				chatservice.chatUpLoadFile(dto);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -69,7 +69,7 @@ public class ChatController {
 				e.printStackTrace();
 			}
 		}
-
+		return fileName;
 	}
 
 }
