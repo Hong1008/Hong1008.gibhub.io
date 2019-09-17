@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -71,6 +72,11 @@ public class UserController {
 	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@RequestMapping("/isGuest")
+	public String isGuest() {
+		return "/member/isGuest";
+	}
 
 	// 아이디 중복검사
 	@RequestMapping("/id_test")
@@ -88,30 +94,36 @@ public class UserController {
 
 	// 구글로그인 로그인했을때
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody String googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
+	public @ResponseBody HashMap<String, Object> googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
 
 		dto.setId(dto.getEmail() + "_google");
 		int result = service.test_idProcess(dto);
-		String login = "";
+		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
 			session.setAttribute("id", dto.getEmail() + "_google");
-			login = "signin";
+			if(session.getAttribute("returnUri")!=null) {
+				map.put("returnUri", session.getAttribute("returnUri"));
+			}
+			map.put("login", "signin");
 		} else {
 			// 구글로그인 회원가입
-			login = "signup";
+			map.put("login", "signup");
 		}
 
-		return login;
+		return map;
 	}
 
 	// 구글 로그인했을때 회원가입 안되있으면 회원가입
 	@RequestMapping("/google_sign_up")
-	public @ResponseBody String googlelogin_signup(UserDTO dto) {
+	public @ResponseBody String googlelogin_signup(HttpSession session, UserDTO dto) {
 		dto.setId(dto.getEmail() + "_google");
 		dto.setEmail(dto.getEmail() + "_google");
 		service.insert_googleProcess(dto);
-		return "true";
+		if(session.getAttribute("returnUri")!=null) {
+			return session.getAttribute("returnUri").toString();
+		}
+		return "home";
 	}
 
 	// 회원가입
@@ -159,6 +171,7 @@ public class UserController {
 			mav.setViewName("/common/Home_logout");
 		} else {
 			session.removeAttribute("pro_id");
+			session.removeAttribute("returnUri");
 			session.setAttribute("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
@@ -175,13 +188,12 @@ public class UserController {
 
 	// 로그인 뷰
 	@RequestMapping("/sign_in")
-	public ModelAndView Sign_in_View(ModelAndView mav) {
+	public ModelAndView Sign_in_View(ModelAndView mav, @RequestParam(value="isGuest", required=false) boolean isGuest) {
 
 		// 구글로그인 url
 		String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		System.out.println("/googleLogin, url : " + url);
 		mav.addObject("google_url", url);
-
 		mav.setViewName("/member/sign_in");
 		return mav;
 	}
@@ -210,6 +222,9 @@ public class UserController {
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
+					if(session.getAttribute("returnUri")!=null) {
+						return session.getAttribute("returnUri").toString();
+					}
 					return "true";
 				} else {
 					result = "ip";

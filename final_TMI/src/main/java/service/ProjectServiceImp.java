@@ -51,4 +51,10 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		return mapper.searchIdList(id);
 	}
+	
+	@Override
+	public List<ProjectDTO> calendarPro(String pro_id, String id) {
+		// TODO Auto-generated method stub
+		return mapper.calendarPro(pro_id, id);
+	}
 }

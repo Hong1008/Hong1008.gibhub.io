@@ -84,17 +84,17 @@ width: 33px;
   .custom-select {
     position: relative;
     display: inline-block;
+    margin-top: 3px;
   }
     .custom-select-trigger {
       position: relative;
       display: block;
-      width: 130px;
       padding: 0 84px 0 22px;
       font-size: 16px;
       font-weight: 300;
       color: #fff;
       line-height: 50px;
-      background: #5c9cd8;
+      background: rgba(0,0,0,0);
       border-radius: 4px;
       cursor: pointer;
     }
@@ -120,7 +120,6 @@ width: 33px;
     display: block;
     top: 100%; left: 0; right: 0;
     min-width: 100%;
-    margin: 15px 0;
     border: 1px solid #b5b5b5;
     border-radius: 4px;
     box-sizing: border-box;
@@ -139,7 +138,7 @@ width: 33px;
     pointer-events: all;
     transform: translateY(0);
   }
-    .custom-options:before {
+    /* .custom-options:before {
       position: absolute;
       display: block;
       content: '';
@@ -151,7 +150,7 @@ width: 33px;
       background: #fff;
       transform: rotate(45deg);
       transition: all .4s ease-in-out;
-    }
+    } */
     .option-hover:before {
       background: #f9f9f9;
     }
@@ -159,9 +158,6 @@ width: 33px;
       position: relative;
       display: block;
       padding: 0 22px;
-      border-bottom: 1px solid #b5b5b5;
-      font-size: 18px;
-      font-weight: 600;
       color: #0e0e0e;
       line-height: 47px;
       cursor: pointer;
