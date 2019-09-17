@@ -10,7 +10,7 @@ $(document).ready(function(){
 		var end = $('#pro_end').val();
 		var rend = $('#pro_rend').val();
 		
-		location.href="pj_content_upt.do?pro_id="+id+"&pro_name="
+		location.href="contentUpt?pro_id="+id+"&pro_name="
 				+name+"&pro_info="+info+"&pro_start="+start+"&pro_end="+end+"&pro_rend="+rend;
 		/*$('#setting_form').attr('action', "pj_content_upt.do?pro_id="+id+"&pro_name="
 				+name+"&pro_info="+info+"&pro_start="+start+"&pro_end="+end+"&pro_rend="+rend);

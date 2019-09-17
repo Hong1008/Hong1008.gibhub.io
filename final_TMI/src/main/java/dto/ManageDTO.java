@@ -3,23 +3,15 @@ package dto;
 import java.sql.Date;
 
 public class ManageDTO {
-	private String pro_id, pro_name, pro_info;
+	private String pro_name, pro_info, pro_id, pro_mgr;
 	private Date pro_start, pro_end, pro_rend;
-
-	private String mem_id, mem_pwd, mem_email, mem_ip, mem_grade, mem_uuid, mem_name, mem_bg_style, mem_theme, mem_icon;
+	
+	private String id, pwd, email, ip, grade, uuid, name, bg_style, theme, icon;
 
 	private int pt_level;
 
 	public ManageDTO() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public String getPro_id() {
-		return pro_id;
-	}
-
-	public void setPro_id(String pro_id) {
-		this.pro_id = pro_id;
 	}
 
 	public String getPro_name() {
@@ -36,6 +28,22 @@ public class ManageDTO {
 
 	public void setPro_info(String pro_info) {
 		this.pro_info = pro_info;
+	}
+
+	public String getPro_id() {
+		return pro_id;
+	}
+
+	public void setPro_id(String pro_id) {
+		this.pro_id = pro_id;
+	}
+
+	public String getPro_mgr() {
+		return pro_mgr;
+	}
+
+	public void setPro_mgr(String pro_mgr) {
+		this.pro_mgr = pro_mgr;
 	}
 
 	public Date getPro_start() {
@@ -62,84 +70,84 @@ public class ManageDTO {
 		this.pro_rend = pro_rend;
 	}
 
-	public String getMem_id() {
-		return mem_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setMem_id(String mem_id) {
-		this.mem_id = mem_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getMem_pwd() {
-		return mem_pwd;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setMem_pwd(String mem_pwd) {
-		this.mem_pwd = mem_pwd;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
-	public String getMem_email() {
-		return mem_email;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMem_email(String mem_email) {
-		this.mem_email = mem_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getMem_ip() {
-		return mem_ip;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setMem_ip(String mem_ip) {
-		this.mem_ip = mem_ip;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
-	public String getMem_grade() {
-		return mem_grade;
+	public String getGrade() {
+		return grade;
 	}
 
-	public void setMem_grade(String mem_grade) {
-		this.mem_grade = mem_grade;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 
-	public String getMem_uuid() {
-		return mem_uuid;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setMem_uuid(String mem_uuid) {
-		this.mem_uuid = mem_uuid;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
-	public String getMem_name() {
-		return mem_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setMem_name(String mem_name) {
-		this.mem_name = mem_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getMem_bg_style() {
-		return mem_bg_style;
+	public String getBg_style() {
+		return bg_style;
 	}
 
-	public void setMem_bg_style(String mem_bg_style) {
-		this.mem_bg_style = mem_bg_style;
+	public void setBg_style(String bg_style) {
+		this.bg_style = bg_style;
 	}
 
-	public String getMem_theme() {
-		return mem_theme;
+	public String getTheme() {
+		return theme;
 	}
 
-	public void setMem_theme(String mem_theme) {
-		this.mem_theme = mem_theme;
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 
-	public String getMem_icon() {
-		return mem_icon;
+	public String getIcon() {
+		return icon;
 	}
 
-	public void setMem_icon(String mem_icon) {
-		this.mem_icon = mem_icon;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public int getPt_level() {
@@ -149,5 +157,7 @@ public class ManageDTO {
 	public void setPt_level(int pt_level) {
 		this.pt_level = pt_level;
 	}
-
+	
+	
+	
 }
