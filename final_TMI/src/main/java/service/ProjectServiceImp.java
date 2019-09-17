@@ -19,11 +19,15 @@ public class ProjectServiceImp implements ProjectService{
 	
 	@Transactional
 	@Override
-	public void insertProject(ProjectDTO pdto, String id) {
+	public void insertProject(ProjectDTO pdto, String id, List<String> pro_team_list) {
 		// TODO Auto-generated method stub
 		try {
-			mapper.insertProject(pdto);
-			mapper.insertProTeam(new Pro_TeamDTO(id, 1));
+			pdto.setPro_mgr(id);
+			mapper.firstInsertProject(pdto);
+			mapper.firstInsertProTeam(new Pro_TeamDTO(id, 1));
+			for (String string : pro_team_list) {
+				mapper.firstInsertProTeam(new Pro_TeamDTO(string, 0));
+			}
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

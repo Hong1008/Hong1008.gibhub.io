@@ -1,0 +1,24 @@
+
+#pj_setting_form{
+	width: 700px;
+	height: 900px;
+	margin: auto;
+}
+.container{	
+	width: 650px;
+}
+
+.form-control{
+	width: 200px;
+}
+
+#pro_info{
+	width: 600px;
+	height: 300px;
+	word-break: break-all;
+}
+
+#update{
+	float: right;
+}
+

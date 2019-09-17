@@ -32,7 +32,6 @@ public class ProjectController {
 		}else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
 			session.removeAttribute("pro_id");
 			session.setAttribute("pro_id", pro_id);
-			
 		}
 		mav.setViewName("project/management");
 		return mav;
@@ -63,9 +62,9 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertProject")
-	public String insertProject(ProjectDTO pdto,HttpServletRequest req) {
+	public String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list") List<String> pro_team_list) {
 		String id = req.getSession().getAttribute("id").toString();
-		projectService.insertProject(pdto,id);
+		projectService.insertProject(pdto,id,pro_team_list);
 		return "redirect:/home";
 	}
 
