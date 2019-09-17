@@ -26,6 +26,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
             String value = request.getParameter(name);
             strParam += name + "=" + value + "&";
         }
+        if(request.getParameter("proIdChange") != null && request.getParameter("pro_id") != null) {
+        	session.removeAttribute("pro_id");
+        	session.setAttribute("pro_id", request.getParameter("pro_id"));
+        }
+        System.out.println(session.getAttribute("pro_id"));
 		if(session.getAttribute("id") == null) {
 			session.setAttribute("returnUri", uri + "?" + strParam);
             response.sendRedirect("/tmi/isGuest");

@@ -20,27 +20,25 @@
 <div id='calendar'></div>
 
 <script>
-		var calendarPro;
-  		$.ajax({
-  			url: 'calendarPro',
-  			method: "POST",
-  			success:function(res){
-  				calendarPro=res;
-  			}
-  		})
-        var calendarEl = document.getElementById('calendar');
+	var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ]
-        });
-        $(calendarPro).each(function(i,v){
-        	calendar.addEvent({
-            	title:v.pro_name,
-            	start:v.pro_start,
-            	end:v.pro_end
-            })
-        })
-        
-        calendar.render();
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		plugins : [ 'dayGrid' ]
+	});
 
-    </script>
+	$.ajax({
+		url : 'calendarPro',
+		method : "POST",
+		success : function(res) {
+			$(res).each(function(i, v) {
+				calendar.addEvent({
+					title : v.pro_name,
+					start : v.pro_start,
+					end : v.pro_end
+				})
+			})
+		}
+	})
+
+	calendar.render();
+</script>

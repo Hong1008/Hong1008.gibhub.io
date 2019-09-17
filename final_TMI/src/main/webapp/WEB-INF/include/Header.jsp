@@ -30,7 +30,7 @@
     	   			<c:forEach items="${sessionScope.projectHomeList }" var="i">
     	   				<c:choose>
     	   					<c:when test="${sessionScope.pro_id == i.pro_id }">
-    	   						<option class="pro_id" selected="selected" value="${i.pro_id }">${i.pro_name }</option>
+    	   						<option class="pro_id selected"  value="${i.pro_id }">${i.pro_name }</option>
     	   					</c:when>
     	   					<c:otherwise>
     	   						<option class="pro_id" value="${i.pro_id }">${i.pro_name }</option>

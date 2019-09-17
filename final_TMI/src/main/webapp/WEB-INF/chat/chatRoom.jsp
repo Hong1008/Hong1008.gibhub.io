@@ -283,7 +283,7 @@ body {
 }
 
 #contents {
-	position: relative;
+	/* position: relative; */
 	z-index: 2;
 	width: 95%;
 	margin-left: 5%;
