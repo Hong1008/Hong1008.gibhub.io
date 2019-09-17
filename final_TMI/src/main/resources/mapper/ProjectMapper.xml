@@ -35,4 +35,8 @@
 	<select id="searchIdList" resultType="string" parameterType="string">
 		select id from member where id like #{id} || '%'
 	</select>
+	
+	<select id="calendarPro" resultType="dto.ProjectDTO" parameterType="string">
+		select pro_name, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
+	</select>
 </mapper>
