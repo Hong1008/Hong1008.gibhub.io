@@ -14,7 +14,6 @@
 <link href='/tmi/css/homeLogin.css' type='text/css' rel='stylesheet'>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -43,8 +42,8 @@
                 	<div class="pro_list_end no-drag">종료일</div>
             </div>
             <c:choose>
-            	<c:when test="${not empty sessionScope.projectHomeList }">
-            		<c:forEach items="${sessionScope.projectHomeList}" var="i">
+            	<c:when test="${not empty projectHomeList }">
+            		<c:forEach items="${projectHomeList}" var="i">
 						<div class='project'>
                 			<div class="pro_header">
                     			<div class="pro_name no-drag">${i.pro_name }

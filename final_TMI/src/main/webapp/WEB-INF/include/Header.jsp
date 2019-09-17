@@ -12,6 +12,7 @@
 <link href='/tmi/css/header.css' type='text/css' rel='stylesheet' >
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap" rel="stylesheet">
