@@ -11,4 +11,9 @@ public interface ManageService {
 	
 	public void manageContentUpdateProcess(ManageDTO dto);
 	
+	public void managerResetProcess(String pro_id);
+	
+	public void managerChangeProcess(ManageDTO dto);
+	
+	public void managerProcess(ManageDTO dto);
 }

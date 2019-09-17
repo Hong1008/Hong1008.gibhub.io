@@ -13,10 +13,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/gentelella/1.4.0/css/custom.min.css"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="css/manage.css" type="text/css">
+<link rel="stylesheet" href="/tmi/css/manage.css" type="text/css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="js/manage.js"></script>
+<script src="/tmi/js/manage.js"></script>
 
     
 </head>
@@ -64,7 +64,7 @@
 			<c:forEach items="${people }" var="people">
 
 				<tr>
-					<td>${people.mem_id }</td>
+					<td>${people.id }</td>
 					<c:choose>
 					<c:when test="${people.pt_level==1 }">
 					<td>관리자</td>

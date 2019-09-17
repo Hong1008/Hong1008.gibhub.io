@@ -10,4 +10,12 @@ public interface ManageMapper {
 	public ManageDTO pj_content(String pro_id);
 	
 	public void pj_content_upt(ManageDTO dto);
+	
+	public void managerReset(String pro_id);
+	
+	public void managerChange(ManageDTO dto);
+	
+	public void manager(ManageDTO dto);
+	
+	public void addMember(ManageDTO dto);
 }
