@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ManageMapper">
+	<select id="pj_people" parameterType="string" resultType="dto.ManageDTO">
+		select * from pro_team where pro_id=#{pro_id} order by pt_level desc
+	</select>
+	
+	<select id="pj_content" parameterType="string" resultType="dto.ManageDTO">
+		select * from project where pro_id=#{pro_id}
+	</select>
+	
+	<update id="pj_content_upt" parameterType="dto.ManageDTO">
+		update project set
+		pro_name=#{pro_name}, pro_info=#{pro_info}, pro_start=#{pro_start}, pro_end=#{pro_end}, pro_rend=#{pro_rend}
+		where pro_id=#{pro_id}		 
+	</update>
+	
+	<!-- <select id="pj_people_info" parameterType="" resultMap="">
+		select * from member mb 
+		where mem_id in(select mem_id from pro_team pt where mb.mem_id = pt.mem_id and pt.pro_id=#{pro_id})
+	</select> -->
+</mapper>
