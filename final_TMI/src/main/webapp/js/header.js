@@ -68,4 +68,40 @@ $(document).ready(function(){
 	  	  location.replace("/tmi/project/management?pro_id="+pro_id);
 	});
 	//select 디자인 및 동작 끝********************************************
+		
+		$('#header').on('click',function(){
+			var skin = $('.tmi_skin');
+			if(skin.eq(0).hasClass('tmi_skin01')){
+				skin.removeClass('tmi_skin01');
+				skin.addClass('tmi_skin02');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin02')){
+				skin.removeClass('tmi_skin02');
+				skin.addClass('tmi_skin03');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin03')){
+				skin.removeClass('tmi_skin03');
+				skin.addClass('tmi_skin04');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin04')){
+				skin.removeClass('tmi_skin04');
+				skin.addClass('tmi_skin05');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin05')){
+				skin.removeClass('tmi_skin05');
+				skin.addClass('tmi_skin06');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin06')){
+				skin.removeClass('tmi_skin06');
+				skin.addClass('tmi_skin07');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin07')){
+				skin.removeClass('tmi_skin07');
+				skin.addClass('tmi_skin08');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin08')){
+				skin.removeClass('tmi_skin08');
+				skin.addClass('tmi_skin09');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin09')){
+				skin.removeClass('tmi_skin09');
+				skin.addClass('tmi_skin10');				
+			}else 	if(skin.eq(0).hasClass('tmi_skin10')){
+				skin.removeClass('tmi_skin10');
+				skin.addClass('tmi_skin01');				
+			}		
+			
+		})
 })
