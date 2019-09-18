@@ -403,7 +403,7 @@ public class UserController {
 			System.out.println("update 실패" + e.toString());
 		}
 
-		return "/member/main";
+		return "member/main";
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기

@@ -10,6 +10,9 @@
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="../js/project_management.js" type='text/javascript'></script>
 <link href='../css/project_management.css' type='text/css' rel='stylesheet'>
+<link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
+<link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
+<link href='../css/project_timeline.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
@@ -18,9 +21,8 @@
 
 </head>
 <body>
-	<div class="btn-group">
-	
-		<button id="kanbanboard">Kanban</button>
+	<div class="btn-group no-drag ">	
+		<button id="kanbanboard" class=''>Kanban</button>
 		<button id="timeline">TimeLine</button>
 		<button id="calender">Calendar</button>
 	</div>
