@@ -35,7 +35,7 @@ $(document).ready(function(){
 		      id      = $(this).attr("id"),
 		      name    = $(this).attr("name");
 		  var template =  '<div class="' + classes + '">';
-		      template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
+		      template += '<span class="custom-select-trigger">' + $(this).children('.selected').text() + '</span>';
 		      template += '<div class="custom-options">';
 		      $(this).find("option").each(function() {
 		        template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
@@ -65,7 +65,8 @@ $(document).ready(function(){
 		  $(this).parents(".custom-select").removeClass("opened");
 		  $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 		  var pro_id = $(this).attr('data-value');
-	  	  location.replace("/tmi/project/management?pro_id="+pro_id);
+	  	  //location.replace("/tmi/project/management?sessionChange=true&pro_id="+pro_id);
+		  location.replace("?proIdChange=true&pro_id="+pro_id);
 	});
 	//select 디자인 및 동작 끝********************************************
 		

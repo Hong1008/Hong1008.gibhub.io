@@ -29,12 +29,14 @@ public class ProjectController {
 	public ModelAndView ram_managementTest(ModelAndView mav, HttpSession session, @RequestParam(value="pro_id", required=false) String pro_id ) { 
 		if(session.getAttribute("pro_id")==null && pro_id != null) {
 			session.setAttribute("pro_id", pro_id);
-		}else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
+		}
+		/*else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
 			session.removeAttribute("pro_id");
 			session.setAttribute("pro_id", pro_id);
-		}else if(session.getAttribute("pro_id")==null) {
+		}*/
+		/*else if(session.getAttribute("pro_id")==null) {
 			mav.setViewName("redirect:/home");
-		}
+		}*/
 		mav.setViewName("project/management");
 		return mav;
 	}
