@@ -58,10 +58,15 @@
 								success : function(res) {
 									console.log(res);
 									if (res == "true") {
-										alert("로그인성공");
-										location.href="home"
+										swal("Good job!", "로그인성공!", "success")
+										.then((value) => {
+											location.href="home";
+										});
+										
 									} else if (res == "false") {
-										alert("맞는아이디가없음");
+										swal("Warning", "아이디 비밀번호가 일치하지않습니다",
+										"error");
+									
 									} else if (res == "ip") {
 										$("#ipconfirm").click();
 									}else{
@@ -94,20 +99,27 @@
 														success : function(data) {
 															switch (data) {
 															case "0":
-																alert("로그인성공");
+																swal("Good job!", "로그인성공!", "success")
+																.then((value) => {
+																	location.href="home";
+																});
 																break;
 
 															case "1":
-																alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+																swal("Warning", "자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.",
+																"error");
+															
 																grecaptcha
 																		.reset();
 																return;
 																break;
 
 															default:
-																alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : "
+																swal("Warning", "자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : "
 																		+ Number(data)
-																		+ "]");
+																		+ "]",
+																"error");
+															
 																break;
 															}
 														}

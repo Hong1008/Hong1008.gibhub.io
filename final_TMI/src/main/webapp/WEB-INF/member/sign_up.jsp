@@ -16,8 +16,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
-<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script>
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 <title>Insert title here</title>
 <!--수정사항  -->
 <!-- 캡차 추가되서 밑에밀림 실행해서 보면알꺼임  -->
@@ -111,9 +111,12 @@
 															success : function(
 																	data) {
 																switch (data) {
-																case "0":
-																	swal("Good job!", "가입성공!", "success");
-																	location.href="home";
+																case "0":			
+												swal("Good job!", "가입성공!", "success")
+												.then((value) => {
+													location.href="home";
+												});
+															
 																	break;
 
 																case "1":
@@ -247,16 +250,13 @@ label {
 		<div id='logo' class='center_div no-drag gotoHome'>EasyTask</div>
 		<div id='signUpForm' class='center_div '>
 			<form action="UserInsert" method="post">
-					<label for="signUpEmail">Email</label> <input
-					type="text" class='signUpText' name="id" id='signUpEmail'
-					value="${dto.id }"> <small class="swicthtext">Please
-					write your email</small>
-					
-					<label for="signUpUserName">UserName</label> <input type="text"
-					class='signUpText' name="name" id='signUpUserName' 
-										value="${dto.name}"> <small class="swicthtext">Please
-					write your UserName</small> 
-					 <label for="signUpPassword">Password</label> <input
+				<label for="signUpEmail">Email</label> <input type="text"
+					class='signUpText' name="id" id='signUpEmail' value="${dto.id }">
+				<small class="swicthtext">Please write your email</small> <label
+					for="signUpUserName">UserName</label> <input type="text"
+					class='signUpText' name="name" id='signUpUserName'
+					value="${dto.name}"> <small class="swicthtext">Please
+					write your UserName</small> <label for="signUpPassword">Password</label> <input
 					type="password" class='signUpText' name="pwd" id='signUpPassword'
 					value="${dto.pwd }"> <small class="swicthtext">Please
 					write your password</small>
