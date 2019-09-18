@@ -7,7 +7,6 @@ $(document).ready(function(){
 			data:"where="+where,
 			url:'showWhat',
 			success:function(res){
-				console.log(res);
 				$('.showWhat').empty();
 				$('.showWhat').html(res);
 			}

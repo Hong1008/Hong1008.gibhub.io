@@ -19,12 +19,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="css/pj_setting.css" type="text/css">
-<script src="js/managecontentupt.js"></script>
+<link rel="stylesheet" href="/tmi/css/pj_setting.css" type="text/css">
+<script src="/tmi/js/managecontentupt.js"></script>
 
-<style type="text/css">
-
-</style>
 </head>
 <body>
 	<div id="pj_setting_form">
@@ -39,23 +36,23 @@
 					<div class="form-group">
 						<label for="pro_name">프로젝트 이름:</label>
 						<input type="text" class="form-control" id="pro_name" 
-						value="${pjcontent.pro_name }" placeholder="Enter email">
+						value="${pjcontent.pro_name }" placeholder="프로젝트 이름을 입력하세요">
 					</div>
 					
 					<div class="form-group">
 						<label for="pro_start">프로젝트 시작일:</label> 
 						<input type="date" class="form-control" id="pro_start" 
-						value="${pjcontent.pro_start }" placeholder="Enter password">
+						value="${pjcontent.pro_start }">
 					</div>
 					<div class="form-group" id="end_form">
 						<label for="pro_end">프로젝트 종료일:</label> 
 						<input type="date" class="form-control" id="pro_end" 
-						value="${pjcontent.pro_end }" placeholder="Enter password">
+						value="${pjcontent.pro_end }">
 					</div>
 					<div class="form-group">
 						<label for="pro_rend">프로젝트 실종료일:</label> 
 						<input type="date" class="form-control" id="pro_rend" 
-						value="${pjcontent.pro_rend }" placeholder="Enter password">
+						value="${pjcontent.pro_rend }" >
 					</div>
 					
 					<div class="form-group">

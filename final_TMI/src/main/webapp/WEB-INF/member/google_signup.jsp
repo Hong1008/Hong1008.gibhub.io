@@ -34,10 +34,12 @@ $(document).ready(function(){
        {
           //있으면 session등록하는거고 
           //없으면 회원가입할꺼냐고 물어보고
-          if(res=="signin")
+          
+          res=JSON.parse(res)
+          if(res.login=="signin")
              {
              alert("로그인");
-             window.location.href = 'home';
+             window.location.href = res.returnUri;
              }
           else
              {
@@ -57,7 +59,7 @@ $(document).ready(function(){
                           type:"get",
                           success:function(res){
                        	 swal("Good job!", "가입성공!", "success");
-                            window.location.href = 'home';
+                            window.location.href = res;
                             
                           }
                             

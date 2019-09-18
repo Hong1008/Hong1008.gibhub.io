@@ -11,6 +11,7 @@ import dto.ManageDTO;
 import service.ManageService;
 
 @Controller
+@RequestMapping("/setting/*")
 public class ManageController {
 	@Autowired
 	private ManageService service;
@@ -23,9 +24,9 @@ public class ManageController {
 		this.service = service;
 	}
 	
-	@RequestMapping("/pj_setting_main.do")
+	@RequestMapping("/main")
 	public ModelAndView main(ModelAndView mav) {
-		String pro_id="testpj";
+		String pro_id= "2";
 		
 		mav.addObject("content", service.manageContentProcess(pro_id));
 		mav.addObject("people", service.managePeopleProcess(pro_id));
@@ -33,14 +34,14 @@ public class ManageController {
 		return mav;
 	}
 	
-	@RequestMapping("/pj_setting_set.do")
+	@RequestMapping("/pjset")
 	public ModelAndView pjsetting(ModelAndView mav, String pro_id) {
 		mav.addObject("dto", service.manageContentProcess(pro_id));
 		mav.setViewName("manage/mg_setting");
 		return mav;
 	}
 	
-	@RequestMapping("/pj_content_upt.do")
+	@RequestMapping("/contentUpt")
 	public String pjupdate(String pro_id, String pro_name, String pro_info, Date pro_start, Date pro_end, Date pro_rend) {
 		ManageDTO dto = new ManageDTO();
 		dto.setPro_id(pro_id);
@@ -50,25 +51,29 @@ public class ManageController {
 		dto.setPro_end(pro_end);
 		dto.setPro_rend(pro_rend);
 		
-		/*System.out.println(dto.getPro_id());
-		System.out.println(dto.getPro_name());
-		System.out.println(dto.getPro_info());
-		System.out.println(dto.getPro_start());
-		System.out.println(dto.getPro_end());
-		System.out.println(dto.getPro_rend());*/
 		service.manageContentUpdateProcess(dto);		
-		
-		
-		return "redirect:/pj_setting_main.do";
+				
+		return "redirect:/setting/main";
 	}
 	
-	@RequestMapping("/pj_setting_people.do")
+	@RequestMapping("/setpeople")
 	public ModelAndView pjpeople(ModelAndView mav, String pro_id) {
+		
 		mav.addObject("people", service.managePeopleProcess(pro_id));
 		
 		mav.setViewName("manage/mg_people");
 		return mav;
 	}
 	
-	
+	@RequestMapping("/manager")
+	public String pjmanager(String pro_id, String id) {
+		service.managerResetProcess(pro_id);
+		ManageDTO dto = new ManageDTO();
+		dto.setPro_id(pro_id);
+		dto.setId(id);
+		service.managerChangeProcess(dto);
+		service.managerProcess(dto);
+		
+		return "redirect:/setting/main";
+	}
 }

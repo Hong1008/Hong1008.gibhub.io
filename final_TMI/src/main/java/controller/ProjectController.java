@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,17 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@RequestMapping("/management")
-	public ModelAndView ram_managementTest(ModelAndView mav, HttpServletRequest req, @RequestParam(value="pro_id", required=false) String pro_id ) { 
-		HttpSession session = req.getSession();
+	public ModelAndView ram_managementTest(ModelAndView mav, HttpSession session, @RequestParam(value="pro_id", required=false) String pro_id ) { 
 		if(session.getAttribute("pro_id")==null && pro_id != null) {
 			session.setAttribute("pro_id", pro_id);
-		}else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
+		}
+		/*else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
 			session.removeAttribute("pro_id");
 			session.setAttribute("pro_id", pro_id);
-		}
+		}*/
+		/*else if(session.getAttribute("pro_id")==null) {
+			mav.setViewName("redirect:/home");
+		}*/
 		mav.setViewName("project/management");
 		return mav;
 	}
@@ -76,6 +80,11 @@ public class ProjectController {
 	@RequestMapping("/searchId")
 	public @ResponseBody List<String> searchId(String id) {
 		return projectService.searchIdList(id);
+	}
+	
+	@RequestMapping("/calendarPro")
+	public @ResponseBody List<ProjectDTO> calendarPro(HttpSession session) {
+		return projectService.calendarPro(session.getAttribute("pro_id").toString(), session.getAttribute("id").toString());
 	}
 
 }
