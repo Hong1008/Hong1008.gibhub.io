@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
+import dto.Sch_TeamDTO;
 import lombok.extern.log4j.Log4j2;
 import mapper.ProjectMapper;
 
@@ -21,12 +22,18 @@ public class ProjectServiceImp implements ProjectService{
 	@Override
 	public void insertProject(ProjectDTO pdto, String id, List<String> pro_team_list) {
 		// TODO Auto-generated method stub
+		Pro_TeamDTO ptDto = new Pro_TeamDTO();
 		try {
 			pdto.setPro_mgr(id);
 			mapper.firstInsertProject(pdto);
-			mapper.firstInsertProTeam(new Pro_TeamDTO(id, 1));
+			
+			ptDto.setId(id);
+			ptDto.setPt_level(1);
+			mapper.firstInsertProTeam(ptDto);
 			for (String string : pro_team_list) {
-				mapper.firstInsertProTeam(new Pro_TeamDTO(string, 0));
+				ptDto.setId(string);
+				ptDto.setPt_level(0);
+				mapper.firstInsertProTeam(ptDto);
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -56,5 +63,23 @@ public class ProjectServiceImp implements ProjectService{
 	public List<ProjectDTO> calendarPro(String pro_id, String id) {
 		// TODO Auto-generated method stub
 		return mapper.calendarPro(pro_id, id);
+	}
+	
+	@Override
+	public ProjectDTO proSelect(String pro_id) {
+		// TODO Auto-generated method stub
+		return mapper.proSelect(pro_id);
+	}
+	
+	@Override
+	public List<Pro_TeamDTO> proTeamSelect(String pro_id) {
+		// TODO Auto-generated method stub
+		return mapper.proTeamSelect(pro_id);
+	}
+	
+	@Override
+	public List<Sch_TeamDTO> schTeamSelect(String pro_id) {
+		// TODO Auto-generated method stub
+		return mapper.schTeamSelect(pro_id);
 	}
 }

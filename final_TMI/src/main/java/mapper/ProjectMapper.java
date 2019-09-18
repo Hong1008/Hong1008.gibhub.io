@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
+import dto.Sch_TeamDTO;
 
 public interface ProjectMapper {
 	
@@ -16,4 +17,7 @@ public interface ProjectMapper {
 	public List<Integer> proIdList(String id);
 	public List<String> searchIdList(String id);
 	public List<ProjectDTO> calendarPro(@Param("pro_id") String pro_id,@Param("id") String id);
+	public ProjectDTO proSelect(String pro_id);
+	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
+	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
 }

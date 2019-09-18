@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import service.ProjectService;
@@ -26,19 +27,33 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
             String value = request.getParameter(name);
             strParam += name + "=" + value + "&";
         }
-        if(request.getParameter("proIdChange") != null && request.getParameter("pro_id") != null) {
+        if(request.getParameter("proIdChange") != null && request.getParameter("chg_pro_id") != null) {
         	session.removeAttribute("pro_id");
-        	session.setAttribute("pro_id", request.getParameter("pro_id"));
+        	session.setAttribute("pro_id", request.getParameter("chg_pro_id"));
+        	response.sendRedirect(uri);
+        	return false;
         }
-        System.out.println(session.getAttribute("pro_id"));
 		if(session.getAttribute("id") == null) {
 			session.setAttribute("returnUri", uri + "?" + strParam);
             response.sendRedirect("/tmi/isGuest");
             return false;
         }else if(session.getAttribute("projectHomeList") == null) {
-			response.sendRedirect("/tmi/home");
+			response.sendRedirect("/tmi/proList");
 			return false;
 		}
         return true;
+	}
+	
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		// Cache 방지 (2017-10-22)
+		if("HTTP/1.1".equals(request.getProtocol())) {
+			response.setHeader ("Cache-Control", "no-cache, no-store, must-revalidate");
+		} else {
+			response.setHeader ("Pragma", "no-cache");
+		}
+		response.setDateHeader ("Expires", 0);
 	}
 }

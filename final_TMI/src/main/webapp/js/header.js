@@ -66,7 +66,7 @@ $(document).ready(function(){
 		  $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 		  var pro_id = $(this).attr('data-value');
 	  	  //location.replace("/tmi/project/management?sessionChange=true&pro_id="+pro_id);
-		  location.replace("?proIdChange=true&pro_id="+pro_id);
+		  location.replace("?proIdChange=true&chg_pro_id="+pro_id);
 	});
 	//select 디자인 및 동작 끝********************************************
 		

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+<!-- 달력 플러그인 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+<script src="/tmi/js/lightpick.js"></script>
+<link href='/tmi/css/lightpick.css' type='text/css' rel='stylesheet'>
 
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="/tmi/js/header.js" type='text/javascript'></script> 
@@ -24,7 +34,9 @@
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
     <div id='header' class='tmi_skin tmi_skin01'>
         <div id="header_content" class='center_box'>
-        	<c:if test="${not empty sessionScope.pro_id }">
+			<c:set var="URI" value="${pageContext.request.requestURI}" />
+			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
+        	<c:if test="${fn:trim(URI)!=hiddenURI && not empty sessionScope.id }" var="res">
         		<div class="center">
        			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">
     	   			<c:forEach items="${sessionScope.projectHomeList }" var="i">

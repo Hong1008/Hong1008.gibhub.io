@@ -39,4 +39,16 @@
 	<select id="calendarPro" resultType="dto.ProjectDTO" parameterType="string">
 		select pro_name, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
 	</select>
+	
+	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
+		select * from project where pro_id = #{pro_id}
+	</select>
+	
+	<select id="proTeamSelect" resultType="dto.Pro_TeamDTO" parameterType="string">
+		select * from pro_team where pro_id = #{pro_id}
+	</select>
+	
+	<select id="schTeamSelect" resultType="dto.Sch_TeamDTO" parameterType="string">
+		select * from sch_team where pro_id = #{pro_id}
+	</select>
 </mapper>
