@@ -12,6 +12,7 @@
 <script src="../js/project_management.js" type='text/javascript'></script>
 <link href='../css/project_management.css' type='text/css' rel='stylesheet'>
 <link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
+<link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link
@@ -20,8 +21,19 @@
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
+<!---------------------------------------- 어사이드연결 ---------------------------------------->
+<jsp:include page="../include/aside.jsp"></jsp:include>
 
 </head>
 <body>
+	<div class="btn-group">
+	
+		<button id="kanbanboard">Kanban</button>
+		<button id="timeline">TimeLine</button>
+		<button id="calender">Calendar</button>
+	</div>
+	<div class="showWhat">
+		<jsp:include page="kanbanboard.jsp"></jsp:include>
+	</div>
 </body>
 </html>

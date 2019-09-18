@@ -17,6 +17,9 @@
 	transform: translate(-50%, 0);
 }
 
+.gotoHome{
+	cursor:pointer;
+}
 /******************************* 전체 테마 *******************************/
 .tmi_skin01{
 	background: linear-gradient(120deg, #12c2e9, #c471ed, #f64f59);	

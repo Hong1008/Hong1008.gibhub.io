@@ -10,15 +10,17 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	background: rgb(245, 245, 245);
 }
 
 #aside {
 position: relative;
-	float: left;
-	background-color : rgb( 215, 86, 137);
-	width: 50px;
+	position: relative;
+    float: left;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(210, 210, 210);
+    width: 50px;
 	height: 100%;
-	background-size: 2000%;
 }
 
 #aside .list .interval{
@@ -75,7 +77,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div id="aside"  class='tmi_skin tmi_skin01' >
+	<div id="aside" >
 	<div class="list">
 	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
 	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
