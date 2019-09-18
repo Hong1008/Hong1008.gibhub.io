@@ -77,6 +77,7 @@ public class UserController {
 		return result;
 		
 	}
+	
 	//email 중복검사 
 	@RequestMapping("/email_test")
 	public @ResponseBody int email_test(UserDTO dto)
@@ -137,7 +138,7 @@ public class UserController {
 		try {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
 				service.insertProcess(dto);
-				String subject = "EASY TASK[이메일 인증]";// 제목
+				String subject = "TMI[이메일 인증]";// 제목
 				String content = "<div align='center'>\r\n"
 						+ "        <img src=\"https://ww.namu.la/s/34f4f86a25e4f020f4f2df539231f36df7e209a1c08137102b7bf3eb9a884b270273333c6a3e576d2a0ddf7ac4e0f782de5319f1eef41d42f4a0b170156150f02b736b9019e792a2cf3340572f21cd4ca74789532b72c843e3baf3e5d9ca705c\" style=\"width: 50%;\">\r\n"
 						+ "<p >We heard that you lost your TMI password. Sorry about that!<br>\r\n"
