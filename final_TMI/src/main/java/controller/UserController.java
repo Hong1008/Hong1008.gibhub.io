@@ -73,6 +73,16 @@ public class UserController {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@RequestMapping("/proList")
+	public String proList(HttpSession session) {
+		String returnUri = session.getAttribute("returnUri").toString();
+		session.removeAttribute("returnUri");
+		List<HashMap<String, Object>> phList = projectService.projectHomeList(session.getAttribute("id").toString());
+		session.setAttribute("projectHomeList",phList);
+		session.setAttribute("pro_id", phList.get(0).get("pro_id"));
+		return "redirect:/"+returnUri.replaceAll("/tmi/","");
+	}
+	
 	@RequestMapping("/isGuest")
 	public String isGuest() {
 		return "/member/isGuest";
@@ -102,6 +112,7 @@ public class UserController {
 		if (result == 1) {
 			// session 등록
 			session.setAttribute("id", dto.getEmail() + "_google");
+			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
 				map.put("returnUri", session.getAttribute("returnUri"));
 			}
@@ -116,7 +127,7 @@ public class UserController {
 
 	// 구글 로그인했을때 회원가입 안되있으면 회원가입
 	@RequestMapping("/google_sign_up")
-	public @ResponseBody String googlelogin_signup(HttpSession session, UserDTO dto) {
+	public @ResponseBody String googlesignup_login(HttpSession session, UserDTO dto) {
 		dto.setId(dto.getEmail() + "_google");
 		dto.setEmail(dto.getEmail() + "_google");
 		service.insert_googleProcess(dto);
@@ -170,8 +181,6 @@ public class UserController {
 		if (session.getAttribute("id") == null) {
 			mav.setViewName("/common/Home_logout");
 		} else {
-			session.removeAttribute("pro_id");
-			session.removeAttribute("returnUri");
 			session.setAttribute("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
@@ -200,7 +209,7 @@ public class UserController {
 
 	// 로그인 버튼눌렀을시
 	@RequestMapping("/sign_in_do")
-	public @ResponseBody String Sign_in_do(UserDTO dto, HttpServletRequest req) {
+	public @ResponseBody String Sign_in_login(UserDTO dto, HttpServletRequest req) {
 
 		String result = "";
 		HttpSession session = req.getSession();
