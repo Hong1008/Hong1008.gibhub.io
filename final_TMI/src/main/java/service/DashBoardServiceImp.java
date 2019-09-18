@@ -24,34 +24,34 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 
 	@Override
-	public int AllschProcess(String id) {
-		return mapper.allschcnt(id);
+	public int AlltodoProcess(String id) {
+		return mapper.alltodocnt(id);
 	}
 
 	@Override
-	public int remaincntProcess(String id) {
-		return mapper.remaincnt(id);
+	public int remaincntProcess(int pro_id) {
+		return mapper.remaincnt(pro_id);
 	}
 
 	@Override
-	public int completecntProcess(String id) {
-		return mapper.compcnt(id);
+	public int completecntProcess(int pro_id) {
+		return mapper.compcnt(pro_id);
 	}
 
 	@Override
-	public List<DashDTO> recentlistProcess(String alldata) {
-		return mapper.recentlist(alldata);
+	public List<DashDTO> recentlistProcess(int pro_id) {
+		return mapper.recentlist(pro_id);
 	}
 
 	@Override
-	public List<DashDTO> commingProcess(String alldata) {
+	public List<DashDTO> commingProcess(int pro_id) {
 
-		return mapper.comminglist(alldata);
+		return mapper.comminglist(pro_id);
 	}
 
 	@Override
-	public List<DashDTO> timelineProcess(String alldata) {
-		return mapper.timelist(alldata);
+	public List<DashDTO> timelineProcess(int pro_id) {
+		return mapper.timelist(pro_id);
 	}
 
 }

@@ -8,17 +8,17 @@ public interface DashBoardMapper {
 	
 	public int pjcnt(String id);
 	
-	public int allschcnt(String id);
+	public int alltodocnt(String id);
 	
-	public int remaincnt(String id);
+	public int remaincnt(int pro_id);
 	
-	public int compcnt(String id);
+	public int compcnt(int pro_id);
 	
 	//최근일정 목록
-	public List<DashDTO> recentlist(String alldata);
+	public List<DashDTO> recentlist(int pro_id);
 	//다가오는 일정 목록
-	public List<DashDTO> comminglist(String alldata);
+	public List<DashDTO> comminglist(int pro_id);
 	//타임라인 
-	public List<DashDTO> timelist(String alldata);
+	public List<DashDTO> timelist(int pro_id);
 	
 }
