@@ -107,15 +107,8 @@
 	background-position: right;
 }
 
-#SignUpGoogle {
-	width: 60px;
-	background-image: url("/ram/resources/Main_google_sign_in.png");
-	background-size: 46px;
-	background-repeat: no-repeat;
-	background-color: rgb(245, 245, 240);
-	color: rgba(0, 0, 0, 0);
-	cursor: pointer;
-	background-position-y: 5px
+#signUpSubmitArea a img{
+	width: 47px; height: 47px; margin-bottom: -16px;
 }
 
 #signInfo {
@@ -125,6 +118,8 @@
 	width: 400px;
 	margin-left: 20px;
 }
+
+
 
 #youtube iframe {
 	top: 1450px;

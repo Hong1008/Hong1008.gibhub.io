@@ -7,6 +7,7 @@ public class ProjectDTO {
 	private String pro_start;
 	private String pro_end;
 	private String pro_rend;
+	private String pro_mgr;
 	public int getPro_id() {
 		return pro_id;
 	}
@@ -42,6 +43,12 @@ public class ProjectDTO {
 	}
 	public void setPro_rend(String pro_rend) {
 		this.pro_rend = pro_rend;
+	}
+	public String getPro_mgr() {
+		return pro_mgr;
+	}
+	public void setPro_mgr(String pro_mgr) {
+		this.pro_mgr = pro_mgr;
 	}
 	
 	

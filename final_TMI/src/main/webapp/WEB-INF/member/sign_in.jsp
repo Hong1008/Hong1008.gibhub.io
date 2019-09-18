@@ -19,7 +19,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Document</title>
 
 <!-- 1. modal 눌렀을때 나오는 모양 수정  2. 구글로그인 버튼 수정 -->
@@ -28,13 +31,14 @@
 	$(document)
 			.ready(
 					function() {
+						
 						function animateDivers() {
 							$('#logo').css({
 								'background-position-x' : '0px'
 							});
 							$('#logo').animate({
 								'background-position-x' : '-1000px'
-							}, 1000, animateDivers);
+							}, 4000, animateDivers);
 						}
 
 						animateDivers();
@@ -52,6 +56,7 @@
 
 								dataType : "text",
 								success : function(res) {
+									console.log(res);
 									if (res == "true") {
 										alert("로그인성공");
 										location.href="home"
@@ -59,6 +64,8 @@
 										alert("맞는아이디가없음");
 									} else if (res == "ip") {
 										$("#ipconfirm").click();
+									}else{
+										location.href=res;
 									}
 								}
 
@@ -152,7 +159,7 @@
 	padding-top: 15px;
 	margin-top: 300px;
 	width: 480px;
-	height: 391px;
+	height: 385px;
 	background: rgb(255, 255, 255);
 	border-radius: 5px;
 	border: 1px solid rgba(5, 5, 5, 0.2);
@@ -182,18 +189,24 @@ label {
 }
 
 #signinSubmit {
-	background: linear-gradient(-120deg, #12c2e9, #c471ed, #f64f59);
-	background-size: 150%;
-	border: none;
-	color: white;
-	height: 71px;
-	font-size: 32px;
-	font-family: 'Raleway', sans-serif;
-	font-weight: 100;
-	transition: 0.5s;
-	cursor: pointer;
-	margin-top: 61px;
+	    background: linear-gradient(-120deg, #12c2e9, #c471ed, #f64f59);
+    background-size: 150%;
+    border: none;
+    color: white;
+    height: 58px;
+    width: 326px !important;
+    font-size: 32px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-top: 22px;
+    display: inline-block !important;
+    margin-right: 18px;
 }
+
+#log_submit_div{
+margin-top: 40px;}
 
 #signinSubmit:hover {
 	background-position-x: 100%;
@@ -238,7 +251,15 @@ label {
 	color: white;
 }
 
+#google_id_login a img{
+	width: 51px;
+    height: 51px;
+    margin-bottom: 11px;
+}
 
+#google_id_login{
+    display: inline-block;
+}
 </style>
 
 
@@ -246,18 +267,21 @@ label {
 <body>
 	<div id='bodywrap'>
 		<div id='content'>
-			<div id='logo' class='center_div'>EasyTask</div>
+			<div id='logo' class='center_div no-drag gotoHome' >T.M.info</div>
 			<div id='SigninForm' class='center_div'>
 				<form action="sign_in_do" method="post">
 					<label for="signinEmail">email</label> <input type="text" name="id"
 						class='signinText' id='signinEmail'> <label
 						for="signinPassword">password</label> <input type="text"
 						name="pwd" class='signinText' id='signinPassword'> <a
-						href="forgot_pw" id='forgot'>forgot password?</a> <input
-						type="button" id='signinSubmit' value='Sign in'>
-					<div id="google_id_login" style="text-align: center">
-						<a href="${google_url}"><img width="300" height="80"
-							src="/tmi/resources/memberimg/btngooglesignindarknormalweb.png" /></a>
+						href="forgot_pw" id='forgot'>forgot password?</a>
+
+					<div id='log_submit_div'>
+						<input type="button" id='signinSubmit' value='Sign in'>
+						<div id="google_id_login" style="text-align: center">
+							<a href="${google_url}"><img width="300" height="80"
+								src="/tmi/resources/memberimg/login_google.png" /></a>
+						</div>
 					</div>
 					<input type="button" id="ipconfirm" data-target="#exampleModal"
 						data-toggle="modal" style="display: none" />

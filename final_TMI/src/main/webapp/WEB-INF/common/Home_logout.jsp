@@ -11,7 +11,8 @@
 <!-------------------------------------- js,css연결 -------------------------------------->
 
 <script src="/tmi/js/home.js" type='text/javascript'></script>
-<link href='/tmi/css/home.css' type='text/css' rel='stylesheet'>
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script>
+<link href='/tmi/css/homeLogout.css' type='text/css' rel='stylesheet'>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
@@ -50,7 +51,8 @@
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
 								value="sign up for 주성" class='tmi_skin tmi_skin01'>
-						<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
+							<a href=""><img width="300" height="80"
+								src="/tmi/resources/memberimg/login_google.png" /></a>
 						</div>
 						<div id="signInfo">By clicking “Sign up for GitHub”, you
 							agree to our Terms of Service and Privacy Statement. We’ll

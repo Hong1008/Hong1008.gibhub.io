@@ -10,22 +10,26 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	background: rgb(245, 245, 245);
 }
 
 #aside {
 position: relative;
-	float: left;
-	background-color : rgb( 215, 86, 137);
-	width: 50px;
-	height: 110%;
-	background-color: rgb(215, 86, 137);
+	position: relative;
+    float: left;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(210, 210, 210);
+    width: 50px;
+	height: 100%;
 }
+
 #aside .list .interval{
 margin-top: 30px;
 margin-left: 10px;
 width:24px;
 height:24px;
 }
+
  #aside #guideBox{
 display:none;
 left: 120%;
@@ -73,13 +77,13 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div id="aside">
+	<div id="aside" >
 	<div class="list">
-	<a href="#"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
-	<a href="#"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
+	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
+	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
 	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트?"></a>
 	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
-	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
+	<a href="/tmi/project/timeline"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅"></a>
 	</div>
 	<div id="guideBox"  class="arrow_box">

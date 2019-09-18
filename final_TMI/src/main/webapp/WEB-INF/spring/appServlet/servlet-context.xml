@@ -35,6 +35,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	<context:component-scan base-package="controller"></context:component-scan>
+	<context:component-scan base-package="chat"></context:component-scan>
 	
 	<beans:import resource="dispatcher-user.xml"/>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/chat/*"/>
+			<mapping path="/project/*"/>
+			<mapping path="/DashBoard/*"/>
+			<beans:bean class="common.LoginInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 </beans:beans>

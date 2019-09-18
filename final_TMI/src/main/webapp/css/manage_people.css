@@ -1,0 +1,46 @@
+
+#pj_setting_form{
+	width: 700px;
+	height: 900px;
+	margin: auto;
+}
+.container{	
+	width: 650px;
+}
+
+.form-control{
+	width: 200px;
+}
+
+#pro_info{
+	width: 600px;
+	height: 300px;
+	word-break: break-all;
+}
+
+#update{
+	float: right;
+}
+
+.checkbox-inline {
+	width: 300px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+.modifyShow {
+	display: block;
+	position: absolute;
+	left: 200px;
+	width: 400px;
+	height: 150px;
+	z-index: 1000;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.modifyHide {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+}
