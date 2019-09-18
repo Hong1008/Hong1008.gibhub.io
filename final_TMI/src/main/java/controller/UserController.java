@@ -105,22 +105,22 @@ public class UserController {
 		return result;
 	}
 	//test
-	@RequestMapping("/test")
-	public ModelAndView tt(ModelAndView mav)
+	@RequestMapping("/mypage")
+	public ModelAndView tt(ModelAndView mav,HttpSession session)
 	{  
 		
-		UserDTO dto=service.select_mypageProcess("박기현"); //나중에 id 값 session id 값
+		UserDTO dto=service.select_mypageProcess(session.getAttribute("id").toString()); //나중에 id 값 session id 값
 		mav.addObject("dto",dto);
-		mav.setViewName("member/test");
+		mav.setViewName("member/mypage");
 		return mav;
 	}
 	
 	//mypage 계정 내용변경
 	@RequestMapping("/mypage_update")
-	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request)
+	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request,HttpSession session)
 	
 	{
-		UserDTO udto=service.select_mypageProcess("박기현");
+		UserDTO udto=service.select_mypageProcess(session.getAttribute("id").toString());
 		
 		//파일이 있으면 원래있던거 있으면 삭제 하고넣어줌 
 		if (!file.isEmpty()) {
@@ -182,6 +182,7 @@ public class UserController {
 		if (result == 1) {
 			// session 등록
 			session.setAttribute("id", dto.getId() + "_google");
+			session.setAttribute("grade", 1);
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
 				map.put("returnUri", session.getAttribute("returnUri"));
@@ -298,8 +299,8 @@ public class UserController {
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				if (ipreq.equals(iplist[i]))
-				/* if(ipreq.equals("0")) */
+				/*if (ipreq.equals(iplist[i]))*/
+				if(ipreq.equals("0")) 
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
@@ -337,6 +338,7 @@ public class UserController {
 				dto.setIp("," + req.getRemoteAddr());
 				service.update_ipProcess(dto);
 				session.setAttribute("id", dto.getId());
+				session.setAttribute("grade", dto.getGrade());
 				result = "0";
 			} else {
 				result = "1";
@@ -463,7 +465,7 @@ public class UserController {
 		System.out.println(result.get("email"));
 		System.out.println(result.get("name"));
 		System.out.println("Google login success");
-		model.addAttribute("email", result.get("email"));
+		model.addAttribute("id", result.get("email"));
 		model.addAttribute("name", result.get("name"));
 		return "/member/google_signup";
 	}
