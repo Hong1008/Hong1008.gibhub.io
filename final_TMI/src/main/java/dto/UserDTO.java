@@ -3,25 +3,42 @@ package dto;
 public class UserDTO {
 
 	private String id;
-	private String email;
+
 	private String pwd;
 	private String ip;
 	private String uuid;
 	private String newuuid;
 	private String name;
 	private int grade;
+	private String profile_img;
+	private String theme;
+	private String bg_img;
+	
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getBg_img() {
+		return bg_img;
+	}
+	public void setBg_img(String bg_img) {
+		this.bg_img = bg_img;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 	public String getPwd() {
 		return pwd;
 	}

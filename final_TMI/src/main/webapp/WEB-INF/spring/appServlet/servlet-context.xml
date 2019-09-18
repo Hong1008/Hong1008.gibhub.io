@@ -16,6 +16,8 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/**" location="/" />
+    <resources mapping="/img/*" location="/img/"/>
+    
 
 	<websocket:handlers>
 		<websocket:mapping handler="chat" path="/chatting"/>

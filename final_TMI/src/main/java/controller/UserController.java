@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -27,6 +29,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -84,23 +88,90 @@ public class UserController {
 		int result = service.test_idProcess(dto);
 		return result;
 	}
-	
+	//email 중복검사
 	@RequestMapping("/email_test")
 	public @ResponseBody int email_test(UserDTO dto) {
 		int result = service.test_emailProcess(dto);
 		return result;
 	}
+	//test
+	@RequestMapping("/test")
+	public ModelAndView tt(ModelAndView mav)
+	{  
+		
+		UserDTO dto=service.select_mypageProcess("박기현"); //나중에 id 값 session id 값
+		mav.addObject("dto",dto);
+		mav.setViewName("member/test");
+		return mav;
+	}
+	
+	//mypage 계정 내용변경
+	@RequestMapping("/mypage_update")
+	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request)
+	
+	{
+		UserDTO udto=service.select_mypageProcess("박기현");
+		
+		//파일이 있으면 원래있던거 있으면 삭제 하고넣어줌 
+		if (!file.isEmpty()) {
+			
+			
+		    	String fileName = file.getOriginalFilename(); // 첨부파일의 이름가지고옴
+
+			System.out.println(fileName);
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String saveDriectory = root + "profile_img" + File.separator;
+			System.out.println(root);
+			
+			if(udto.getProfile_img()!=null)
+			{
+				File fd= new File(saveDriectory,udto.getProfile_img());
+				if(fd.exists())
+				{
+					fd.delete();
+				}
+				
+			}
+			
+			File fe = new File(saveDriectory);
+			if (!fe.exists()) {
+				fe.mkdir(); // 폴더가없다면 만들어라
+			}
+			
+			File ff = new File(saveDriectory, fileName);
+			try {
+				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				dto.setProfile_img(fileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+		//파일이 없으면 원래 있던거로 넣어줌
+		else
+		{
+			dto.setProfile_img(udto.getProfile_img());
+		}
+		System.out.println(dto.getName());
+		System.out.println(dto.getId());
+		
+		service.mypage_updateProcess(dto);
+		return "redirect:/home";
+	}
+	
+	
 
 	// 구글로그인 로그인했을때
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody HashMap<String, Object> googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
 
-		dto.setId(dto.getEmail() + "_google");
+		dto.setId(dto.getId() + "_google");
 		int result = service.test_idProcess(dto);
 		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
-			session.setAttribute("id", dto.getEmail() + "_google");
+			session.setAttribute("id", dto.getId() + "_google");
 			if(session.getAttribute("returnUri")!=null) {
 				map.put("returnUri", session.getAttribute("returnUri"));
 			}
@@ -116,8 +187,8 @@ public class UserController {
 	// 구글 로그인했을때 회원가입 안되있으면 회원가입
 	@RequestMapping("/google_sign_up")
 	public @ResponseBody String googlelogin_signup(HttpSession session, UserDTO dto) {
-		dto.setId(dto.getEmail() + "_google");
-		dto.setEmail(dto.getEmail() + "_google");
+		dto.setId(dto.getId() + "_google");
+		
 		service.insert_googleProcess(dto);
 		if(session.getAttribute("returnUri")!=null) {
 			return session.getAttribute("returnUri").toString();
@@ -167,6 +238,9 @@ public class UserController {
 	public ModelAndView MainView(ModelAndView mav, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		if (session.getAttribute("id") == null) {
+			// 구글로그인 url
+			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+			mav.addObject("google_url", url);
 			mav.setViewName("/common/Home_logout");
 		} else {
 			session.removeAttribute("pro_id");
@@ -272,13 +346,13 @@ public class UserController {
 	// 회원가입 뷰
 	@RequestMapping("/sign_up")
 	public ModelAndView Sign_up_View(ModelAndView mav, HttpServletRequest req, UserDTO dto) {
-		if (req.getParameter("id") != null) {
+		if (req.getParameter("id") != null && req.getParameter("name")!= null && req.getParameter("pwd") !=null) {
 			dto.setId(req.getParameter("id"));
-			dto.setEmail(req.getParameter("email"));
+			dto.setName(req.getParameter("name"));
 			dto.setPwd(req.getParameter("pwd"));
 		} else {
 			dto.setId("");
-			dto.setEmail("");
+			dto.setName("");
 			dto.setPwd("");
 		}
 		mav.addObject("dto", dto);
@@ -324,14 +398,14 @@ public class UserController {
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
 	@RequestMapping("/change_pwd_post")
-	public @ResponseBody String Change_pwd(ModelAndView mav, String email, UserDTO dto) {
+	public @ResponseBody String Change_pwd(ModelAndView mav, String id, UserDTO dto) {
 		String text = "";
-		dto = service.find_idProcess(email);
+		dto = service.find_idProcess(id);
 		int grade = dto.getGrade();
 		String uid = dto.getUuid();
 		dto.setUuid(uid);
-		dto.setEmail(email);
-		System.out.println(grade + " " + uid + " " + email);
+		dto.setId(id);
+		System.out.println(grade + " " + uid + " " + id);
 
 		if (uid != null && grade != 0) {
 			String subject = "EASY TASK[비밀번호 변경]";// 제목
