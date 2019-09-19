@@ -22,6 +22,7 @@
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Document</title>
 
 <!-- 1. modal 눌렀을때 나오는 모양 수정  2. 구글로그인 버튼 수정 -->
@@ -55,6 +56,7 @@
 
 								dataType : "text",
 								success : function(res) {
+									console.log(res);
 									if (res == "true") {
 										alert("로그인성공");
 										location.href="home"
@@ -62,6 +64,8 @@
 										alert("맞는아이디가없음");
 									} else if (res == "ip") {
 										$("#ipconfirm").click();
+									}else{
+										location.href=res;
 									}
 								}
 
