@@ -106,10 +106,12 @@ public class UserController {
 	}
 	//test
 	@RequestMapping("/mypage")
-	public ModelAndView tt(ModelAndView mav,HttpSession session)
+	public ModelAndView mypage(ModelAndView mav,HttpSession session)
 	{  
 		
 		UserDTO dto=service.select_mypageProcess(session.getAttribute("id").toString()); //나중에 id 값 session id 값
+	String res[] =dto.getId().split("_");
+			dto.setId(res[0]);
 		mav.addObject("dto",dto);
 		mav.setViewName("member/mypage");
 		return mav;
@@ -181,7 +183,7 @@ public class UserController {
 		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
-			session.setAttribute("id", dto.getId() + "_google");
+			session.setAttribute("id", dto.getId());
 			session.setAttribute("grade", 1);
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
@@ -248,12 +250,23 @@ public class UserController {
 	@RequestMapping("/home")
 	public ModelAndView MainView(ModelAndView mav, HttpServletRequest req) {
 		HttpSession session = req.getSession();
+		int grade = 0;
+		if(session.getAttribute("grade")!=null)
+		{	
+			grade= (int) session.getAttribute("grade");
+			
+		}
+	
 		if (session.getAttribute("id") == null) {
 			// 구글로그인 url
 			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 			mav.addObject("google_url", url);
 			mav.setViewName("/common/Home_logout");
-		} else {
+		} 
+		else if(session.getAttribute("id") !=null && grade != 1) {
+			mav.setViewName("common/Home_email");
+		}
+		else if(session.getAttribute("id") !=null && grade == 1) {
 			session.setAttribute("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
@@ -300,7 +313,7 @@ public class UserController {
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
 				/*if (ipreq.equals(iplist[i]))*/
-				if(ipreq.equals("0")) 
+				if(ipreq.equals("0"))
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
@@ -337,8 +350,10 @@ public class UserController {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
 				dto.setIp("," + req.getRemoteAddr());
 				service.update_ipProcess(dto);
+				UserDTO udto= service.select_mypageProcess(dto.getId());
 				session.setAttribute("id", dto.getId());
-				session.setAttribute("grade", dto.getGrade());
+				session.setAttribute("grade", udto.getGrade());
+				System.out.println(udto.getGrade());
 				result = "0";
 			} else {
 				result = "1";
@@ -374,9 +389,8 @@ public class UserController {
 
 	@RequestMapping("/confirm_email")
 	public String confirm_emailMethod(HttpServletRequest request) {
-		//String uid = request.getParameter("uid");
-
-		//service.update_gradeProcess(uid);
+		String uid = request.getParameter("uid");
+		service.update_gradeProcess(uid);
 		return "/member/confirm_email";
 	}
 
@@ -387,9 +401,7 @@ public class UserController {
 		return "/member/change_pwd";
 	}
 
-	// 비밀번호 변경 하기 눌렀을시
-	// 나중 transaction 설정
-	// 보안위해서 한번쓰인 키는 바꿔줌
+	
 	@RequestMapping("/change_pwd")
 	public String Change_pwd_do(UserDTO dto) {
 		UUID uid = UUID.randomUUID();
@@ -403,7 +415,7 @@ public class UserController {
 			System.out.println("update 실패" + e.toString());
 		}
 
-		return "member/main";
+		return "redirect:/home";
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
