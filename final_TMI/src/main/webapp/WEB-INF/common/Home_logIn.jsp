@@ -5,22 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="/tmi/js/home.js" type='text/javascript'></script>
 <link href='/tmi/css/homeLogin.css' type='text/css' rel='stylesheet'>
-<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 
-<!---------------------------------------- 웹폰트 연결 ---------------------------------------->
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
-	rel="stylesheet">
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
-
 <title>세계의 모든일 Task Universe</title>
 </head>
 <body>
@@ -37,9 +29,9 @@
             		<c:forEach items="${projectHomeList}" var="i">
 						<div class='project'>
                 			<div class="pro_header">
-                    			<div class="pro_name no-drag">${i.pro_name }
-                    				<input type="hidden" id="pro_id" value="${i.pro_id }">
-                    			</div>
+                    				<div class="pro_name no-drag">${i.pro_name }
+                    					<input type="hidden" name="pro_id" id="pro_id" value="${i.pro_id }">
+                    				</div>
                 			</div>
                 			<div class="pro_body">
                 				<div class="pro_per no-drag">${i.pro_name }</div>
@@ -54,7 +46,7 @@
             		<p>프로젝트를 생성해주세요</p>
             	</c:otherwise>
             </c:choose>            
-			<div class='project'>
+			<!-- <div class='project'>
                 <div class="pro_header">
                     <div class="pro_name no-drag">project01</div>
                 </div>
@@ -64,15 +56,36 @@
                 	<div class="pro_dday no-drag"><p>27</p>day</div>
                 	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
                 </div>
-			</div>
-			<form action="project/insertProject">
+			</div> -->
+			<!-- <form action="project/insertProject">
 				<input type="submit" value="프로젝트 추가">
 				<input type="text" name="pro_name">
 				<input type="text" name="pro_info">
 				<input type="date" name="pro_start">
 				<input type="date" name="pro_end">
+			</form> -->
+			<form id="pro-form" class="modal" action="project/insertProject">
+				<label for="pro_name">프로젝트 제목</label> 
+				<input type="text" required="required"  id="pro_name" name="pro_name" placeholder="프로젝트 제목">
+				<label for="pro_info">프로젝트 간단설명</label> 
+				<input type="text" required="required"  id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
+				<label for="pro_start">프로젝트 기간</label> 
+				<input type="text" readonly="readonly"  required="required" id="pro_start" name="pro_start" placeholder="프로젝트 시작일">
+				<input type="text" readonly="readonly"  required="required" id="pro_end" name="pro_end" placeholder="프로젝트 종료일">
+				<label for="search_id">아이디로 팀원들을 찾아보세요</label>
+				<ul class="table-list" id="pro_team_list">
+					
+				</ul>
+				<input type="text" id="search_id" >
+				<ul id="search_result" hidden="" class="autocomplete-results">
+				</ul>
+				
+				<input type="submit" value="프로젝트 추가">
 			</form>
+
+			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
 		</div>
 	</div>
+	
 </body>
 </html>

@@ -33,6 +33,7 @@ public class ChatController {
 		String pro_id = (String) session.getAttribute("pro_id");
 		mav.addObject("chatList", chatservice.chatList(pro_id));
 		mav.addObject("dateList", chatservice.dateList(pro_id));
+		mav.addObject("fileList", chatservice.fileList(pro_id));
 		mav.addObject("today", chatservice.today());
 		mav.setViewName("chat/chatRoom");
 		return mav;

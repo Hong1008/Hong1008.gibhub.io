@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ProjectMapper">
-	<insert id="insertProject" parameterType="dto.ProjectDTO">
-		insert into project (pro_id,pro_name,pro_info,pro_start,pro_end) values (pro_id_seq.nextval,#{pro_name},#{pro_info},#{pro_start},#{pro_end})
+	<insert id="firstInsertProject" parameterType="dto.ProjectDTO">
+		insert into project (pro_id,pro_name,pro_info,pro_start,pro_end,pro_mgr) values (pro_id_seq.nextval,#{pro_name},#{pro_info},#{pro_start},#{pro_end},#{pro_mgr})
 	</insert>
 	
-	<insert id="insertProTeam" parameterType="dto.Pro_TeamDTO">
+	<insert id="firstInsertProTeam" parameterType="dto.Pro_TeamDTO">
 		insert into pro_team values (pro_id_seq.currval,#{id},#{pt_level})
 	</insert>
 	
@@ -18,14 +18,37 @@
 		<result javaType="string" column="pro_dday" property="pro_dday"/>
 		<result javaType="string" column="pro_end" property="pro_end"/>
 	</resultMap>
-	
-	<select id="projectHomeList" resultMap="proList" parameterType="string">
-		select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end from
+	<!-- select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end from
 		(select * from pro_team where id =#{id}) pt, project p, member m, pro_team pt2
-		where p.pro_id = pt.pro_id and pt2.id = m.id and pt2.pro_id = p.pro_id and pt2.pt_level=1
+		where p.pro_id = pt.pro_id and pt2.id = m.id and pt2.pro_id = p.pro_id and pt2.pt_level=1 -->
+	<select id="projectHomeList" resultMap="proList" parameterType="string">
+		select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end
+		from project p, member m, pro_team pt
+		where p.pro_mgr = m.id and pt.pro_id=p.pro_id
+		and pt.id=#{id}
 	</select>
 	
 	<select id="proIdList" resultType="string" parameterType="string">
 		select pro_id from project where pro_id in (select pro_id from pro_team where id=#{id})
+	</select>
+	
+	<select id="searchIdList" resultType="string" parameterType="string">
+		select id from member where id like #{id} || '%'
+	</select>
+	
+	<select id="calendarPro" resultType="dto.ProjectDTO" parameterType="string">
+		select pro_name, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
+	</select>
+	
+	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
+		select * from project where pro_id = #{pro_id}
+	</select>
+	
+	<select id="proTeamSelect" resultType="dto.Pro_TeamDTO" parameterType="string">
+		select * from pro_team where pro_id = #{pro_id}
+	</select>
+	
+	<select id="schTeamSelect" resultType="dto.Sch_TeamDTO" parameterType="string">
+		select * from sch_team where pro_id = #{pro_id}
 	</select>
 </mapper>

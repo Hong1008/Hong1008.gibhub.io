@@ -35,5 +35,9 @@ public class ChatServiceImp implements ChatService{
 	public void afterinsertChat(ChattingDTO dto) {
 		mapper.afterinsertChat(dto);
 	}
+	@Override
+	public List<ChattingDTO> fileList(String pro_id) {
+		return mapper.fileList(pro_id);
+	}
 	
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.DashBoardMapper">	
+	
+	<select id="pjcnt" parameterType="string" resultType="int">
+		select count(*) from project where pro_mgr = #{id}
+	</select>
+	
+	<select id="alltodocnt" parameterType="string" resultType="int">
+		select count(*) from todo where id=#{id} and t_rend is null
+	</select>
+
+	<select id="remaincnt" parameterType="int" resultType="int">
+		<![CDATA[
+		select count(*) from SCHEDULE where sch_end >= sysdate and sch_rend is null and pro_id=#{pro_id}
+		]]>
+	</select>
+	
+	<select id="compcnt" parameterType="int" resultType="int">
+		<![CDATA[
+		select count(*) from SCHEDULE where sch_rend is not null and pro_id=#{pro_id}
+		]]>
+	</select>
+	
+	<select id="recentlist" parameterType="int"  resultType="dto.DashDTO">
+		select * from schedule where pro_id =#{pro_id} order by SCH_START DESC
+	</select>
+	
+	<select id="comminglist" parameterType="int" resultType="dto.DashDTO">
+	<![CDATA[
+		select * from schedule where sysdate+3 >= sch_start and sysdate < sch_start and pro_id =#{pro_id} order by sch_id desc
+	]]>
+	</select>
+	
+	<select id="timelist" parameterType="int" resultType="dto.DashDTO">
+		select * from timeline where pro_id=#{pro_id} order by TL_TIME desc
+	</select>
+	
+</mapper>

@@ -18,12 +18,18 @@
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
 
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
+		$('#loading').hide(); 
+						//시작 시 채팅영역 스크롤 하단으로 내리기
 						$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 						var projectId = $('#projectId').val();
 						var userNick = $('#userNick').val();
+						 $(window).ajaxStart(function(){
+							$('#loading').show(); 
+						})
+						 $(window).ajaxStop(function(){
+							$('#loading').hide(); 
+						});
 						//파일 전송버튼
 						$('#chatFileIns').click(function() {
 											//객체 담음
@@ -41,52 +47,48 @@
 														//모달 지우기
 														$('#filemodal').css('visibility','hidden');
 														$('#filemodal').css('z-index','1');
+														$('#filename').empty();
+														$('#file').val('');
 																//웹소캣 핸들러로 보냄
 															websocket.send(projectId+ ":"+ userNick+ ":"+ ":"+ result);
-																
+															$('#eachFileArea').prepend(
+																	"<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/temp/"
+																	+result+
+																	"'></div><small>"
+																	+ result+ 
+																	"</small></div>");
 														}
 													});
 										});
-						//실제 파일 인풋
+						//인풋 파일 바뀌면 모달창 뜸
 						$('#file').change(function() {
-											$('#filemodal').css('visibility',
-													'visible');
+											$('#filemodal').css('visibility','visible');
 										 	$('#filemodal').css('z-index', '3'); 
 
 									 		 var filename = $('#file').val();
 											filename = filename.split("\\");
 											var filetype = filename[2];
 											filetype = filetype.split('.');
+											//파일이 이미지 파일이면 미리보기
 											if (filetype[1] == 'jpg'|| filetype[1] == 'png'|| filetype[1] == 'gif') {
 												inputPreview(this);
-											
+												//아니면 대체 이미지로 보여줌
 											} else{
-												$('#filepreview')
-														.html(
-																'<img src="../resources/Chat_img/text.png">');
+												$('#filepreview').html('<img src="../resources/Chat_img/text.png">');
 											}
 											$('#filename').append(filename[2]); 
 										});
-						
-			
-
-						//엔터일때도
+						//엔터로 메세지 발송
 						$('#message').keypress(function(event) {
 											if (event.keyCode == 13) {
 												if (!event.shiftKey) {
 													event.preventDefault();
-													var msg = $('#message')
-															.val();
+													var msg = $('#message').val();
 													if (msg == "")
 														return false;
-													msg = msg.replace(
-															/(?:\r\n|\r|\n)/g,
-															'<br/>');
+													msg = msg.replace(/(?:\r\n|\r|\n)/g,'<br/>');
 													//메시지 전송
-													websocket.send(projectId
-															+ ":" + userNick
-															+ ":" + msg + ":"
-															+ null);
+													websocket.send(projectId+ ":" + userNick+ ":" + msg + ":"+ null);
 													//메시지 입력창 초기화
 													$('#message').val('');
 
@@ -100,6 +102,7 @@
 							websocket.close();
 						});
 					});
+
 	function inputPreview(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -181,8 +184,11 @@
 			}
 
 		}
-		//스크롤바
-		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+		//채팅영역에 채팅 입력 후 스크롤바 내리기 파일일경우 이미지 불러오는데 시간걸려서 딜레이 걸었음
+		setTimeout(function() {
+			$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+}, 8);
+	
 	}
 </script>
 <style type="text/css">
@@ -283,7 +289,7 @@ body {
 }
 
 #contents {
-	position: relative;
+	/* position: relative; */
 	z-index: 2;
 	width: 95%;
 	margin-left: 5%;
@@ -364,7 +370,6 @@ body {
 }
 
 #fileBox {
-	background-color: aqua;
 	float: right;
 	width: 40%;
 	height: 871px;
@@ -436,6 +441,7 @@ body {
 			<div id="filepreview"></div>
 			<div id="filename"></div>
 			<button id="chatFileIns">보내기</button>
+			<div id="loading"><img src="../resources/Chat_img/loading.gif"></div>
 		</div>
 	</div>
 	<div id="contents">
@@ -512,9 +518,122 @@ body {
 
 			</div>
 		</div>
-		<div id="fileBox"></div>
+		<div id="fileBox">
+		<div id="fileBoxAreaVertical"></div>
+		<div id="eachFileArea">
+		<c:forEach items="${fileList}" var="file">
+		<div class="eachFile">
+		<div class="eachFileImg"><img class="efimg" src="/tmi/temp/${file.upload }"></div>
+		<div class="eachFileName"><small>${fn:substringAfter(file.upload,'_')}</small></div>
+				<%-- <input class="multiDown" type="checkbox" value="${file.upload }"> --%>
+				<input type="checkbox" id="${file.upload }" class="multiDown" value="${file.upload }">
+  				<label for="${file.upload }"></label>
+		</div>
+		</c:forEach>
+			</div>
+			<div id="selectfilecnt">선택된 갯수 : 0</div>
+			<input id="multiDown" type="button" value="다운로드">
+		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
 		<input type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 </body>
+<style>
+.multiDown + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+.multiDown{
+  display: none;
+}
+
+.multiDown + label:before {
+  content: "\2714";
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: .2s;
+}
+
+.multiDown+ label:active:before {
+  transform: scale(0);
+}
+
+.multiDown:checked + label:before {
+  background-color: MediumSeaGreen;
+  border-color: MediumSeaGreen;
+  color: #fff;
+}
+
+.multiDown:disabled + label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+.multiDown:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+#fileBoxAreaVertical{
+margin-left: 10px;
+    float: left;
+    width: 1px;
+    height: 80%;
+    border-left: 1px solid gray;
+    margin-top: 10%;
+}
+#eachFileArea{
+overflow: auto;
+width: 98%;
+height: 80%;
+}
+.eachFile{
+    float: left;
+    margin-top: 20px;
+    margin-left: 40px;
+    width: 180px;
+    height: 180px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+}
+.eachFileName{
+    word-break: break-all;
+}
+.eachFileImg{
+margin:auto;
+margin-top:10px;
+width: 80px;
+height: 80px;
+}
+.eachFileImg .efimg{
+width: 80px;
+height: 80px;
+}
+</style>
+<script type="text/javascript">
+$('.multiDown').click(function(){
+	$('#selectfilecnt').text("선택된 갯수 : "+$(".multiDown:checked").length);
+})
+
+$('#multiDown').click(function(){
+	$('.multiDown:checked').each(function(){
+		var a = $("<a>")
+	    .attr("href", "/tmi/temp/"+$(this).val())
+	    .attr("download", $(this).val())
+	    .appendTo("body");
+		a[0].click();
+		a.remove();
+	})
+})
+</script>
 </html>
