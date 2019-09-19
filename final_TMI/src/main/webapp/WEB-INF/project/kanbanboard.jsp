@@ -74,7 +74,7 @@
 	</div>
 </div>
 
-	<form id="sch-form" class="modal" action="project/insertProject">
+	<form id="sch-form" class="modal" action="insertSchedule">
 				<label for="sch_name">스케줄 제목</label> 
 				<input type="text" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
 				<label for="sch_info">스케줄 간단설명</label> 
