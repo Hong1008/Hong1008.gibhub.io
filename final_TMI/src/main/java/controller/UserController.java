@@ -422,12 +422,16 @@ public class UserController {
 	@RequestMapping("/change_pwd_post")
 	public @ResponseBody String Change_pwd(ModelAndView mav, String id, UserDTO dto) {
 		String text = "";
-		dto = service.find_idProcess(id);
-		int grade = dto.getGrade();
-		String uid = dto.getUuid();
-		dto.setUuid(uid);
-		dto.setId(id);
-		System.out.println(grade + " " + uid + " " + id);
+         if(service.find_idProcess(id)!=null)
+         {
+        		dto = service.find_idProcess(id);
+         }
+		
+		int	grade = dto.getGrade();
+		String  uid = dto.getUuid();
+		
+	    dto.setId(id);
+		System.out.println(grade + " " + uid + " " + dto.getId());
 
 		if (uid != null && grade != 0) {
 			String subject = "EASY TASK[비밀번호 변경]";// 제목
@@ -437,12 +441,12 @@ public class UserController {
 					+ dto.getUuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
 
 			service.postmailProcess(dto, subject, content);
-			text = "Check your email.";
+			text = "true";
 
 		} else {
-			text = "Can't find that email, sorry.";
+			text = "false";
 		}
-
+           System.out.println(text);
 		return text; // ajax값 보내줌
 	}
 
