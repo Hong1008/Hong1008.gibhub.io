@@ -42,5 +42,20 @@ public class ManageServiceImp implements ManageService{
 	public void managerProcess(ManageDTO dto) {
 		mapper.manager(dto);
 	}
+
+	@Override
+	public void memberAddProcess(ManageDTO dto) {
+		mapper.addMember(dto);
+	}
+	
+	@Override
+	public List<String> idcheckProcess() {
+		return mapper.idcheck();
+	}
+	
+	@Override
+	public void memberDelProcess(ManageDTO dto) {
+		mapper.delMember(dto);
+	}
 	
 }

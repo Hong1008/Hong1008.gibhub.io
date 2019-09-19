@@ -53,12 +53,12 @@
 				<c:choose>
 					<c:when test="${people.pt_level==1 }">
 						<label class="checkbox-inline"> <input type="checkbox"
-							value="Option 1" disabled /> ${people.id }
+							value=${people.id } disabled /> ${people.id }
 						</label>
 					</c:when>
 					<c:otherwise>
-						<label class="checkbox-inline"> <input type="checkbox"
-							value="Option 1" /> ${people.id }
+						<label class="checkbox-inline"> <input type="checkbox" id="chkbox"
+							value=${people.id } /> ${people.id }
 						</label>
 					</c:otherwise>
 				</c:choose>
@@ -70,13 +70,13 @@
 	
 	<div id="modifyModal">
 		<p>
-			<label for="updateReplyText">reply text</label> <input
+			<label for="updateReplyText">아이디 입력</label> <input
 				class="for-control" type="text" placeholder="reply text"
-				id="updateReplyText">
+				id="memberText">
 		</p>
 		<p>
-			<button id="btnModify">modify</button>
-			<button id="btnClose">Close</button>
+			<button id="btnAdd">추가</button>
+			<button id="btnClose">닫기</button>
 		</p>
 	</div>
 </body>

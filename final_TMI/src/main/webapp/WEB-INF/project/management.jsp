@@ -7,6 +7,7 @@
 <title>타이틀부분</title>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="../js/project_management.js" type='text/javascript'></script>
 <link href='../css/project_management.css' type='text/css' rel='stylesheet'>
@@ -27,7 +28,7 @@
 		<button id="calender">Calendar</button>
 	</div>
 	<div class="showWhat">
-		<jsp:include page="kanbanboard.jsp"></jsp:include>
+		
 	</div>
 </body>
 </html>

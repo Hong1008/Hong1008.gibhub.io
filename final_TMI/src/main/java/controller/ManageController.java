@@ -1,10 +1,14 @@
 package controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ManageDTO;
@@ -74,6 +78,39 @@ public class ManageController {
 		service.managerChangeProcess(dto);
 		service.managerProcess(dto);
 		
+		return "redirect:/setting/main";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST )
+	public @ResponseBody String memberDel(@RequestParam(value="pro_id") String pro_id,
+			@RequestParam(value="memList[]") List<String> memList) {
+		for(String mem : memList) {
+			ManageDTO dto = new ManageDTO();
+			dto.setPro_id(pro_id);
+			dto.setId(mem);
+			service.memberDelProcess(dto);
+		}		
+		String res = "success";
+		return res;
+		//return "redirect:/setting/setpeople?pro_id="+pro_id;
+	}
+	
+	@RequestMapping("/addMember")	
+	public String memberAdd(String pro_id, String id) {
+		List<String> check = service.idcheckProcess();
+		//System.out.println(id);
+		for(String chk : check) {
+			if(chk.equals(id)) {
+				ManageDTO dto = new ManageDTO();
+				dto.setPro_id(pro_id);
+				dto.setId(id);
+				service.memberAddProcess(dto);
+				
+				return "redirect:/setting/setpeople?pro_id="+pro_id;
+			}
+		}
+		
+		System.out.println("아이디 불일치");
 		return "redirect:/setting/main";
 	}
 }

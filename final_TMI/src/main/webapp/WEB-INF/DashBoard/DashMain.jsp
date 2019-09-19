@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,9 +182,7 @@ var programmingSkills = [
                <p class="text-uppercase mar-btm text-sm w3-xlarge">프로젝트 </p>
              <!--   <i class="fa fa-users fa-5x"></i> -->
                <hr>
-               <p class="h2 text-thin">254,485</p>
-               <small><span class="text-semibold">7%</span> Higher than
-                  yesterday</small>
+               <p class="h2 text-thin"><a href="#"><c:out value="${pjcnt}" /></a></p>
             </div>
          </div>
 
@@ -194,8 +193,7 @@ var programmingSkills = [
                <p class="text-uppercase mar-btm text-sm w3-xlarge">전체 일정</p>
               <!--  <i class="fa fa-comment fa-5x"></i> -->
                <hr>
-               <p class="h2 text-thin">873</p>
-               <small><span class="text-semibold"> 154</span> Unapproved comments</small>
+               <p class="h2 text-thin"><a href="#"><c:out value="${alltodocnt}" /> </a></p>
             </div>
          </div>
 
@@ -207,8 +205,7 @@ var programmingSkills = [
                <p class="text-uppercase mar-btm text-sm w3-xlarge">남은 업무</p>
                <!-- <i class="fa fa-shopping-cart fa-5x"></i> -->
                <hr>
-               <p class="h2 text-thin">2,423</p>
-               <small><span class="text-semibold"> 954</span> Sales in this month</small>
+               <p class="h2 text-thin"><a href="#"><c:out value="${recnt}" /></a></p>
             </div>
 
 
@@ -219,8 +216,7 @@ var programmingSkills = [
                  <p class="text-uppercase mar-btm text-sm w3-xlarge">완료업무</p>
                        <!-- <i class="fa fa-dollar fa-5x"></i> -->
                        <hr>
-                       <p class="h2 text-thin">7,428</p>
-                       <small><span class="text-semibold"> 22,675</span> Total Earning</small>
+                       <p class="h2 text-thin"><a href="#"><c:out value="${comcnt}" /></a></p>
               </div>
          </div>
          
@@ -292,21 +288,11 @@ var programmingSkills = [
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
             <ul class="verticalCarouselGroup vc_list">
+           		<c:forEach var="cList" items="${comlist}">
                 <li>
-                    <p class="w3-small">서누님 무슨무슨 일정입니다</p>
+                    <p class="w3-small"><input type="hidden" value="${cList.sch_id}"/><a href="#">${cList.sch_info}</a></p>
                 </li>
-                <li>
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
+				</c:forEach>
             </ul>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -340,21 +326,11 @@ var programmingSkills = [
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
             <ul class="verticalCarouselGroup vc_list">
-                <li style="margin-bottom: 0.05%;">
-                    <p class="w3-small"> ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+           		<c:forEach var="reList" items="${relist}">
+                <li>
+                    <p class="w3-small"><input type="hidden" value="${reList.sch_id}" /><a href="#">${reList.sch_info}</a></p>
                 </li>
-                <li style="margin-bottom: 0.05%;">
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li style="margin-bottom: 0.05%;">
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li style="margin-bottom: 0.05%;">
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li style="margin-bottom: 0.05%;">
-                    <p class="w3-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
+				</c:forEach>
             </ul>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -377,21 +353,11 @@ var programmingSkills = [
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
             <ul class="verticalCarouselGroup vc_list">
+                <c:forEach var="tmList" items="${timelist}">
                 <li>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p><input type="hidden" value="${tmList.tl_id}" /><a href="#">${tmList.tl_info}</a></p>
                 </li>
-                <li>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
-                <li>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </li>
+                </c:forEach>
             </ul>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

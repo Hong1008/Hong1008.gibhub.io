@@ -1,6 +1,4 @@
 var nrno = '';
-var userfile='';
-var fileList='';
 
 $(document).ready(function(){
 	var pro_id= $('#pro_id').val();
@@ -23,45 +21,66 @@ $(document).ready(function(){
 		location.href="main";
 	});
 	
+	$('#memDel').on('click', function(){
+		var memberArray = [];
+		$('#chkbox:checked').each(function(){
+			memberArray.push($(this).val());
+		})
+		
+		var params = {
+			"pro_id" : $('#pro_id').val(),
+			"memList" : memberArray
+		}
+		
+		$.ajax({
+			url: "/tmi/setting/delete",
+			dataType : "json",
+			data: params,
+			type : "post",
+			success: function(res){
+				alert();
+				console.log(res);
+			}
+		/*	error: function(request, status, error, res){
+                console.log("AJAX_ERROR");
+                console.log(res);
+                
+			}*/
+		});
+		
+	});
+	
 	
 	$('#modifyModal').addClass('modifyHide');
 
-	$('#memAdd').on('click', reply_update_delete);
+	$('#memAdd').on('click', member_add);
 
 	$('#btnClose').on('click', function() {
 		$('#modifyModal').removeClass('modifyShow');
 		$('#modifyModal').addClass('modifyHide');
-		$(document).on('click', '.timeline button', reply_update_delete);
+		$(document).on('click','#btnAdd', member_add);
 		urno = "";
 	});
 
-	$('#replyAddBtn').on('click', reply_list);
-	$('#btnModify').on('click', reply_update_send);	
+	$('#btnAdd').on('click', reply_update_send);	
 		
 });
 
 function reply_update_send() {
-	$.ajax({
-		type : 'get',
-		dateType : 'json',
-		url : 'replyUpdate.do?bno=${boardDTO.bno}&rno=' + urno
-				+ "&replytext=" + $('#updateReplyText').val(),
-		success : reply_list_result
-	})
-	$('#updateReplyText').val('');
+	location.href='addMember?pro_id='+$('#pro_id').val()+'&id='+$('#memberText').val();
+	
+	$('#memberText').val('');
 	$('#modifyModal').removeClass('modifyShow');
 	$('#modifyModal').addClass('modifyHide');
-	$(document).on('click', '.timeline button', reply_update_delete);
+	$(document).on('click','#btnAdd', member_add);
 	urno = "";
 }
 
-function reply_update_delete() {
-	if($(this).text() == 'update') {
+function member_add() {
 		urno = $(this).prop("id");
 		var stop = $(window).scrollTop();
 		$('#modifyModal').css('top', 50 + stop);
 		$('#modifyModal').removeClass('modifyHide');
 		$('#modifyModal').addClass('modifyShow');
-		$(document).off('click', '.timeline button');
-	}
+		$(document).off('click','#btnAdd');	
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ProjectDTO;
+import dto.ScheduleDTO;
+import dto.TodoDTO;
 import service.ProjectService;
 
 @Controller
@@ -48,8 +50,10 @@ public class ProjectController {
 	
 	@RequestMapping("/kanbanboard")
 	public ModelAndView kanbanboard(ModelAndView mav, HttpSession session) {
-		mav.addObject("ptList", projectService.proTeamSelect(session.getAttribute("pro_id").toString()));
-		mav.addObject("stList", projectService.schTeamSelect(session.getAttribute("pro_id").toString()));
+		String pro_id = session.getAttribute("pro_id").toString();
+		mav.addObject("schList",projectService.schTdSelect(pro_id));
+		mav.addObject("ptList", projectService.proTeamSelect(pro_id));
+		mav.addObject("stList", projectService.schTeamSelect(pro_id));
 		mav.setViewName("project/kanbanboard");
 		return mav;
 	}
@@ -73,10 +77,24 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertProject")
-	public String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list") List<String> pro_team_list) {
+	public String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String id = req.getSession().getAttribute("id").toString();
 		projectService.insertProject(pdto,id,pro_team_list);
 		return "redirect:/home";
+	}
+	
+	@RequestMapping("/insertSchedule")
+	public String insertSchedule(ScheduleDTO sdto,HttpSession session, @RequestParam(value="sch_team_list") List<String> sch_team_list) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		String id = session.getAttribute("id").toString();
+		projectService.insertSchdule(sdto, pro_id, id, sch_team_list);
+		return "redirect:/project/management";
+	}
+	
+	@RequestMapping("/insertTodo")
+	public String insertTodo(TodoDTO tdto) {
+		projectService.insertTodo(tdto);
+		return "redirect:/project/management";
 	}
 
 	@RequestMapping("/showWhat")
@@ -93,10 +111,16 @@ public class ProjectController {
 	public @ResponseBody List<ProjectDTO> calendarPro(HttpSession session) {
 		return projectService.calendarPro(session.getAttribute("pro_id").toString(), session.getAttribute("id").toString());
 	}
+	@RequestMapping("/calendarSchTd")
+	public @ResponseBody List<ScheduleDTO> calendarSchTd(HttpSession session) {
+		return projectService.calendarSchTd(session.getAttribute("pro_id").toString());
+	}
 	
 	@RequestMapping("/proSelect")
 	public @ResponseBody ProjectDTO proSelect(HttpSession session) {
 		return projectService.proSelect(session.getAttribute("pro_id").toString());
 	}
+	
+	
 
 }

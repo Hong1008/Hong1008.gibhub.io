@@ -31,12 +31,14 @@
 .modifyShow {
 	display: block;
 	position: absolute;
-	left: 200px;
+	left: 500px;
+	margin-top: 200px;
 	width: 400px;
 	height: 150px;
 	z-index: 1000;
 	border: 1px solid black;
 	text-align: center;
+	background-color: white;
 }
 
 .modifyHide {

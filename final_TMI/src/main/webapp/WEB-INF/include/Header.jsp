@@ -36,9 +36,12 @@
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
-        	<c:if test="${fn:trim(URI)!=hiddenURI && not empty sessionScope.id }" var="res">
+		
+        	<c:if test="${fn:trim(URI)!=hiddenURI && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
         		<div class="center">
+        		
        			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">
+       		
     	   			<c:forEach items="${sessionScope.projectHomeList }" var="i">
     	   				<c:choose>
     	   					<c:when test="${sessionScope.pro_id == i.pro_id }">
@@ -49,7 +52,10 @@
     	   					</c:otherwise>
     	   				</c:choose>    	   				
        				</c:forEach>
-       			</select> </div>	
+       			</select>
+       			
+       			
+       			 </div>	
        		</c:if>
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log' class= 'no-drag'>
