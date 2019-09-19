@@ -16,4 +16,10 @@ public interface ManageService {
 	public void managerChangeProcess(ManageDTO dto);
 	
 	public void managerProcess(ManageDTO dto);
+	
+	public void memberAddProcess(ManageDTO dto);
+	
+	public List<String> idcheckProcess();
+	
+	public void memberDelProcess(ManageDTO dto);
 }
