@@ -35,7 +35,11 @@ $(document).ready(function(){
         $(location).attr("href", "sign_out");
     });
     
-
+    $(".header_mypage").click(function(){
+    	
+    	location.href="mypage";
+    	
+    })
     //select 디자인 및 동작********************************************
 	$(".custom-select").each(function() {
 		  var classes = $(this).attr("class"),
