@@ -47,6 +47,7 @@
 			<mapping path="/project/*"/>
 			<mapping path="/DashBoard/*"/>
 			<mapping path="/mypage"/>
+			
 			<beans:bean class="common.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
