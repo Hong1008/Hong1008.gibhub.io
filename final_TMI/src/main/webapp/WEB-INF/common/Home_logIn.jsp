@@ -66,9 +66,9 @@
 			</form> -->
 			<form id="pro-form" class="modal" action="project/insertProject">
 				<label for="pro_name">프로젝트 제목</label> 
-				<input type="text" required="required"  id="pro_name" name="pro_name" placeholder="프로젝트 제목">
+				<input type="text" required="required" autocomplete="off" id="pro_name" name="pro_name" placeholder="프로젝트 제목">
 				<label for="pro_info">프로젝트 간단설명</label> 
-				<input type="text" required="required"  id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
+				<input type="text" required="required" autocomplete="off" id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
 				<label for="pro_start">프로젝트 기간</label> 
 				<input type="text" readonly="readonly"  required="required" id="pro_start" name="pro_start" placeholder="프로젝트 시작일">
 				<input type="text" readonly="readonly"  required="required" id="pro_end" name="pro_end" placeholder="프로젝트 종료일">
