@@ -105,7 +105,7 @@ public class UserController {
 		return result;
 	}
 	//test
-	@RequestMapping("/mypage")
+	@RequestMapping("**/mypage")
 	public ModelAndView mypage(ModelAndView mav,HttpSession session)
 	{  
 		
@@ -118,7 +118,7 @@ public class UserController {
 	}
 	
 	//mypage 계정 내용변경
-	@RequestMapping("/mypage_update")
+	@RequestMapping("**/mypage_update")
 	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request,HttpSession session)
 	
 	{
@@ -165,8 +165,7 @@ public class UserController {
 		{
 			dto.setProfile_img(udto.getProfile_img());
 		}
-		System.out.println(dto.getName());
-		System.out.println(dto.getId());
+		dto.setId(dto.getId()+"_google");
 		
 		service.mypage_updateProcess(dto);
 		return "redirect:/home";
@@ -178,12 +177,12 @@ public class UserController {
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody HashMap<String, Object> googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
 
-		dto.setId(dto.getId() + "_google");
+		
 		int result = service.test_idProcess(dto);
 		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
-			session.setAttribute("id", dto.getId());
+			session.setAttribute("id", dto.getId()+"_google");
 			session.setAttribute("grade", 1);
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
