@@ -248,13 +248,13 @@ margin-top: 40px;}
 }
 
 .g-recaptcha {
-	margin-left: 23%;
+	margin-left: 57px;
 	z-index: 1;
 }
 
 .modal-content {
-	top: 250px;
-	background-color: rgba(58, 58, 58, 0.3);
+		top: 300px;
+	    background-color: rgb(255, 255, 255);
 }
 
 .modal-title {
@@ -272,6 +272,22 @@ margin-top: 40px;}
 #google_id_login{
     display: inline-block;
 }
+
+@media (min-width: 768px){
+.modal-dialog{
+width: 420px;
+}
+}
+
+.modal-header{
+    padding: 0px;
+    border-bottom: none;
+}
+
+.modal-body{
+padding: 0px;
+}
+
 </style>
 
 
