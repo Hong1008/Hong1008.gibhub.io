@@ -52,6 +52,14 @@
 		select pro_name, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
 	</select>
 	
+	<select id="calendarSch" resultType="dto.ScheduleDTO" parameterType="string">
+		select sch_id, 	sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end from schedule where pro_id = #{pro_id}
+	</select>
+	
+	<select id="calendarTodo" resultType="dto.TodoDTO" parameterType="string">
+		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end from todo where sch_id = #{sch_id}
+	</select>
+	
 	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
 		select * from project where pro_id = #{pro_id}
 	</select>
