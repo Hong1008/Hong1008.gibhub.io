@@ -35,7 +35,7 @@
 		
 			$.ajax({
 
-				url : "change_pwd_post?email="+$("#signinEmail").val(),
+				url : "change_pwd_post?id="+$("#signinEmail").val(),
 
 				type : "get",
 
@@ -120,6 +120,7 @@ label {
 	border-radius: 5px;
 	margin-left: 31px;
 	margin-bottom: 5px;
+	padding-left: 10px;
 }
 
 .signinText {
@@ -144,6 +145,11 @@ label {
 #send_email:hover {
 	background-position-x: 100%;
 }
+#change
+{
+    margin-left: 33px;
+    margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -151,10 +157,10 @@ label {
 		<div id='content'>
 			<div id='logo' class='center_div'>EasyTask</div>
 			<div id='SigninForm' class='center_div'>
-				<form action="change_pwd">
+				<form action="change_pwd_post">
 					<label for="signinEmail">Enter your email address and we
 						will send you a link to reset your password.</label> <input type="text"
-						name="email" class='signinText' id='signinEmail'
+						name="id" class='signinText' id='signinEmail'
 						placeholder="enter your email address"> <input
 						type="button" id='send_email' value='Send E-mail'>
 				</form>
