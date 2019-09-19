@@ -40,7 +40,7 @@
 	
 	<select id="fileList" resultType="dto.ChattingDTO" parameterType="string">
 	select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename upload
-		from chat c, pro_file p where c.chat_id=p.chat_id and pro_id=12 order by chat_id desc
+		from chat c, pro_file p where c.chat_id=p.chat_id and pro_id=#{pro_id} order by chat_id desc
 	</select>
 </mapper>
 
