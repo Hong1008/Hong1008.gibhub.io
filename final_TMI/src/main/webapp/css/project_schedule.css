@@ -155,3 +155,20 @@ width: 200px;
 .modal input[type=submit]:hover {
   background-color: #45a049;
 }
+
+.team-list-item {
+    display: block;
+    padding: 5px;
+    overflow: hidden;
+    font-weight: 400;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    border-bottom: 1px solid #b7b7b785;
+}
+
+.team-list-item:hover{
+	background-color: #478aff;
+	color: white;
+}

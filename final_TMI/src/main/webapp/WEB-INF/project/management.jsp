@@ -25,7 +25,7 @@
 		<button id="calender">Calendar</button>
 	</div>
 	<div class="showWhat">
-		<jsp:include page="kanbanboard.jsp"></jsp:include>
+		
 	</div>
 </body>
 </html>
