@@ -177,12 +177,12 @@ public class UserController {
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody HashMap<String, Object> googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
 
-		
+		dto.setId(dto.getId()+"_google");
 		int result = service.test_idProcess(dto);
 		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
-			session.setAttribute("id", dto.getId()+"_google");
+			session.setAttribute("id", dto.getId());
 			session.setAttribute("grade", 1);
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
