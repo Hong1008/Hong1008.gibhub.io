@@ -18,6 +18,7 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Document</title>
 <script>
 	$(document).ready(function() {
@@ -42,7 +43,19 @@
 				dataType : "text",
 
 				success : function(data) {
-                   $("#change").text(data);
+				
+                   if(data=="true")
+                	   {
+                	   swal("Good job!", "이메일을 확인해주세요!", "success")
+						.then((value) => {
+							location.href="home";
+						});
+                	   }
+                   else
+                	   {
+                	   swal("Warning", "일치하는 Email이 없습니다.",
+						"error");
+                	   }
 				}
 
 
@@ -145,17 +158,13 @@ label {
 #send_email:hover {
 	background-position-x: 100%;
 }
-#change
-{
-    margin-left: 33px;
-    margin-top: 10px;
-}
+
 </style>
 </head>
 <body>
 	<div id='bodywrap'>
 		<div id='content'>
-			<div id='logo' class='center_div'>EasyTask</div>
+			<div id='logo' class='center_div'>T.M.info</div>
 			<div id='SigninForm' class='center_div'>
 				<form action="change_pwd_post">
 					<label for="signinEmail">Enter your email address and we
