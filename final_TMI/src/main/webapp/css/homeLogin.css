@@ -165,35 +165,3 @@ font-size: 24px;
 	background-color: #478aff;
 	color: white;
 }
-
-.table-list {
-    display: table;
-    width: 100%;
-    color: #6a737d;
-    table-layout: fixed;
-}
-
-/****************** 아이디 목록 디자인 ******************/
-.table-list-item {
-    position: relative;
-    display: table-row;
-    list-style: none;
-    border-bottom: 1px solid #eaecef;
-}
-
-.table-list-cell{
-	padding-top: 15px;
-    padding-bottom: 15px;
-    vertical-align: middle;
-    position: relative;
-    display: table-cell;
-    padding: 8px 10px;
-    font-size: 12px;
-    border-bottom: 1px solid #eaecef;
-}
-
-.table-list-cell#remove-item{
-	cursor: pointer;
-	font-weight: bold;
-	text-align: right;
-}

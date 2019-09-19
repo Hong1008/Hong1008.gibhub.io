@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
+import dto.ScheduleDTO;
+import dto.TodoDTO;
 
 public interface ProjectMapper {
 	
@@ -18,6 +20,13 @@ public interface ProjectMapper {
 	public List<String> searchIdList(String id);
 	public List<ProjectDTO> calendarPro(@Param("pro_id") String pro_id,@Param("id") String id);
 	public ProjectDTO proSelect(String pro_id);
+	public ScheduleDTO schOne(String sch_id);
+	public List<ScheduleDTO> schSelect(String pro_id);
+	public List<TodoDTO> tdSelect(String sch_id);
+	public List<TodoDTO> tdViewSelect(String sch_id);
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
+	public void firstInsertSchedule(ScheduleDTO sdto);
+	public void firstInsertSchTeam(Sch_TeamDTO stDto);
+	public void firstInsertTodo(TodoDTO tdto);
 }
