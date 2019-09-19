@@ -5,6 +5,7 @@
 <link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
 <script src="../js/project_addSchedule.js" type='text/javascript'></script>
 <body>
+<div id="kanban_wrap">
 	<c:forEach items="${schList }" var="sdto">
 		<div class="schedules">
 			<div class="s_name tmi_skin tmi_skin01">'${sdto.sch_name }'팀 업무</div>
@@ -56,20 +57,23 @@
 	</form>
 	</c:forEach>
 
-	<div id="addSchedules">
-		<div id='addScon'>
-			스케쥴을<br>추가하세요
-			
-			<div id='openSModal' class=' tmi_skin tmi_skin01'>
-			<a href="#sch-form" rel="modal:open">
-				<div class='circle'>
-					<div class='h  tmi_skin tmi_skin01'></div>
-					<div class='v  tmi_skin tmi_skin01'></div>
+		<div id="addSchedules">
+			<div id='addScon'>
+				스케쥴을<br>추가하세요
+
+				<div id='openSModal' class=' tmi_skin tmi_skin01'>
+					<a href="#sch-form" rel="modal:open">
+						<div class='circle'>
+							<div class='h  tmi_skin tmi_skin01'></div>
+							<div class='v  tmi_skin tmi_skin01'></div>
+						</div>
+					</a>
 				</div>
-				</a>
 			</div>
 		</div>
 	</div>
+</div>
+
 	<form id="sch-form" class="modal" action="project/insertProject">
 				<label for="sch_name">스케줄 제목</label> 
 				<input type="text" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
