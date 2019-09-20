@@ -12,7 +12,7 @@
 	</insert>
 	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
-		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id})
+		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id},#{sch_mgr})
 	</insert>
 	
 	<insert id="firstInsertSchTeam" parameterType="dto.Sch_TeamDTO">

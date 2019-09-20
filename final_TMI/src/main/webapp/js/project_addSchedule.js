@@ -45,8 +45,11 @@ $(document).ready(function(){
 	$(document).on('click', '.team-list-item', function(){
 		var result = false;
 		var input = $(this).text();
-		$(this).parent().prev().each(function(i,v){
-			console.log($(v).attr('id'))
+		var teamList = $(this).parent();
+		var tableList = $(teamList).prevAll('.table-list').first();
+		var level = $(teamList).prevAll('.teamExp').first();
+		var levText = $(level).attr('id');
+		$(tableList).each(function(i,v){
 			if($(v).attr('id')==input){
 				result = true;
 				return false;
@@ -56,26 +59,54 @@ $(document).ready(function(){
 			swal("Warning", "유저가 이미 팀에 속해있습니다","error");
 			return;
 		}
-		$(this).parent().prev().append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
-				'<span class="table-list-cell"></span><span class="table-list-cell"></span><span class="table-list-cell" id="remove-item">x</span>'+
-				'<input type="hidden" name="'+$(this).parent().prev().attr('id')+'" value="'+input+'"/></li>');
+		if(levText==undefined){
+			levText='';
+		}
+		
+		$(tableList).append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
+				'<span class="table-list-cell"></span><span class="table-list-cell" id="level">'+levText+'</span><span class="table-list-cell" id="remove-item">x</span>'+
+				'<input type="hidden" name="'+$(tableList).attr('id')+'" value="'+input+'"/></li>');
 		if($(this).parent().attr('id')=='stList'){
 			$(this).parent().hide();
 			return;
 		}
 		$(this).remove();
+		setSchLevel(tableList,level,teamList);
+		
 	})
 	
 	//스케줄/할일유저제거****************************************
 	$(document).on('click','#remove-item', function(){
 		var input = $(this).parent().attr('id');
-		if($(this).parents('.table-list').next().attr('id')=='stList'){
-			$(this).parents('.table-list').next().show();
+		var tableList = $(this).parents('.table-list');
+		var teamList = $(tableList).nextAll('.team-list').first();
+		var level = $(teamList).prevAll('.teamExp').first();
+		if($(teamList).attr('id')=='stList'){
+			$(teamList).show();
 		}else{
-			$(this).parents('.table-list').next().append('<li class="team-list-item">'+input+'</li>');
+			$(teamList).append('<li class="team-list-item">'+input+'</li>');
 		}
 		$(this).parent().remove();
-		
+		setSchLevel(tableList,level,teamList)
 	})
 	
+	function setSchLevel(tableList, level,teamList){
+		if($(tableList).children().length>=1){
+			$(level).attr('id','member')
+			$(level).text('스케줄 멤버를 정해주세요')
+		}else{
+			$(level).attr('id','leader')
+			$(level).text('스케줄 리더를 정해주세요')
+		}
+		if($(teamList).children().length<1){
+			$(level).text('추가할 인원이 없습니다')
+		}		
+	}
+	
+	$('.modal').submit(function(){
+		if($(this).children('.table-list').children().length<1){
+			swal("Warning", "인원을 배치해주세요","error");
+			return false;
+		}
+	})
 })
