@@ -60,6 +60,7 @@
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log' class= 'no-drag'>
                 <button id='header_sign_up_mypage' class=''></button>
+                <button id='header_notification' class=''></button>
                 <button id='header_sign_in_out' class=''></button>
             </div>
         </div>        

@@ -20,6 +20,7 @@ import dto.ProjectDTO;
 import dto.ScheduleDTO;
 import dto.TodoDTO;
 import service.ProjectService;
+import service.TimelineService;
 
 @Controller
 @RequestMapping("/project/*")
@@ -27,6 +28,9 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private TimelineService timeService;
 	
 	@RequestMapping(value="/management", method=RequestMethod.GET)
 	public ModelAndView managementPost(ModelAndView mav) {
@@ -71,7 +75,9 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/timeline")
-	public ModelAndView ram_timelineTest(ModelAndView mav) {
+	public ModelAndView ram_timelineTest(ModelAndView mav, HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		mav.addObject("timelineList", timeService.timeList(pro_id));
 		mav.setViewName("project/timeline");
 		return mav;
 	}
