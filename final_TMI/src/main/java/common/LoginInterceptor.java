@@ -37,7 +37,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute("returnUri", uri + "?" + strParam);
             response.sendRedirect("/tmi/isGuest");
             return false;
-        }else if(session.getAttribute("projectHomeList") == null) {
+        }else if(session.getAttribute("projectHomeList") == null &&(int)session.getAttribute("grade")!=0 ) {
 			response.sendRedirect("/tmi/proList");
 			return false;
 		}

@@ -23,18 +23,43 @@
 	var calendarEl = document.getElementById('calendar');
 
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		plugins : [ 'dayGrid' ]
+		plugins : [ 'dayGrid' ],
 	});
-
 	$.ajax({
 		url : 'calendarPro',
 		method : "POST",
 		success : function(res) {
 			$(res).each(function(i, v) {
 				calendar.addEvent({
+					id : 'p'+i,
 					title : v.pro_name,
 					start : v.pro_start,
-					end : v.pro_end
+					end : v.pro_end,
+					backgroundColor : '#12c2e9'
+				});				
+			})
+		}
+	})
+	$.ajax({
+		url : 'calendarSchTd',
+		method : "POST",
+		success : function(res) {
+			$(res).each(function(i, v) {
+				calendar.addEvent({
+					id : 's'+i,
+					title : v.sch_name,
+					start : v.sch_start,
+					end : v.sch_end,
+					backgroundColor : '#c471ed'
+				});		
+				$(v.todoList).each(function(j,val){
+					calendar.addEvent({
+						id : 't'+j,
+						title : val.t_name,
+						start : val.t_start,
+						end : val.t_end,
+						backgroundColor : '#f64f59'
+					});	
 				})
 			})
 		}

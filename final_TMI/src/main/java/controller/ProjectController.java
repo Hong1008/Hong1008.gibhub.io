@@ -111,6 +111,10 @@ public class ProjectController {
 	public @ResponseBody List<ProjectDTO> calendarPro(HttpSession session) {
 		return projectService.calendarPro(session.getAttribute("pro_id").toString(), session.getAttribute("id").toString());
 	}
+	@RequestMapping("/calendarSchTd")
+	public @ResponseBody List<ScheduleDTO> calendarSchTd(HttpSession session) {
+		return projectService.calendarSchTd(session.getAttribute("pro_id").toString());
+	}
 	
 	@RequestMapping("/proSelect")
 	public @ResponseBody ProjectDTO proSelect(HttpSession session) {

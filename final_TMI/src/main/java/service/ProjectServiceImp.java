@@ -73,6 +73,16 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
+	public List<ScheduleDTO> calendarSchTd(String pro_id) {
+		// TODO Auto-generated method stub
+		List<ScheduleDTO> schList = mapper.calendarSch(pro_id);
+		for (ScheduleDTO scheduleDTO : schList) {
+			scheduleDTO.setTodoList(mapper.calendarTodo(scheduleDTO.getSch_id()));
+		}
+		return schList;
+	}
+	
+	@Override
 	public ProjectDTO proSelect(String pro_id) {
 		// TODO Auto-generated method stub
 		return mapper.proSelect(pro_id);

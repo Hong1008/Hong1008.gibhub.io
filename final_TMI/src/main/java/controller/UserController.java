@@ -122,6 +122,7 @@ public class UserController {
 	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request,HttpSession session)
 	
 	{
+		System.out.println(session.getAttribute("id").toString());
 		UserDTO udto=service.select_mypageProcess(session.getAttribute("id").toString());
 		
 		//파일이 있으면 원래있던거 있으면 삭제 하고넣어줌 
@@ -165,8 +166,8 @@ public class UserController {
 		{
 			dto.setProfile_img(udto.getProfile_img());
 		}
-		dto.setId(dto.getId()+"_google");
-		
+	
+		dto.setId(session.getAttribute("id").toString());
 		service.mypage_updateProcess(dto);
 		return "redirect:/home";
 	}
@@ -184,6 +185,7 @@ public class UserController {
 			// session 등록
 			session.setAttribute("id", dto.getId());
 			session.setAttribute("grade", 1);
+			session.setAttribute("google", "goo");
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
 				map.put("returnUri", session.getAttribute("returnUri"));
@@ -387,9 +389,13 @@ public class UserController {
 	// 이메일인증 뷰
 
 	@RequestMapping("/confirm_email")
-	public String confirm_emailMethod(HttpServletRequest request) {
+	public String confirm_emailMethod(HttpServletRequest request,HttpSession session) {
 		String uid = request.getParameter("uid");
 		service.update_gradeProcess(uid);
+         /*String id=service.select_id_uuidProcess(uid);
+		
+		session.setAttribute("id",id);
+		session.setAttribute("grade", 1);*/
 		return "/member/confirm_email";
 	}
 
