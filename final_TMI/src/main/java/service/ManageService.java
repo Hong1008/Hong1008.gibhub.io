@@ -26,4 +26,6 @@ public interface ManageService {
 	public void pjDelProcess(String pro_id);
 	
 	public void pjpeopleDelProcess(String pro_id);
+	
+	public List<String> searchIdList(String id);
 }

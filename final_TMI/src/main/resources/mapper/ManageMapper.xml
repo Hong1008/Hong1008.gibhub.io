@@ -54,4 +54,8 @@
 		delete from pro_team where pro_id=#{pro_id}
 	</delete>
 	
+	<select id="searchIdList" resultType="string" parameterType="string">
+		select id from member where id like #{id} || '%'
+	</select>
+	
 </mapper>

@@ -26,4 +26,6 @@ public interface ManageMapper {
 	public void pjDel(String pro_id);
 	
 	public void pjpeopleDel(String pro_id);
+	
+	public List<String> searchIdList(String id);
 }

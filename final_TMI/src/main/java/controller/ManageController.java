@@ -133,4 +133,9 @@ public class ManageController {
 		System.out.println("아이디 불일치");
 		return "redirect:/setting/main";
 	}
+	
+	@RequestMapping("/searchId")
+	public @ResponseBody List<String> searchId(String id) {
+		return service.searchIdList(id);
+	}
 }
