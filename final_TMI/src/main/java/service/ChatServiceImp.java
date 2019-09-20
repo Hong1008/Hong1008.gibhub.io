@@ -27,10 +27,7 @@ public class ChatServiceImp implements ChatService{
 	public String today() {
 		return mapper.today();
 	}
-	@Override
-	public void chatUpLoadFile(ChattingDTO dto) {
-		mapper.chatUpLoadFile(dto);
-	}
+
 	@Override
 	public void afterinsertChat(ChattingDTO dto) {
 		mapper.afterinsertChat(dto);
@@ -39,5 +36,10 @@ public class ChatServiceImp implements ChatService{
 	public List<ChattingDTO> fileList(String pro_id) {
 		return mapper.fileList(pro_id);
 	}
+	@Override
+	public void chatUpLoadFile(ChattingDTO dto) {
+		mapper.chatUpLoadFile(dto);
+	}
+
 	
 }
