@@ -18,6 +18,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+<!-- sweetalert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>
 
@@ -26,7 +29,7 @@
 	<c:forEach items="${people}" var="dto">
 		<input type="hidden" value="${dto.pro_id }" id="pro_id">
 	</c:forEach>
-	<div id="pj_setting_form">
+	<div id="pj_set">
 		<div>
 
 			<div>

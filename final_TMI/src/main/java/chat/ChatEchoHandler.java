@@ -45,20 +45,35 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 		// arg[0]=방번호(프로젝트 아이디)
 		// arg[1]=아이디 또는 네임
 		// arg[2]=내용
-		//3개로 쪼갬
+		// arg[3]=파일
+		//4개로 쪼갬
 		String[] arg = msg.split(":");
 		//채팅 dto설정
 		dto.setId(arg[1]);
 		dto.setChat_content(arg[2]);
-		chatservice.insertchat(dto);
+		System.out.println(arg[3]);
+		if(arg[3].equals("null")) {
+			System.out.println("일반채팅 작동");
+			chatservice.insertchat(dto);
+		}else if(!arg[3].equals("null")) {
+			System.out.println("파일업로드 작동");
+			chatservice.afterinsertChat(dto);
+		}
 		
 		//jsp로 보내주는 부분
 		for (WebSocketSession socket : usersInfo) {
 			// 메시지 생성
-			WebSocketMessage<String> sentMsg = new TextMessage(arg[1]+":"+arg[2]);
+			WebSocketMessage<String> sentMsg = new TextMessage(arg[1]+":"+arg[2]+":"+arg[3]);
+			System.out.println(arg[1]);
+			System.out.println(arg[2]);
+			System.out.println(arg[3]);
 			// 같은 방에만 전송
-			if (arg[0].equals(roomList.get(socket)))
-				socket.sendMessage(sentMsg);
+				if (arg[0].equals(roomList.get(socket))) {
+					socket.sendMessage(sentMsg);
+				}
+					
+			
+			
 		}
 	}
 

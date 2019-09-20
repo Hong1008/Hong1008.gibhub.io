@@ -22,4 +22,8 @@ public interface ManageService {
 	public List<String> idcheckProcess();
 	
 	public void memberDelProcess(ManageDTO dto);
+	
+	public void pjDelProcess(String pro_id);
+	
+	public void pjpeopleDelProcess(String pro_id);
 }

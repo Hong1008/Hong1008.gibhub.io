@@ -22,4 +22,8 @@ public interface ManageMapper {
 	public List<String> idcheck();
 	
 	public void delMember(ManageDTO dto);
+	
+	public void pjDel(String pro_id);
+	
+	public void pjpeopleDel(String pro_id);
 }

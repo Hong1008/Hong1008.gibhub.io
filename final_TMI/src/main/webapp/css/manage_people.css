@@ -1,5 +1,5 @@
 
-#pj_setting_form{
+#pj_set{
 	width: 700px;
 	height: 900px;
 	margin: auto;
@@ -18,7 +18,7 @@
 	word-break: break-all;
 }
 
-#update{
+#update,#back{
 	float: right;
 }
 

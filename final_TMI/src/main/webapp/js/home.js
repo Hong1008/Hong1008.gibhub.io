@@ -19,9 +19,14 @@ $(document).ready(function(){
       });
       
       $(".pro_header .pro_name").click(function(){
-    	  var pro_id = $(this).children('#pro_id').val();
-    	  location.href="project/management?pro_id="+pro_id;
+    	  var form = document.createElement("form");
+    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
+    	  form.setAttribute("action", "project/management");
+    	  $(form).append($(this).children('#pro_id'));
+    	  document.body.appendChild(form);
+    	  form.submit();
       })
+     
       
     //프로젝트 시작일 종료일****************************************
     var pro_start =  document.getElementById('pro_start');
@@ -30,9 +35,10 @@ $(document).ready(function(){
 		field: pro_start,
 	    secondField: pro_end,
 		singleDate: false,
+		format:'YY/MM/DD',
+		repick:true,
 		onSelect: function(start, end){
-			pro_start.value = start.format('YY/MM/DD');
-			pro_end.value = end.format('YY/MM/DD');
+			
 		}
 	});
 	
@@ -69,7 +75,9 @@ $(document).ready(function(){
 	$(document).on('click', '.autocomplete-item', function(){
 		var input = $(this).text();
 		var result = false;
+		
 		$('.table-list-item').each(function(i,v){
+			console.log($(v).attr('id'));
 			if($(v).attr('id')==input){
 				result = true;
 				return false;
@@ -77,6 +85,10 @@ $(document).ready(function(){
 		})
 		$('#pro-form #search_id').val('');
 		$('#pro-form #search_result').empty();
+		if(input==$('#sessionId').val()){
+			swal("Warning", "본인은 추가할 수 없습니다.","error");
+			return;
+		}
 		if(result){
 			swal("Warning", "유저가 이미 팀에 속해있습니다","error");
 			return;

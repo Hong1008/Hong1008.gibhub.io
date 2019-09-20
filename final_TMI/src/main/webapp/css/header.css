@@ -53,8 +53,15 @@ width: 33px;
 		border: 1px solid white;
 	border-radius: 19px;
 }
-#header_sign_up {
+#header_sign_up_mypage {
 	border: none;
+}
+
+.header_mypage{
+	font-size: 18px !important;
+    font-weight: 400 !important;
+    font-family: 'Raleway', sans-serif !important;
+    text-shadow: 2px 3px 4px #65636357;
 }
 /********************** 로그인 부분 END **********************/
 

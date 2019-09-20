@@ -13,8 +13,19 @@ $(document).ready(function(){
 	
 	$('#manegerSet').on('click',function(){
 		var manager = $('#sel1 option:selected').val();
+		swal({
+			  title: "매니저 변경",
+			  text: "변경하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: false,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					location.href="manager?pro_id="+pro_id+"&id="+manager;    
+				}
+			});
 		
-		location.href="manager?pro_id="+pro_id+"&id="+manager;
 	});
 	
 	$('#back').on('click', function(){
@@ -41,11 +52,10 @@ $(document).ready(function(){
 				alert();
 				console.log(res);
 			}
-		/*	error: function(request, status, error, res){
-                console.log("AJAX_ERROR");
-                console.log(res);
-                
-			}*/
+		/*
+		 * error: function(request, status, error, res){
+		 * console.log("AJAX_ERROR"); console.log(res); }
+		 */
 		});
 		
 	});

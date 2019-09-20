@@ -12,7 +12,7 @@
 
 <%
 
-String email=(String)request.getAttribute("email");
+String id=(String)request.getAttribute("id");
 String name=(String)request.getAttribute("name");
 
 %>
@@ -23,11 +23,11 @@ String name=(String)request.getAttribute("name");
 $(document).ready(function(){
 
 
-    var email="<%=email%>";
+    var id="<%=id%>";
     var name="<%=name%>";
     
     $.ajax({
-       url:"googlelogin?email="+email,
+       url:"googlelogin?id="+id,
        dataType:"text",
        type:"get",
        success:function(res)
@@ -38,8 +38,12 @@ $(document).ready(function(){
           res=JSON.parse(res)
           if(res.login=="signin")
              {
-             alert("로그인");
-             window.location.href = res.returnUri;
+        	  swal("Good job!", "로그인 성공!", "success")
+				.then((value) => {
+					 window.location.href = res.returnUri;
+				});
+						
+            
              }
           else
              {
@@ -54,12 +58,15 @@ $(document).ready(function(){
         		  if (willDelete) {
         			  
         			  $.ajax({
-                          url:"google_sign_up?email="+email+"&name="+name,
+                          url:"google_sign_up?id="+id+"&name="+name,
                           dataType:"text",
                           type:"get",
                           success:function(res){
-                       	 swal("Good job!", "가입성공!", "success");
-                            window.location.href = res;
+                        	  swal("Good job!", "가입성공!", "success")
+								.then((value) => {
+									 window.location.href = res;
+								});
+                           
                             
                           }
                             

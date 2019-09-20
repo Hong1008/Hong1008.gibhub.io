@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,82 +18,101 @@
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
 
-	
 	$(document).ready(function() {
-		var projectId = $('#projectId').val();
-		var userNick = $('#userNick').val();
-		$('#chatFileIns').click(function(){
-		    var formData = new FormData($('#frm')[0]);
-		    console.log(formData);
-			 $.ajax({
-		        url: 'chatInsertFile',
-		                processData: false,
-		                contentType: false,
-		                enctype: 'multipart/form-data',
-		            	dateType : 'json',
-		                data: formData,
-		                type: 'POST',
-		                success: function(data){
-		                	websocket.send(projectId + ":" + userNick + ":" + 'test');
-		                }
-		        }); 
-		})
-		$('#file').change(function() {
-			$('#filemodal').css('display', 'block');
-			$('#filemodal').css('visibility', 'visible');
-			$('#filemodal').css('z-index', '3');
-			
-			var filename=$('#file').val();
-			 filename=filename.split("\\");
-			 var filetype=filename[2];
-			 filetype=filetype.split('.');
-			 if(filetype[1]=='jpg'||filetype[1]=='png'||filetype[1]=='gif'){
-				 inputPreview(this);
-			 }else if(filetype[1]=='zip'){
-				 $('#filepreview').html('<img src="../resources/Chat_img/zip.png">');
-			 }else if(filetype[1]=='txt'){
-				 $('#filepreview').html('<img src="../resources/Chat_img/text.png">');
-			 }
-			$('#filename').append(filename[2]);
-			
-		})
-		function inputPreview(input){
-			if(input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        reader.onload = function (e) {
-		            $('#filepreview').html("<img src="+ e.target.result +">");
-		        }
-		        reader.readAsDataURL(input.files[0]);
+		$('#loading').hide(); 
+						//시작 시 채팅영역 스크롤 하단으로 내리기
+						$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+						var projectId = $('#projectId').val();
+						var userNick = $('#userNick').val();
+						 $(window).ajaxStart(function(){
+							$('#loading').show(); 
+						})
+						 $(window).ajaxStop(function(){
+							$('#loading').hide(); 
+						});
+						//파일 전송버튼
+						$('#chatFileIns').click(function() {
+											//객체 담음
+											var formData = new FormData($('#frm')[0]);
+											$.ajax({
+														url : 'chatInsertFile',
+														processData : false,
+														contentType : false,
+														enctype : 'multipart/form-data',
+														dateType : 'json',
+														data : formData,
+														type : 'POST',
+														success : function(result) {
+														alert('성공');
+														//모달 지우기
+														$('#filemodal').css('visibility','hidden');
+														$('#filemodal').css('z-index','1');
+														$('#filename').empty();
+														$('#file').val('');
+																//웹소캣 핸들러로 보냄
+															websocket.send(projectId+ ":"+ userNick+ ":"+ ":"+ result);
+															$('#eachFileArea').prepend(
+																	"<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/temp/"
+																	+result+
+																	"'></div><small>"
+																	+ result+ 
+																	"</small></div>");
+														}
+													});
+										});
+						//인풋 파일 바뀌면 모달창 뜸
+						$('#file').change(function() {
+											$('#filemodal').css('visibility','visible');
+										 	$('#filemodal').css('z-index', '3'); 
+
+									 		 var filename = $('#file').val();
+											filename = filename.split("\\");
+											var filetype = filename[2];
+											filetype = filetype.split('.');
+											//파일이 이미지 파일이면 미리보기
+											if (filetype[1] == 'jpg'|| filetype[1] == 'png'|| filetype[1] == 'gif') {
+												inputPreview(this);
+												//아니면 대체 이미지로 보여줌
+											} else{
+												$('#filepreview').html('<img src="../resources/Chat_img/text.png">');
+											}
+											$('#filename').append(filename[2]); 
+										});
+						//엔터로 메세지 발송
+						$('#message').keypress(function(event) {
+											if (event.keyCode == 13) {
+												if (!event.shiftKey) {
+													event.preventDefault();
+													var msg = $('#message').val();
+													if (msg == "")
+														return false;
+													msg = msg.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+													//메시지 전송
+													websocket.send(projectId+ ":" + userNick+ ":" + msg + ":"+ null);
+													//메시지 입력창 초기화
+													$('#message').val('');
+
+												}
+
+											}
+										});
+
+						//브라우저창을 종료할때
+						$(window).on('close', function() {
+							websocket.close();
+						});
+					});
+
+	function inputPreview(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#filepreview').html(
+						"<img src="+ e.target.result +">");
 			}
+			reader.readAsDataURL(input.files[0]);
 		}
-		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
-		
-
-		//엔터일때도
-		$('#message').keypress(function(event) {
-			if (event.keyCode == 13) {
-				if (!event.shiftKey) {
-					event.preventDefault();
-					var msg = $('#message').val();
-					if (msg == "")
-						return false;
-					msg = msg.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-					//메시지 전송
-					websocket.send(projectId + ":" + userNick + ":" + msg);
-					//메시지 입력창 초기화
-					$('#message').val('');
-
-				}
-
-			}
-		});
-
-		//브라우저창을 종료할때
-		$(window).on('close', function() {
-			websocket.close();
-		});
-	});
-
+	} 
 	//WebSocket이 연결된 경우 호출되는 함수
 	function onOpen(evt) {
 		console.log("웹 소켓에 연결 성공");
@@ -109,120 +129,168 @@
 		var data = evt.data;
 		var dataSplit = data.split(':');
 		var dateD = new Date();
+		var minut = dateD.getMinutes() < 10 ? "0" + dateD.getMinutes() : dateD
+				.getMinutes();
 		var itsme = $('#userNick').val();
+		var filepath = dataSplit[2].split('_');
+		//메세지 출력
+		//나 자신일때
 		if (itsme == dataSplit[0]) {
-			$('#chatMessage').append(
-					"<div class='mewrap'><div class='inline' id='time'>"
-							+ dateD.getHours() + ":" + dateD.getMinutes()
-							+ "</div><br/><div class='replyMessage'>"
-							+ dataSplit[1] + "</div><br /></div>");
+			//자료 송신일때
+			if (dataSplit[1] == "") {
+				$('#chatMessage')
+						.append(
+								"<div class='mewrap'><div class='inline' id='time'>"
+										+ dateD.getHours()
+										+ ":"
+										+ minut
+										+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/temp/"+dataSplit[2]+"'><a href='/tmi/temp/"+dataSplit[2]+"' download='"+filepath[1]+"'>"
+										+ filepath[1]
+										+ "</a></div><br /></div>");
+			} else {
+				$('#chatMessage').append(
+						"<div class='mewrap'><div class='inline' id='time'>"
+								+ dateD.getHours() + ":" + minut
+								+ "</div><br/><div class='replyMessage'>"
+								+ dataSplit[1] + "</div><br /></div>");
+			}
+			//상대방일때
 		} else {
-			//메시지를 출력
-			$('#chatMessage')
-					.append(
-							"<div class='opwrap'><div id='img' class='inline'><img id='img' src='../resources/asideimg/chat.png'></div><div id='name' class='inline'>"
-									+ dataSplit[0]
-									+ "</div>&nbsp;<div class='inline' id='time'>"
-									+ dateD.getHours()
-									+ ":"
-									+ dateD.getMinutes()
-									+ "</div><br/><div class='replyMessage'>"
-									+ dataSplit[1] + "</div><br /></div>");
+			
+			//자료 송신일때
+			if (dataSplit[1] == "") {
+				$('#chatMessage')
+						.append(
+								"<div class='opwrap'><div id='img' class='inline'><img id='img' src='../resources/asideimg/chat.png'></div><div id='name' class='inline'>"
+										+ dataSplit[0]
+										+ "</div>&nbsp;<div class='inline' id='time'>"
+										+ dateD.getHours()
+										+ ":"
+										+ dateD.getMinutes()
+										+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/temp/"+dataSplit[2]+"'><a href='/tmi/temp/"+dataSplit[2]+"' download='"+filepath[1]+"'>"
+										+ filepath[1]
+										+ "</a></div><br /></div>");
+			} else {
+				$('#chatMessage')
+						.append(
+								"<div class='opwrap'><div id='img' class='inline'><img id='img' src='../resources/asideimg/chat.png'></div><div id='name' class='inline'>"
+										+ dataSplit[0]
+										+ "</div>&nbsp;<div class='inline' id='time'>"
+										+ dateD.getHours()
+										+ ":"
+										+ dateD.getMinutes()
+										+ "</div><br/><div class='replyMessage'>"
+										+ dataSplit[1] + "</div><br /></div>");
+			}
+
 		}
-		//스크롤바
-		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+		//채팅영역에 채팅 입력 후 스크롤바 내리기 파일일경우 이미지 불러오는데 시간걸려서 딜레이 걸었음
+		setTimeout(function() {
+			$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+}, 8);
+	
 	}
 </script>
 <style type="text/css">
 body {
-position:relative;
+	position: relative;
 	background-color: rgb(243, 238, 238);
 	min-width: 1060px;
 }
-#filemodal{
-position: fixed;
-visibility:hidden;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.2);
+
+#filemodal {
+	position: fixed;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .2);
 }
+
 #fileShowBox {
-position:relative;
-top:40%;
-left: 50%;
-transform:translate(-50%,-50%);
-width:500px;
-height:700px;
-background-color: white;
-text-align: center;
+	position: relative;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 700px;
+	background-color: white;
+	text-align: center;
 }
-#fileShowBox #filepreview img{
-width:100%;
-height:100%;
+
+#fileShowBox #filepreview img {
+	width: 100%;
+	height: 100%;
 }
-#filepreview{
-display: inline-block;
-margin:auto;
-margin-top:40px;
-margin-bottom:20px;
-width:300px;
-height:400px;
-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+
+#filepreview {
+	display: inline-block;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	width: 300px;
+	height: 400px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0
+		rgba(0, 0, 0, .12) !important;
 }
+
 #chatFileIns {
-  background-color: #c47135;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'BenchNine', Arial, sans-serif;
-  font-size: 1em;
-  font-size: 22px;
-  line-height: 1em;
-  margin: 15px 40px;
-  outline: none;
-  padding: 12px 40px 10px;
-  position: relative;
-  text-transform: uppercase;
-  font-weight: 700;
+	background-color: #c47135;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'BenchNine', Arial, sans-serif;
+	font-size: 1em;
+	font-size: 22px;
+	line-height: 1em;
+	margin: 15px 40px;
+	outline: none;
+	padding: 12px 40px 10px;
+	position: relative;
+	text-transform: uppercase;
+	font-weight: 700;
 }
-#chatFileIns:before,
-#chatFileIns:after {
-  border-color: transparent;
-  -webkit-transition: all 0.25s;
-  transition: all 0.25s;
-  border-style: solid;
-  border-width: 0;
-  content: "";
-  height: 24px;
-  position: absolute;
-  width: 24px;
+
+#chatFileIns:before, #chatFileIns:after {
+	border-color: transparent;
+	-webkit-transition: all 0.25s;
+	transition: all 0.25s;
+	border-style: solid;
+	border-width: 0;
+	content: "";
+	height: 24px;
+	position: absolute;
+	width: 24px;
 }
+
 #chatFileIns:before {
-  border-color: #c47135;
-  border-right-width: 2px;
-  border-top-width: 2px;
-  right: -5px;
-  top: -5px;
+	border-color: #c47135;
+	border-right-width: 2px;
+	border-top-width: 2px;
+	right: -5px;
+	top: -5px;
 }
+
 #chatFileIns:after {
-  border-bottom-width: 2px;
-  border-color: #c47135;
-  border-left-width: 2px;
-  bottom: -5px;
-  left: -5px;
+	border-bottom-width: 2px;
+	border-color: #c47135;
+	border-left-width: 2px;
+	bottom: -5px;
+	left: -5px;
 }
-#chatFileIns:hover{
-  background-color: #c47135;
+
+#chatFileIns:hover {
+	background-color: #c47135;
 }
-#chatFileIns:hover:before,
-#chatFileIns:hover:after {
-  height: 100%;
-  width: 100%;
+
+#chatFileIns:hover:before, #chatFileIns:hover:after {
+	height: 100%;
+	width: 100%;
 }
+
 #contents {
-position:relative;
-z-index:2;
+	/* position: relative; */
+	z-index: 2;
 	width: 95%;
 	margin-left: 5%;
 }
@@ -230,7 +298,7 @@ z-index:2;
 #chatBox {
 	float: left;
 	width: 60%;
-	    height: 871px;
+	height: 871px;
 	float: left;
 }
 
@@ -262,7 +330,6 @@ z-index:2;
 	border-left: none;
 	outline: none;
 }
-
 
 #chatBox #insBox #bar {
 	margin-top: 20px;
@@ -303,10 +370,9 @@ z-index:2;
 }
 
 #fileBox {
-	background-color: aqua;
 	float: right;
 	width: 40%;
-	    height: 871px;
+	height: 871px;
 }
 
 .mewrap {
@@ -354,6 +420,12 @@ z-index:2;
 		rgba(0, 0, 0, .12) !important;
 }
 
+.replyimg {
+	 display: block;
+	width: 200px;
+	height: 100%;
+}
+
 .todaychk {
 	font-size: small;
 	color: gray;
@@ -364,12 +436,13 @@ z-index:2;
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/aside.jsp"></jsp:include>
 <body>
-<div id="filemodal">
-	<div id="fileShowBox">
-	<div id="filepreview"></div>
-	<div id="filename"></div>
-	<button id="chatFileIns">보내기</button>
-	</div>
+	<div id="filemodal">
+		<div id="fileShowBox">
+			<div id="filepreview"></div>
+			<div id="filename"></div>
+			<button id="chatFileIns">보내기</button>
+			<div id="loading"><img src="../resources/Chat_img/loading.gif"></div>
+		</div>
 	</div>
 	<div id="contents">
 		<div id="chatBox">
@@ -389,7 +462,14 @@ z-index:2;
 											<div class='mewrap'>
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
-												<div class='replyMessage'>${dto.chat_content}</div>
+
+												<div class='replyMessage'>${dto.chat_content}
+												<c:if test="${dto.upload!=null}">
+												<img class='replyimg' src="/tmi/temp/${dto.upload}">
+												</c:if>
+													<a href="/tmi/temp/${dto.upload}"
+														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
+												</div>
 												<br />
 											</div>
 
@@ -403,7 +483,13 @@ z-index:2;
 												&nbsp;
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
-												<div class='replyMessage'>${dto.chat_content}</div>
+												<div class='replyMessage'>${dto.chat_content}
+												<c:if test="${dto.upload!=null}">
+												<img class='replyimg' src="/tmi/temp/${dto.upload}">
+												</c:if>
+													<a href="/tmi/temp/${dto.upload}"
+														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
+												</div>
 												<br />
 											</div>
 										</c:if>
@@ -423,16 +509,131 @@ z-index:2;
 				<hr id="bar" />
 				<div id=fileBtn>
 					<label for="file" id="filelabel"><img id="fileInsImg"
-						src="../resources/Chat_img/paperclip.png/"></label> <form id="frm" method="post" enctype="multipart/form-data"><input
-						type="file" id="file" name="file" /></form>
+						src="../resources/Chat_img/paperclip.png/"></label>
+					<form id="frm" method="post" enctype="multipart/form-data">
+						<input type="file" id="file" name="file" />
+					</form>
 				</div>
 				<textarea id="message" cols="10" wrap="hard"></textarea>
-				
+
 			</div>
 		</div>
-		<div id="fileBox"></div>
+		<div id="fileBox">
+		<div id="fileBoxAreaVertical"></div>
+		<div id="eachFileArea">
+		<c:forEach items="${fileList}" var="file">
+		<div class="eachFile">
+		<div class="eachFileImg"><img class="efimg" src="/tmi/temp/${file.upload }"></div>
+		<div class="eachFileName"><small>${fn:substringAfter(file.upload,'_')}</small></div>
+				<%-- <input class="multiDown" type="checkbox" value="${file.upload }"> --%>
+				<input type="checkbox" id="${file.upload }" class="multiDown" value="${file.upload }">
+  				<label for="${file.upload }"></label>
+		</div>
+		</c:forEach>
+			</div>
+			<div id="selectfilecnt">선택된 갯수 : 0</div>
+			<input id="multiDown" type="button" value="다운로드">
+		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
 		<input type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 </body>
+<style>
+.multiDown + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+.multiDown{
+  display: none;
+}
+
+.multiDown + label:before {
+  content: "\2714";
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: .2s;
+}
+
+.multiDown+ label:active:before {
+  transform: scale(0);
+}
+
+.multiDown:checked + label:before {
+  background-color: MediumSeaGreen;
+  border-color: MediumSeaGreen;
+  color: #fff;
+}
+
+.multiDown:disabled + label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+.multiDown:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+#fileBoxAreaVertical{
+margin-left: 10px;
+    float: left;
+    width: 1px;
+    height: 80%;
+    border-left: 1px solid gray;
+    margin-top: 10%;
+}
+#eachFileArea{
+overflow: auto;
+width: 98%;
+height: 80%;
+}
+.eachFile{
+    float: left;
+    margin-top: 20px;
+    margin-left: 40px;
+    width: 180px;
+    height: 180px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+}
+.eachFileName{
+    word-break: break-all;
+}
+.eachFileImg{
+margin:auto;
+margin-top:10px;
+width: 80px;
+height: 80px;
+}
+.eachFileImg .efimg{
+width: 80px;
+height: 80px;
+}
+</style>
+<script type="text/javascript">
+$('.multiDown').click(function(){
+	$('#selectfilecnt').text("선택된 갯수 : "+$(".multiDown:checked").length);
+})
+
+$('#multiDown').click(function(){
+	$('.multiDown:checked').each(function(){
+		var a = $("<a>")
+	    .attr("href", "/tmi/temp/"+$(this).val())
+	    .attr("download", $(this).val())
+	    .appendTo("body");
+		a[0].click();
+		a.remove();
+	})
+})
+</script>
 </html>

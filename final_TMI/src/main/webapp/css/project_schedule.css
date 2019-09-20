@@ -1,4 +1,9 @@
 @charset "UTF-8";
+#kanban_wrap{	
+    margin-left: 116px;
+    margin-top: 43px;
+    height: 1000px;
+}
 
 .schedules {
 width: 200px;
@@ -120,4 +125,55 @@ width: 200px;
     transform: rotate(90deg);
     margin-top: -9px;
     border-radius: 5px;
+}
+
+/****************** 폼 디자인 ******************/
+.modal input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal label{
+	display: block;
+}
+
+.start, .end{
+	width: 49% !important;
+}
+
+.modal input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.team-list-item {
+    display: block;
+    padding: 5px;
+    overflow: hidden;
+    font-weight: 400;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    border-bottom: 1px solid #b7b7b785;
+}
+
+.team-list-item:hover{
+	background-color: #478aff;
+	color: white;
 }
