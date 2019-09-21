@@ -58,7 +58,7 @@
 		<div class="pj_name">프로젝트 팀원</div>
 		<table id="customers">
 			<tr>
-				<th>이름</th>
+				<th>아이디</th>
 				<th>관리 등급</th>
 			</tr>
 			<c:forEach items="${people }" var="people">

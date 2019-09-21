@@ -46,4 +46,16 @@
 		delete from pro_team where pro_id=#{pro_id} and id=#{id}
 	</delete>
 	
+	<delete id="pjDel" parameterType="String">
+		delete from project where pro_id=#{pro_id}
+	</delete>
+	
+	<delete id="pjpeopleDel" parameterType="String">
+		delete from pro_team where pro_id=#{pro_id}
+	</delete>
+	
+	<select id="searchIdList" resultType="string" parameterType="string">
+		select id from member where id like #{id} || '%'
+	</select>
+	
 </mapper>
