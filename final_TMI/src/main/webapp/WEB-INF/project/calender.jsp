@@ -24,6 +24,12 @@
 
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		plugins : [ 'dayGrid' ],
+		eventLimit: true, // for all non-TimeGrid views
+		  views: {
+		    timeGrid: {
+		      eventLimit: 4 // adjust to 6 only for timeGridWeek/timeGridDay
+		    }
+		  }
 	});
 	$.ajax({
 		url : 'calendarPro',
