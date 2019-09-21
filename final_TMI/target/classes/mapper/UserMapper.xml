@@ -60,4 +60,8 @@ update member set profile_img=#{profile_img,jdbcType=VARCHAR},name=#{name} where
 <select id="select_mypage" parameterType="string" resultType="dto.UserDTO">
 select * from member where id=#{id}
 </select>
+
+<select id="select_id_uuid" parameterType="string" resultType="string">
+select id from member where uuid=#{uuid}
+</select>
 </mapper>
