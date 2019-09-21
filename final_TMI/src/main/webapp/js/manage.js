@@ -45,12 +45,11 @@ $(document).ready(function(){
 		
 		$.ajax({
 			url: "/tmi/setting/delete",
-			dataType : "json",
+			dataType : "text",
 			data: params,
 			type : "post",
 			success: function(res){
-				alert();
-				console.log(res);
+				
 			}
 		/*
 		 * error: function(request, status, error, res){

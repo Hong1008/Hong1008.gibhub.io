@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class ChattingDTO {
@@ -11,8 +13,8 @@ public class ChattingDTO {
 	private String chat_time;
 	private String chat_date;
 
-	private MultipartFile filename;
-	private String upload;
+	private List<MultipartFile> filename;
+	private  List<String> upload;
 
 	public ChattingDTO() {
 		// TODO Auto-generated constructor stub
@@ -53,16 +55,18 @@ public class ChattingDTO {
 	public void setChat_date(String chat_date) {
 		this.chat_date = chat_date;
 	}
-	public MultipartFile getFilename() {
+
+	public List<MultipartFile> getFilename() {
 		return filename;
 	}
-	public void setFilename(MultipartFile filename) {
+	public void setFilename(List<MultipartFile> filename) {
 		this.filename = filename;
 	}
-	public String getUpload() {
+	public List<String> getUpload() {
 		return upload;
 	}
-	public void setUpload(String upload) {
+	public void setUpload(List<String> upload) {
 		this.upload = upload;
 	}
+
 }
