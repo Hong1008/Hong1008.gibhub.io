@@ -57,5 +57,20 @@ public class ManageServiceImp implements ManageService{
 	public void memberDelProcess(ManageDTO dto) {
 		mapper.delMember(dto);
 	}
+
+	@Override
+	public void pjDelProcess(String pro_id) {
+		mapper.pjDel(pro_id);
+	}
+
+	@Override
+	public void pjpeopleDelProcess(String pro_id) {
+		mapper.pjpeopleDel(pro_id);
+	}
+
+	@Override
+	public List<String> searchIdList(String id) {
+		return mapper.searchIdList(id);
+	}
 	
 }
