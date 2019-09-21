@@ -17,6 +17,8 @@
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="js/member_changePw.js" type='text/javascript'></script>
 <link href='css/member_changePw.css' type='text/css' rel='stylesheet' />
+<script src="/tmi/js/COMMON.js" type='text/javascript'></script> 
+<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link
@@ -65,7 +67,7 @@
    margin: 0 auto;
    margin-top: 232px;
    width: 480px;
-   height: 327px;
+   height: 368px;
    background: rgb(255, 255, 255);
    border-radius: 5px;
    border: 1px solid rgba(5, 5, 5, 0.2);
@@ -97,21 +99,29 @@ label {
 }
 
 #ChangePw_submit {
-   background: linear-gradient(-120deg, #12c2e9, #c471ed, #f64f59);
-   background-size: 150%;
-   border: none;
-   color: white;
-   height: 71px;
-   font-size: 32px;
-   font-family: 'Raleway', sans-serif;
-   font-weight: 100;
-   transition: 0.5s;
-   cursor: pointer;
-   margin-top: 31px;
+    background: linear-gradient(-120deg, #12c2e9, #c471ed, #f64f59);
+    background-size: 150%;
+    border: none;
+    color: white;
+    height: 71px;
+    font-size: 32px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-left: 32px !important;
 }
 
 #ChangePw_submit:hover {
    background-position-x: 100%;
+}
+
+#pwck_text{
+	width: 412px;
+    height: 50px;
+    display: inline-block;
+    margin-left: 39px;
 }
 </style>
 </head>
@@ -120,12 +130,12 @@ label {
    <div id="bodywrap">
       <div id='logo' class='center_div'>TMI</div>
       <div id="ChangeForm" class="center_div">
-         <form action="change_pwd.do">
+         <form action="change_pwd">
             <input type="hidden" name="uuid" value="<%=uid%>" /> <label
                for="pwd">Password</label><input type="text" name="pwd" id="pwd" />
             <label for="pwdck">Confirm password</label> <input type="text" name="pwdck"
                id="pwdck" /> 
-               <span>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</<span>>
+               <span id ='pwck_text'>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</span>
                <input id="ChangePw_submit" type="submit"
                value="Change PassWord" />
          </form>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ChatMapper">
+	<insert id="insertChat" parameterType="dto.ChattingDTO">
+		insert into chat (chat_id,
+		chat_content, chat_time, id, pro_id) values
+		(chat_id_seq.nextval,#{chat_content},sysdate,#{id},#{pro_id})
+	</insert>
+	<select id="chatList" resultType="dto.ChattingDTO"
+		parameterType="string">
+		select c.chat_id chat_id, c.chat_content chat_content,
+		to_char(c.chat_time,'hh24:MI') chat_time,
+		to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename upload
+		from chat c, pro_file p where c.chat_id=p.chat_id(+) and
+		pro_id=#{pro_id} order by chat_id asc
+	</select>
+	<select id="dateList" resultType="dto.ChattingDTO"
+		parameterType="string">
+		select chat_date from (select
+		to_char(chat_time,'yy.mm.dd') as chat_date
+		from chat where
+		pro_id=#{pro_id}) group by chat_date order by chat_date asc
+	</select>
+	<select id="today" resultType="string" parameterType="string">
+		select
+		to_char(sysdate,'yy.mm.dd') as chat_today from dual
+	</select>
+
+	<insert id="chatUpLoadFile" parameterType="dto.ChattingDTO">
+	<selectKey resultType="string" keyProperty="chat_id" order="BEFORE">
+		select chat_id_seq.nextval from dual
+	</selectKey>
+	INSERT ALL
+		<foreach collection="upload" item="item" separator=" ">
+		 into pro_file(filename,chat_id) values (#{item},#{chat_id})
+		</foreach>
+	SELECT * FROM DUAL
+	</insert>
+
+
+
+	<insert id="afterinsertChat" parameterType="dto.ChattingDTO">
+		insert into chat
+		(chat_id,
+		chat_content, chat_time, id, pro_id) values
+		(chat_id_seq.currval,#{chat_content},sysdate,#{id},#{pro_id})
+	</insert>
+
+	<select id="fileList" resultType="dto.ChattingDTO"
+		parameterType="string">
+		select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id
+		id, p.filename upload
+		from chat c, pro_file p where c.chat_id=p.chat_id
+		and pro_id=#{pro_id} order by chat_id desc
+	</select>
+</mapper>
+

@@ -1,0 +1,79 @@
+
+.pj_contentForm{
+	width: 800px;
+	height: 900px;
+	border: 1px solid black;
+	margin-top: 3%;
+	margin-left: 25%;
+	display: inline-block;
+	background-color: white;
+	border-radius: 50px;
+	
+}
+
+.pj_peopleForm{
+	width: 600px;
+	border: 1px solid black;
+	margin-right: 10%;
+	margin-top: 5%;
+	float: right;
+	display: inline-block;
+	background-color: white;
+	border-radius: 50px;
+}
+
+.pj_name{
+	height: 100px;
+	font-size: 30px;
+	line-height: 100px;
+	text-align: center;
+	clear: both;
+}
+
+.pj_setting{
+	float: right;
+	width: 100px;
+	height: 100px;
+	background: url("../resources/manageimage/gear.png");
+	background-size: 100px;
+}
+
+
+.pj_people{
+	float: right;
+	width: 100px;
+	height: 100px;
+	background: url("../resources/manageimage/gear.png");
+	background-size: 100px;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(odd){background-color: #d0bdbd;}
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f3c370;
+  color: white;
+}
+
+#pj_info {
+  background-color: lightgrey;
+  border: 10px solid yellow;
+  padding: 50px;
+  margin: 20px;
+}

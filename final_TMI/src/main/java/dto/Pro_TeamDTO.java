@@ -5,16 +5,6 @@ public class Pro_TeamDTO {
 	private String id;
 	private int pt_level;
 	
-	public Pro_TeamDTO(int pro_id, String id, int pt_level) {
-		this.pro_id = pro_id;
-		this.id = id;
-		this.pt_level = pt_level;
-	}
-	public Pro_TeamDTO(String id, int pt_level) {
-		// TODO Auto-generated constructor stub
-		this.id = id;
-		this.pt_level = pt_level;
-	}
 	public int getPro_id() {
 		return pro_id;
 	}

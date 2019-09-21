@@ -16,6 +16,10 @@
 	left: 50%;
 	transform: translate(-50%, 0);
 }
+
+.gotoHome{
+	cursor:pointer;
+}
 /******************************* 전체 테마 *******************************/
 .tmi_skin01{
 	background: linear-gradient(120deg, #12c2e9, #c471ed, #f64f59);	
@@ -57,3 +61,37 @@
 	    background: linear-gradient(120deg, #ee9ca7, #ffdde1);
 }
 /******************************* 전체 테마 *******************************/
+
+/****************** ul 아이디 목록 디자인 ******************/
+.table-list {
+    display: table;
+    width: 100%;
+    color: #6a737d;
+    table-layout: fixed;
+    list-style: none;
+}
+
+.table-list-item {
+    position: relative;
+    display: table-row;
+    list-style: none;
+    border-bottom: 1px solid #eaecef;
+}
+
+.table-list-cell{
+	padding-top: 15px;
+    padding-bottom: 15px;
+    vertical-align: middle;
+    position: relative;
+    display: table-cell;
+    padding: 8px 10px;
+    font-size: 12px;
+    border-bottom: 1px solid #eaecef;
+}
+
+.table-list-cell#remove-item{
+	cursor: pointer;
+	font-weight: bold;
+	text-align: right;
+}
+/****************** 아이디 목록 디자인 ******************/

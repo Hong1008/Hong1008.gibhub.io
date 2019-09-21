@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -26,6 +29,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -71,6 +76,21 @@ public class UserController {
 	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@RequestMapping("/proList")
+	public String proList(HttpSession session) {
+		String returnUri = session.getAttribute("returnUri").toString();
+		session.removeAttribute("returnUri");
+		List<HashMap<String, Object>> phList = projectService.projectHomeList(session.getAttribute("id").toString());
+		session.setAttribute("projectHomeList",phList);
+		session.setAttribute("pro_id", phList.get(0).get("pro_id"));
+		return "redirect:/"+returnUri.replaceAll("/tmi/","");
+	}
+	
+	@RequestMapping("/isGuest")
+	public String isGuest() {
+		return "/member/isGuest";
+	}
 
 	// 아이디 중복검사
 	@RequestMapping("/id_test")
@@ -78,40 +98,116 @@ public class UserController {
 		int result = service.test_idProcess(dto);
 		return result;
 	}
-
-	// email 중복검사
+	//email 중복검사
 	@RequestMapping("/email_test")
 	public @ResponseBody int email_test(UserDTO dto) {
 		int result = service.test_emailProcess(dto);
 		return result;
 	}
+	//test
+	@RequestMapping("**/mypage")
+	public ModelAndView mypage(ModelAndView mav,HttpSession session)
+	{  
+		
+		UserDTO dto=service.select_mypageProcess(session.getAttribute("id").toString()); //나중에 id 값 session id 값
+	String res[] =dto.getId().split("_");
+			dto.setId(res[0]);
+		mav.addObject("dto",dto);
+		mav.setViewName("member/mypage");
+		return mav;
+	}
+	
+	//mypage 계정 내용변경
+	@RequestMapping("**/mypage_update")
+	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request,HttpSession session)
+	
+	{
+		System.out.println(session.getAttribute("id").toString());
+		UserDTO udto=service.select_mypageProcess(session.getAttribute("id").toString());
+		
+		//파일이 있으면 원래있던거 있으면 삭제 하고넣어줌 
+		if (!file.isEmpty()) {
+			
+			
+		    	String fileName = file.getOriginalFilename(); // 첨부파일의 이름가지고옴
+
+			System.out.println(fileName);
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String saveDriectory = root + "profile_img" + File.separator;
+			System.out.println(root);
+			
+			if(udto.getProfile_img()!=null)
+			{
+				File fd= new File(saveDriectory,udto.getProfile_img());
+				if(fd.exists())
+				{
+					fd.delete();
+				}
+				
+			}
+			
+			File fe = new File(saveDriectory);
+			if (!fe.exists()) {
+				fe.mkdir(); // 폴더가없다면 만들어라
+			}
+			
+			File ff = new File(saveDriectory, fileName);
+			try {
+				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				dto.setProfile_img(fileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+		//파일이 없으면 원래 있던거로 넣어줌
+		else
+		{
+			dto.setProfile_img(udto.getProfile_img());
+		}
+	
+		dto.setId(session.getAttribute("id").toString());
+		service.mypage_updateProcess(dto);
+		return "redirect:/home";
+	}
+	
+	
 
 	// 구글로그인 로그인했을때
 	@RequestMapping(value = "/googlelogin", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody String googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
+	public @ResponseBody HashMap<String, Object> googlelogin(UserDTO dto, HttpSession session, HttpServletRequest req) {
 
-		dto.setId(dto.getEmail() + "_google");
+		dto.setId(dto.getId()+"_google");
 		int result = service.test_idProcess(dto);
-		String login = "";
+		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
-			session.setAttribute("id", dto.getEmail() + "_google");
-			login = "signin";
+			session.setAttribute("id", dto.getId());
+			session.setAttribute("grade", 1);
+			session.setAttribute("google", "goo");
+			map.put("returnUri", "home");
+			if(session.getAttribute("returnUri")!=null) {
+				map.put("returnUri", session.getAttribute("returnUri"));
+			}
+			map.put("login", "signin");
 		} else {
 			// 구글로그인 회원가입
-			login = "signup";
+			map.put("login", "signup");
 		}
 
-		return login;
+		return map;
 	}
 
 	// 구글 로그인했을때 회원가입 안되있으면 회원가입
 	@RequestMapping("/google_sign_up")
-	public @ResponseBody String googlelogin_signup(UserDTO dto) {
-		dto.setId(dto.getEmail() + "_google");
-		dto.setEmail(dto.getEmail() + "_google");
+	public @ResponseBody String googlesignup_login(HttpSession session, UserDTO dto) {
+		dto.setId(dto.getId() + "_google");
 		service.insert_googleProcess(dto);
-		return "true";
+		if(session.getAttribute("returnUri")!=null) {
+			return session.getAttribute("returnUri").toString();
+		}
+		return "home";
 	}
 
 	// 회원가입
@@ -130,7 +226,7 @@ public class UserController {
 		try {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
 				service.insertProcess(dto);
-				String subject = "EASY TASK[이메일 인증]";// 제목
+				String subject = "TMI[이메일 인증]";// 제목
 				String content = "<div align='center'>\r\n"
 						+ "        <img src=\"https://ww.namu.la/s/34f4f86a25e4f020f4f2df539231f36df7e209a1c08137102b7bf3eb9a884b270273333c6a3e576d2a0ddf7ac4e0f782de5319f1eef41d42f4a0b170156150f02b736b9019e792a2cf3340572f21cd4ca74789532b72c843e3baf3e5d9ca705c\" style=\"width: 50%;\">\r\n"
 						+ "<p >We heard that you lost your TMI password. Sorry about that!<br>\r\n"
@@ -155,11 +251,24 @@ public class UserController {
 	@RequestMapping("/home")
 	public ModelAndView MainView(ModelAndView mav, HttpServletRequest req) {
 		HttpSession session = req.getSession();
+		int grade = 0;
+		if(session.getAttribute("grade")!=null)
+		{	
+			grade= (int) session.getAttribute("grade");
+			
+		}
+	
 		if (session.getAttribute("id") == null) {
+			// 구글로그인 url
+			String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+			mav.addObject("google_url", url);
 			mav.setViewName("/common/Home_logout");
-		} else {
-			mav.addObject("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
-			session.setAttribute("pro_id_list", projectService.proIdList(session.getAttribute("id").toString()));
+		} 
+		else if(session.getAttribute("id") !=null && grade != 1) {
+			mav.setViewName("common/Home_email");
+		}
+		else if(session.getAttribute("id") !=null && grade == 1) {
+			session.setAttribute("projectHomeList", projectService.projectHomeList(session.getAttribute("id").toString()));
 			mav.setViewName("common/Home_logIn");
 		}
 
@@ -175,20 +284,19 @@ public class UserController {
 
 	// 로그인 뷰
 	@RequestMapping("/sign_in")
-	public ModelAndView Sign_in_View(ModelAndView mav) {
+	public ModelAndView Sign_in_View(ModelAndView mav, @RequestParam(value="isGuest", required=false) boolean isGuest) {
 
 		// 구글로그인 url
 		String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		System.out.println("/googleLogin, url : " + url);
 		mav.addObject("google_url", url);
-
 		mav.setViewName("/member/sign_in");
 		return mav;
 	}
 
 	// 로그인 버튼눌렀을시
 	@RequestMapping("/sign_in_do")
-	public @ResponseBody String Sign_in_do(UserDTO dto, HttpServletRequest req) {
+	public @ResponseBody String Sign_in_login(UserDTO dto, HttpServletRequest req) {
 
 		String result = "";
 		HttpSession session = req.getSession();
@@ -205,11 +313,14 @@ public class UserController {
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				if (ipreq.equals(iplist[i]))
-				/* if(ipreq.equals("0")) */
+				/*if (ipreq.equals(iplist[i]))*/
+				if(ipreq.equals("0"))
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
+					if(session.getAttribute("returnUri")!=null) {
+						return session.getAttribute("returnUri").toString();
+					}
 					return "true";
 				} else {
 					result = "ip";
@@ -240,7 +351,10 @@ public class UserController {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
 				dto.setIp("," + req.getRemoteAddr());
 				service.update_ipProcess(dto);
+				UserDTO udto= service.select_mypageProcess(dto.getId());
 				session.setAttribute("id", dto.getId());
+				session.setAttribute("grade", udto.getGrade());
+				System.out.println(udto.getGrade());
 				result = "0";
 			} else {
 				result = "1";
@@ -258,13 +372,13 @@ public class UserController {
 	// 회원가입 뷰
 	@RequestMapping("/sign_up")
 	public ModelAndView Sign_up_View(ModelAndView mav, HttpServletRequest req, UserDTO dto) {
-		if (req.getParameter("id") != null) {
+		if (req.getParameter("id") != null && req.getParameter("name")!= null && req.getParameter("pwd") !=null) {
 			dto.setId(req.getParameter("id"));
-			dto.setEmail(req.getParameter("email"));
+			dto.setName(req.getParameter("name"));
 			dto.setPwd(req.getParameter("pwd"));
 		} else {
 			dto.setId("");
-			dto.setEmail("");
+			dto.setName("");
 			dto.setPwd("");
 		}
 		mav.addObject("dto", dto);
@@ -275,10 +389,13 @@ public class UserController {
 	// 이메일인증 뷰
 
 	@RequestMapping("/confirm_email")
-	public String confirm_emailMethod(HttpServletRequest request) {
+	public String confirm_emailMethod(HttpServletRequest request,HttpSession session) {
 		String uid = request.getParameter("uid");
-
 		service.update_gradeProcess(uid);
+         /*String id=service.select_id_uuidProcess(uid);
+		
+		session.setAttribute("id",id);
+		session.setAttribute("grade", 1);*/
 		return "/member/confirm_email";
 	}
 
@@ -289,9 +406,7 @@ public class UserController {
 		return "/member/change_pwd";
 	}
 
-	// 비밀번호 변경 하기 눌렀을시
-	// 나중 transaction 설정
-	// 보안위해서 한번쓰인 키는 바꿔줌
+	
 	@RequestMapping("/change_pwd")
 	public String Change_pwd_do(UserDTO dto) {
 		UUID uid = UUID.randomUUID();
@@ -305,19 +420,23 @@ public class UserController {
 			System.out.println("update 실패" + e.toString());
 		}
 
-		return "/member/main";
+		return "redirect:/home";
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
 	@RequestMapping("/change_pwd_post")
-	public @ResponseBody String Change_pwd(ModelAndView mav, String email, UserDTO dto) {
+	public @ResponseBody String Change_pwd(ModelAndView mav, String id, UserDTO dto) {
 		String text = "";
-		dto = service.find_idProcess(email);
-		int grade = dto.getGrade();
-		String uid = dto.getUuid();
-		dto.setUuid(uid);
-		dto.setEmail(email);
-		System.out.println(grade + " " + uid + " " + email);
+         if(service.find_idProcess(id)!=null)
+         {
+        		dto = service.find_idProcess(id);
+         }
+		
+		int	grade = dto.getGrade();
+		String  uid = dto.getUuid();
+		
+	    dto.setId(id);
+		System.out.println(grade + " " + uid + " " + dto.getId());
 
 		if (uid != null && grade != 0) {
 			String subject = "EASY TASK[비밀번호 변경]";// 제목
@@ -327,12 +446,12 @@ public class UserController {
 					+ dto.getUuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
 
 			service.postmailProcess(dto, subject, content);
-			text = "Check your email.";
+			text = "true";
 
 		} else {
-			text = "Can't find that email, sorry.";
+			text = "false";
 		}
-
+           System.out.println(text);
 		return text; // ajax값 보내줌
 	}
 
@@ -367,7 +486,7 @@ public class UserController {
 		System.out.println(result.get("email"));
 		System.out.println(result.get("name"));
 		System.out.println("Google login success");
-		model.addAttribute("email", result.get("email"));
+		model.addAttribute("id", result.get("email"));
 		model.addAttribute("name", result.get("name"));
 		return "/member/google_signup";
 	}
