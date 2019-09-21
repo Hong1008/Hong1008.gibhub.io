@@ -1,4 +1,6 @@
 $(document).ready(function(){	
+	
+	/////////////////////////////////////쿠키////////////////////////////////////
 		var a = $('.timelines');
 		a.on('click',function(){
 			if($(this).hasClass('time_nonchk')){
@@ -18,5 +20,11 @@ $(document).ready(function(){
 			}else{
 				a.eq(i).addClass(coo);
 			}
-		}
+		}	
+		/////////////////////////////////////쿠키////////////////////////////////////
+		
+		//////////////////////////////탐라처리/////////////////////////////////////
+		$('.time_todo').append('할일');
+		$('.time_start').append('생성');
+		$('.time_end').append('종료');
 })
