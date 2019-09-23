@@ -12,7 +12,7 @@
 	</insert>
 	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
-		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id})
+		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id},#{sch_mgr})
 	</insert>
 	
 	<insert id="firstInsertSchTeam" parameterType="dto.Sch_TeamDTO">
@@ -49,7 +49,15 @@
 	</select>
 	
 	<select id="calendarPro" resultType="dto.ProjectDTO" parameterType="string">
-		select pro_name, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
+		select pro_name, pro_info, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
+	</select>
+	
+	<select id="calendarSch" resultType="dto.ScheduleDTO" parameterType="string">
+		select sch_id, sch_info, sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end from schedule where pro_id = #{pro_id}
+	</select>
+	
+	<select id="calendarTodo" resultType="dto.TodoDTO" parameterType="string">
+		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end from todo where sch_id = #{sch_id}
 	</select>
 	
 	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
@@ -68,7 +76,7 @@
 	</select>
 	
 	<select id="tdViewSelect" resultType="dto.TodoDTO" parameterType="string">
-		select t_name, ceil(t_end-sysdate) t_end, name id  from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
+		select t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, name id  from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
 	</select>
 	
 	<select id="proTeamSelect" resultType="dto.Pro_TeamDTO" parameterType="string">

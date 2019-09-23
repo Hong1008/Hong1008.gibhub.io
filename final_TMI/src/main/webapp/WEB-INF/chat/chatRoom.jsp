@@ -18,16 +18,43 @@
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
 
-	$(document)
-			.ready(
-					function() {
-						$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+	$(document).ready(function() {
+						$('#loading').hide();
+						//시작 시 채팅영역 스크롤 하단으로 내리기
+						$("#chatArea")
+								.scrollTop($("#chatArea")[0].scrollHeight);
 						var projectId = $('#projectId').val();
 						var userNick = $('#userNick').val();
+						$(window).ajaxStart(function() {
+							$('#loading').show();
+						})
+						$(window).ajaxStop(function() {
+							$('#loading').hide();
+						});
+						//취소버튼
+						$('#chatFileInsCancel').click(function() {
+							$('#filemodal').css({
+								'visibility' : 'hidden',
+								'z-index' : '0'
+							});
+							$('#filename').empty();
+							$('#file').val('');
+						})
+						//파일 담을 리스트
+						var fileList = [];
 						//파일 전송버튼
-						$('#chatFileIns').click(function() {
+						$('#fileInsSend').click(function() {
 											//객체 담음
-											var formData = new FormData($('#frm')[0]);
+											var formData = new FormData();
+											/* <input type="hidden" value="${sessionScope.id }" id="userNick">
+											<input type="hidden" value="${sessionScope.pro_id}" id="projectId"> */
+											formData.append('id','${sessionScope.id }');
+											formData.append('pro_id','${sessionScope.pro_id}');
+											if(fileList){
+												for(var index in fileList){
+													formData.append('filename', fileList[index]);
+												}
+											}
 											$.ajax({
 														url : 'chatInsertFile',
 														processData : false,
@@ -37,41 +64,66 @@
 														data : formData,
 														type : 'POST',
 														success : function(result) {
-														alert('성공');
-														//모달 지우기
-														$('#filemodal').css('visibility','hidden');
-														$('#filemodal').css('z-index','1');
-																//웹소캣 핸들러로 보냄
-															websocket.send(projectId+ ":"+ userNick+ ":"+ ":"+ result);
-																
+															alert('성공');
+															//모달 지우기
+															$('#filemodal')
+																	.css(
+																			{
+																				'visibility' : 'hidden',
+																				'z-index' : '0'
+																			});
+															$('#filename')
+																	.empty();
+															$('#file').val('');
+															//웹소캣 핸들러로 보냄
+										/* 					websocket.send(projectId+ ":"+ userNick+ ":"+ ":"+ result);
+															$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/temp/"
+																	+result+
+																	"'></div><small>"
+																					+ result
+																					+ "</small></div>"); */
 														}
 													});
 										});
-						//실제 파일 인풋
+						//인풋 파일 바뀌면 모달창 뜸
 						$('#file').change(function() {
-											$('#filemodal').css('visibility',
-													'visible');
-										 	$('#filemodal').css('z-index', '3'); 
-
-									 		 var filename = $('#file').val();
-											filename = filename.split("\\");
-											var filetype = filename[2];
-											filetype = filetype.split('.');
-											if (filetype[1] == 'jpg'|| filetype[1] == 'png'|| filetype[1] == 'gif') {
+								/* 			$('#filemodal').css({
+												'visibility' : 'visible',
+												'z-index' : '10',
+												'display' : 'block'
+											});
+											var filename = $('#file').val();
+											var filenameLength = filename.lenght;
+											var latDot = filename
+													.lastIndexOf('.');
+											var filetype = filename.substring(
+													latDot, filenameLength)
+													.toLowerCase();
+											//파일이 이미지 파일이면 미리보기
+											if (filetype == 'jpg'
+													|| filetype == 'png'
+													|| filetype == 'gif') {
 												inputPreview(this);
-											
-											} else{
+												//아니면 대체 이미지로 보여줌
+											} else {
 												$('#filepreview')
 														.html(
 																'<img src="../resources/Chat_img/text.png">');
 											}
-											$('#filename').append(filename[2]); 
+											$('#filename').append(filename);
+											$('#chatFileIns').focus(); */
+											var fileName=$(this).val();
+											var showName=$(this).val().substring($(this).val().lastIndexOf("\\")+1);
+											var fileNameLength = fileName.lenght;
+											var latDot = fileName.lastIndexOf('.');
+											var filetype = fileName.substring(latDot, fileNameLength).toLowerCase();
+											$('#filetable').append('<tr><td><input type="checkbox"/></td><td>' + showName + '</td></tr>');
+											fileList.push($('#file')[0].files[0]);
 										});
-						
-			
-
-						//엔터일때도
-						$('#message').keypress(function(event) {
+						//엔터로 메세지 발송
+						$('#message')
+								.keypress(
+										function(event) {
 											if (event.keyCode == 13) {
 												if (!event.shiftKey) {
 													event.preventDefault();
@@ -100,16 +152,16 @@
 							websocket.close();
 						});
 					});
+
 	function inputPreview(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				$('#filepreview').html(
-						"<img src="+ e.target.result +">");
+				$('#filepreview').html("<img src="+ e.target.result +">");
 			}
 			reader.readAsDataURL(input.files[0]);
 		}
-	} 
+	}
 	//WebSocket이 연결된 경우 호출되는 함수
 	function onOpen(evt) {
 		console.log("웹 소켓에 연결 성공");
@@ -153,7 +205,7 @@
 			}
 			//상대방일때
 		} else {
-			
+
 			//자료 송신일때
 			if (dataSplit[1] == "") {
 				$('#chatMessage')
@@ -181,8 +233,11 @@
 			}
 
 		}
-		//스크롤바
-		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+		//채팅영역에 채팅 입력 후 스크롤바 내리기 파일일경우 이미지 불러오는데 시간걸려서 딜레이 걸었음
+		setTimeout(function() {
+			$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+		}, 8);
+
 	}
 </script>
 <style type="text/css">
@@ -193,6 +248,8 @@ body {
 }
 
 #filemodal {
+	z-index: 0;
+	display: none;
 	position: fixed;
 	visibility: hidden;
 	width: 100%;
@@ -364,7 +421,6 @@ body {
 }
 
 #fileBox {
-	background-color: aqua;
 	float: right;
 	width: 40%;
 	height: 871px;
@@ -416,9 +472,8 @@ body {
 }
 
 .replyimg {
-	 display: block;
-	width: 200px;
-	height: 100%;
+	display: block;
+	height: 100px;
 }
 
 .todaychk {
@@ -431,11 +486,39 @@ body {
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/aside.jsp"></jsp:include>
 <body>
+	<div id="fileInsModal">
+		<div id="fileInsArea">
+			<div id="insbox">
+			<div id="tablewrap">
+				<table id="filetable">
+					<tr>
+						<th><input type="checkbox"></th>
+						<th>파일명</th>
+					</tr>
+				</table>
+				</div>
+				<label for="file">파일첨부</label>
+				<button id="fileInsSend">파일보내기</button>
+				<button id="fileInsDel">파일삭제</button>
+				<button id="fileInsC">종료</button>
+			</div>
+			<div id="filepreviewArea"></div>
+		</div>
+	</div>
 	<div id="filemodal">
 		<div id="fileShowBox">
 			<div id="filepreview"></div>
 			<div id="filename"></div>
-			<button id="chatFileIns">보내기</button>
+			<button id="chatFileIns" class="btnstyle">보내기</button>
+			<button id="chatFileInsCancel" class="btnstyle">취소</button>
+			<div id="loading">
+				<img src="../resources/Chat_img/loading.gif">
+			</div>
+		</div>
+	</div>
+	<div id="fileprPreviewModal">
+		<div id="filePreviewImg">
+			<img src="#" id="filePreviewImgSrc">
 		</div>
 	</div>
 	<div id="contents">
@@ -458,9 +541,9 @@ body {
 												<br />
 
 												<div class='replyMessage'>${dto.chat_content}
-												<c:if test="${dto.upload!=null}">
-												<img class='replyimg' src="/tmi/temp/${dto.upload}">
-												</c:if>
+													<c:if test="${dto.upload!=null}">
+														<img class='replyimg' src="/tmi/temp/${dto.upload}">
+													</c:if>
 													<a href="/tmi/temp/${dto.upload}"
 														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
 												</div>
@@ -478,9 +561,9 @@ body {
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
 												<div class='replyMessage'>${dto.chat_content}
-												<c:if test="${dto.upload!=null}">
-												<img class='replyimg' src="/tmi/temp/${dto.upload}">
-												</c:if>
+													<c:if test="${dto.upload!=null}">
+														<img class='replyimg' src="/tmi/temp/${dto.upload}">
+													</c:if>
 													<a href="/tmi/temp/${dto.upload}"
 														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
 												</div>
@@ -502,7 +585,7 @@ body {
 			<div id='insBox'>
 				<hr id="bar" />
 				<div id=fileBtn>
-					<label for="file" id="filelabel"><img id="fileInsImg"
+					<label id="filelabel"><img id="fileInsImg"
 						src="../resources/Chat_img/paperclip.png/"></label>
 					<form id="frm" method="post" enctype="multipart/form-data">
 						<input type="file" id="file" name="file" />
@@ -512,9 +595,214 @@ body {
 
 			</div>
 		</div>
-		<div id="fileBox"></div>
+		<div id="fileBox">
+			<div id="fileBoxAreaVertical"></div>
+			<div id="eachFileArea">
+				<c:forEach items="${fileList}" var="file">
+					<div class="eachFile">
+						<div class="eachFileImg">
+							<img class="efimg" src="/tmi/temp/${file.upload }">
+						</div>
+						<div class="eachFileName">
+							<small>${fn:substringAfter(file.upload,'_')}</small>
+						</div>
+						<%-- <input class="multiDown" type="checkbox" value="${file.upload }"> --%>
+						<input type="checkbox" id="${file.upload }" class="multiDown"
+							value="${file.upload }"> <label for="${file.upload }"></label>
+					</div>
+				</c:forEach>
+			</div>
+			<div id="selectfilecnt">선택된 갯수 : 0</div>
+			<input id="multiDown" type="button" value="다운로드">
+		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
 		<input type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 </body>
+<style>
+#fileInsModal {
+	z-index: 0;
+	display: none;
+	position: fixed;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .2);
+}
+
+#fileprPreviewModal {
+	z-index: 0;
+	display: none;
+	position: fixed;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .2);
+}
+
+#fileInsArea {
+	width: 60%;
+	height: 60%;
+	position: relative;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	text-align: center;
+}
+
+#fileInsArea #insbox {
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+#fileInsArea #insbox #tablewrap{
+    margin: auto;
+    margin-top: 50px;
+height:300px;
+width: 200px;
+}
+#fileInsArea #insbox #tablewrap #filetable th:nth-child(2){
+width: 150px;
+}
+#fileInsArea #filepreviewArea {
+float: left;
+	width: 40%;
+	height: 100%;
+}
+
+#filePreviewImg {
+	width: 80%;
+	height: 80%;
+	position: relative;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	text-align: center;
+	overflow: auto;
+}
+
+.multiDown+label {
+	display: block;
+	margin: 0.2em;
+	cursor: pointer;
+	padding: 0.2em;
+}
+
+.multiDown {
+	display: none;
+}
+
+.multiDown+label:before {
+	content: "\2714";
+	border: 0.1em solid #000;
+	border-radius: 0.2em;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	padding-left: 0.2em;
+	padding-bottom: 0.3em;
+	margin-right: 0.2em;
+	vertical-align: bottom;
+	color: transparent;
+	transition: .2s;
+}
+
+.multiDown+label:active:before {
+	transform: scale(0);
+}
+
+.multiDown:checked+label:before {
+	background-color: MediumSeaGreen;
+	border-color: MediumSeaGreen;
+	color: #fff;
+}
+
+.multiDown:disabled+label:before {
+	transform: scale(1);
+	border-color: #aaa;
+}
+
+.multiDown:checked:disabled+label:before {
+	transform: scale(1);
+	background-color: #bfb;
+	border-color: #bfb;
+}
+
+#fileBoxAreaVertical {
+	margin-left: 10px;
+	float: left;
+	width: 1px;
+	height: 80%;
+	border-left: 1px solid gray;
+	margin-top: 10%;
+}
+
+#eachFileArea {
+	overflow: auto;
+	width: 98%;
+	height: 80%;
+}
+
+.eachFile {
+	float: left;
+	margin-top: 20px;
+	margin-left: 40px;
+	width: 180px;
+	height: 180px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0
+		rgba(0, 0, 0, .12) !important;
+}
+
+.eachFileName {
+	word-break: break-all;
+}
+
+.eachFileImg {
+	margin: auto;
+	margin-top: 10px;
+	width: 80px;
+	height: 80px;
+}
+
+.eachFileImg .efimg {
+	width: 80px;
+	height: 80px;
+}
+</style>
+<script type="text/javascript">
+	$('#filelabel').click(function() {
+		$('#fileInsModal').css({
+			'visibility' : 'visible',
+			'z-index' : '10',
+			'display' : 'block'
+		});
+	})
+	$('.multiDown').click(function() {
+		$('#selectfilecnt').text("선택된 갯수 : " + $(".multiDown:checked").length);
+	})
+	$('.replyimg').click(function() {
+		$('#fileprPreviewModal').css({
+			'visibility' : 'visible',
+			'z-index' : '10',
+			'display' : 'block'
+		});
+		$('#filePreviewImgSrc').attr('src', $(this).attr('src'));
+		/* $(this).attr('src') */
+	})
+	$('#multiDown').click(
+			function() {
+				$('.multiDown:checked')
+						.each(
+								function() {
+									var a = $("<a>").attr("href",
+											"/tmi/temp/" + $(this).val()).attr(
+											"download", $(this).val())
+											.appendTo("body");
+									a[0].click();
+									a.remove();
+								})
+			})
+</script>
 </html>

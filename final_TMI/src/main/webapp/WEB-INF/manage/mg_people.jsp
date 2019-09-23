@@ -18,6 +18,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+<!-- sweetalert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>
 
@@ -26,7 +29,7 @@
 	<c:forEach items="${people}" var="dto">
 		<input type="hidden" value="${dto.pro_id }" id="pro_id">
 	</c:forEach>
-	<div id="pj_setting_form">
+	<div id="pj_set">
 		<div>
 
 			<div>
@@ -53,12 +56,12 @@
 				<c:choose>
 					<c:when test="${people.pt_level==1 }">
 						<label class="checkbox-inline"> <input type="checkbox"
-							value="Option 1" disabled /> ${people.id }
+							value=${people.id } disabled /> ${people.id }
 						</label>
 					</c:when>
 					<c:otherwise>
-						<label class="checkbox-inline"> <input type="checkbox"
-							value="Option 1" /> ${people.id }
+						<label class="checkbox-inline"> <input type="checkbox" id="chkbox"
+							value=${people.id } /> ${people.id }
 						</label>
 					</c:otherwise>
 				</c:choose>
@@ -68,16 +71,31 @@
 		<input type="submit" class="btn btn-warning" id="back" value="뒤로">
 	</div>
 	
-	<div id="modifyModal">
+	<form id="pro-form" class="modal" action="addMember">
+				<label for="search_id">아이디로 팀원들을 찾아보세요</label>
+				<ul class="table-list" id="pro_team_list">
+					
+				</ul>
+				<input type="text" id="search_id" >
+				<ul id="search_result" hidden="" class="autocomplete-results">
+				</ul>
+				
+				<input type="submit" value="프로젝트 추가">
+			</form>
+
+			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
+	
+	
+	<!-- <div id="modifyModal">
 		<p>
-			<label for="updateReplyText">reply text</label> <input
+			<label for="updateReplyText">아이디 입력</label> <input
 				class="for-control" type="text" placeholder="reply text"
-				id="updateReplyText">
+				id="memberText">
 		</p>
 		<p>
-			<button id="btnModify">modify</button>
-			<button id="btnClose">Close</button>
+			<button id="btnAdd">추가</button>
+			<button id="btnClose">닫기</button>
 		</p>
-	</div>
+	</div> -->
 </body>
 </html>

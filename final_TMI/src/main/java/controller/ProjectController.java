@@ -92,8 +92,7 @@ public class ProjectController {
 	@RequestMapping("/insertSchedule")
 	public String insertSchedule(ScheduleDTO sdto,HttpSession session, @RequestParam(value="sch_team_list") List<String> sch_team_list) {
 		String pro_id = session.getAttribute("pro_id").toString();
-		String id = session.getAttribute("id").toString();
-		projectService.insertSchdule(sdto, pro_id, id, sch_team_list);
+		projectService.insertSchdule(sdto, pro_id, sch_team_list);
 		return "redirect:/project/management";
 	}
 	
@@ -116,6 +115,10 @@ public class ProjectController {
 	@RequestMapping("/calendarPro")
 	public @ResponseBody List<ProjectDTO> calendarPro(HttpSession session) {
 		return projectService.calendarPro(session.getAttribute("pro_id").toString(), session.getAttribute("id").toString());
+	}
+	@RequestMapping("/calendarSchTd")
+	public @ResponseBody List<ScheduleDTO> calendarSchTd(HttpSession session) {
+		return projectService.calendarSchTd(session.getAttribute("pro_id").toString());
 	}
 	
 	@RequestMapping("/proSelect")

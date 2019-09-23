@@ -74,6 +74,16 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
+	public List<ScheduleDTO> calendarSchTd(String pro_id) {
+		// TODO Auto-generated method stub
+		List<ScheduleDTO> schList = mapper.calendarSch(pro_id);
+		for (ScheduleDTO scheduleDTO : schList) {
+			scheduleDTO.setTodoList(mapper.calendarTodo(scheduleDTO.getSch_id()));
+		}
+		return schList;
+	}
+	
+	@Override
 	public ProjectDTO proSelect(String pro_id) {
 		// TODO Auto-generated method stub
 		return mapper.proSelect(pro_id);
@@ -118,21 +128,21 @@ public class ProjectServiceImp implements ProjectService{
 	
 	@Transactional
 	@Override
-	public void insertSchdule(ScheduleDTO sdto, String pro_id,String id, List<String> sch_team_list) {
+	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list) {
 		// TODO Auto-generated method stub
 		Sch_TeamDTO stDto = new Sch_TeamDTO();
 		try {
 			sdto.setPro_id(pro_id);
+			sdto.setSch_mgr(sch_team_list.get(0));
 			mapper.firstInsertSchedule(sdto);
 			stDto.setPro_id(pro_id);
-			stDto.setId(id);
+			stDto.setId(sdto.getSch_mgr());
 			stDto.setSt_level(1);
-			mapper.firstInsertSchTeam(stDto);
 			if(sch_team_list!=null) {
 				for (String string : sch_team_list) {
 					stDto.setId(string);
-					stDto.setSt_level(0);
 					mapper.firstInsertSchTeam(stDto);
+					stDto.setSt_level(0);	
 				}
 			}
 		}catch (Exception e) {

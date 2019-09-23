@@ -37,4 +37,6 @@ public interface UserService {
 	public void mypage_updateProcess(UserDTO dto);
 	//mypage 내용 불러오는거
 	public UserDTO select_mypageProcess(String id);
+	
+	public String select_id_uuidProcess(String uuid);
 }
