@@ -29,14 +29,10 @@
 	</select>
 
 	<insert id="chatUpLoadFile" parameterType="dto.ChattingDTO">
-	<selectKey resultType="string" keyProperty="chat_id" order="BEFORE">
-		select chat_id_seq.nextval from dual
-	</selectKey>
-	INSERT ALL
-		<foreach collection="upload" item="item" separator=" ">
-		 into pro_file(filename,chat_id) values (#{item},#{chat_id})
+		<foreach collection="upload" item="item" separator=" " open="insert all" close="select*from dual">
+		 into pro_file(filename,chat_id) values (#{item},chat_get_seq)
+		 into chat(chat_id,chat_content, chat_time, id, pro_id) values(chat_currget_seq,null,sysdate,#{id},#{pro_id})
 		</foreach>
-	SELECT * FROM DUAL
 	</insert>
 
 
