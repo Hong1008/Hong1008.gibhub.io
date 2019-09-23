@@ -47,7 +47,8 @@
 			</div>
 
 			<div>팀원 수정
-			<input type="submit" class="btn btn-primary" id="memAdd" value="추가">
+			<a href="#pro-form" class="btn" rel="modal:open">추가</a>
+			<!-- <input type="submit" class="btn btn-primary" id="memAdd" value="추가"> -->
 			<input type="submit" class="btn btn-danger" id="memDel" value="제거">
 			</div>
 			
@@ -81,9 +82,9 @@
 				</ul>
 				
 				<input type="submit" value="프로젝트 추가">
-			</form>
+	</form>
 
-			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
+	<!-- <a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a> -->
 	
 	
 	<!-- <div id="modifyModal">
