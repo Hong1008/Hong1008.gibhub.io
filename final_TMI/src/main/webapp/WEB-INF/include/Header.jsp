@@ -2,11 +2,87 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+  <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<security:authorize access="isAuthenticated()" >
+
+		<security:authentication property="principal.bNick" var="nick"/>
+
+	
+
+	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+
+    <script type="text/javascript">
+
+    var wsUri = "ws://localhost:8090/tmi/count";
+
+    function send_message() {
+
+        websocket = new WebSocket(wsUri);
+
+        websocket.onopen = function(evt) {
+
+            onOpen(evt);
+
+        };
+
+        websocket.onmessage = function(evt) {
+
+            onMessage(evt);
+
+        };
+
+        websocket.onerror = function(evt) {
+
+            onError(evt);
+
+        };
+
+    }
+
+   
+    var sessionUId = "<%=session.getAttribute("id") %>";
+   
+
+
+    function onOpen(evt) 
+
+    {
+
+       websocket.send(sessionUId);
+
+    }
+
+    function onMessage(evt) {
+
+    		$('#count').append(evt.data);
+
+    }
+
+    function onError(evt) {
+
+    }
+
+    $(document).ready(function(){
+
+    		send_message();
+
+    });
+
+    		
+
+    
+
+        </script>
+
+
+  </security:authorize>
+
 
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -60,9 +136,15 @@
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log' class= 'no-drag'>
                 <button id='header_sign_up_mypage' class=''></button>
+
+                <span id="count" class="badge bg-theme"></span>
+
+                <button id='header_notification' class=''></button>
+
                 <button id='header_sign_in_out' class=''></button>
             </div>
         </div>        
     </div>
 </body>
 </html>
+
