@@ -12,7 +12,7 @@
 		parameterType="string">
 		select c.chat_id chat_id, c.chat_content chat_content,
 		to_char(c.chat_time,'hh24:MI') chat_time,
-		to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename upload
+		to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename realfilename
 		from chat c, pro_file p where c.chat_id=p.chat_id(+) and
 		pro_id=#{pro_id} order by chat_id asc
 	</select>
@@ -47,7 +47,7 @@
 	<select id="fileList" resultType="dto.ChattingDTO"
 		parameterType="string">
 		select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id
-		id, p.filename upload
+		id, p.filename realfilename
 		from chat c, pro_file p where c.chat_id=p.chat_id
 		and pro_id=#{pro_id} order by chat_id desc
 	</select>
