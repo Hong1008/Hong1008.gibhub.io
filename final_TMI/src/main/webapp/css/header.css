@@ -16,13 +16,15 @@
 /*///////////////////////header내용부분 ///////////////////////*/
 #header_content {
 	width: 1300px;
+	height: 55px;
 }
 
 /********************** 로그인 부분 START **********************/
 #header_log {
     float: right;
     margin-right: 70px;
-    margin-top: 9px;
+    margin-top: 9px;    
+    height: 55px;
 }
 
 #header_log button,#header_log a {
@@ -95,7 +97,7 @@ width: 33px;
 	    width: 320px;
     height: 400px;
     background: #e2e2e2;
-    visibility: visible;
+    visibility: hidden;
     margin-left: -155px;
     margin-top: 45px;
 }
