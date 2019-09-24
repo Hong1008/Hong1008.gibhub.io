@@ -242,19 +242,21 @@ var programmingSkills = [
          <div class="board_chart2">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme  w3-large">
-                팀원별 기여도 (가로 막대차트)
+                팀원별 기여도 (가로 막대차트) 
           </div>
           </div>
-          
+         
             <div class="container" >
                <div id="skill">
+                <c:forEach var="toplist" items="${topList}">
                      <div class="skillbar html" style="height:5%;">
                        <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">15%</span>
+                       <span class="title w3-small">${toplist.id}</span>
+                       <span class="percent w3-small">${toplist.total}</span>
                      </div>
+                 </c:forEach>
                
-                     <div class="skillbar css" style="height:5%;">
+<!--                      <div class="skillbar css" style="height:5%;">
                        <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">20%</span>
                        <div class="filled" data-width="20%"></div>
@@ -276,8 +278,9 @@ var programmingSkills = [
                        <span class="title w3-small">ㅎㅎㅎㅎ</span>
                        <span class="percent w3-small">50%</span>
                        <div class="filled" data-width="50%"></div>
-                     </div>
-                 </div>      
+                     </div> -->
+                     
+                 </div>       <!--  skill div end -->
               </div>    
 
          </div>
@@ -332,7 +335,9 @@ var programmingSkills = [
             <ul class="verticalCarouselGroup vc_list">
            		<c:forEach var="reList" items="${relist}">
                 <li>
-                    <p class="w3-small"><input type="hidden" value="${reList.sch_id}" /><a href="#">${reList.sch_info}</a></p>
+                    <p class="w3-small"><a href="#">${reList.sch_name}</a>
+                    ${reList.sch_start}  ${reList.sch_end}  ${reList.id}
+                    </p>
                 </li>
 				</c:forEach>
             </ul>
