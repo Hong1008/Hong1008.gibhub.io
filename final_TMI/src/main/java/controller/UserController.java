@@ -304,10 +304,7 @@ public class UserController {
 			result = "false";
 		} else {
 			dto = service.select_idProcess(dto);
-			/*
-			 * HttpSession session = req.getSession(); session.setAttribute("id",
-			 * dto.getId()); session.setAttribute("grade", dto.getGrade());
-			 */
+		
 
 			String ip = service.select_ipProcess(dto.getId());
 			String[] iplist = ip.split(",");
@@ -392,10 +389,7 @@ public class UserController {
 	public String confirm_emailMethod(HttpServletRequest request,HttpSession session) {
 		String uid = request.getParameter("uid");
 		service.update_gradeProcess(uid);
-         /*String id=service.select_id_uuidProcess(uid);
-		
-		session.setAttribute("id",id);
-		session.setAttribute("grade", 1);*/
+		session.setAttribute("grade", 1);
 		return "/member/confirm_email";
 	}
 
