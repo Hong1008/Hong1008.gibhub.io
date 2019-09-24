@@ -9,7 +9,9 @@
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
 					<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }</div>
+						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
+						</div>
 						<c:choose>
 						<c:when test="${not empty sdto.todoList }">
 						<c:forEach items="${sdto.todoList }" var="tdDto">
@@ -138,7 +140,18 @@
 	</form>
 	
 	<script type="text/javascript">
-	
+		$('.s_name').on('click',function(){
+			var sch_id = $(this).children('#sch_id').val();
+			$.ajax({
+				url:'schedule',
+				data:'sch_id='+sch_id,
+				type:'POST',
+				success:function(res){
+					$('#kanban_wrap').empty();
+					$('#kanban_wrap').html(res);
+				}
+			})
+		})
 	
 	</script>
 </body>
