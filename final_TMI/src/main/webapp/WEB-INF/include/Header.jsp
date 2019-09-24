@@ -136,10 +136,10 @@
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log' class= 'no-drag'>
                 <button id='header_sign_up_mypage' class=''></button>
-                <span id="count" class="badge bg-theme"></span>
-
                 <button id='header_notification' class=''></button>
+                <span id="header_notiCount">1</span>				
                 <button id='header_sign_in_out' class=''></button>
+                <div id='header_notiNum'></div>
             </div>
         </div>        
     </div>

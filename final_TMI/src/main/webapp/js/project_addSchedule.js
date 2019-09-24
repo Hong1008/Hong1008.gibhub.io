@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	var width=216*($('.schedules').length+1);
+	$('#schedules_wrap').css('width',width+'px');
 	
 	//스케줄 시작일 종료일****************************************
     var sch_start =  $('#sch-form #sch_start').get(0);
@@ -53,6 +55,8 @@ $(document).ready(function(){
 	
 	//스케줄/할일유저추가*****************************************
 	$(document).on('click', '.team-list-item', function(){
+		width+=216;
+		$('#schedules_wrap').css('width',width+'px');
 		var result = false;
 		var input = $(this).text();
 		var teamList = $(this).parent();
