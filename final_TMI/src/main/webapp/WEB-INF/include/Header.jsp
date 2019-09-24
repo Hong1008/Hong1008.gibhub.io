@@ -9,18 +9,32 @@
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<security:authorize access="isAuthenticated()" >
+<%-- <security:authorize access="isAuthenticated()" >
 
-		<security:authentication property="principal.bNick" var="nick"/>
+		<security:authentication property="principal.bNick" var="nick"/>  --%>
 
 	
 
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
 
     <script type="text/javascript">
-
-    var wsUri = "ws://localhost:8090/tmi/count";
-
+$(document).ready(function(){
+	
+	 var sessionUId = "<%=session.getAttribute("id") %>";
+	 console.log("session아이디는"+sessionUId);
+	
+	if(sessionUId!=null)
+		{
+		
+		send_message();
+		
+		
+		}
+	
+	
+})
+    var sessionUId = "<%=session.getAttribute("id") %>";
+ var wsUri = "ws://localhost:8090/tmi/count";
     function send_message() {
 
         websocket = new WebSocket(wsUri);
@@ -46,21 +60,21 @@
     }
 
    
-    var sessionUId = "<%=session.getAttribute("id") %>";
+   
    
 
 
     function onOpen(evt) 
 
     {
-
+       //로그인되면 session에있는 아이디 클라이언트로보냄
        websocket.send(sessionUId);
 
     }
 
     function onMessage(evt) {
 
-    		$('#count').append(evt.data);
+    		$('#header_notiCount').append(evt.data);
 
     }
 
@@ -68,11 +82,6 @@
 
     }
 
-    $(document).ready(function(){
-
-    		send_message();
-
-    });
 
     		
 
@@ -81,7 +90,7 @@
         </script>
 
 
-  </security:authorize>
+<%-- </security:authorize> --%>
 
 
 <!-- jQuery Modal -->
@@ -137,7 +146,7 @@
             <div id='header_log' class= 'no-drag'>
                 <button id='header_sign_up_mypage' class=''></button>
                 <button id='header_notification' class=''></button>
-                <span id="header_notiCount">1</span>				
+                <span id="header_notiCount"></span>				
                 <button id='header_sign_in_out' class=''></button>
                 <div id='header_notiNum'></div>
             </div>

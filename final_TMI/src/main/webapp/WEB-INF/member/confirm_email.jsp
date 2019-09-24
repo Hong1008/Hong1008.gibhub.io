@@ -69,7 +69,7 @@ a:hover{
 <div id='cfe_bodywrap'>
 	<div id="cfe_logo"class='center_box  no-drag gotoHome'>TMI</div>	
 	<div id='confirm' class='center_box'>
-		이메일 인증완료<br> <a  href="sign_in.do">MAIN으로 가기</a>
+		이메일 인증완료<br> <a  href="home">MAIN으로 가기</a>
 	</div>
 </div>
 </body>

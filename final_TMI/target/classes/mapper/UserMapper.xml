@@ -64,4 +64,14 @@ select * from member where id=#{id}
 <select id="select_id_uuid" parameterType="string" resultType="string">
 select id from member where uuid=#{uuid}
 </select>
+<!-- user 알림  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+
+<!-- 알림내용 보여주는거 -->
+<select id="select_notification" parameterType="string" resultType="dto.NotiDTO">
+select * from notification where id=#{id}
+</select>
+<!-- 알림 개수 -->
+<select id="select_noti_count" parameterType="string" resultType="int">
+select count(*) from notification where id=#{id}
+</select>
 </mapper>
