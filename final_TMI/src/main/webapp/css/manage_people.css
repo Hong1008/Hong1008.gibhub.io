@@ -28,21 +28,8 @@
 	border: 1px solid black;
 }
 
-/****************** 버튼 ******************/
-.btn {
-    color: #fff;
-    background: #FF0066;
-    padding: .5rem 1rem;
-    display: inline-block;
-    border-radius: 4px;
-    transition-duration: .25s;
-    border: none;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: 700;
-}
 /****************** 폼 디자인 ******************/
-#pro-form input[type=text] {
+#search-bar input[type=text] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -52,11 +39,11 @@
   box-sizing: border-box;
 }
 
-#pro-form label{
+#search-bar label{
 	display: block;
 }
 
-#pro-form input[type=submit] {
+#search-bar input[type=submit] {
   width: 100%;
   background-color: #4CAF50;
   color: white;
@@ -67,12 +54,12 @@
   cursor: pointer;
 }
 
-#pro-form input[type=submit]:hover {
+#search-bar input[type=submit]:hover {
   background-color: #45a049;
 }
 
 /****************** 검색 디자인 ******************/
-.autocomplete-results {
+.results {
     position: absolute;
     z-index: 99;
     width: 80%;
@@ -85,7 +72,7 @@
     box-shadow: 0 0 5px rgba(27,31,35,.3);
 }
 
-.autocomplete-item {
+.search-item {
     display: block;
     padding: 5px;
     overflow: hidden;
@@ -96,27 +83,8 @@
     cursor: pointer;
 }
 
-.autocomplete-item:hover{
+.search-item:hover{
 	background-color: #478aff;
 	color: white;
 }
 
-
-/* .modifyShow {
-	display: block;
-	position: absolute;
-	left: 500px;
-	margin-top: 200px;
-	width: 400px;
-	height: 150px;
-	z-index: 1000;
-	border: 1px solid black;
-	text-align: center;
-	background-color: white;
-}
-
-.modifyHide {
-	visibility: hidden;
-	width: 0px;
-	height: 0px;
-} */

@@ -19,7 +19,7 @@ public interface ManageMapper {
 	
 	public void addMember(ManageDTO dto);
 	
-	public List<String> idcheck();
+	public List<String> idcheck(String pro_id);
 	
 	public void delMember(ManageDTO dto);
 	
@@ -28,4 +28,6 @@ public interface ManageMapper {
 	public void pjpeopleDel(String pro_id);
 	
 	public List<String> searchIdList(String id);
+	
+	public void setRend(ManageDTO dto);
 }
