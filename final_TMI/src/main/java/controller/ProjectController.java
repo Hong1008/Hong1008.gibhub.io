@@ -63,13 +63,14 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/calender")
-	public ModelAndView ram_calanderTest(ModelAndView mav) {
+	public ModelAndView calender(ModelAndView mav) {
 		mav.setViewName("project/calender");
 		return mav;
 	}
 	
 	@RequestMapping("/schedule")
-	public ModelAndView ram_scheduleTest(ModelAndView mav) {
+	public ModelAndView scheduleDetail(ModelAndView mav, String sch_id) {
+		mav.addObject("schOne", projectService.schOneSelect(sch_id));
 		mav.setViewName("project/schedule");
 		return mav;
 	}
