@@ -25,6 +25,7 @@ public interface ProjectMapper {
 	public List<TodoDTO> calendarTodo(String sch_id);
 	public ProjectDTO proSelect(String pro_id);
 	public ScheduleDTO schOne(String sch_id);
+	public String getTdId(String t_id);
 	public List<ScheduleDTO> schSelect(String pro_id);
 	public List<TodoDTO> tdSelect(String sch_id);
 	public List<TodoDTO> tdViewSelect(String sch_id);
@@ -36,4 +37,6 @@ public interface ProjectMapper {
 	public void firstInsertTodo(TodoDTO tdto);
 	public void timeInsertTodo(@Param("pro_id") String pro_id,@Param("t_name")String t_name);
 	public void timeInsertSchedule(@Param("pro_id") String pro_id,@Param("sch_name")String sch_name);
+	public void uptTdStart(String t_id);
+	public void uptTdRend(String t_id);
 }

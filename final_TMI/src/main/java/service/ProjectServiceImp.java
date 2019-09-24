@@ -99,7 +99,11 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		ScheduleDTO sdto = mapper.schOne(sch_id);
 		sdto.setStList(mapper.schTeamSelectById(sch_id));
-		sdto.setTodoList(mapper.tdSelect(sch_id));
+		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
+		for (TodoDTO todoDTO : tList) {
+			todoDTO.setId(mapper.getTdId(todoDTO.getT_id()));
+		}
+		sdto.setTodoList(tList);
 		return sdto;
 	}
 	
@@ -171,5 +175,17 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
 		mapper.timeInsertTodo(pro_id,tdto.getT_name());
+	}
+	
+	@Override
+	public void uptTdRend(String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdRend(t_id);
+	}
+	
+	@Override
+	public void uptTdStart(String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdStart(t_id);
 	}
 }

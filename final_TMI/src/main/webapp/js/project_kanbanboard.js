@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var width=216*($('.schedules').length+1);
 	$('#schedules_wrap').css('width',width+'px');
 	
+	
 	//스케줄 시작일 종료일****************************************
     var sch_start =  $('#sch-form #sch_start').get(0);
 	var sch_end = $('#sch-form #sch_end').get(0);

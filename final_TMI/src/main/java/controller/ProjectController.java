@@ -129,5 +129,13 @@ public class ProjectController {
 	}
 	
 	
-
+	@RequestMapping("/uptTdStart")
+	public @ResponseBody void uptTdStart(String t_id) {
+		projectService.uptTdStart(t_id);
+	}
+	
+	@RequestMapping("/uptTdRend")
+	public @ResponseBody void uptTdRend(String t_id) {
+		projectService.uptTdRend(t_id);
+	}
 }
