@@ -50,14 +50,14 @@ public class UserServiceImp implements UserService {
 		
 		if (from.trim().equals("")) {
 			System.out.println("보내는 사람을 입력하지 않았습니다.");
-		} else if (dto.getEmail().trim().equals("")) {
+		} else if (dto.getId().trim().equals("")) {
 			System.out.println("받는 사람을 입력하지 않았습니다.");
 		} else {
 			try {
 				Mail mt = new Mail();
 
 				// 메일보내기
-				mt.sendEmail(from, dto.getEmail(), cc, subject, content);
+				mt.sendEmail(from, dto.getId(), cc, subject, content);
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {
 				System.out.println("메일 전송에 실패하였습니다.");
@@ -118,6 +118,21 @@ public class UserServiceImp implements UserService {
 	public int test_emailProcess(UserDTO dto) {
 		// TODO Auto-generated method stub
 		return dao.Test_email(dto);
+	}
+	@Override
+	public void mypage_updateProcess(UserDTO dto) {
+		// TODO Auto-generated method stub
+		dao.update_member(dto);
+	}
+	@Override
+	public UserDTO select_mypageProcess(String id) {
+		// TODO Auto-generated method stub
+		return dao.select_mypage(id);
+	}
+	@Override
+	public String select_id_uuidProcess(String uuid) {
+		// TODO Auto-generated method stub
+		return dao.select_id_uuid(uuid);
 	}
 	
 }

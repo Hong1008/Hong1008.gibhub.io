@@ -5,29 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="/tmi/js/home.js" type='text/javascript'></script>
 <link href='/tmi/css/homeLogin.css' type='text/css' rel='stylesheet'>
-<link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
-<script src="/tmi/js/COMMON.js" type='text/javascript'></script>
 
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
-<!-- 달력 플러그인 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
-<script src="/tmi/js/lightpick.js"></script>
-<link href='/tmi/css/lightpick.css' type='text/css' rel='stylesheet'>
-
-<!---------------------------------------- 웹폰트 연결 ---------------------------------------->
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
-	rel="stylesheet">
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <title>세계의 모든일 Task Universe</title>
@@ -46,9 +29,9 @@
             		<c:forEach items="${projectHomeList}" var="i">
 						<div class='project'>
                 			<div class="pro_header">
-                    			<div class="pro_name no-drag">${i.pro_name }
-                    				<input type="hidden" id="pro_id" value="${i.pro_id }">
-                    			</div>
+                    				<div class="pro_name no-drag">${i.pro_name }
+                    					<input type="hidden" name="pro_id" id="pro_id" value="${i.pro_id }">
+                    				</div>
                 			</div>
                 			<div class="pro_body">
                 				<div class="pro_per no-drag">${i.pro_name }</div>
@@ -83,9 +66,9 @@
 			</form> -->
 			<form id="pro-form" class="modal" action="project/insertProject">
 				<label for="pro_name">프로젝트 제목</label> 
-				<input type="text" required="required"  id="pro_name" name="pro_name" placeholder="프로젝트 제목">
+				<input type="text" required="required" autocomplete="off" id="pro_name" name="pro_name" placeholder="프로젝트 제목">
 				<label for="pro_info">프로젝트 간단설명</label> 
-				<input type="text" required="required"  id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
+				<input type="text" required="required" autocomplete="off" id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
 				<label for="pro_start">프로젝트 기간</label> 
 				<input type="text" readonly="readonly"  required="required" id="pro_start" name="pro_start" placeholder="프로젝트 시작일">
 				<input type="text" readonly="readonly"  required="required" id="pro_end" name="pro_end" placeholder="프로젝트 종료일">
@@ -100,7 +83,7 @@
 				<input type="submit" value="프로젝트 추가">
 			</form>
 
-			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
+			<a href="#" class="btn">프로젝트 추가</a>
 		</div>
 	</div>
 	

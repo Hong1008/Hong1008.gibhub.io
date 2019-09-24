@@ -2,33 +2,48 @@ $(document).ready(function(){
 	var id=$('#sessionId').val();	
 	if(id==null || id=="")
        {
-		  $("#header_account").css("display","none");
-		  $("#header_sign_out").css("display","none");
+		  $('#header_sign_in_out').html('sign in');
+		  $('#header_sign_up_mypage').html('sign up');
+		  $('#header_sign_in_out').addClass('header_singIn');
+		  $('#header_sign_up_mypage').addClass('header_singUp');
+		  $('#header_sign_in_out').removeClass('header_signOut');
+		  $('#header_sign_up_mypage').removeClass('header_mypage');
+		  
+		  $('#header_notification').hide();
+		  
        }
 	else
 		{
-		  $('#header_sign_up').css("display","none");
-		  $('#header_sign_in_out').css("display","none");
-		  $("#header_account").css("display","inline");
-		  $("#header_sign_out").css("display","inline");
+		  $('#header_sign_in_out').html('sign out');
+		  $('#header_sign_up_mypage').html('mypage');
+		  $('#header_sign_up_mypage').addClass('header_mypage');
+		  $('#header_sign_in_out').addClass('header_signOut');
+		  $('#header_sign_in_out').removeClass('header_singIn');
+		  $('#header_sign_up_mypage').removeClass('header_singUp');
+		  
+		  $('#header_notification').show();
 		}
 	
 	  
 	  
-	  $('#header_sign_in_out').on('click',function(){
+	  $('.header_singIn').on('click',function(){
         $(location).attr("href", "sign_in.do");
     });
-    $('#header_sign_up').on('click',function(){
+    $('.header_singUp').on('click',function(){
         $(location).attr("href", "sign_up.do");
     });
-    $('#header_account').on('click',function(){
+    $('.header_mypage').on('click',function(){
         $(location).attr("href", "home");
     });
-    $('#header_sign_out').on('click',function(){
+    $('.header_signOut').on('click',function(){
         $(location).attr("href", "sign_out");
     });
     
-
+    $(".header_mypage").click(function(){
+    	
+    	location.href="mypage";
+    	
+    })
     //select 디자인 및 동작********************************************
 	$(".custom-select").each(function() {
 		  var classes = $(this).attr("class"),
@@ -66,7 +81,7 @@ $(document).ready(function(){
 		  $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 		  var pro_id = $(this).attr('data-value');
 	  	  //location.replace("/tmi/project/management?sessionChange=true&pro_id="+pro_id);
-		  location.replace("?proIdChange=true&pro_id="+pro_id);
+		  location.replace("?proIdChange=true&chg_pro_id="+pro_id);
 	});
 	//select 디자인 및 동작 끝********************************************
 		

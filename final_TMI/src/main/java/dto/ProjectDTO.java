@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 public class ProjectDTO {
 	private int pro_id;
 	private String pro_name;
@@ -8,6 +10,15 @@ public class ProjectDTO {
 	private String pro_end;
 	private String pro_rend;
 	private String pro_mgr;
+	private List<Pro_TeamDTO> ptList;
+	
+	
+	public List<Pro_TeamDTO> getPtList() {
+		return ptList;
+	}
+	public void setPtList(List<Pro_TeamDTO> ptList) {
+		this.ptList = ptList;
+	}
 	public int getPro_id() {
 		return pro_id;
 	}

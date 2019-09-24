@@ -28,4 +28,10 @@ public interface UserMapper {
 	public void insert_google(UserDTO dto);	
 	//이메일 중복검사
 	public int Test_email(UserDTO dto);
+	//mypage 계정 update
+	public void update_member(UserDTO dto);
+	//mypage 내용 불러오는거
+	public UserDTO select_mypage(String id);
+	
+	public String select_id_uuid(String uuid);
 }

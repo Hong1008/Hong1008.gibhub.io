@@ -53,11 +53,7 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 		dto.setChat_content(arg[2]);
 		System.out.println(arg[3]);
 		if(arg[3].equals("null")) {
-			System.out.println("일반채팅 작동");
 			chatservice.insertchat(dto);
-		}else if(!arg[3].equals("null")) {
-			System.out.println("파일업로드 작동");
-			chatservice.afterinsertChat(dto);
 		}
 		
 		//jsp로 보내주는 부분

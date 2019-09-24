@@ -5,6 +5,7 @@
 	padding: 0;
 }
 
+
 /*///////////////////////header전체 ///////////////////////*/
 #header {
     width: 100%;
@@ -20,7 +21,7 @@
 /********************** 로그인 부분 START **********************/
 #header_log {
     float: right;
-    margin-right: 40px;
+    margin-right: 70px;
     margin-top: 9px;
 }
 
@@ -35,6 +36,7 @@
     font-size: 15px;
     font-weight: 100;
     padding: 1px 14px;
+    float: left;
 }
 #header_log a svg {
 width: 33px;
@@ -53,8 +55,26 @@ width: 33px;
 		border: 1px solid white;
 	border-radius: 19px;
 }
-#header_sign_up {
+#header_sign_up_mypage {
 	border: none;
+}
+
+.header_mypage{
+	font-size: 17px !important;
+    padding-right: 7px !important;
+}
+
+
+#header_notification{
+	background-image: url(/tmi/resources/common/notification.png) !important;
+    border: none;
+    background-size: 22px !important;
+    width: 25px;
+    height: 33px !important;
+    background-repeat: no-repeat !important;
+    background-position-y: 6px !important;
+    padding: 0 !important;
+    margin-right: 14px;
 }
 /********************** 로그인 부분 END **********************/
 
