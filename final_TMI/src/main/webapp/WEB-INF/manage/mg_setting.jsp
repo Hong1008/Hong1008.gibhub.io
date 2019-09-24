@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-group">
 						<label for="pro_rend">프로젝트 실종료일:</label> 
-						<input type="date" class="form-control" id="pro_rend" name="pro_rend" required="required"
+						<input type="date" class="form-control" id="pro_rend" name="pro_rend" required="required" readonly="readonly"
 						value="${pjcontent.pro_rend }" >
 					</div>
 					

@@ -11,8 +11,15 @@ public class ScheduleDTO {
 	private String sch_name;
 	private String pro_id;
 	private String sch_rend;
+	private String sch_mgr;
 	private List<TodoDTO> todoList;
 	
+	public void setSch_mgr(String sch_mgr) {
+		this.sch_mgr = sch_mgr;
+	}
+	public String getSch_mgr() {
+		return sch_mgr;
+	}
 	public List<TodoDTO> getTodoList() {
 		return todoList;
 	}

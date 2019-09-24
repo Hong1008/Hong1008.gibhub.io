@@ -81,13 +81,10 @@
 	color:rgb(46, 183, 38);
 }
 
-.time_create{
+.time_start{
 	color:rgb(69, 114, 220);
 }
 
-.time_day{
-	    color: rgb(255, 115, 30);
-    font-size: 21px;
-    margin-top: -9px;
-    display: inline-block;
+.time_end{
+	   color: rgb(255, 115, 30);
 }

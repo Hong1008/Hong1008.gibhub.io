@@ -152,17 +152,35 @@ System.out.println("test.jsp"+root);
 %> --%>
 <style type="text/css">
 #img {
-	width: 250px;
-	height: 250px;
+	width: 80px;
+    height: 80px;
 	border-radius: 123px;
 	-moz-border-radius: 123px;
 	-khtml-border-radius: 123px;
 	-webkit-border-radius: 123px;
 }
+
+#my_wrap{
+padding-top: 100px;
+    padding-left: 250px;
+    background: #fcf7fd;
+    }
+    
+    #imgfile{
+    margin-top: 10px;
+    border: 1px solid #a59fa7;
+    width: 70px;
+    height: 27px;
+    background: #fcf7fd;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 100;
+    border-radius: 16px;
+    cursor: pointer;
+    }
 </style>
 </head>
 <body>
-	<div>
+	<div id='my_wrap'>
 		<form name="frm" method="post" action="mypage_update"
 			enctype="multipart/form-data">
 			<div>
@@ -191,9 +209,6 @@ System.out.println("test.jsp"+root);
 			<input type="submit" value="변경하기">
 		</form>
 	</div>
-
-	<div>비밀번호변경</div>
-
 	<div id="bodywrap">
 		<div id='logo' class='center_div'>TMI</div>
 		<div id="ChangeForm" class="center_div">
