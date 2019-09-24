@@ -27,12 +27,10 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 	// 테스트
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		usersInfo.add(session);
-		System.out.println(session + ": 웹소켓접속");
 		
 		Map<String, Object> httpSession = session.getAttributes();
 		String roomNumber =  (String) httpSession.get("pro_id");
 		roomList.put(session, roomNumber);
-		System.out.println(roomNumber + "방번호");
 		dto.setPro_id(roomNumber);
 		
 	}

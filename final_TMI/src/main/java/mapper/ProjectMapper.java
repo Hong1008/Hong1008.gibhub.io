@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import dto.NotiDTO;
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
@@ -15,6 +16,7 @@ public interface ProjectMapper {
 	
 	public void firstInsertProject(ProjectDTO pdto);
 	public void firstInsertProTeam(Pro_TeamDTO ptDto);
+	public void inviteProTeam(NotiDTO nDto);
 	public List<HashMap<String, Object>> projectHomeList(String id);
 	public List<Integer> proIdList(String id);
 	public List<String> searchIdList(String id);
