@@ -25,6 +25,13 @@ $(document).ready(function(){
 		
 		//////////////////////////////탐라처리/////////////////////////////////////
 		$('.time_todo').append('할일');
+		$('.time_sch ').append('스케쥴');
+		$('.time_mem ').append('멤버');
+		$('.time_file ').append('파일');
+		
 		$('.time_start').append('생성');
 		$('.time_end').append('종료');
+		$('.time_add').append('가입');
+		$('.time_remove').append('탈퇴');
+		$('.time_up').append('업로드');
 })

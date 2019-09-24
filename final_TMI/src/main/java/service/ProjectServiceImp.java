@@ -18,6 +18,7 @@ import dto.TimelineDTO;
 import dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import mapper.ProjectMapper;
+import mapper.TimelineMapper;
 
 @Service
 public class ProjectServiceImp implements ProjectService{
@@ -138,6 +139,7 @@ public class ProjectServiceImp implements ProjectService{
 			stDto.setPro_id(pro_id);
 			stDto.setId(sdto.getSch_mgr());
 			stDto.setSt_level(1);
+			mapper.timeInsertSchedule(pro_id, sdto.getSch_name());
 			if(sch_team_list!=null) {
 				for (String string : sch_team_list) {
 					stDto.setId(string);
@@ -152,8 +154,9 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
-	public void insertTodo(TodoDTO tdto) {
+	public void insertTodo(TodoDTO tdto,String pro_id) {
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
+		mapper.timeInsertTodo(pro_id,tdto.getT_name());
 	}
 }

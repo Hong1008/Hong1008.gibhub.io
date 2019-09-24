@@ -97,8 +97,9 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertTodo")
-	public String insertTodo(TodoDTO tdto) {
-		projectService.insertTodo(tdto);
+	public String insertTodo(TodoDTO tdto,HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		projectService.insertTodo(tdto,pro_id);
 		return "redirect:/project/management";
 	}
 
