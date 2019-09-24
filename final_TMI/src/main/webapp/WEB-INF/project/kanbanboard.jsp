@@ -45,7 +45,7 @@
 								<div id='addTcon'>
 									할일을<br>추가하세요
 									<div id='openTModal' class='tmi_skin tmi_skin01'>
-										<a href="#${sdto.sch_id }" rel="modal:open" class="td_insert">
+										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
@@ -103,7 +103,7 @@
 				스케쥴을<br>추가하세요
 
 				<div id='openSModal' class=' tmi_skin tmi_skin01'>
-					<a href="#sch-form" rel="modal:open">
+					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
 							<div class='h  tmi_skin tmi_skin01'></div>
 							<div class='v  tmi_skin tmi_skin01'></div>

@@ -4,9 +4,18 @@
 }
 
 .filterBox{
-	margin-left: 37%;
-    margin-top: 1%;
-    position: absolute;
+	left: 14%;
+    position: relative;
+}
+.isMe {
+width: 80px;
+padding: .8em .5em;
+font-family: inherit;
+background: inherit;
+}
+
+.isMe::-ms-expand {
+    display: none;
 }
 
 /* Customize the label (the container) */
@@ -15,7 +24,7 @@
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 16px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -35,9 +44,9 @@
 .checkmark {
   position: absolute;
   top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
+  left: 10px;
+  height: 20px;
+  width: 20px;
   background-color: #cacaca;
 }
 
@@ -65,8 +74,8 @@
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: 9px;
-  top: 5px;
+  left: 6px;
+  top: 2px;
   width: 5px;
   height: 10px;
   border: solid white;
