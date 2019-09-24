@@ -99,6 +99,8 @@ $(document).ready(function(){
 		
 	})
 	
+	
+	
 	//유저제거****************************************
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
@@ -118,5 +120,6 @@ $(document).ready(function(){
 			swal("Warning", "날짜를 지정해주세요","error");
 			return false;
 		}
+		
 	})
 })
