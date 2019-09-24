@@ -28,6 +28,10 @@ width: 200px;
     background-size:  170% !important;
 }
 
+.rend{
+	opacity: 0.5;
+}
+
 #addSchedules {
 	width: 200px;
 	height: 200px;
@@ -198,5 +202,5 @@ width: 200px;
 }
 
 #schedules_wrap{
-	width:432px;
+	/* width:432px; */
 }

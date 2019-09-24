@@ -88,7 +88,7 @@
 	</select>
 	
 	<select id="tdViewSelect" resultType="dto.TodoDTO" parameterType="string">
-		select t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, name id  from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
+		select t_id, t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, name id, t_rend from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
 	</select>
 	
 	<select id="proTeamSelect" resultType="dto.Pro_TeamDTO" parameterType="string">
@@ -103,6 +103,16 @@
 		select * from sch_team where sch_id = #{sch_id}
 	</select>
 	
+	<select id="getTdId" resultType="string" parameterType="string">
+		select id from todo where t_id = #{t_id}
+	</select>
 	
+	<update id="uptTdStart" parameterType="string">
+		update todo set t_start = sysdate where t_id = #{t_id}
+	</update>
+	
+	<update id="uptTdRend" parameterType="string">
+		update todo set t_rend = sysdate where t_id = #{t_id}
+	</update>
 </mapper>
 

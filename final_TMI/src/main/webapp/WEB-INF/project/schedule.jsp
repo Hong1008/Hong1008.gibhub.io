@@ -82,24 +82,41 @@
 		<div class='group' id='before'>
 			<div class='g_head'></div>
 			<ul id="sortable1" class="connectedSortable">
-				<c:forEach items="${schOne.todoList }" var="a">
-					<li class='sch_todo'>${a.t_name}</li>
+				<c:forEach items="${schOne.todoList }" var="tdDto">
+					<c:if test="${tdDto.t_end>0 && tdDto.t_start>0 && empty tdDto.t_rend}">
+						<li class='sch_todo before' id="${tdDto.t_id }">${tdDto.t_name}</li>
+					</c:if>
 				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='progress'>
 			<div class='g_head'></div>
 			<ul id="sortable2" class="connectedSortable">
+				<c:forEach items="${schOne.todoList }" var="tdDto">
+					<c:if test="${tdDto.t_end>0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
+						<li class='sch_todo progress' id="${tdDto.t_id }">${tdDto.t_name}</li>
+					</c:if>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='overtime'>
 			<div class='g_head'></div>
 			<ul id="sortable3" class="connectedSortable">
+				<c:forEach items="${schOne.todoList }" var="tdDto">
+					<c:if test="${tdDto.t_end<=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
+						<li class='sch_todo overtime' id="${tdDto.t_id }">${tdDto.t_name}</li>
+					</c:if>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='after'>
 			<div class='g_head'></div>
 			<ul id="sortable4" class="connectedSortable">
+				<c:forEach items="${schOne.todoList }" var="tdDto">
+					<c:if test="${not empty tdDto.t_rend}">
+						<li class='sch_todo' id="${tdDto.t_id }">${tdDto.t_name}</li>
+					</c:if>
+				</c:forEach>
 			</ul>
 		</div>
 		<div id='sch_info'></div>
@@ -128,9 +145,73 @@
 			}
 		});
 
-		$("#sortable1, #sortable2, #sortable3, #sortable4").sortable({
-			connectWith : ".connectedSortable"
+		/* $("#sortable1, #sortable2, #sortable3, #sortable4").sortable({
+			connectWith : ".connectedSortable",
+			change: function(event, ui){
+				
+			}
+		}).disableSelection(); */
+		$("#sortable1").sortable({
+			connectWith : "#sortable2"
 		}).disableSelection();
+		$("#sortable2").sortable({
+			connectWith : "#sortable4",
+			receive: function(event, ui){
+				swal({
+					  title: "할일이 진행중인 상태로 바뀝니다",
+					  text: "시작일이 현재날짜로 바뀌며 다시 되돌릴 수 없습니다",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+					    swal("할일이 진행 중으로 바뀌었습니다", {
+					      icon: "success",
+					    });
+					    $.ajax({
+					    	url:'uptTdStart',
+					    	data:'t_id='+$(ui.item).attr('id'),
+					    	type:'POST'
+					    })
+					  } else {
+						  $( ".connectedSortable" ).sortable( "cancel" );
+					  }
+					});
+			}
+		}).disableSelection();
+		$("#sortable3").sortable({
+			connectWith : "#sortable4",
+			receive: function(event, ui){
+				
+			}
+		}).disableSelection();
+		$("#sortable4").sortable({
+			items: 'cancel',
+			receive: function(event, ui){
+				swal({
+					  title: "할일이 종료됩니다",
+					  text: "할일이 종료되며 다시 되돌릴 수 없습니다",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+					    swal("할일이 종료 되었습니다", {
+					      icon: "success",
+					    });
+					    $.ajax({
+					    	url:'uptTdRend',
+					    	data:'t_id='+$(ui.item).attr('id'),
+					    	type:'POST'
+					    })
+					  } else {
+						  $( ".connectedSortable" ).sortable( "cancel" );
+					  }
+					});
+			}
+		})
 	});
 </script>
 </html>
