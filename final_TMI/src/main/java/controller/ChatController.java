@@ -42,19 +42,23 @@ public class ChatController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/chatInsertFile", produces="text/plain;charset=UTF-8")
-	public @ResponseBody List<ChattingDTO> park_chatInsertFile(ChattingDTO dto, HttpServletRequest req) {
+	@RequestMapping(value = "/chatInsertFile", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<String> park_chatInsertFile(ChattingDTO dto, HttpServletRequest req) {
 		List<MultipartFile> files = dto.getFilename();
-		List<String> upload=new ArrayList<String>();
-		if(files!=null) {
+		List<String> upload = new ArrayList<String>();
+		if (files != null) {
 			for (MultipartFile file : files) {
-				String fileName=file.getOriginalFilename();
-				UUID random=UUID.randomUUID();
-				
+				String fileName = file.getOriginalFilename();
+				UUID random = UUID.randomUUID();
+
 				String root = req.getSession().getServletContext().getRealPath("/");
 				String saveDirectory = root + "temp" + File.separator;
 				System.out.println(saveDirectory);
-				File ff= new File(saveDirectory, random + "_" + fileName);
+				File fe = new File(saveDirectory);
+				if (!fe.exists()) {
+					fe.mkdir();
+				}
+				File ff = new File(saveDirectory, random + "!park_" + fileName);
 				try {
 					FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
 				} catch (FileNotFoundException e) {
@@ -62,19 +66,19 @@ public class ChatController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				upload.add(new String(random + "_" + fileName));
+				upload.add(new String(random + "!park_" + fileName));
 			}
-			
+
 			dto.setUpload(upload);
 		}
-		upload=dto.getUpload();
+		upload = dto.getUpload();
 		System.out.println(upload.toString());
 		for (String string : upload) {
 			System.out.println(string);
 		}
 		chatservice.chatUpLoadFile(dto);
-		return null;
+
+		return upload;
 	}
 
 }
-
