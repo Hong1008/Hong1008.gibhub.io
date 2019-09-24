@@ -10,8 +10,11 @@
 	</insert>
 	<select id="chatList" resultType="dto.ChattingDTO"
 		parameterType="string">
-		select c.chat_id chat_id, c.chat_content chat_content, to_char(c.chat_time,'hh24:MI') chat_time, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename upload
-		from chat c, pro_file p where c.chat_id=p.chat_id(+) and pro_id=#{pro_id} order by chat_id asc
+		select c.chat_id chat_id, c.chat_content chat_content,
+		to_char(c.chat_time,'hh24:MI') chat_time,
+		to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename realfilename
+		from chat c, pro_file p where c.chat_id=p.chat_id(+) and
+		pro_id=#{pro_id} order by chat_id asc
 	</select>
 	<select id="dateList" resultType="dto.ChattingDTO"
 		parameterType="string">
@@ -26,21 +29,28 @@
 	</select>
 
 	<insert id="chatUpLoadFile" parameterType="dto.ChattingDTO">
-
-		insert into pro_file
-		(filename,chat_id)
-		values(#{upload},chat_id_seq.nextval)
+		<foreach collection="upload" item="item" separator=" " open="insert all" close="select*from dual">
+		 into pro_file(filename,chat_id) values (#{item},chat_get_seq)
+		 into chat(chat_id,chat_content, chat_time, id, pro_id) values(chat_currget_seq,null,sysdate,#{id},#{pro_id})
+		</foreach>
 	</insert>
+
+
+
 	<insert id="afterinsertChat" parameterType="dto.ChattingDTO">
 		insert into chat
 		(chat_id,
 		chat_content, chat_time, id, pro_id) values
 		(chat_id_seq.currval,#{chat_content},sysdate,#{id},#{pro_id})
 	</insert>
-	
-	<select id="fileList" resultType="dto.ChattingDTO" parameterType="string">
-	select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename upload
-		from chat c, pro_file p where c.chat_id=p.chat_id and pro_id=12 order by chat_id desc
+
+	<select id="fileList" resultType="dto.ChattingDTO"
+		parameterType="string">
+		select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id
+		id, p.filename realfilename
+		from chat c, pro_file p where c.chat_id=p.chat_id
+		and pro_id=#{pro_id} order by chat_id desc
 	</select>
 </mapper>
+
 

@@ -1,29 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>타이틀부분</title>
-<!-------------------------------------- 제이쿼리 연결 -------------------------------------->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-------------------------------------- js,css연결 -------------------------------------->
-<script src="../js/project_schedule.js" type='text/javascript'></script>
-<link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
-<link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
+<style type="text/css">
+.group {
+	width: 220px;
+	height: 700px;
+	background: black;
+	margin-right: 30px;
+	float: left;
+	border-radius: 21px 21px 0px 0px;
+}
 
-<!---------------------------------------- 웹폰트 연결 ---------------------------------------->
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
-	rel="stylesheet">
+#sch_info{
+	width: 420px;
+	height: 700px;
+	background: green;
+	float:left;
+}
 
-<!---------------------------------------- 헤더 연결 ---------------------------------------->
-<jsp:include page="../include/Header.jsp"></jsp:include>
-<!---------------------------------------- 어사이드연결 ---------------------------------------->
-<jsp:include page="../include/aside.jsp"></jsp:include>
+.g_head{
+	height: 50px;
+	background: red;
+	border-radius: 21px 21px 0px 0px;
+}
+
+.sch_todo{
+	height:40px;
+	background: blue;
+	margin-bottom: 3px;
+	transition: .52s;
+}
+.sch_todo:hover, .clicked{
+	height: 140px;
+}
+
+#sch_wrap {
+	width: 1600px;
+	padding-left: 70px;
+	margin-top: -50px;
+}
+
+#returnBtn {
+	width: 50px;
+	height: 50px;
+}
+</style>
 </head>
 <body>
-
+	<button id='returnBtn'>뒤로가기</button>
+	<div id='sch_wrap'>
+		<div class='group' id='before'>
+			<div class='g_head'></div>
+			<div class='sch_todo'></div>
+			<div class='sch_todo'></div>
+			<div class='sch_todo'></div>
+			<div class='sch_todo'></div>
+			<div class='sch_todo'></div>
+		</div>
+		<div class='group' id='progress'>
+			<div class='g_head'></div>
+		</div>
+		<div class='group' id='overtime'>
+			<div class='g_head'></div>
+		</div>
+		<div class='group' id='after'>
+			<div class='g_head'></div>
+		</div>
+		
+		<div id= 'sch_info'>
+		
+		</div>
+	</div>
 </body>
+<script type="text/javascript">
+	$('#returnBtn').click(function() {
+		window.location.href = 'management';
+	})
+	
+	$('.sch_todo').on('click',function(){
+		$('.sch_todo').removeClass('clicked');
+		$(this).addClass('clicked');
+	});
+	
+</script>
 </html>

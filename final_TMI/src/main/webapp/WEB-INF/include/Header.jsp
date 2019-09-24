@@ -2,11 +2,96 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+  <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<%-- <security:authorize access="isAuthenticated()" >
+
+		<security:authentication property="principal.bNick" var="nick"/>  --%>
+
+	
+
+	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+
+    <script type="text/javascript">
+$(document).ready(function(){
+	
+	 var sessionUId = "<%=session.getAttribute("id") %>";
+	 console.log("session아이디는"+sessionUId);
+	
+	if(sessionUId!=null)
+		{
+		
+		send_message();
+		
+		
+		}
+	
+	
+})
+    var sessionUId = "<%=session.getAttribute("id") %>";
+ var wsUri = "ws://localhost:8090/tmi/count";
+    function send_message() {
+
+        websocket = new WebSocket(wsUri);
+
+        websocket.onopen = function(evt) {
+
+            onOpen(evt);
+
+        };
+
+        websocket.onmessage = function(evt) {
+
+            onMessage(evt);
+
+        };
+
+        websocket.onerror = function(evt) {
+
+            onError(evt);
+
+        };
+
+    }
+
+   
+   
+   
+
+
+    function onOpen(evt) 
+
+    {
+       //로그인되면 session에있는 아이디 클라이언트로보냄
+       websocket.send(sessionUId);
+
+    }
+
+    function onMessage(evt) {
+
+    		$('#header_notiCount').append(evt.data);
+
+    }
+
+    function onError(evt) {
+
+    }
+
+
+    		
+
+    
+
+        </script>
+
+
+<%-- </security:authorize> --%>
+
 
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -60,9 +145,13 @@
             <span id="header_logo" class='center_box no-drag gotoHome'>TMI</span>
             <div id='header_log' class= 'no-drag'>
                 <button id='header_sign_up_mypage' class=''></button>
+                <button id='header_notification' class=''></button>
+                <span id="header_notiCount"></span>				
                 <button id='header_sign_in_out' class=''></button>
+                <div id='header_notiNum'></div>
             </div>
         </div>        
     </div>
 </body>
 </html>
+

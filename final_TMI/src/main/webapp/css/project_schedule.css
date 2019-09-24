@@ -2,7 +2,7 @@
 #kanban_wrap{	
     margin-left: 116px;
     margin-top: 43px;
-    height: 1000px;
+    overflow: scroll;
 }
 
 .schedules {
@@ -88,7 +88,25 @@ width: 200px;
 	font-size: 21px;
 }
 
-.todo_end {
+.todo_when{
+	font-size: 16px;
+}
+
+#todo_start.todo_when{
+	font-weight: bolder;
+	color: green;
+}
+
+#todo_end.todo_when{
+	font-weight: bolder;
+	color: red;
+}
+
+#todo_over.todo_when{
+	font-weight: bold;
+    color: red;
+}
+.todo_day{
 	font-size: 55px;
 	margin-top: -6px;
 	font-family: 'Raleway', sans-serif;
@@ -176,4 +194,8 @@ width: 200px;
 .team-list-item:hover{
 	background-color: #478aff;
 	color: white;
+}
+
+#schedules_wrap{
+	width:432px;
 }

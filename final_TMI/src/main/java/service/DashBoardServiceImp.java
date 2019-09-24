@@ -50,8 +50,18 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 
 	@Override
-	public List<DashDTO> timelineProcess(int pro_id) {
-		return mapper.timelist(pro_id);
+	public List<DashDTO> timelineProcess(String id) {
+		return mapper.timelist(id);
+	}
+	
+	@Override
+	public void bgChange(DashDTO dto) {
+		mapper.bgChange(dto);
 	}
 
+	@Override
+	public String bgViewProcess(String id) {
+		return mapper.bgView(id);
+	}
+	
 }

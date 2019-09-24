@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 
+.bgstyle{
+	background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;
+}
 
 .panel {
   box-shadow: 0 2px 0 rgba(0,0,0,0.05);
@@ -63,6 +66,10 @@ h2, .h2 {
 
 .text-semibold {
   font-weight: 600;
+}
+
+a{
+ text-decoration: none;
 }
 
 

@@ -20,6 +20,7 @@ import dto.ProjectDTO;
 import dto.ScheduleDTO;
 import dto.TodoDTO;
 import service.ProjectService;
+import service.TimelineService;
 
 @Controller
 @RequestMapping("/project/*")
@@ -27,6 +28,9 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private TimelineService timeService;
 	
 	@RequestMapping(value="/management", method=RequestMethod.GET)
 	public ModelAndView managementPost(ModelAndView mav) {
@@ -59,19 +63,22 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/calender")
-	public ModelAndView ram_calanderTest(ModelAndView mav) {
+	public ModelAndView calender(ModelAndView mav) {
 		mav.setViewName("project/calender");
 		return mav;
 	}
 	
 	@RequestMapping("/schedule")
-	public ModelAndView ram_scheduleTest(ModelAndView mav) {
+	public ModelAndView scheduleDetail(ModelAndView mav, String sch_id) {
+		mav.addObject("schOne", projectService.schOneSelect(sch_id));
 		mav.setViewName("project/schedule");
 		return mav;
 	}
 	
 	@RequestMapping("/timeline")
-	public ModelAndView ram_timelineTest(ModelAndView mav) {
+	public ModelAndView ram_timelineTest(ModelAndView mav, HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		mav.addObject("timelineList", timeService.timeList(pro_id));
 		mav.setViewName("project/timeline");
 		return mav;
 	}
@@ -86,14 +93,14 @@ public class ProjectController {
 	@RequestMapping("/insertSchedule")
 	public String insertSchedule(ScheduleDTO sdto,HttpSession session, @RequestParam(value="sch_team_list") List<String> sch_team_list) {
 		String pro_id = session.getAttribute("pro_id").toString();
-		String id = session.getAttribute("id").toString();
-		projectService.insertSchdule(sdto, pro_id, id, sch_team_list);
+		projectService.insertSchdule(sdto, pro_id, sch_team_list);
 		return "redirect:/project/management";
 	}
 	
 	@RequestMapping("/insertTodo")
-	public String insertTodo(TodoDTO tdto) {
-		projectService.insertTodo(tdto);
+	public String insertTodo(TodoDTO tdto,HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		projectService.insertTodo(tdto,pro_id);
 		return "redirect:/project/management";
 	}
 
