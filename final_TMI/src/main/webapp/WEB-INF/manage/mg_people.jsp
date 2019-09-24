@@ -17,7 +17,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>
@@ -45,8 +45,7 @@
 			</div>
 
 			<div>팀원 수정
-			<a href="#pro-form" class="btn" rel="modal:open">추가</a>
-			<!-- <input type="submit" class="btn btn-primary" id="memAdd" value="추가"> -->
+			<a href="#search-bar" class="btn" rel="modal:open">추가</a>
 			<input type="submit" class="btn btn-danger" id="memDel" value="제거">
 			</div>
 			
@@ -59,7 +58,7 @@
 						</label>
 					</c:when>
 					<c:otherwise>
-						<label class="checkbox-inline"> <input type="checkbox" id="chkbox"
+						<label class="checkbox-inline" id="${people.id }"> <input type="checkbox" id="chkbox"
 							value=${people.id } /> ${people.id }
 						</label>
 					</c:otherwise>
@@ -70,31 +69,18 @@
 		<input type="submit" class="btn btn-warning" id="back" value="뒤로">
 	</div>
 	
-	<form id="pro-form" class="modal" action="addMember">
-				<label for="search_id">아이디로 팀원들을 찾아보세요</label>
+	<form id="search-bar" class="modal" action="addMember">
+				<label for="search_id">아이디로 팀원들을 검색</label>
 				<ul class="table-list" id="pro_team_list">
 					
 				</ul>
 				<input type="text" id="search_id" >
-				<ul id="search_result" hidden="" class="autocomplete-results">
+				<ul id="search_result" hidden="" class="results">
 				</ul>
 				
-				<input type="submit" value="프로젝트 추가">
+				<input type="submit" value="추가">
 	</form>
 
-	<!-- <a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a> -->
 	
-	
-	<!-- <div id="modifyModal">
-		<p>
-			<label for="updateReplyText">아이디 입력</label> <input
-				class="for-control" type="text" placeholder="reply text"
-				id="memberText">
-		</p>
-		<p>
-			<button id="btnAdd">추가</button>
-			<button id="btnClose">닫기</button>
-		</p>
-	</div> -->
 </body>
 </html>

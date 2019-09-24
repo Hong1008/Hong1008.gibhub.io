@@ -38,8 +38,8 @@
 		insert into pro_team values(#{pro_id}, #{id}, 0)
 	</insert>
 	
-	<select id="idcheck" resultType="String">
-		select id from member
+	<select id="idcheck" parameterType="String" resultType="String">
+		select id from pro_team where pro_id=#{pro_id}
 	</select>
 	
 	<delete id="delMember" parameterType="dto.ManageDTO">
@@ -57,5 +57,9 @@
 	<select id="searchIdList" resultType="string" parameterType="string">
 		select id from member where id like #{id} || '%'
 	</select>
+	
+	<update id="setRend" parameterType="dto.ManageDTO">
+		update project set pro_rend=#{pro_rend} where pro_id=#{pro_id}
+	</update>
 	
 </mapper>
