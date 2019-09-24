@@ -58,12 +58,30 @@ $(document).ready(function(){
      $("#multi").pista(data, options);
    
    
-   $('.test').click(function(){
-	   
-	   $('.test').css('border','');
+   $('.bgstyle').click(function(){
+	   $('.bgstyle').css('border','');
+	   $('.bgstyle').removeAttr('id','');
+	   //$('.bgstyle').removeAttr('name','');
 	   $(this).css('border','3px solid lightgreen');
-	   
+	   $(this).attr('id','bgsel');
+	   //$(this).attr('name','bgsel'); 
    })
+   
+   $('#bgok').click(function(){
+	  var bgsel = $('#bgsel').attr('style').substring(48,52);
+	  console.log(bgsel + " asd");
+	  window.location.href="/tmi/DashBoard/DashChange?bgsel="+bgsel;
+	  
+/* 	   $.ajax({
+		    url: 'DashChange' // 요청 할 주소
+		    type: 'POST' // GET, PUT
+		    data: { bgColor: 'ajax'}, // 전송할 데이터
+		    dataType: 'text', // xml, json, script, html
+		    success: function(jqXHR) {}, // 요청 완료 시
+		}) */
+
+   });
+
    
    
 });
@@ -100,10 +118,11 @@ var programmingSkills = [
 
 
 
+
 </script>
 
 </head>
-<body>
+<body style="background-image:url(${bg});">
 <%@include file="../include/Header.jsp"%>
 <%@include file="../include/aside.jsp"%>
        
@@ -127,45 +146,30 @@ var programmingSkills = [
       <div class="w3-container" style="z-index:3;">
       
  <!--  이미지 사진 -->     
-      <div class="test" style="background-image:url('../resources/Dash_images/bg10.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/bg01.jpg');"> 
       </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/bg1.png'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/bg02.jpg');"> 
       </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/bg2.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/bg03.jpg');"> 
       </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/bg3.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/bg04.jpg');"> 
+      </div> 
+      <br />
+ 
+       <div class="bgstyle" style="background-image:url('../resources/Dash_images/su01.jpg');"> 
+      </div>
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/su02.jpg');"> 
       </div>     
-       </br>
-       <div class="test" style="background-image:url('../resources/Dash_images/bg5.png'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/su03.jpg');"> 
       </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/bg6.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
+      <div class="bgstyle" style="background-image:url('../resources/Dash_images/su04.jpg');"> 
       </div>
-	  <div class="test" style="background-image:url('../resources/Dash_images/bg7.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>      
-	  <div class="test" style="background-image:url('../resources/Dash_images/bg8.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      </br>
-      <div class="test" style="background-image:url('../resources/Dash_images/su1.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/su2.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/su3.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/su4.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      </br>
-      <div class="test" style="background-image:url('../resources/Dash_images/su5.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>  
-      <div class="test" style="background-image:url('../resources/Dash_images/su6.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/su7.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
-      <div class="test" style="background-image:url('../resources/Dash_images/su8.jpg'); background-size:125px; width: 125px; height: 73px; float: left; margin-left: 2%; margin-top: 1%;"> 
-      </div>
+      <br />
+      
       </div>
       <footer class="w3-container w3-teal" style="margin-top: 1%;">
         <input type="button" class="w3-teal" style="font-family: 'Hi Melody', cursive; border: 0; outline: 0; cursor: pointer;" value="초기화" />
-        <input type="button" class="w3-teal" style="font-family: 'Hi Melody', cursive; float:right; border:0; outline:0; cursor: pointer;" value="적용" /> 
+        <input type="button" class="w3-teal" id="bgok" style="font-family: 'Hi Melody', cursive; float:right; border:0; outline:0; cursor: pointer;" value="적용" /> 
       </footer>
     </div>
   </div>
@@ -356,6 +360,7 @@ var programmingSkills = [
                 <c:forEach var="tmList" items="${timelist}">
                 <li>
                     <p><input type="hidden" value="${tmList.tl_id}" /><a href="#">${tmList.tl_info}</a></p>
+                    ${tmList.id}
                 </li>
                 </c:forEach>
             </ul>

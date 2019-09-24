@@ -11,8 +11,23 @@ public class ScheduleDTO {
 	private String sch_name;
 	private String pro_id;
 	private String sch_rend;
+	private String sch_mgr;
 	private List<TodoDTO> todoList;
+	private List<Sch_TeamDTO> stList;
 	
+	
+	public List<Sch_TeamDTO> getStList() {
+		return stList;
+	}
+	public void setStList(List<Sch_TeamDTO> stList) {
+		this.stList = stList;
+	}
+	public void setSch_mgr(String sch_mgr) {
+		this.sch_mgr = sch_mgr;
+	}
+	public String getSch_mgr() {
+		return sch_mgr;
+	}
 	public List<TodoDTO> getTodoList() {
 		return todoList;
 	}

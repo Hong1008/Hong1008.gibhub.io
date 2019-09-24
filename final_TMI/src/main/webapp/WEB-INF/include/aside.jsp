@@ -6,16 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: rgb(245, 245, 245);
-}
-
 #aside {
-position: relative;
-	position: relative;
+	position:relative;
     float: left;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(210, 210, 210);
@@ -82,7 +74,7 @@ $(document).ready(function(){
 	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드"></a>
 	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정"></a>
 	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트?"></a>
-	<a href="#"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
+	<a href="/tmi/setting/main"><img src="../resources/asideimg/group.png" class="interval" name="맴버"></a>
 	<a href="/tmi/project/timeline"><img src="../resources/asideimg/group.png" class="interval" name="타임라인"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅"></a>
 	</div>

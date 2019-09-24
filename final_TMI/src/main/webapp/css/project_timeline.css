@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.timeline_wrap{
+#timeline_wrap{
 	margin: 40px 0px 0px 17%;
 }
 
@@ -77,17 +77,18 @@
 .time_result{
 }
 
-.time_success{
-	color:rgb(46, 183, 38);
-}
-
-.time_create{
+.time_start{
 	color:rgb(69, 114, 220);
 }
 
-.time_day{
-	    color: rgb(255, 115, 30);
-    font-size: 21px;
-    margin-top: -9px;
-    display: inline-block;
+.time_end{
+	   color: rgb(255, 115, 30);
+}
+
+.time_remove{
+	color:rgb(191, 191, 191);
+}
+
+.time_add{
+	color:#29a22c;
 }

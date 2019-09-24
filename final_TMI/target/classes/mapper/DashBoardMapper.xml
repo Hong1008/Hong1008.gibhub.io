@@ -34,8 +34,25 @@
 	]]>
 	</select>
 	
-	<select id="timelist" parameterType="int" resultType="dto.DashDTO">
-		select * from timeline where pro_id=#{pro_id} order by TL_TIME desc
+	<resultMap type="dto.DashDTO" id="tList">
+		<result javaType="string" column="tl_id" property="tl_id" />
+		<result javaType="string" column="tl_info" property="tl_info" />
+		<result javaType="string" column="id" property="id" />
+	</resultMap>
+	<select id="timelist" parameterType="string" resultMap="tList">
+		<!-- select * from timeline where pro_id=#{pro_id} order by TL_TIME desc -->
+		select tl.tl_id tl_id,tl.tl_info tl_info,td.id id from timeline tl, schedule sc,todo td 
+		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id and td.id=#{id}
 	</select>
+	
+	
+	<update id="bgChange" parameterType="dto.DashDTO">
+		update member set bg_img=#{bgsel} where id=#{id}
+	</update>
+	
+	<select id="bgView" parameterType="string" resultType="string">
+		select bg_img from member where id=#{id}
+	</select>
+	
 	
 </mapper>

@@ -12,14 +12,12 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<!-------------------------------------- 부트스트랩 -------------------------------------->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<!-- sweetalert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>
@@ -47,7 +45,8 @@
 			</div>
 
 			<div>팀원 수정
-			<input type="submit" class="btn btn-primary" id="memAdd" value="추가">
+			<a href="#pro-form" class="btn" rel="modal:open">추가</a>
+			<!-- <input type="submit" class="btn btn-primary" id="memAdd" value="추가"> -->
 			<input type="submit" class="btn btn-danger" id="memDel" value="제거">
 			</div>
 			
@@ -81,9 +80,9 @@
 				</ul>
 				
 				<input type="submit" value="프로젝트 추가">
-			</form>
+	</form>
 
-			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
+	<!-- <a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a> -->
 	
 	
 	<!-- <div id="modifyModal">
