@@ -43,7 +43,14 @@
 					<c:out value="${content.pro_end }" />
 				</td>
 				<td>
-					<c:out value="${content.pro_rend }" />
+					<c:choose>
+						<c:when test="${content.pro_rend == null }">
+							<input type="submit" value="설정" id="rend_set">
+						</c:when>
+						<c:otherwise>
+							<c:out value="${content.pro_rend }" />
+						</c:otherwise>						
+					</c:choose>
 				</td>
 			</tr>		
 		</table>
@@ -79,8 +86,14 @@
 		</table>
 		<input class="pj_people" type="submit" value=" ">
 
-
 	</div>
+	<a href="#pro-form" class="btn" rel="modal:open">추가</a>
+	
+	<form id="pro-form" class="modal" action="addMember">
+				<label for="search_id">아이디로 팀원들을 찾아보세요</label>
+				<input type="date" id="search_id" >				
+				<input type="submit" value="프로젝트 추가">
+	</form>
 
 
 </body>
