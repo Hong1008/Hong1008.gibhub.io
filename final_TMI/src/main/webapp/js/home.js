@@ -115,11 +115,4 @@ $(document).ready(function(){
 		});
 	})
 	
-	$('.modal').submit(function(){
-		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
-			swal("Warning", "날짜를 지정해주세요","error");
-			return false;
-		}
-		
-	})
 })

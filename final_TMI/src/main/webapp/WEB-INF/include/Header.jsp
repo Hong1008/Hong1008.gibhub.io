@@ -21,48 +21,50 @@
 $(document).ready(function(){
 	
 	 var sessionUId = "<%=session.getAttribute("id") %>";
-	 console.log("session아이디는"+sessionUId);
-	
+		websocket = new WebSocket("ws://localhost:8090/tmi/count");
 	if(sessionUId!=null)
 		{
 		
-		send_message();
-		
+		websocket.onopen = onOpen;
+		websocket.onmessage = onMessage;
+	
 		
 		}
 	
+
 	
-})
-    var sessionUId = "<%=session.getAttribute("id") %>";
- var wsUri = "ws://localhost:8090/tmi/count";
-    function send_message() {
+	$("#pro-form").submit(function(){
+		
+		alert("asdf");
+		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+			swal("Warning", "날짜를 지정해주세요","error");
+			return false;
+		}
+		
+		var res=sessionUId+",";
+		$("input[name='pro_team_list']").each(function(i,v){
+	    
+			alert(v);
+			var l=$(this).length-1;
+			if(i!=l)
+				{
+				res+=$(v).val()+",";
+				}
+			else
+				{
+				res+=$(v).val();
+				}
+		
+			
+					})
+		
+					websocket.send(res);
+		  console.log("찍히나");
+		  console.log(res);
+		websocket.onmessage = onMessage;
 
-        websocket = new WebSocket(wsUri);
-
-        websocket.onopen = function(evt) {
-
-            onOpen(evt);
-
-        };
-
-        websocket.onmessage = function(evt) {
-
-            onMessage(evt);
-
-        };
-
-        websocket.onerror = function(evt) {
-
-            onError(evt);
-
-        };
-
-    }
-
-   
-   
-   
-
+	
+   })
 
     function onOpen(evt) 
 
@@ -82,7 +84,11 @@ $(document).ready(function(){
 
     }
 
-
+})
+   
+ 
+   
+   
     		
 
     
