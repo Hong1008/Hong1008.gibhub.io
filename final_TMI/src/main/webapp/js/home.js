@@ -99,6 +99,8 @@ $(document).ready(function(){
 		
 	})
 	
+	
+	
 	//유저제거****************************************
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
@@ -112,6 +114,5 @@ $(document).ready(function(){
 			clickClose: false
 		});
 	})
-	
 	
 })

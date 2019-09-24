@@ -32,7 +32,7 @@
 <script src="https://unpkg.com/tippy.js@4"></script>
 
 
-<script src="/semiRecipe/js/plugin/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
