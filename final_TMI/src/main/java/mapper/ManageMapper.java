@@ -18,4 +18,16 @@ public interface ManageMapper {
 	public void manager(ManageDTO dto);
 	
 	public void addMember(ManageDTO dto);
+	
+	public List<String> idcheck(String pro_id);
+	
+	public void delMember(ManageDTO dto);
+	
+	public void pjDel(String pro_id);
+	
+	public void pjpeopleDel(String pro_id);
+	
+	public List<String> searchIdList(String id);
+	
+	public void setRend(ManageDTO dto);
 }

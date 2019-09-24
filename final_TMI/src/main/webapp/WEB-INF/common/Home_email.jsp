@@ -11,6 +11,7 @@
 <!-- header 만있고 밑에 이메일인증해주세요 text? 있어야할듯 -->
 
 <meta charset="UTF-8">
+<jsp:include page="../include/Header.jsp"></jsp:include>
 <title>Insert title here</title>
 </head>
 <body>

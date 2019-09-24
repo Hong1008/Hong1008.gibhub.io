@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dto.NotiDTO;
 import dto.UserDTO;
 
 public interface UserService {
@@ -33,6 +34,14 @@ public interface UserService {
 	public void insert_googleProcess(UserDTO dto);
 	//email 중복검사
 	public int test_emailProcess(UserDTO dto);
+	//mypage 계정 update
+	public void mypage_updateProcess(UserDTO dto);
+	//mypage 내용 불러오는거
+	public UserDTO select_mypageProcess(String id);
 	
+	public String select_id_uuidProcess(String uuid);
 	
+	public NotiDTO select_notificationProcess(String id);
+	
+	public int select_noti_countProcess(String id);
 }

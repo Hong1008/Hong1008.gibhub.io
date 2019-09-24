@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.impl.io.HttpResponseParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -33,43 +36,49 @@ public class ChatController {
 		String pro_id = (String) session.getAttribute("pro_id");
 		mav.addObject("chatList", chatservice.chatList(pro_id));
 		mav.addObject("dateList", chatservice.dateList(pro_id));
+		mav.addObject("fileList", chatservice.fileList(pro_id));
 		mav.addObject("today", chatservice.today());
 		mav.setViewName("chat/chatRoom");
 		return mav;
 	}
 
-	@RequestMapping(value = "/chatInsertFile", produces="text/plain;charset=UTF-8")
-	public @ResponseBody String park_chatInsertFile(MultipartHttpServletRequest req, MultipartFile file, ChattingDTO dto) {
-		String fileName="";
-		// 경로
-		String root = req.getSession().getServletContext().getRealPath("/");
-		String saveDirectory = root + "temp" + File.separator;
-		System.out.println(saveDirectory);
-		// 경로 없으면 생성
-		File fe = new File(saveDirectory);
-		if (!fe.exists()) {
-			fe.mkdir();
-		}
-		List<MultipartFile> fileList = req.getFiles("file");
+	@RequestMapping(value = "/chatInsertFile", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<String> park_chatInsertFile(ChattingDTO dto, HttpServletRequest req) {
+		List<MultipartFile> files = dto.getFilename();
+		List<String> upload = new ArrayList<String>();
+		if (files != null) {
+			for (MultipartFile file : files) {
+				String fileName = file.getOriginalFilename();
+				UUID random = UUID.randomUUID();
 
-		UUID random=UUID.randomUUID();
-	
-		for (MultipartFile mf : fileList) {
-			File ff= new File(saveDirectory, random + "_" + mf.getOriginalFilename());
-			try {
-				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
-				dto.setUpload(random + "_" + mf.getOriginalFilename());
-				fileName=dto.getUpload();
-				chatservice.chatUpLoadFile(dto);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String root = req.getSession().getServletContext().getRealPath("/");
+				String saveDirectory = root + "temp" + File.separator;
+				System.out.println(saveDirectory);
+				File fe = new File(saveDirectory);
+				if (!fe.exists()) {
+					fe.mkdir();
+				}
+				File ff = new File(saveDirectory, random + "!park_" + fileName);
+				try {
+					FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				upload.add(new String(random + "!park_" + fileName));
 			}
+
+			dto.setUpload(upload);
 		}
-		return fileName;
+		upload = dto.getUpload();
+		System.out.println(upload.toString());
+		for (String string : upload) {
+			System.out.println(string);
+		}
+		chatservice.chatUpLoadFile(dto);
+
+		return upload;
 	}
 
 }

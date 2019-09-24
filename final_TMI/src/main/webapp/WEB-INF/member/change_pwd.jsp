@@ -130,7 +130,7 @@ label {
    <div id="bodywrap">
       <div id='logo' class='center_div'>TMI</div>
       <div id="ChangeForm" class="center_div">
-         <form action="change_pwd.do">
+         <form action="change_pwd">
             <input type="hidden" name="uuid" value="<%=uid%>" /> <label
                for="pwd">Password</label><input type="text" name="pwd" id="pwd" />
             <label for="pwdck">Confirm password</label> <input type="text" name="pwdck"

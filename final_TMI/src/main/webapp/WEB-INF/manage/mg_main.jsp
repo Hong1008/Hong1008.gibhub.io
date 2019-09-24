@@ -43,7 +43,14 @@
 					<c:out value="${content.pro_end }" />
 				</td>
 				<td>
-					<c:out value="${content.pro_rend }" />
+					<c:choose>
+						<c:when test="${content.pro_rend == null }">
+							<a href="#search-bar" class="btn" rel="modal:open">추가</a>
+						</c:when>
+						<c:otherwise>
+							<c:out value="${content.pro_rend }" />
+						</c:otherwise>						
+					</c:choose>
 				</td>
 			</tr>		
 		</table>
@@ -58,7 +65,7 @@
 		<div class="pj_name">프로젝트 팀원</div>
 		<table id="customers">
 			<tr>
-				<th>이름</th>
+				<th>아이디</th>
 				<th>관리 등급</th>
 			</tr>
 			<c:forEach items="${people }" var="people">
@@ -79,8 +86,13 @@
 		</table>
 		<input class="pj_people" type="submit" value=" ">
 
-
 	</div>
+	
+	<form id="search-bar" class="modal" action="rendSet">
+				<label for="search_id">실제 종료 날짜를 선택해주세요</label>
+				<input type="date" id="search_id" name="rendSetting">				
+				<input type="submit" value="종료일 추가">
+	</form>
 
 
 </body>

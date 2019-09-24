@@ -4,12 +4,12 @@
 
 <!-- 회원가입 -->
 <insert id="insertMethod" parameterType="dto.UserDTO">
-insert into member(id,pwd,email,ip,grade,uuid) values(#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},0,#{uuid,jdbcType=VARCHAR})
+insert into member(id,pwd,name,ip,grade,uuid) values(#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},0,#{uuid,jdbcType=VARCHAR})
 </insert>
 
 <!-- 이메일인증위한 uuid grade확인 -->
 <select id="FindEmailMethod" parameterType="string" resultType="dto.UserDTO">
-select uuid,grade from member where email=#{email}
+select uuid,grade from member where id=#{id}
 </select>
 <!-- 이메일 인증  -->
 <update id="UpdateGrade" parameterType="string">
@@ -44,13 +44,34 @@ select ip from member where id=#{id}
 update member set ip=concat(ip,#{ip}) where id=#{id}
 </update>
 
-<!-- email 중복검사 -->
+<!-- email 중복검사 
 <select id="Test_email" parameterType="dto.UserDTO" resultType="int">
 select count(*) from member where email=#{email}
-</select>
+</select> -->
 <!-- google 회원가입 -->
 <insert id="insert_google" parameterType="dto.UserDTO">
-insert into member(id,email,name) values (#{id},#{email},#{name})
+insert into member(id,name) values (#{id},#{name})
 </insert>
 
+<update id="update_member" parameterType="dto.UserDTO">
+update member set profile_img=#{profile_img,jdbcType=VARCHAR},name=#{name} where id=#{id}
+</update>
+
+<select id="select_mypage" parameterType="string" resultType="dto.UserDTO">
+select * from member where id=#{id}
+</select>
+
+<select id="select_id_uuid" parameterType="string" resultType="string">
+select id from member where uuid=#{uuid}
+</select>
+<!-- user 알림  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+
+<!-- 알림내용 보여주는거 -->
+<select id="select_notification" parameterType="string" resultType="dto.NotiDTO">
+select * from notification where id=#{id}
+</select>
+<!-- 알림 개수 -->
+<select id="select_noti_count" parameterType="string" resultType="int">
+select count(*) from notification where id=#{id}
+</select>
 </mapper>

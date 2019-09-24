@@ -42,16 +42,16 @@
 				</div>
 				<div id='signForm'>
 				 <form action="sign_up" method="post">
+				 <label for="signUp_email">Email</label>
+                            <input type="text" name="id" id="signUp_email" class="signIn" autocomplete="off">
                             <label for="signUp_username">Username</label>
-                            <input type="text" name="id" id="signUp_username" class="signIn" autocomplete="off">
-                            <label for="signUp_email">Email</label>
-                            <input type="text" name="email" id="signUp_email" class="signIn" autocomplete="off">
+                            <input type="text" name="name" id="signUp_username" class="signIn" autocomplete="off">
                             <label for="signUp_password">Password</label>
                             <input type="text" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
 								value="sign up for 주성" class='tmi_skin tmi_skin01'>
-							<a href=""><img width="300" height="80"
+							<a href="${google_url}"><img width="300" height="80"
 								src="/tmi/resources/memberimg/login_google.png" /></a>
 						</div>
 						<div id="signInfo">By clicking “Sign up for GitHub”, you

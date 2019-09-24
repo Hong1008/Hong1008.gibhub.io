@@ -27,12 +27,10 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 	// 테스트
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		usersInfo.add(session);
-		System.out.println(session + ": 웹소켓접속");
 		
 		Map<String, Object> httpSession = session.getAttributes();
 		String roomNumber =  (String) httpSession.get("pro_id");
 		roomList.put(session, roomNumber);
-		System.out.println(roomNumber + "방번호");
 		dto.setPro_id(roomNumber);
 		
 	}
@@ -53,11 +51,7 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 		dto.setChat_content(arg[2]);
 		System.out.println(arg[3]);
 		if(arg[3].equals("null")) {
-			System.out.println("일반채팅 작동");
 			chatservice.insertchat(dto);
-		}else if(!arg[3].equals("null")) {
-			System.out.println("파일업로드 작동");
-			chatservice.afterinsertChat(dto);
 		}
 		
 		//jsp로 보내주는 부분

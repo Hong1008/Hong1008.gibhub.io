@@ -16,4 +16,18 @@ public interface ManageService {
 	public void managerChangeProcess(ManageDTO dto);
 	
 	public void managerProcess(ManageDTO dto);
+	
+	public void memberAddProcess(ManageDTO dto);
+	
+	public List<String> idcheckProcess(String pro_id);
+	
+	public void memberDelProcess(ManageDTO dto);
+	
+	public void pjDelProcess(String pro_id);
+	
+	public void pjpeopleDelProcess(String pro_id);
+	
+	public List<String> searchIdList(String id);
+	
+	public void rendSetProcess(ManageDTO dto);
 }
