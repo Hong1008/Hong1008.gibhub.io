@@ -6,16 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: rgb(245, 245, 245);
-}
-
 #aside {
-position: relative;
-	position: relative;
+	position:relative;
     float: left;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(210, 210, 210);

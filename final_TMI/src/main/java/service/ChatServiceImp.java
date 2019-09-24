@@ -29,16 +29,16 @@ public class ChatServiceImp implements ChatService{
 	}
 
 	@Override
-	public void afterinsertChat(ChattingDTO dto) {
-		mapper.afterinsertChat(dto);
-	}
-	@Override
 	public List<ChattingDTO> fileList(String pro_id) {
 		return mapper.fileList(pro_id);
 	}
 	@Override
 	public void chatUpLoadFile(ChattingDTO dto) {
 		mapper.chatUpLoadFile(dto);
+	}
+	@Override
+	public String myImg(String id) {
+		return mapper.myImg(id);
 	}
 
 	
