@@ -14,6 +14,7 @@ import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
 import dto.ScheduleDTO;
+import dto.TimelineDTO;
 import dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import mapper.ProjectMapper;
@@ -69,7 +70,8 @@ public class ProjectServiceImp implements ProjectService{
 	@Override
 	public List<ProjectDTO> calendarPro(String pro_id, String id) {
 		// TODO Auto-generated method stub
-		return mapper.calendarPro(pro_id, id);
+		List<ProjectDTO> proList = mapper.calendarPro(pro_id, id);
+		return proList;
 	}
 	
 	@Override
@@ -78,6 +80,7 @@ public class ProjectServiceImp implements ProjectService{
 		List<ScheduleDTO> schList = mapper.calendarSch(pro_id);
 		for (ScheduleDTO scheduleDTO : schList) {
 			scheduleDTO.setTodoList(mapper.calendarTodo(scheduleDTO.getSch_id()));
+			scheduleDTO.setStList(mapper.schTeamSelectById(scheduleDTO.getSch_id()));
 		}
 		return schList;
 	}

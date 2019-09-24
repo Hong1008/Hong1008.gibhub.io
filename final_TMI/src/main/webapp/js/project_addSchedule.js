@@ -22,7 +22,17 @@ $(document).ready(function(){
 		}
 	})
 	
-	$('.td_insert').on('click',function(){
+	$('.insertModal').on('click',function(e){
+		e.preventDefault();
+		this.blur;
+		console.log($(this).attr('href'));
+		$($(this).attr('href')).modal({
+			escapeClose: false,
+			clickClose: false
+		});
+	})
+	
+	$('#td_insert').on('click',function(e){
 		var sch_id = $(this).attr('href').replace('#','');
 		var thisForm = document.getElementById(sch_id);
 		var min = $(this).children('#sch_start').val();
@@ -66,10 +76,10 @@ $(document).ready(function(){
 		$(tableList).append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
 				'<span class="table-list-cell"></span><span class="table-list-cell" id="level">'+levText+'</span><span class="table-list-cell" id="remove-item">x</span>'+
 				'<input type="hidden" name="'+$(tableList).attr('id')+'" value="'+input+'"/></li>');
+		
 		if($(this).parent().attr('id')=='stList'){
 			$(this).parent().hide();
-			return;
-		}
+		}		
 		$(this).remove();
 		setSchLevel(tableList,level,teamList);
 		
@@ -83,9 +93,9 @@ $(document).ready(function(){
 		var level = $(teamList).prevAll('.teamExp').first();
 		if($(teamList).attr('id')=='stList'){
 			$(teamList).show();
-		}else{
-			$(teamList).append('<li class="team-list-item">'+input+'</li>');
 		}
+		$(teamList).append('<li class="team-list-item">'+input+'</li>');
+		
 		$(this).parent().remove();
 		setSchLevel(tableList,level,teamList)
 	})

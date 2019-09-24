@@ -9,6 +9,8 @@ $(document).ready(function(){
 		  $('#header_sign_in_out').removeClass('header_signOut');
 		  $('#header_sign_up_mypage').removeClass('header_mypage');
 		  
+		  $('#header_notification').hide();
+		  
        }
 	else
 		{
@@ -18,6 +20,8 @@ $(document).ready(function(){
 		  $('#header_sign_in_out').addClass('header_signOut');
 		  $('#header_sign_in_out').removeClass('header_singIn');
 		  $('#header_sign_up_mypage').removeClass('header_singUp');
+		  
+		  $('#header_notification').show();
 		}
 	
 	  

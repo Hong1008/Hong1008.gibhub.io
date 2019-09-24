@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
 <script src="../js/project_addSchedule.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
@@ -16,8 +15,20 @@
 						<c:forEach items="${sdto.todoList }" var="tdDto">
 							<div class="todo">
 								<p class='todo_name'>${tdDto.t_name }</p>
-								<p class='todo_end'>D</p>
-								- ${tdDto.t_end }
+								<c:choose>
+									<c:when test="${tdDto.t_end>0 && tdDto.t_start>0}">
+										<p class="todo_when" id="todo_start">시작까지</p>
+										<p class='todo_day'>D</p>- ${tdDto.t_start }
+									</c:when>
+									<c:when test="${tdDto.t_end>0 && tdDto.t_start<=0}">
+										<p class="todo_when" id="todo_end">종료까지</p>
+										<p class='todo_day'>D</p>- ${tdDto.t_end }
+									</c:when>
+									<c:when test="${tdDto.t_end<=0 && tdDto.t_start<=0}">
+										<p class="todo_when" id="todo_over">초과!</p>
+										${tdDto.t_end*-1 }일째
+									</c:when>
+								</c:choose>
 								<p class='todo_mem'>${tdDto.id }</p>
 							</div>
 						</c:forEach>
@@ -34,7 +45,7 @@
 								<div id='addTcon'>
 									할일을<br>추가하세요
 									<div id='openTModal' class='tmi_skin tmi_skin01'>
-										<a href="#${sdto.sch_id }" rel="modal:open" class="td_insert">
+										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
@@ -52,7 +63,7 @@
 					<form id="${sdto.sch_id }" class="modal" action="insertTodo">
 						<input type="hidden" name="sch_id" value="${sdto.sch_id }">
 						<label for="t_name">할일 제목</label> <input type="text"
-							required="required" id="t_name" name="t_name" placeholder="할일 제목">
+							required="required" autocomplete="off" id="t_name" name="t_name" placeholder="할일 제목">
 						<!-- <label for="t_info">프로젝트 간단설명</label> 
 				<input type="text" required="required"  id="t_info" name="t_info" placeholder="프로젝트 간단설명"> -->
 						<label for="t_start">할일 기간</label> <input type="text"
@@ -92,7 +103,7 @@
 				스케쥴을<br>추가하세요
 
 				<div id='openSModal' class=' tmi_skin tmi_skin01'>
-					<a href="#sch-form" rel="modal:open">
+					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
 							<div class='h  tmi_skin tmi_skin01'></div>
 							<div class='v  tmi_skin tmi_skin01'></div>
