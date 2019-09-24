@@ -14,6 +14,11 @@ public interface DashBoardMapper {
 	
 	public int compcnt(int pro_id);
 	
+	
+	
+	//top5 List
+	public List<DashDTO> toplist(int pro_id);
+	
 	//최근일정 목록
 	public List<DashDTO> recentlist(int pro_id);
 	//다가오는 일정 목록

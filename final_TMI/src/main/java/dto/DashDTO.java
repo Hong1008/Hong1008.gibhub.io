@@ -6,11 +6,58 @@ public class DashDTO {
 	private String sch_info; //다가올일정&최근일정
 	private String sch_id; //다가올일정_id & 최근일정_id
 	private String sch_name; //일정 이름
-	private String id; //타임라인 작성자
-	private String bgsel;
+	private String id; //작성자
+	private String sch_start; //일정 시작일  
+	private String sch_end; //일정 마감일 
+	private String bgsel; //background color pick
+	private int total; //top5 list 
+
 	
 	public DashDTO() {
 	}
+	
+	
+	
+	
+	
+	public String getSch_start() {
+		return sch_start;
+	}
+
+
+
+	public void setSch_start(String sch_start) {
+		this.sch_start = sch_start;
+	}
+
+
+	public String getSch_end() {
+		return sch_end;
+	}
+
+
+
+
+
+	public void setSch_end(String sch_end) {
+		this.sch_end = sch_end;
+	}
+
+
+
+
+
+	public int getTotal() {
+		return total;
+	}
+
+
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+
 
 	public String getTl_info() {
 		return tl_info;
