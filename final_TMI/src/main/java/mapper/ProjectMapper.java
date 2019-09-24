@@ -28,6 +28,7 @@ public interface ProjectMapper {
 	public List<TodoDTO> tdViewSelect(String sch_id);
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
+	public List<Sch_TeamDTO> schTeamSelectById(String sch_id);
 	public void firstInsertSchedule(ScheduleDTO sdto);
 	public void firstInsertSchTeam(Sch_TeamDTO stDto);
 	public void firstInsertTodo(TodoDTO tdto);

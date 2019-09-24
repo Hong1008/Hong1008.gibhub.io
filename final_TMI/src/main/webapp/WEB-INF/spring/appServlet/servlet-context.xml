@@ -46,6 +46,7 @@
 			<mapping path="/chat/*"/>
 			<mapping path="/project/*"/>
 			<mapping path="/DashBoard/*"/>
+			<mapping path="/setting/*"/>
 			<mapping path="/mypage"/>
 			
 			<beans:bean class="common.LoginInterceptor"></beans:bean>

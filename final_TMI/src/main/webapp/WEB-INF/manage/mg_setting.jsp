@@ -13,13 +13,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+
+<!-------------------------------------- 부트스트랩 -------------------------------------->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!-- sweetalert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/managecontentupt.js"></script>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-group">
 						<label for="pro_rend">프로젝트 실종료일:</label> 
-						<input type="date" class="form-control" id="pro_rend" name="pro_rend" required="required"
+						<input type="date" class="form-control" id="pro_rend" name="pro_rend" required="required" readonly="readonly"
 						value="${pjcontent.pro_rend }" >
 					</div>
 					

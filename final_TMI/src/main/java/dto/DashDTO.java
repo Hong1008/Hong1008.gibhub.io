@@ -6,6 +6,8 @@ public class DashDTO {
 	private String sch_info; //다가올일정&최근일정
 	private String sch_id; //다가올일정_id & 최근일정_id
 	private String sch_name; //일정 이름
+	private String id; //타임라인 작성자
+	private String bgsel;
 	
 	public DashDTO() {
 	}
@@ -49,8 +51,22 @@ public class DashDTO {
 	public void setSch_name(String sch_name) {
 		this.sch_name = sch_name;
 	}
-	
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getBgsel() {
+		return bgsel;
+	}
+
+	public void setBgsel(String bgsel) {
+		this.bgsel = bgsel;
+	}
 	
 	
 	

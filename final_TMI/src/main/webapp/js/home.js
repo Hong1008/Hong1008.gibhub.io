@@ -10,7 +10,7 @@ $(document).ready(function(){
 			num=1;
 		}		
 	});*/
-	
+		
 	  $('#header_sign_in_out').on('click',function(){
           $(location).attr("href", "sign_in.do");
       });
@@ -103,4 +103,15 @@ $(document).ready(function(){
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
 	})
+	
+	$('.btn').click(function(e){
+		e.preventDefault();
+		this.blur();
+		$('.modal').modal({
+			escapeClose: false,
+			clickClose: false
+		});
+	})
+	
+	
 })

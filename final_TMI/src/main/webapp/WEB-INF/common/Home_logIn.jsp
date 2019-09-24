@@ -83,7 +83,7 @@
 				<input type="submit" value="프로젝트 추가">
 			</form>
 
-			<a href="#pro-form" class="btn" rel="modal:open">프로젝트 추가</a>
+			<a href="#" class="btn">프로젝트 추가</a>
 		</div>
 	</div>
 	
