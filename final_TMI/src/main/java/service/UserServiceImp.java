@@ -129,5 +129,10 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		return dao.select_mypage(id);
 	}
+	@Override
+	public String select_id_uuidProcess(String uuid) {
+		// TODO Auto-generated method stub
+		return dao.select_id_uuid(uuid);
+	}
 	
 }

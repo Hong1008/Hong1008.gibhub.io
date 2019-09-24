@@ -32,4 +32,6 @@ public interface UserMapper {
 	public void update_member(UserDTO dto);
 	//mypage 내용 불러오는거
 	public UserDTO select_mypage(String id);
+	
+	public String select_id_uuid(String uuid);
 }

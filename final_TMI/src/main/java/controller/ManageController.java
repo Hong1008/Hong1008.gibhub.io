@@ -33,9 +33,9 @@ public class ManageController {
 	
 	// 프로젝트 관리 메인
 	@RequestMapping("/main")
-	public ModelAndView main(ModelAndView mav) {
-		//HttpSession session = req.getSession();
-		String pro_id= "2";
+	public ModelAndView main(ModelAndView mav, HttpSession session) {
+		
+		String pro_id= (String) session.getAttribute("pro_id");
 		
 		mav.addObject("content", service.manageContentProcess(pro_id));
 		mav.addObject("people", service.managePeopleProcess(pro_id));
