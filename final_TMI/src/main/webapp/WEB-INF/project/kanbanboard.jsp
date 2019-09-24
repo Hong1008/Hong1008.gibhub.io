@@ -5,6 +5,7 @@
 <script src="../js/project_addSchedule.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
@@ -117,6 +118,7 @@
 		</c:if>
 		</c:forEach>
 	</div>
+	
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">

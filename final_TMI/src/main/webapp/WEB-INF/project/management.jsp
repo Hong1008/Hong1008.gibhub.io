@@ -13,6 +13,7 @@
 <link href='../css/project_management.css' type='text/css' rel='stylesheet'>
 <link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
 <link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
+<link href='../css/project_kanbanboard.css' type='text/css' rel='stylesheet'>
 <link href='../css/project_timeline.css' type='text/css' rel='stylesheet'>
 <!-------------------------------------- 달력 fullcalendar -------------------------------------->
 <script src='../plugin/core/main.js'></script>
@@ -29,6 +30,9 @@
 	href="https://unpkg.com/tippy.js@4/themes/translucent.css" />
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@4"></script>
+
+
+<script src="/semiRecipe/js/plugin/jquery-ui.min.js"></script>
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>

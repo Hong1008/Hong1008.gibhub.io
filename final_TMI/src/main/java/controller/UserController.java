@@ -313,8 +313,8 @@ public class UserController {
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				/*if (ipreq.equals(iplist[i]))*/
-				if(ipreq.equals("0"))
+				if (ipreq.equals(iplist[i]))
+			/*	if(ipreq.equals("0"))*/
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
