@@ -12,14 +12,12 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-------------------------------------- 부트스트랩 -------------------------------------->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
-
-<!-- sweetalert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>

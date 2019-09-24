@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import dto.NotiDTO;
 import dto.UserDTO;
 import mail.Mail;
 import mapper.UserMapper;
@@ -133,6 +134,16 @@ public class UserServiceImp implements UserService {
 	public String select_id_uuidProcess(String uuid) {
 		// TODO Auto-generated method stub
 		return dao.select_id_uuid(uuid);
+	}
+	@Override
+	public NotiDTO select_notificationProcess(String id) {
+		// TODO Auto-generated method stub
+		return dao.select_notification(id);
+	}
+	@Override
+	public int select_noti_countProcess(String id) {
+		// TODO Auto-generated method stub
+		return dao.select_noti_count(id);
 	}
 	
 }

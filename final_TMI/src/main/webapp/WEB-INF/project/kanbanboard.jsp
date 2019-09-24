@@ -5,11 +5,15 @@
 <script src="../js/project_addSchedule.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
+					
 					<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }</div>
+						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
+						</div>
 						<c:choose>
 						<c:when test="${not empty sdto.todoList }">
 						<c:forEach items="${sdto.todoList }" var="tdDto">
@@ -45,7 +49,7 @@
 								<div id='addTcon'>
 									할일을<br>추가하세요
 									<div id='openTModal' class='tmi_skin tmi_skin01'>
-										<a href="#${sdto.sch_id }" rel="modal:open" class="td_insert">
+										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
@@ -103,7 +107,7 @@
 				스케쥴을<br>추가하세요
 
 				<div id='openSModal' class=' tmi_skin tmi_skin01'>
-					<a href="#sch-form" rel="modal:open">
+					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
 							<div class='h  tmi_skin tmi_skin01'></div>
 							<div class='v  tmi_skin tmi_skin01'></div>
@@ -115,6 +119,7 @@
 		</c:if>
 		</c:forEach>
 	</div>
+	
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
@@ -138,7 +143,18 @@
 	</form>
 	
 	<script type="text/javascript">
-	
+		$('.s_name').on('click',function(){
+			var sch_id = $(this).children('#sch_id').val();
+			$.ajax({
+				url:'schedule',
+				data:'sch_id='+sch_id,
+				type:'POST',
+				success:function(res){
+					$('#kanban_wrap').empty();
+					$('#kanban_wrap').html(res);
+				}
+			})
+		})
 	
 	</script>
 </body>

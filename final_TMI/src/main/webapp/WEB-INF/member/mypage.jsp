@@ -177,6 +177,18 @@ padding-top: 100px;
     border-radius: 16px;
     cursor: pointer;
     }
+    
+    .theme{
+    width: 41px;
+    height: 41px;
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+    }
+    
+    #my_theme{
+    width: 510px;
+    }
 </style>
 </head>
 <body>
@@ -195,10 +207,32 @@ padding-top: 100px;
 						<br />
 					</c:otherwise>
 				</c:choose>
-
-				<input type="button" id="imgfile" value="사진 변경" /> <input
+				<input type="button" id="imgfile" value="사진 변경" />		
+				 <input
 					type="file" id="file" name="file" value="이미지 변경"
-					style="display: none;" />
+					style="display: none;" />					
+			</div>
+			<div id='my_theme'>
+				<div class='theme tmi_skin01' id='theme01'></div>
+				<div class='theme tmi_skin02' id='theme02'></div>
+				<div class='theme tmi_skin03' id='theme03'></div>
+				<div class='theme tmi_skin04' id='theme04'></div>
+				<div class='theme tmi_skin05' id='theme05'></div>
+				<div class='theme tmi_skin06' id='theme06'></div>
+				<div class='theme tmi_skin07' id='theme07'></div>
+				<div class='theme tmi_skin08' id='theme08'></div>
+				<div class='theme tmi_skin09' id='theme09'></div>
+				<div class='theme tmi_skin10' id='theme10'></div><br>
+				<div class='theme tmi_skin11' id='theme11'></div>
+				<div class='theme tmi_skin12' id='theme12'></div>
+				<div class='theme tmi_skin13' id='theme13'></div>
+				<div class='theme tmi_skin14' id='theme14'></div>
+				<div class='theme tmi_skin15' id='theme15'></div>
+				<div class='theme tmi_skin16' id='theme16'></div>
+				<div class='theme tmi_skin17' id='theme17'></div>
+				<div class='theme tmi_skin18' id='theme18'></div>
+				<div class='theme tmi_skin19' id='theme19'></div>
+				<div class='theme tmi_skin20' id='theme20'></div>
 			</div>
 			<div>
 				아이디 <input type="text" name="id" value="${dto.id}" readonly />

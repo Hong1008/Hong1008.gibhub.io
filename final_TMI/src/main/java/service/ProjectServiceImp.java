@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dto.NotiDTO;
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
@@ -18,6 +19,7 @@ import dto.TimelineDTO;
 import dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import mapper.ProjectMapper;
+import mapper.TimelineMapper;
 
 @Service
 public class ProjectServiceImp implements ProjectService{
@@ -38,9 +40,10 @@ public class ProjectServiceImp implements ProjectService{
 			mapper.firstInsertProTeam(ptDto);
 			if(pro_team_list!=null) {
 				for (String string : pro_team_list) {
-					ptDto.setId(string);
-					ptDto.setPt_level(0);
-					mapper.firstInsertProTeam(ptDto);
+					NotiDTO nDto = new NotiDTO();
+					nDto.setId(string);
+					nDto.setState(0);
+					mapper.inviteProTeam(nDto);
 				}
 			}
 		}catch (Exception e) {
@@ -70,7 +73,8 @@ public class ProjectServiceImp implements ProjectService{
 	@Override
 	public List<ProjectDTO> calendarPro(String pro_id, String id) {
 		// TODO Auto-generated method stub
-		return mapper.calendarPro(pro_id, id);
+		List<ProjectDTO> proList = mapper.calendarPro(pro_id, id);
+		return proList;
 	}
 	
 	@Override
@@ -79,6 +83,7 @@ public class ProjectServiceImp implements ProjectService{
 		List<ScheduleDTO> schList = mapper.calendarSch(pro_id);
 		for (ScheduleDTO scheduleDTO : schList) {
 			scheduleDTO.setTodoList(mapper.calendarTodo(scheduleDTO.getSch_id()));
+			scheduleDTO.setStList(mapper.schTeamSelectById(scheduleDTO.getSch_id()));
 		}
 		return schList;
 	}
@@ -87,6 +92,15 @@ public class ProjectServiceImp implements ProjectService{
 	public ProjectDTO proSelect(String pro_id) {
 		// TODO Auto-generated method stub
 		return mapper.proSelect(pro_id);
+	}
+	
+	@Override
+	public ScheduleDTO schOneSelect(String sch_id) {
+		// TODO Auto-generated method stub
+		ScheduleDTO sdto = mapper.schOne(sch_id);
+		sdto.setStList(mapper.schTeamSelectById(sch_id));
+		sdto.setTodoList(mapper.tdSelect(sch_id));
+		return sdto;
 	}
 	
 	@Override
@@ -138,6 +152,7 @@ public class ProjectServiceImp implements ProjectService{
 			stDto.setPro_id(pro_id);
 			stDto.setId(sdto.getSch_mgr());
 			stDto.setSt_level(1);
+			mapper.timeInsertSchedule(pro_id, sdto.getSch_name());
 			if(sch_team_list!=null) {
 				for (String string : sch_team_list) {
 					stDto.setId(string);
@@ -152,8 +167,9 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
-	public void insertTodo(TodoDTO tdto) {
+	public void insertTodo(TodoDTO tdto,String pro_id) {
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
+		mapper.timeInsertTodo(pro_id,tdto.getT_name());
 	}
 }

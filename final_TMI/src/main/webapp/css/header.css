@@ -16,13 +16,15 @@
 /*///////////////////////header내용부분 ///////////////////////*/
 #header_content {
 	width: 1300px;
+	height: 55px;
 }
 
 /********************** 로그인 부분 START **********************/
 #header_log {
     float: right;
     margin-right: 70px;
-    margin-top: 9px;
+    margin-top: 9px;    
+    height: 55px;
 }
 
 #header_log button,#header_log a {
@@ -43,7 +45,7 @@ width: 33px;
     margin-bottom: -11px;
 }
 
-#header_log *:hover {
+#header_sign_in_out:hover ,#header_sign_up_mypage:hover{
 	opacity: 0.75;
 }
 
@@ -76,6 +78,31 @@ width: 33px;
     padding: 0 !important;
     margin-right: 14px;
 }
+
+#header_notiCount{	
+	width: 13px;
+    height: 18px;
+    background: #de1c1cfa;
+    float: left;
+    margin-left: -29px;
+    border-radius: 10px;
+    padding-left: 5px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.51);
+    font-size: 12px;
+        cursor: pointer;
+}
+
+#header_notiNum{
+	    width: 320px;
+    height: 400px;
+    background: #e2e2e2;
+    visibility: hidden;
+    margin-left: -155px;
+    margin-top: 45px;
+}
+
+
 /********************** 로그인 부분 END **********************/
 
 
