@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,13 +18,15 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
-
-<!---------------------------------------- 헤더 연결 ---------------------------------------->
-<jsp:include page="../include/Header.jsp"></jsp:include>
-<!---------------------------------------- 어사이드연결 ---------------------------------------->
-<jsp:include page="../include/aside.jsp"></jsp:include>
 </head>
 <body>
-
+<button>&#60;</button>
+<p>schedule.jsp</p>
+<div><c:out value="${schOne }"></c:out></div>
 </body>
+<script type="text/javascript">
+	$('button').click(function(){
+		window.location.href='management';
+	})
+</script>
 </html>

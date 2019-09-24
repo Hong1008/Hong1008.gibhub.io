@@ -17,6 +17,7 @@ public interface ProjectService {
 	public List<ProjectDTO> calendarPro(String pro_id, String id);
 	public List<ScheduleDTO> calendarSchTd(String pro_id);
 	public ProjectDTO proSelect(String pro_id);
+	public ScheduleDTO schOneSelect(String sch_id);
 	public List<ScheduleDTO> schTdSelect(String pro_id);
 	public List<TodoDTO> tdSelect(String sch_id);
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
