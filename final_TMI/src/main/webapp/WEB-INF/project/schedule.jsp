@@ -20,13 +20,19 @@
 	rel="stylesheet">
 </head>
 <body>
-<button>&#60;</button>
+<button id="back">&#60;</button>
+<button id="sch_end">스케줄종료</button>
 <p>schedule.jsp</p>
 <div><c:out value="${schOne }"></c:out></div>
 </body>
 <script type="text/javascript">
-	$('button').click(function(){
+	$('#back').click(function(){
 		window.location.href='management';
 	})
+	
+	$('#sch_end').click(function(){
+		
+	}
+	
 </script>
 </html>

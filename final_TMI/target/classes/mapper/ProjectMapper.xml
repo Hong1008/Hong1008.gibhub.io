@@ -11,6 +11,10 @@
 		insert into pro_team values (pro_id_seq.currval,#{id},#{pt_level})
 	</insert>
 	
+	<insert id="inviteProTeam" parameterType="dto.NotiDTO">
+		insert into notification values (noti_seq_no.nextval,#{id},pro_id_seq.currval,#{state})
+	</insert>
+	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
 		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id},#{sch_mgr})
 	</insert>

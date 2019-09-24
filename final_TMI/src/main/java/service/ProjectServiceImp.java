@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dto.NotiDTO;
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
@@ -39,9 +40,10 @@ public class ProjectServiceImp implements ProjectService{
 			mapper.firstInsertProTeam(ptDto);
 			if(pro_team_list!=null) {
 				for (String string : pro_team_list) {
-					ptDto.setId(string);
-					ptDto.setPt_level(0);
-					mapper.firstInsertProTeam(ptDto);
+					NotiDTO nDto = new NotiDTO();
+					nDto.setId(string);
+					nDto.setState(0);
+					mapper.inviteProTeam(nDto);
 				}
 			}
 		}catch (Exception e) {

@@ -459,7 +459,6 @@ public class UserController {
 	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String googleCallback(Model model, @RequestParam String code, HttpServletResponse response,
 			HttpServletRequest req) throws IOException {
-		System.out.println("찍히나");
 		// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
@@ -483,9 +482,6 @@ public class UserController {
 		// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> result = mapper.readValue(body, Map.class);
-		System.out.println(result.get("email"));
-		System.out.println(result.get("name"));
-		System.out.println("Google login success");
 		model.addAttribute("id", result.get("email"));
 		model.addAttribute("name", result.get("name"));
 		return "/member/google_signup";
