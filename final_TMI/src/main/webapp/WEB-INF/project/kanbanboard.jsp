@@ -9,6 +9,7 @@
 		<c:choose>
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
+					
 					<div class="schedules">
 						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
