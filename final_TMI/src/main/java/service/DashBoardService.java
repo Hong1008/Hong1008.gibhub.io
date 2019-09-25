@@ -14,6 +14,10 @@ public interface DashBoardService {
 	
 	public int completecntProcess(int pro_id);
 	
+	
+	//top5기여도
+	public List<DashDTO> topListProcess(int pro_id);
+	
 	//최근일정 목록
 	public List<DashDTO> recentlistProcess(int pro_id);
 	//다가오는 일정 목록
