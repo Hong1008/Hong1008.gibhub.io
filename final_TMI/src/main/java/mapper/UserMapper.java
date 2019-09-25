@@ -2,6 +2,7 @@ package mapper;
 
 import java.util.List;
 
+import dto.NotiDTO;
 import dto.UserDTO;
 
 public interface UserMapper {
@@ -34,4 +35,8 @@ public interface UserMapper {
 	public UserDTO select_mypage(String id);
 	
 	public String select_id_uuid(String uuid);
+	
+	public NotiDTO select_notification(String id);
+	
+	public int select_noti_count(String id);
 }

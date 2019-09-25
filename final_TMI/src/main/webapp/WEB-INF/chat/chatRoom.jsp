@@ -17,7 +17,8 @@
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
-
+	//파일 담을 리스트
+	var fileList = [];
 	$(document).ready(function() {
 						$('#loading').hide();
 						//시작 시 채팅영역 스크롤 하단으로 내리기
@@ -31,23 +32,24 @@
 						$(window).ajaxStop(function() {
 							$('#loading').hide();
 						});
-						//취소버튼
-						$('#chatFileInsCancel').click(function() {
-							$('#filemodal').css({
-								'visibility' : 'hidden',
-								'z-index' : '0'
-							});
-							$('#filename').empty();
+						//취소버튼/*  */
+						$('#fileInsC').click(function() {
+							$('#fileInsModal').css({'visibility' : 'hidden','z-index' : '0','display' : 'none'});
+							$("#filetable tr:not(:first)").remove();
+							fileList=[];
 							$('#file').val('');
 						})
-						//파일 담을 리스트
-						var fileList = [];
 						//파일 전송버튼
 						$('#fileInsSend').click(function() {
 											//객체 담음
+									
+											if(fileList==''){
+												alert('파일이 없습니다.');
+												return false;
+											}
+										
+											
 											var formData = new FormData();
-											/* <input type="hidden" value="${sessionScope.id }" id="userNick">
-											<input type="hidden" value="${sessionScope.pro_id}" id="projectId"> */
 											formData.append('id','${sessionScope.id }');
 											formData.append('pro_id','${sessionScope.pro_id}');
 											if(fileList){
@@ -60,64 +62,37 @@
 														processData : false,
 														contentType : false,
 														enctype : 'multipart/form-data',
-														dateType : 'json',
+														dateType : 'text',
 														data : formData,
 														type : 'POST',
 														success : function(result) {
-															alert('성공');
-															//모달 지우기
-															$('#filemodal')
-																	.css(
-																			{
-																				'visibility' : 'hidden',
-																				'z-index' : '0'
-																			});
-															$('#filename')
-																	.empty();
-															$('#file').val('');
-															//웹소캣 핸들러로 보냄
-										/* 					websocket.send(projectId+ ":"+ userNick+ ":"+ ":"+ result);
-															$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/temp/"
-																	+result+
-																	"'></div><small>"
-																					+ result
-																					+ "</small></div>"); */
+															$.each(result,function(i,v){
+																console.log(v);
+																var name=v.split('!park_');
+																websocket.send('${sessionScope.pro_id}'+ ":"+ '${sessionScope.id }'+ ":"+ ":"+ v);
+																$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/temp/"
+																		+v+
+																		"'></div><div class='eachFileName'><small>"
+																		+ name[1]+
+																		"</small></div><input type='checkbox' id='"+v+"'class='multiDown' value='"+v+"'><label for='"+v+"'></div>"); 
+																console.log(v);
+															})
+																	$('#fileInsModal').css({'visibility' : 'hidden','z-index' : '0','display' : 'none'});
 														}
 													});
 										});
-						//인풋 파일 바뀌면 모달창 뜸
+						//인풋 파일
 						$('#file').change(function() {
-								/* 			$('#filemodal').css({
-												'visibility' : 'visible',
-												'z-index' : '10',
-												'display' : 'block'
-											});
-											var filename = $('#file').val();
-											var filenameLength = filename.lenght;
-											var latDot = filename
-													.lastIndexOf('.');
-											var filetype = filename.substring(
-													latDot, filenameLength)
-													.toLowerCase();
-											//파일이 이미지 파일이면 미리보기
-											if (filetype == 'jpg'
-													|| filetype == 'png'
-													|| filetype == 'gif') {
-												inputPreview(this);
-												//아니면 대체 이미지로 보여줌
-											} else {
-												$('#filepreview')
-														.html(
-																'<img src="../resources/Chat_img/text.png">');
-											}
-											$('#filename').append(filename);
-											$('#chatFileIns').focus(); */
+							if(fileList.length == 5){
+								alert('한번에 5개까지 업로드 가능합니다.');
+								return false;
+							}
 											var fileName=$(this).val();
 											var showName=$(this).val().substring($(this).val().lastIndexOf("\\")+1);
 											var fileNameLength = fileName.lenght;
 											var latDot = fileName.lastIndexOf('.');
 											var filetype = fileName.substring(latDot, fileNameLength).toLowerCase();
-											$('#filetable').append('<tr><td><input type="checkbox"/></td><td>' + showName + '</td></tr>');
+											$('#filetable').append('<tr class="nothead"><td><input type="checkbox" class="notall"/></td><td>' + showName + '</td></tr>');
 											fileList.push($('#file')[0].files[0]);
 										});
 						//엔터로 메세지 발송
@@ -177,11 +152,13 @@
 		//서버가 전송한 메시지 가져오기
 		var data = evt.data;
 		var dataSplit = data.split(':');
+		console.log("스플릿"+dataSplit);
 		var dateD = new Date();
 		var minut = dateD.getMinutes() < 10 ? "0" + dateD.getMinutes() : dateD
 				.getMinutes();
 		var itsme = $('#userNick').val();
-		var filepath = dataSplit[2].split('_');
+		var filepath = dataSplit[2].split('!park_');
+		console.log("페스"+filepath);
 		//메세지 출력
 		//나 자신일때
 		if (itsme == dataSplit[0]) {
@@ -284,61 +261,6 @@ body {
 		rgba(0, 0, 0, .12) !important;
 }
 
-#chatFileIns {
-	background-color: #c47135;
-	border: none;
-	color: #ffffff;
-	cursor: pointer;
-	display: inline-block;
-	font-family: 'BenchNine', Arial, sans-serif;
-	font-size: 1em;
-	font-size: 22px;
-	line-height: 1em;
-	margin: 15px 40px;
-	outline: none;
-	padding: 12px 40px 10px;
-	position: relative;
-	text-transform: uppercase;
-	font-weight: 700;
-}
-
-#chatFileIns:before, #chatFileIns:after {
-	border-color: transparent;
-	-webkit-transition: all 0.25s;
-	transition: all 0.25s;
-	border-style: solid;
-	border-width: 0;
-	content: "";
-	height: 24px;
-	position: absolute;
-	width: 24px;
-}
-
-#chatFileIns:before {
-	border-color: #c47135;
-	border-right-width: 2px;
-	border-top-width: 2px;
-	right: -5px;
-	top: -5px;
-}
-
-#chatFileIns:after {
-	border-bottom-width: 2px;
-	border-color: #c47135;
-	border-left-width: 2px;
-	bottom: -5px;
-	left: -5px;
-}
-
-#chatFileIns:hover {
-	background-color: #c47135;
-}
-
-#chatFileIns:hover:before, #chatFileIns:hover:after {
-	height: 100%;
-	width: 100%;
-}
-
 #contents {
 	/* position: relative; */
 	z-index: 2;
@@ -347,10 +269,9 @@ body {
 }
 
 #chatBox {
-	float: left;
-	width: 60%;
-	height: 871px;
-	float: left;
+width: 58%;
+    height: 871px;
+    float: left;
 }
 
 #chatBox #chatArea {
@@ -421,9 +342,10 @@ body {
 }
 
 #fileBox {
-	float: right;
-	width: 40%;
-	height: 871px;
+padding-left: 27px;
+    float: right;
+    width: 40%;
+    height: 871px;
 }
 
 .mewrap {
@@ -491,29 +413,21 @@ body {
 			<div id="insbox">
 			<div id="tablewrap">
 				<table id="filetable">
-					<tr>
-						<th><input type="checkbox"></th>
+					<tr id="head">
+						<th><input type="checkbox" id="chkall"></th>
 						<th>파일명</th>
 					</tr>
 				</table>
 				</div>
-				<label for="file">파일첨부</label>
-				<button id="fileInsSend">파일보내기</button>
-				<button id="fileInsDel">파일삭제</button>
-				<button id="fileInsC">종료</button>
-			</div>
-			<div id="filepreviewArea"></div>
-		</div>
-	</div>
-	<div id="filemodal">
-		<div id="fileShowBox">
-			<div id="filepreview"></div>
-			<div id="filename"></div>
-			<button id="chatFileIns" class="btnstyle">보내기</button>
-			<button id="chatFileInsCancel" class="btnstyle">취소</button>
-			<div id="loading">
+				<label for="file" class="btnstyle">파일첨부</label>
+				<button id="fileInsSend" class="btnstyle">파일보내기</button>
+				<button id="fileInsDel" class="btnstyle">파일삭제</button>
+				<button id="fileInsC" class="btnstyle">종료</button>
+				<div id="loading">
 				<img src="../resources/Chat_img/loading.gif">
 			</div>
+			</div>
+			<div id="filepreviewArea"></div>
 		</div>
 	</div>
 	<div id="fileprPreviewModal">
@@ -541,11 +455,11 @@ body {
 												<br />
 
 												<div class='replyMessage'>${dto.chat_content}
-													<c:if test="${dto.upload!=null}">
-														<img class='replyimg' src="/tmi/temp/${dto.upload}">
+													<c:if test="${dto.realfilename!=null}">
+														<img class='replyimg' src="/tmi/temp/${dto.realfilename}">
 													</c:if>
-													<a href="/tmi/temp/${dto.upload}"
-														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
+													<a href="/tmi/temp/${dto.realfilename}"
+														download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 												</div>
 												<br />
 											</div>
@@ -561,11 +475,11 @@ body {
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
 												<div class='replyMessage'>${dto.chat_content}
-													<c:if test="${dto.upload!=null}">
-														<img class='replyimg' src="/tmi/temp/${dto.upload}">
+													<c:if test="${dto.realfilename!=null}">
+														<img class='replyimg' src="/tmi/temp/${dto.realfilename}">
 													</c:if>
-													<a href="/tmi/temp/${dto.upload}"
-														download="${fn:substringAfter(dto.upload,'_')}">${fn:substringAfter(dto.upload,'_')}</a>
+													<a href="/tmi/temp/${dto.realfilename}"
+														download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 												</div>
 												<br />
 											</div>
@@ -596,19 +510,17 @@ body {
 			</div>
 		</div>
 		<div id="fileBox">
-			<div id="fileBoxAreaVertical"></div>
 			<div id="eachFileArea">
 				<c:forEach items="${fileList}" var="file">
 					<div class="eachFile">
 						<div class="eachFileImg">
-							<img class="efimg" src="/tmi/temp/${file.upload }">
+							<img class="efimg" src="/tmi/temp/${file.realfilename}">
 						</div>
 						<div class="eachFileName">
-							<small>${fn:substringAfter(file.upload,'_')}</small>
+							<small>${fn:substringAfter(file.realfilename,'!park_')}</small>
 						</div>
-						<%-- <input class="multiDown" type="checkbox" value="${file.upload }"> --%>
-						<input type="checkbox" id="${file.upload }" class="multiDown"
-							value="${file.upload }"> <label for="${file.upload }"></label>
+						<input type="checkbox" id="${file.realfilename }" class="multiDown"
+							value="${file.realfilename }"> <label for="${file.realfilename }"></label>
 					</div>
 				</c:forEach>
 			</div>
@@ -629,7 +541,6 @@ body {
 	height: 100%;
 	background-color: rgba(0, 0, 0, .2);
 }
-
 #fileprPreviewModal {
 	z-index: 0;
 	display: none;
@@ -657,13 +568,24 @@ body {
 	height: 100%;
 }
 #fileInsArea #insbox #tablewrap{
-    margin: auto;
+     margin: auto;
     margin-top: 50px;
-height:300px;
-width: 200px;
+    height: 300px;
+    width: 500px;
 }
+
 #fileInsArea #insbox #tablewrap #filetable th:nth-child(2){
-width: 150px;
+width: 450px;
+max-width: 450;
+height: 22px;
+max-height: 22px;
+}
+#fileInsArea #insbox #tablewrap #filetable td:nth-child(2){
+    font-size: small;
+    overflow: hidden;
+    width: 450px;
+    max-width: 450px;
+    word-break: break-all;
 }
 #fileInsArea #filepreviewArea {
 float: left;
@@ -730,15 +652,6 @@ float: left;
 	border-color: #bfb;
 }
 
-#fileBoxAreaVertical {
-	margin-left: 10px;
-	float: left;
-	width: 1px;
-	height: 80%;
-	border-left: 1px solid gray;
-	margin-top: 10%;
-}
-
 #eachFileArea {
 	overflow: auto;
 	width: 98%;
@@ -756,7 +669,11 @@ float: left;
 }
 
 .eachFileName {
-	word-break: break-all;
+    word-break: break-all;
+    overflow: hidden;
+    max-height: 40px;
+    margin: auto;
+    width: 150px;
 }
 
 .eachFileImg {
@@ -804,5 +721,21 @@ float: left;
 									a.remove();
 								})
 			})
+			$('#filePreviewImg').mouseleave(function(){
+				 $('#fileprPreviewModal').css({'visibility' : 'hidden','z-index' : '0','display' : 'none'}); 
+			})
+			//파일 첨부 모달창에서 파일올라가는 테이블의 전부 체크버튼 처리
+			$('#chkall').change(function(){
+				if($('#chkall').is(":checked")){
+					$('.notall').prop("checked", true);
+				}else{
+					$('.notall').prop("checked", false);
+				}
+			});
+	$(document).on('click', '.notall', function(){
+	if($(this).is(":checked")==false){
+		$('#chkall').prop("checked", false);
+	}
+});
 </script>
 </html>

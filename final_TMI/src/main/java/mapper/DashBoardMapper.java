@@ -19,6 +19,10 @@ public interface DashBoardMapper {
 	//다가오는 일정 목록
 	public List<DashDTO> comminglist(int pro_id);
 	//타임라인 
-	public List<DashDTO> timelist(int pro_id);
+	public List<DashDTO> timelist(String id);
+	
+	public String bgView(String id);
+	
+	public void bgChange(DashDTO DTO);
 	
 }

@@ -11,6 +11,10 @@
 		insert into pro_team values (pro_id_seq.currval,#{id},#{pt_level})
 	</insert>
 	
+	<insert id="inviteProTeam" parameterType="dto.NotiDTO">
+		insert into notification values (noti_seq_no.nextval,#{id},pro_id_seq.currval,#{state})
+	</insert>
+	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
 		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id},#{sch_mgr})
 	</insert>
@@ -21,6 +25,14 @@
 	
 	<insert id="firstInsertTodo" parameterType="dto.TodoDTO">
 		insert into todo(t_id,t_start,t_end,t_name,sch_id,id) values (t_id_seq.nextval,#{t_start},#{t_end},#{t_name},#{sch_id},#{id})
+	</insert>
+	
+		<insert id="timeInsertTodo" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_todo',#{pro_id},t_id_seq.currval,'time_start',#{t_name})
+	</insert>
+	
+			<insert id="timeInsertSchedule" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_sch',#{pro_id},sch_id_seq.currval,'time_start',#{sch_name})
 	</insert>
 	
 	<resultMap type="java.util.HashMap" id="proList">
@@ -37,7 +49,7 @@
 		select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end
 		from project p, member m, pro_team pt
 		where p.pro_mgr = m.id and pt.pro_id=p.pro_id
-		and pt.id=#{id}
+		and pt.id=#{id} and p.pro_rend is null
 	</select>
 	
 	<select id="proIdList" resultType="string" parameterType="string">
@@ -57,7 +69,7 @@
 	</select>
 	
 	<select id="calendarTodo" resultType="dto.TodoDTO" parameterType="string">
-		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end from todo where sch_id = #{sch_id}
+		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end, id from todo where sch_id = #{sch_id}
 	</select>
 	
 	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
@@ -85,6 +97,10 @@
 	
 	<select id="schTeamSelect" resultType="dto.Sch_TeamDTO" parameterType="string">
 		select * from sch_team where pro_id = #{pro_id}
+	</select>
+	
+	<select id="schTeamSelectById" resultType="dto.Sch_TeamDTO" parameterType="string">
+		select * from sch_team where sch_id = #{sch_id}
 	</select>
 	
 	

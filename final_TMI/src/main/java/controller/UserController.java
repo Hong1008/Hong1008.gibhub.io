@@ -304,17 +304,14 @@ public class UserController {
 			result = "false";
 		} else {
 			dto = service.select_idProcess(dto);
-			/*
-			 * HttpSession session = req.getSession(); session.setAttribute("id",
-			 * dto.getId()); session.setAttribute("grade", dto.getGrade());
-			 */
+		
 
 			String ip = service.select_ipProcess(dto.getId());
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				/*if (ipreq.equals(iplist[i]))*/
-				if(ipreq.equals("0"))
+				if (ipreq.equals(iplist[i]))
+			/*	if(ipreq.equals("0"))*/
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
@@ -392,10 +389,7 @@ public class UserController {
 	public String confirm_emailMethod(HttpServletRequest request,HttpSession session) {
 		String uid = request.getParameter("uid");
 		service.update_gradeProcess(uid);
-         /*String id=service.select_id_uuidProcess(uid);
-		
-		session.setAttribute("id",id);
-		session.setAttribute("grade", 1);*/
+		session.setAttribute("grade", 1);
 		return "/member/confirm_email";
 	}
 
@@ -459,7 +453,6 @@ public class UserController {
 	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String googleCallback(Model model, @RequestParam String code, HttpServletResponse response,
 			HttpServletRequest req) throws IOException {
-		System.out.println("찍히나");
 		// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
@@ -483,9 +476,6 @@ public class UserController {
 		// Jackson을 사용한 JSON을 자바 Map 형식으로 변환
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> result = mapper.readValue(body, Map.class);
-		System.out.println(result.get("email"));
-		System.out.println(result.get("name"));
-		System.out.println("Google login success");
 		model.addAttribute("id", result.get("email"));
 		model.addAttribute("name", result.get("name"));
 		return "/member/google_signup";
