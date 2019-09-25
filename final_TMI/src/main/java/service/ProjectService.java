@@ -3,6 +3,8 @@ package service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
@@ -24,8 +26,8 @@ public interface ProjectService {
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
 	public String recentProId(String id);
 	public boolean isLeader(String pro_id, String id);
+	public void uptTdStart(String t_id);
+	public void uptTdRend(String pro_id,String t_id);
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list);
 	public void insertTodo(TodoDTO tdto,String pro_id);
-	public void uptTdStart(String t_id);
-	public void uptTdRend(String t_id);
 }

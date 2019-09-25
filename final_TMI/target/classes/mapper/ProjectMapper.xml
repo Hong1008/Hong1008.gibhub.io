@@ -27,14 +27,6 @@
 		insert into todo(t_id,t_start,t_end,t_name,sch_id,id) values (t_id_seq.nextval,#{t_start},#{t_end},#{t_name},#{sch_id},#{id})
 	</insert>
 	
-		<insert id="timeInsertTodo" parameterType="string">
-		insert into timeline values(tl_id_seq.nextval,sysdate,'time_todo',#{pro_id},t_id_seq.currval,'time_start',#{t_name})
-	</insert>
-	
-			<insert id="timeInsertSchedule" parameterType="string">
-		insert into timeline values(tl_id_seq.nextval,sysdate,'time_sch',#{pro_id},sch_id_seq.currval,'time_start',#{sch_name})
-	</insert>
-	
 	<resultMap type="java.util.HashMap" id="proList">
 		<result javaType="string" column="pro_id" property="pro_id"/>
 		<result javaType="string" column="pro_name" property="pro_name"/>
@@ -122,5 +114,24 @@
 	<update id="uptTdRend" parameterType="string">
 		update todo set t_rend = sysdate where t_id = #{t_id}
 	</update>
+	
+	
+	<!--******************************타임라인 ******************************-->
+	<insert id="timeInsertTodo" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_todo',#{pro_id},t_id_seq.currval,'time_start',#{t_name})
+	</insert>
+	
+	<insert id="timeInsertSchedule" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_sch',#{pro_id},sch_id_seq.currval,'time_start',#{sch_name})
+	</insert>
+	
+	<insert id="timeendTodo" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_todo',#{pro_id},#{t_id},'time_end',
+		(select t_name from TODO where t_id=#{t_id}))
+	</insert>
+	
+	
+	
+		<!--******************************타임라인 ******************************-->
 </mapper>
 

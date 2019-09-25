@@ -26,4 +26,6 @@
 
 .showWhat{	
     display: flow-root;
+    background: #f3f3f3;
+    min-height: 900px;
 }

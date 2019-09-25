@@ -111,9 +111,16 @@ label {
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(
-			
-			function() {
+	$(document).ready(			
+			function() {				
+				$('.theme').on('click',function(){
+					for(var i =1; i<21;i++){
+						$('.tmi_skin').removeClass('tmi_skin'+i);
+					}					
+					 	var skin = $(this).children().val();
+					 	$('.tmi_skin').addClass(skin);
+				});
+				
 				$("#imgfile").click(function() {
 
 					$("#file").click();
@@ -213,27 +220,27 @@ System.out.println("test.jsp"+root);
 					style="display: none;" />
 			</div>
 			<div id='my_theme'>
-				<div class='theme tmi_skin01' id='theme01'></div>
-				<div class='theme tmi_skin02' id='theme02'></div>
-				<div class='theme tmi_skin03' id='theme03'></div>
-				<div class='theme tmi_skin04' id='theme04'></div>
-				<div class='theme tmi_skin05' id='theme05'></div>
-				<div class='theme tmi_skin06' id='theme06'></div>
-				<div class='theme tmi_skin07' id='theme07'></div>
-				<div class='theme tmi_skin08' id='theme08'></div>
-				<div class='theme tmi_skin09' id='theme09'></div>
-				<div class='theme tmi_skin10' id='theme10'></div>
+				<div class='theme tmi_skin1' id='theme01'><input type="hidden" value="tmi_skin1"></div>
+				<div class='theme tmi_skin2' id='theme02'><input type="hidden" value="tmi_skin2"></div>
+				<div class='theme tmi_skin3' id='theme03'><input type="hidden" value="tmi_skin3"></div>
+				<div class='theme tmi_skin4' id='theme04'><input type="hidden" value="tmi_skin4"></div>
+				<div class='theme tmi_skin5' id='theme05'><input type="hidden" value="tmi_skin5"></div>
+				<div class='theme tmi_skin6' id='theme06'><input type="hidden" value="tmi_skin6"></div>
+				<div class='theme tmi_skin7' id='theme07'><input type="hidden" value="tmi_skin7"></div>
+				<div class='theme tmi_skin8' id='theme08'><input type="hidden" value="tmi_skin8"></div>
+				<div class='theme tmi_skin9' id='theme09'><input type="hidden" value="tmi_skin9"></div>
+				<div class='theme tmi_skin10' id='theme10'><input type="hidden" value="tmi_skin10"></div>
 				<br>
-				<div class='theme tmi_skin11' id='theme11'></div>
-				<div class='theme tmi_skin12' id='theme12'></div>
-				<div class='theme tmi_skin13' id='theme13'></div>
-				<div class='theme tmi_skin14' id='theme14'></div>
-				<div class='theme tmi_skin15' id='theme15'></div>
-				<div class='theme tmi_skin16' id='theme16'></div>
-				<div class='theme tmi_skin17' id='theme17'></div>
-				<div class='theme tmi_skin18' id='theme18'></div>
-				<div class='theme tmi_skin19' id='theme19'></div>
-				<div class='theme tmi_skin20' id='theme20'></div>
+				<div class='theme tmi_skin11' id='theme11'><input type="hidden" value="tmi_skin11"></div>
+				<div class='theme tmi_skin12' id='theme12'><input type="hidden" value="tmi_skin12"></div>
+				<div class='theme tmi_skin13' id='theme13'><input type="hidden" value="tmi_skin13"></div>
+				<div class='theme tmi_skin14' id='theme14'><input type="hidden" value="tmi_skin14"></div>
+				<div class='theme tmi_skin15' id='theme15'><input type="hidden" value="tmi_skin15"></div>
+				<div class='theme tmi_skin16' id='theme16'><input type="hidden" value="tmi_skin16"></div>
+				<div class='theme tmi_skin17' id='theme17'><input type="hidden" value="tmi_skin17"></div>
+				<div class='theme tmi_skin18' id='theme18'><input type="hidden" value="tmi_skin18"></div>
+				<div class='theme tmi_skin19' id='theme19'><input type="hidden" value="tmi_skin19"></div>
+				<div class='theme tmi_skin20' id='theme20'><input type="hidden" value="tmi_skin20"></div>
 			</div>
 			<div>
 				아이디 <input type="text" name="id" value="${dto.id}" readonly />

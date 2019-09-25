@@ -21,39 +21,39 @@
 	cursor:pointer;
 }
 /******************************* 전체 테마 *******************************/
-.tmi_skin01{
+.tmi_skin1{
 	background: linear-gradient(120deg, #12c2e9, #c471ed, #f64f59);	
 }
 
-.tmi_skin02{
+.tmi_skin2{
 	background: linear-gradient(120deg, #8360c3, #2ebf91);
 }
 
-.tmi_skin03{
+.tmi_skin3{
 	    background: linear-gradient(120deg, #ed213a, #93291e);
 }
 
-.tmi_skin04{
+.tmi_skin4{
 	background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
 }
 
-.tmi_skin05{
+.tmi_skin5{
 	    background: linear-gradient(120deg, #c6ffdd, #fbd786, #f7797d);
 }
 
-.tmi_skin06{
+.tmi_skin6{
 	   background: linear-gradient(120deg,#8933d4, #3800a9);
 }
 
-.tmi_skin07{
+.tmi_skin7{
 	    background: linear-gradient(120deg, #4b6cb7, #182848);
 }
 
-.tmi_skin08{
+.tmi_skin8{
 	    background: linear-gradient(120deg,  #606c88, #3f4c6b);
 }
 
-.tmi_skin09{
+.tmi_skin9{
 	    background: linear-gradient(120deg,  #000000, #434343);
 }
 

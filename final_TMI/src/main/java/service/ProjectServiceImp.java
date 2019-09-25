@@ -194,9 +194,10 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
-	public void uptTdRend(String t_id) {
+	public void uptTdRend(String pro_id,String t_id) {
 		// TODO Auto-generated method stub
 		mapper.uptTdRend(t_id);
+		mapper.timeendTodo(pro_id, t_id);
 	}
 	
 	@Override
