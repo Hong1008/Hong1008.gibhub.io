@@ -80,7 +80,7 @@
 	</select>
 	
 	<select id="tdViewSelect" resultType="dto.TodoDTO" parameterType="string">
-		select t_id, t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, name id, t_rend from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
+		select t_id, t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, t.id id, t_rend, t_start start_date, t_end end_date, name from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
 	</select>
 	
 	<select id="proTeamSelect" resultType="dto.Pro_TeamDTO" parameterType="string">
@@ -92,7 +92,7 @@
 	</select>
 	
 	<select id="schTeamSelectById" resultType="dto.Sch_TeamDTO" parameterType="string">
-		select * from sch_team where sch_id = #{sch_id}
+		select pro_id, s.id, st_level, sch_id, profile_img, name  from sch_team s, member m where sch_id = #{sch_id} and m.id = s.id order by st_level desc
 	</select>
 	
 	<select id="getTdId" resultType="string" parameterType="string">
@@ -107,6 +107,14 @@
 		select pt_level from pro_team where id = #{id} and pro_id = #{pro_id}
 	</select>
 	
+	<select id="isSchLeader" resultType="int" parameterType="string">
+		select st_level from sch_team where id = #{id} and sch_id = #{sch_id}
+	</select>
+	
+	<update id="uptSchRend" parameterType="string">
+		update schedule set sch_rend = sysdate where sch_id = #{sch_id}
+	</update>
+	
 	<update id="uptTdStart" parameterType="string">
 		update todo set t_start = sysdate where t_id = #{t_id}
 	</update>
@@ -114,6 +122,10 @@
 	<update id="uptTdRend" parameterType="string">
 		update todo set t_rend = sysdate where t_id = #{t_id}
 	</update>
+	
+	<select id="cntTodo" resultType="int" parameterType="string">
+		select count(*) from todo where sch_id = #{sch_id} and id = #{id}
+	</select>
 	
 	
 	<!--******************************타임라인 ******************************-->

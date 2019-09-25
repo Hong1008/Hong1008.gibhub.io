@@ -139,4 +139,10 @@ public class ProjectController {
 		String pro_id = session.getAttribute("pro_id").toString();
 		projectService.uptTdRend(pro_id,t_id);
 	}
+	
+	@RequestMapping("/schRend")
+	public @ResponseBody boolean schRend(String sch_id, HttpSession session) {
+		String id = session.getAttribute("id").toString();
+		return projectService.isSchLeader(sch_id, id);
+	}
 }

@@ -3,8 +3,30 @@ package dto;
 public class Sch_TeamDTO {
 	private String pro_id;
 	private String id;
+	private String name;
+	private String profile_img;
 	private int st_level;
 	private String sch_id;
+	private int cntTd;
+	
+	public void setCntTd(int cntTd) {
+		this.cntTd = cntTd;
+	}
+	public int getCntTd() {
+		return cntTd;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
 	public String getPro_id() {
 		return pro_id;
 	}
