@@ -102,10 +102,11 @@
 					</form>
 					</c:when>
 					<c:otherwise>
-						<div class="schedules rend">
+						<div class="schedules">
 							<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 							</div>
-							<div class="todo">
+							<div class="todo rend">
 								<p class='todo_name' >종료된 스케줄입니다</p>
 							</div>
 						</div>
@@ -166,10 +167,6 @@
 	
 	<script type="text/javascript">
 		$('.s_name').on('click',function(){
-			if($(this).hasClass('rend')){
-				swal("Warning", "종료된 스케줄입니다","error");
-				return;
-			}
 			var sch_id = $(this).children('#sch_id').val();
 			$.ajax({
 				url:'schedule',

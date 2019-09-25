@@ -61,15 +61,15 @@
 	</select>
 	
 	<select id="calendarPro" resultType="dto.ProjectDTO" parameterType="string">
-		select pro_name, pro_info, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end from project where pro_id = #{pro_id}
+		select pro_name, pro_info, to_char(pro_start,'yyyy-MM-dd') pro_start, to_char(pro_end,'yyyy-MM-dd') pro_end, pro_rend from project where pro_id = #{pro_id}
 	</select>
 	
 	<select id="calendarSch" resultType="dto.ScheduleDTO" parameterType="string">
-		select sch_id, sch_info, sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end from schedule where pro_id = #{pro_id}
+		select sch_id, sch_info, sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end, sch_rend from schedule where pro_id = #{pro_id}
 	</select>
 	
 	<select id="calendarTodo" resultType="dto.TodoDTO" parameterType="string">
-		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end, id from todo where sch_id = #{sch_id}
+		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end, id, t_rend from todo where sch_id = #{sch_id}
 	</select>
 	
 	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
@@ -105,6 +105,14 @@
 	
 	<select id="getTdId" resultType="string" parameterType="string">
 		select id from todo where t_id = #{t_id}
+	</select>
+	
+	<select id="recentProId" resultType="string" parameterType="string">
+		select pro_id from timeline where pro_id in (select pro_id from pro_team where id = #{id}) and rownum = 1 order by tl_time desc
+	</select>
+	
+	<select id="isLeader" resultType="int" parameterType="string">
+		select pt_level from pro_team where id = #{id} and pro_id = #{pro_id}
 	</select>
 	
 	<update id="uptTdStart" parameterType="string">

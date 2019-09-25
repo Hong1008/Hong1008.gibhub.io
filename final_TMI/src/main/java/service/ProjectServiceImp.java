@@ -144,6 +144,22 @@ public class ProjectServiceImp implements ProjectService{
 		return mapper.schTeamSelect(pro_id);
 	}
 	
+	@Override
+	public String recentProId(String id) {
+		// TODO Auto-generated method stub
+		return mapper.recentProId(id);
+	}
+	
+	@Override
+	public boolean isLeader(String pro_id, String id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		if(mapper.isLeader(pro_id, id)==1) {
+			is = true;
+		}
+		return is;
+	}
+	
 	@Transactional
 	@Override
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list) {
