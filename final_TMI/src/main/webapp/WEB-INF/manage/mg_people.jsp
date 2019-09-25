@@ -12,12 +12,14 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!-------------------------------------- 부트스트랩 -------------------------------------->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+<!-- sweetalert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link rel="stylesheet" href="/tmi/css/manage_people.css" type="text/css">
 <script src="/tmi/js/manage.js"></script>
@@ -27,50 +29,54 @@
 	<c:forEach items="${people}" var="dto">
 		<input type="hidden" value="${dto.pro_id }" id="pro_id">
 	</c:forEach>
-	<div id="pj_set">
-		<div>
-
-			<div>
-				<h2>프로젝트 매니저</h2>
+	<div id="pj_set">		
+			<div id="manager_form">
+				<h1>프로젝트 매니저</h1>
 				<div class="form-group">
-					<label for="sel1">매니저 선택:</label> <select class="form-control"
-						id="sel1">
+					<label for="selectBox">매니저 선택:</label> 
+					<select class="form-control" id="selectBox">
 						<c:forEach items="${people }" var="people">
 							<option value="${people.id }" id="manager">${people.id }</option>
 						</c:forEach>
 					</select>
 				</div>
 
-				<input type="submit" class="btn btn-info" id="manegerSet" value="변경">
+				<input type="submit" class="button" id="manegerSet" value="변경">
 			</div>
-
-			<div>팀원 수정
-			<a href="#search-bar" class="btn" rel="modal:open">추가</a>
-			<input type="submit" class="btn btn-danger" id="memDel" value="제거">
+			
+		<div id="member_set">
+			<h1>팀원 수정</h1>
+			<div id="addDel">
+			<a href="#search-bar" class="btn" rel="modal:open" id="Abutton">추가</a>
+			<input type="submit" class="button" id="memDel" value="제거">
 			</div>
 			
 			<br>
+			<div>
 			<c:forEach items="${people }" var="people">
 				<c:choose>
-					<c:when test="${people.pt_level==1 }">
-						<label class="checkbox-inline"> <input type="checkbox"
-							value=${people.id } disabled /> ${people.id }
-						</label>
+					<c:when test="${people.pt_level==1 }">											
+						<div class="checks etrans">
+  						<input type="checkbox" id="${people.id }id" class="chkbox" value=${people.id } disabled="disabled"> 
+ 						 <label for="${people.id }id">${people.id }</label> 
+						</div>
 					</c:when>
 					<c:otherwise>
-						<label class="checkbox-inline" id="${people.id }"> <input type="checkbox" id="chkbox"
-							value=${people.id } /> ${people.id }
-						</label>
+						<div class="checks etrans">
+  						<input type="checkbox" id="${people.id }id" class="chkbox" value=${people.id }> 
+ 						 <label for="${people.id }id">${people.id }</label> 
+						</div>								
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-
+			</div>
 		</div>
-		<input type="submit" class="btn btn-warning" id="back" value="뒤로">
+		<input type="submit" class="button-back" id="back" value="뒤로">
 	</div>
 	
+	
 	<form id="search-bar" class="modal" action="addMember">
-				<label for="search_id">아이디로 팀원들을 검색</label>
+				<label for="search_id">아이디를 검색하세요</label>
 				<ul class="table-list" id="pro_team_list">
 					
 				</ul>
@@ -83,4 +89,3 @@
 
 	
 </body>
-</html>
