@@ -103,7 +103,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="schedules">
-							<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 							</div>
 							<div class="todo rend">

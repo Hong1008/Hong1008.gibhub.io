@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href='../plugin/jquery-ui.min.css' type='text/css'
 	rel='stylesheet'>
 <style type="text/css">
@@ -226,6 +227,8 @@ background-size: 400%;
 #after .g_head{
 background-size: 400%;
     background-position-x: 100%;
+.unsortable{
+	opacity: 0.5;
 }
 </style>
 <script>
@@ -242,9 +245,11 @@ background-size: 400%;
 					<c:if
 						test="${tdDto.t_end>0 && tdDto.t_start>0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
-						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.id}</span></div>						
-						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${tdDto.t_start}</span></div>	
-						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${tdDto.t_end}</span></div>	
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}	</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
+						<input type="hidden" id="mytodo" value="${tdDto.id }">
+						
 						</li>
 					</c:if>
 				</c:forEach>
@@ -257,9 +262,10 @@ background-size: 400%;
 					<c:if
 						test="${tdDto.t_end>0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
-						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.id}</span></div>						
-						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${tdDto.t_start}</span></div>	
-						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${tdDto.t_end}</span></div>	
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>
+						<input type="hidden" id="mytodo" value="${tdDto.id }">	
 						</li>
 					</c:if>
 				</c:forEach>
@@ -272,10 +278,10 @@ background-size: 400%;
 					<c:if
 						test="${tdDto.t_end<=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
-						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.id}</span></div>						
-						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${tdDto.t_start}</span></div>	
-						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${tdDto.t_end}</span></div>	
-						</li>
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
+						<input type="hidden" id="mytodo" value="${tdDto.id }"></li>
 					</c:if>
 				</c:forEach>
 			</ul>
@@ -286,9 +292,10 @@ background-size: 400%;
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if test="${not empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
-						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.id}</span></div>						
-						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${tdDto.t_start}</span></div>	
-						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${tdDto.t_end}</span></div>	
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
+						<input type="hidden" id="mytodo" value="${tdDto.id }">
 						</li>
 					</c:if>
 				</c:forEach>
@@ -301,28 +308,94 @@ background-size: 400%;
 			<div id='sch_info_dis'>
 				<span>설명</span><p>${schOne.sch_info }</p></div>
 			<div id='sch_info_start'>
-				<span>시작일</span><%-- ${schOne.sch_start } --%><p>2019-09-27</p></div>
+				<span>시작일</span>${fn:substring(schOne.sch_start,0,10) }</div>
 				<div id='sch_info_end'>			
-				<span>종료예정일</span><%-- ${schOne.sch_end} --%><p>일2019-09-28</p></div>
+				<span>종료예정일</span>${fn:substring(schOne.sch_end,0,10)}</div>
 			</div>
 		<div id='sch_info_bottom'>
 		<div id='sch_info_mem'>
 				<div>팀원</div>
 				<div class='sch_mem_img_wrap'>
-					<div class='sch_mem_img'></div>
-					<div class='sch_mem_img'></div>
-					<div class='sch_mem_img'></div>
-					<div class='sch_mem_img'></div>
-					<div class='sch_mem_img'></div>
+					<c:forEach items="${schOne.stList }" var="mem">
+						<input type="hidden" id="memId" value="${mem.id }">
+						<input type="hidden" id="memName" value="${mem.name }">
+						<input type="hidden" id="memLevel" value="${mem.st_level }">
+						<input type="hidden" id="memCntTd" value="${mem.cntTd }">
+						<img class="sch_mem_img" alt="" src="/tmi/profile_img/${mem.profile_img }">
+					</c:forEach>
 				</div>
 		</div>
 			</div>
-			<button id='sch_info_endBtn' class='tmi_skin tmi_skin1'>스케쥴 끝내기</button>
+			<c:choose>
+			<c:when test="${empty schOne.sch_rend }">
+			<button id='sch_info_endBtn' class='tmi_skin tmi_skin1'>스케쥴 끝내기
+				<input type="hidden" value="${schOne.sch_id }">
+			</button>
+			</c:when>
+			<c:otherwise>
+				<div>종료된 스케줄 입니다</div>
+			</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </body>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+
+	$('.sch_todo').each(function(i,v){
+		if($(v).children('#mytodo').val()!=$('#sessionId').val()){
+			$(v).addClass('unsortable');
+		}
+	})
+	
+	$('.sch_mem_img').each(function(i,v){
+		var id = $(v).prevAll('#memId').val();
+		var name = $(v).prevAll('#memName').val();
+		var level = $(v).prevAll('#memLevel').val();
+		var memCntTd = $(v).prevAll('#memCntTd').val();
+		if(level==1){
+			level = '리더'
+		}else{
+			level = '멤버'
+		}
+		tippy(v, {
+			  animation: 'scale',
+			  theme: 'light',
+			  trigger:'click',
+			  //content: '<strong>내용: </strong>'+info.event.extendedProps.description
+			  content: memCntTd+'<strong>아이디: </strong><div>'+id+'</div><strong>이름: </strong><div>'+name+'</div><strong>등급: </strong><div>'+level+'</div>'
+		})
+	})
+	
+	
+	
+	$('#sch_info_endBtn').on('click',function(){
+		var undoSum = $('#sortable1').children().length+$('#sortable2').children().length+$('#sortable3').children().length;
+		var sch_id = $(this).children().val();
+		if(undoSum>0){
+			swal("Warning", '아직 할일이 남았습니다',"error")
+			return;
+		}
+		$.ajax({
+			type:'POST',
+			url:"schRend",
+			data:'sch_id='+sch_id,
+			success:function(res){
+				if(res){
+					swal("스케줄이 종료되었습니다", {
+					      icon: "success",
+					    }).then((value) => {
+							  window.location.href="/tmi/project/management";
+						});
+				}else{
+					swal("Warning", '스케줄 리더만 종료할 수 있습니다',"error")
+				}
+				
+				console.log(res);
+			}
+		})
+	})
+
 	$('#returnBtn').click(function() {
 		window.location.href = 'management';
 	})
@@ -351,10 +424,12 @@ background-size: 400%;
 			}
 		}).disableSelection(); */
 		$("#sortable1").sortable({
-			connectWith : "#sortable2"
+			connectWith : "#sortable2",
+			items: "li:not(.unsortable)"
 		}).disableSelection();
 		$("#sortable2").sortable({
 			connectWith : "#sortable4",
+			items: "li:not(.unsortable)",
 			receive: function(event, ui){
 				swal({
 					  title: "할일이 진행중인 상태로 바뀝니다",
@@ -381,12 +456,14 @@ background-size: 400%;
 		}).disableSelection();
 		$("#sortable3").sortable({
 			connectWith : "#sortable4",
+			items: "li:not(.unsortable)",
 			receive: function(event, ui){
 				
 			}
 		}).disableSelection();
 		$("#sortable4").sortable({
 			items: 'cancel',
+			items: "li:not(.unsortable)",
 			receive: function(event, ui){
 				swal({
 					  title: "할일이 종료됩니다",
