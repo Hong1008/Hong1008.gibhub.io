@@ -84,10 +84,11 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertProject")
-	public String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
+	public  @ResponseBody String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String id = req.getSession().getAttribute("id").toString();
+		System.out.println(pro_team_list.get(0));
 		projectService.insertProject(pdto,id,pro_team_list);
-		return "redirect:/home";
+		return "success";
 	}
 	
 	@RequestMapping("/insertSchedule")

@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dto.NotiDTO;
@@ -41,7 +42,15 @@ public interface UserService {
 	
 	public String select_id_uuidProcess(String uuid);
 	
-	public NotiDTO select_notificationProcess(String id);
+	public List<NotiDTO> select_notificationProcess(String id);
 	
 	public int select_noti_countProcess(String id);
+	
+	public List<HashMap<String, Object>> notifi_listProcess(String id);
+	
+	public void pro_insertProcess(String id,String pro_id);
+	
+	public void noti_updateProcess(String state , String pro_id ,String id );
+	
+	public void noti_insertProcess(String id,String pro_id,String state);
 }

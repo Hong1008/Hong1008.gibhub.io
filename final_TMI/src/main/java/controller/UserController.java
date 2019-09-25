@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -76,7 +77,15 @@ public class UserController {
 	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	@RequestMapping("**/notifi_yes")
+	public @ResponseBody String notifi_yes(String id,String pro_id,String invite_id)
+	{
+		service.pro_insertProcess(pro_id,id);
+		service.noti_updateProcess("2", pro_id, pro_id);
+		service.noti_insertProcess(invite_id, pro_id, "3");
+		return "success";
+		
+	}
 	@RequestMapping("/proList")
 	public String proList(HttpSession session) {
 		String returnUri = session.getAttribute("returnUri").toString();

@@ -45,7 +45,10 @@
     <websocket:handlers>
 
         <websocket:mapping path="/count" handler="myHandler"/>
-
+ <websocket:handshake-interceptors>
+            <beans:bean
+                class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
     </websocket:handlers>
 
  	<!-- 웹 소켓 핸들러  -->
