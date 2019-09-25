@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dto.NotiDTO;
 import dto.Pro_TeamDTO;
 import dto.ProjectDTO;
 import dto.Sch_TeamDTO;
@@ -39,9 +40,10 @@ public class ProjectServiceImp implements ProjectService{
 			mapper.firstInsertProTeam(ptDto);
 			if(pro_team_list!=null) {
 				for (String string : pro_team_list) {
-					ptDto.setId(string);
-					ptDto.setPt_level(0);
-					mapper.firstInsertProTeam(ptDto);
+					NotiDTO nDto = new NotiDTO();
+					nDto.setId(string);
+					nDto.setState(0);
+					mapper.inviteProTeam(nDto);
 				}
 			}
 		}catch (Exception e) {
@@ -97,7 +99,11 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		ScheduleDTO sdto = mapper.schOne(sch_id);
 		sdto.setStList(mapper.schTeamSelectById(sch_id));
-		sdto.setTodoList(mapper.tdSelect(sch_id));
+		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
+		for (TodoDTO todoDTO : tList) {
+			todoDTO.setId(mapper.getTdId(todoDTO.getT_id()));
+		}
+		sdto.setTodoList(tList);
 		return sdto;
 	}
 	
@@ -169,5 +175,17 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
 		mapper.timeInsertTodo(pro_id,tdto.getT_name());
+	}
+	
+	@Override
+	public void uptTdRend(String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdRend(t_id);
+	}
+	
+	@Override
+	public void uptTdStart(String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdStart(t_id);
 	}
 }

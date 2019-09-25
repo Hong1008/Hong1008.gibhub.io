@@ -19,7 +19,7 @@ public interface ManageService {
 	
 	public void memberAddProcess(ManageDTO dto);
 	
-	public List<String> idcheckProcess();
+	public List<String> idcheckProcess(String pro_id);
 	
 	public void memberDelProcess(ManageDTO dto);
 	
@@ -28,4 +28,6 @@ public interface ManageService {
 	public void pjpeopleDelProcess(String pro_id);
 	
 	public List<String> searchIdList(String id);
+	
+	public void rendSetProcess(ManageDTO dto);
 }
