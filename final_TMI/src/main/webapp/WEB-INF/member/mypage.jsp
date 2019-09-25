@@ -153,42 +153,43 @@ System.out.println("test.jsp"+root);
 <style type="text/css">
 #img {
 	width: 80px;
-    height: 80px;
+	height: 80px;
 	border-radius: 123px;
 	-moz-border-radius: 123px;
 	-khtml-border-radius: 123px;
 	-webkit-border-radius: 123px;
 }
 
-#my_wrap{
-padding-top: 100px;
-    padding-left: 250px;
-    background: #fcf7fd;
-    }
-    
-    #imgfile{
-    margin-top: 10px;
-    border: 1px solid #a59fa7;
-    width: 70px;
-    height: 27px;
-    background: #fcf7fd;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 100;
-    border-radius: 16px;
-    cursor: pointer;
-    }
-    
-    .theme{
-    width: 41px;
-    height: 41px;
-    float: left;
-    margin-left: 10px;
-    cursor: pointer;
-    }
-    
-    #my_theme{
-    width: 510px;
-    }
+#my_wrap {
+	padding-top: 100px;
+	padding-left: 250px;
+	background: #fcf7fd;
+}
+
+#imgfile {
+	margin-top: 10px;
+	border: 1px solid #a59fa7;
+	width: 70px;
+	height: 27px;
+	background: #fcf7fd;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 100;
+	border-radius: 16px;
+	cursor: pointer;
+}
+
+.theme {
+	width: 41px;
+	height: 41px;
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+#my_theme {
+	width: 510px;
+	height: 120px;
+}
 </style>
 </head>
 <body>
@@ -196,21 +197,20 @@ padding-top: 100px;
 		<form name="frm" method="post" action="mypage_update"
 			enctype="multipart/form-data">
 			<div>
-			<c:set var="profile_img" value="${dto.profile_img}"/>
+				<c:set var="profile_img" value="${dto.profile_img}" />
 				<c:choose>
 					<c:when test="${not empty dto.profile_img}">
 						<img src="/tmi/profile_img/${dto.profile_img}" id="img" />
-						<br/>
+						<br />
 					</c:when>
 					<c:otherwise>
 						<img src="/tmi/resources/memberimg/user.png" id="img" />
 						<br />
 					</c:otherwise>
 				</c:choose>
-				<input type="button" id="imgfile" value="사진 변경" />		
-				 <input
+				<input type="button" id="imgfile" value="사진 변경" /> <input
 					type="file" id="file" name="file" value="이미지 변경"
-					style="display: none;" />					
+					style="display: none;" />
 			</div>
 			<div id='my_theme'>
 				<div class='theme tmi_skin01' id='theme01'></div>
@@ -222,7 +222,8 @@ padding-top: 100px;
 				<div class='theme tmi_skin07' id='theme07'></div>
 				<div class='theme tmi_skin08' id='theme08'></div>
 				<div class='theme tmi_skin09' id='theme09'></div>
-				<div class='theme tmi_skin10' id='theme10'></div><br>
+				<div class='theme tmi_skin10' id='theme10'></div>
+				<br>
 				<div class='theme tmi_skin11' id='theme11'></div>
 				<div class='theme tmi_skin12' id='theme12'></div>
 				<div class='theme tmi_skin13' id='theme13'></div>
