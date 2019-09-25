@@ -3,12 +3,12 @@
 body {
 	position: relative;
 	background-color: rgb(243, 238, 238);
-	min-width: 1060px;
+	min-width: 1420px;
 }
 #contents {
+	float:left;
 	z-index: 2;
-	width: 95%;
-	margin-left: 5%;
+	 width: calc(100% - 52px);
 }
 #chatBox {
 	width: 58%;
@@ -151,7 +151,7 @@ body {
 	visibility: hidden;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .2);
+	background-color: rgba(0, 0, 0, .6);
 }
 
 #fileprPreviewModal {
@@ -161,7 +161,7 @@ body {
 	visibility: hidden;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .2);
+	background-color: rgba(0, 0, 0, .6);
 }
 
 #fileInsArea {
@@ -220,20 +220,18 @@ body {
 }
 
 #filePreviewImg {
-	width: 80%;
-	height: 80%;
-	position: relative;
-	top: 45%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	text-align: center;
-	overflow: auto;
+        position: relative;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    overflow: auto;
 }
 
 .multiDown+label {
 	display: block;
 	margin: 0.2em;
+	float: right;
 	cursor: pointer;
 	padding: 0.2em;
 }
@@ -257,7 +255,7 @@ body {
 	transition: .2s;
 }
 
-.multiDown+label:active:before {
+.multiDown+label.active:before {
 	transform: scale(0);
 }
 
@@ -295,11 +293,14 @@ body {
 }
 
 .eachFileName {
-	word-break: break-all;
-	overflow: hidden;
-	max-height: 40px;
-	margin: auto;
-	width: 150px;
+    word-break: break-all;
+    overflow: hidden;
+    height: 42px;
+    max-height: 42px;
+    margin: auto;
+    width: 150px;
+    margin-top: 5px;
+    text-align: center;
 }
 
 .eachFileImg {
@@ -312,4 +313,34 @@ body {
 .eachFileImg .efimg {
 	width: 80px;
 	height: 80px;
+}
+.btnstyle{
+	width:100px;
+    background-color: #87CEEB;
+      border: 3px solid #87CEEB;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+	border-radius:10px;
+	box-sizing: border-box;
+	outline: none;
+}
+.btnstyle:hover{
+    background-color: white;
+    border: 3px solid #87CEEB;
+    box-sizing: border-box;
+}
+#chkSelectbox{
+	margin-top: 30px;
+}
+#chkSelectbox #multiDown{
+	margin-top: 25px;
+	margin-left: 33px;
+}
+#footerclear{
+	clear: both;
 }
