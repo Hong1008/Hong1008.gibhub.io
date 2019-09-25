@@ -22,6 +22,8 @@ public interface ProjectService {
 	public List<TodoDTO> tdSelect(String sch_id);
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
+	public String recentProId(String id);
+	public boolean isLeader(String pro_id, String id);
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list);
 	public void insertTodo(TodoDTO tdto,String pro_id);
 	public void uptTdStart(String t_id);

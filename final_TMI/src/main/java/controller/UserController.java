@@ -77,13 +77,18 @@ public class UserController {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@RequestMapping("/isLeader")
+	public String isLeader(HttpSession session) {
+		return "/member/isLeader";
+	}
+	
 	@RequestMapping("/proList")
 	public String proList(HttpSession session) {
 		String returnUri = session.getAttribute("returnUri").toString();
 		session.removeAttribute("returnUri");
 		List<HashMap<String, Object>> phList = projectService.projectHomeList(session.getAttribute("id").toString());
 		session.setAttribute("projectHomeList",phList);
-		session.setAttribute("pro_id", phList.get(0).get("pro_id"));
+		session.setAttribute("pro_id", projectService.recentProId(session.getAttribute("id").toString()));
 		return "redirect:/"+returnUri.replaceAll("/tmi/","");
 	}
 	

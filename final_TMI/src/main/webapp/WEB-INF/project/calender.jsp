@@ -19,13 +19,15 @@
 	<label class="container">프로젝트 <input type="checkbox"
 		class="filterType" value="p" checked="checked"> <span
 		class="checkmark"></span>
-	</label> <label class="container">스케줄 <input type="checkbox"
+	</label><span class="filterColor" id="pColor">&nbsp;</span> 
+	<label class="container">스케줄 <input type="checkbox"
 		class="filterType" value="s" checked="checked"> <span
-		class="checkmark"></span>
-	</label> <label class="container">할일 <input type="checkbox"
+		class="checkmark" ></span>
+	</label> <span class="filterColor" id="sColor">&nbsp;</span>
+	<label class="container">할일 <input type="checkbox"
 		class="filterType" value="t" checked="checked"> <span
 		class="checkmark"></span>
-	</label>
+	</label><span class="filterColor" id="tColor">&nbsp;</span>
 	<select class="isMe">
 		<option value="all">전체</option>
 		<option value="person">개인</option>
@@ -33,3 +35,4 @@
 </div>
 <div id='calendar'>
 </div>
+
