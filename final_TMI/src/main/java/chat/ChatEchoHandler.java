@@ -27,14 +27,11 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 	// 테스트
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		usersInfo.add(session);
-		System.out.println(session + ": 웹소켓접속");
 		
 		Map<String, Object> httpSession = session.getAttributes();
 		String roomNumber =  (String) httpSession.get("pro_id");
 		roomList.put(session, roomNumber);
-		System.out.println(roomNumber + "방번호");
 		dto.setPro_id(roomNumber);
-		
 	}
 
 	@Override
@@ -49,7 +46,7 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 		// arg[3]=내용
 		// arg[4]=파일
 		//4개로 쪼갬
-		String[] arg = msg.split(":");
+		String[] arg = msg.split("!:p@a!rk");
 		//채팅 dto설정
 		dto.setId(arg[1]);
 		dto.setChat_content(arg[3]);
@@ -60,7 +57,7 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 		//jsp로 보내주는 부분
 		for (WebSocketSession socket : usersInfo) {
 			// 메시지 생성
-			WebSocketMessage<String> sentMsg = new TextMessage(arg[1]+":"+arg[2]+":"+arg[3]+":"+arg[4]);
+			WebSocketMessage<String> sentMsg = new TextMessage(arg[1]+"!:p@a!rk"+arg[2]+"!:p@a!rk"+arg[3]+"!:p@a!rk"+arg[4]);
 			// 같은 방에만 전송
 				if (arg[0].equals(roomList.get(socket))) {
 					socket.sendMessage(sentMsg);

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	var width=216*($('.schedules').length+1);
+	$('#schedules_wrap').css('width',width+'px');
+	
 	
 	//스케줄 시작일 종료일****************************************
     var sch_start =  $('#sch-form #sch_start').get(0);
@@ -23,36 +26,36 @@ $(document).ready(function(){
 	})
 	
 	$('.insertModal').on('click',function(e){
+		if($(this).attr('href')!='#sch-form'){
+			var sch_id = $(this).attr('href').replace('#','');
+			var thisForm = document.getElementById(sch_id);
+			var min = $(this).children('#sch_start').val();
+			var max = $(this).children('#sch_end').val();
+			const schPicker = new Lightpick({
+				field: $(thisForm).children('#t_start').get(0),
+			    secondField: $(thisForm).children('#t_end').get(0),
+				singleDate: false,
+				format:'YY/MM/DD',
+				repick: true,
+				minDate: new Date(min),
+			    maxDate: new Date(max),
+				onSelect: function(start, end){
+					
+				}
+			});
+		}
 		e.preventDefault();
 		this.blur;
-		console.log($(this).attr('href'));
 		$($(this).attr('href')).modal({
 			escapeClose: false,
 			clickClose: false
 		});
 	})
 	
-	$('#td_insert').on('click',function(e){
-		var sch_id = $(this).attr('href').replace('#','');
-		var thisForm = document.getElementById(sch_id);
-		var min = $(this).children('#sch_start').val();
-		var max = $(this).children('#sch_end').val();
-		const schPicker = new Lightpick({
-			field: $(thisForm).children('#t_start').get(0),
-		    secondField: $(thisForm).children('#t_end').get(0),
-			singleDate: false,
-			format:'YY/MM/DD',
-			repick: true,
-			minDate: new Date(min),
-		    maxDate: new Date(max),
-			onSelect: function(start, end){
-				
-			}
-		});
-	})
-	
 	//스케줄/할일유저추가*****************************************
 	$(document).on('click', '.team-list-item', function(){
+		width+=216;
+		$('#schedules_wrap').css('width',width+'px');
 		var result = false;
 		var input = $(this).text();
 		var teamList = $(this).parent();
@@ -116,6 +119,10 @@ $(document).ready(function(){
 	$('.modal').submit(function(){
 		if($(this).children('.table-list').children().length<1){
 			swal("Warning", "인원을 배치해주세요","error");
+			return false;
+		}
+		if($(this).children('.start').val()=='' || $(this).children('.end').val()==''){
+			swal("Warning", "날짜를 지정해주세요","error");
 			return false;
 		}
 	})

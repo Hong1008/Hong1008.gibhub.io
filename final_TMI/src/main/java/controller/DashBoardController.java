@@ -29,15 +29,16 @@ public class DashBoardController {
 	@RequestMapping("/DashMain")
 	public ModelAndView DashMain(ModelAndView mav, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		String id = (String) session.getAttribute("id");
-		int pro_id = 1;
+		String id = (String) session.getAttribute("id");		
+		int pro_id = 19;
 		
-		//String id = session.setAttribute("id", dto.getId());
 		mav.addObject("pjcnt",service.pjcntProcess(id));
 		mav.addObject("alltodocnt", service.AlltodoProcess(id));
 		mav.addObject("recnt",service.remaincntProcess(pro_id));
 		mav.addObject("comcnt", service.completecntProcess(pro_id));
 		
+		//top5 list
+		mav.addObject("topList",service.topListProcess(pro_id));
 		//최근등록 일정
 		mav.addObject("relist", service.recentlistProcess(pro_id));
 		//다가올 일정
@@ -57,7 +58,7 @@ public class DashBoardController {
 		
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
-		int pro_id = 1;
+		int pro_id = 19;
 		dto.setBgsel(bgsel);
 		dto.setId(id);
 		service.bgChange(dto);
@@ -66,6 +67,8 @@ public class DashBoardController {
 		mav.addObject("alltodocnt", service.AlltodoProcess(id));
 		mav.addObject("recnt",service.remaincntProcess(pro_id));
 		mav.addObject("comcnt", service.completecntProcess(pro_id));	
+		//top5 list
+		mav.addObject("topList",service.topListProcess(pro_id));
 		//최근등록 일정
 		mav.addObject("relist", service.recentlistProcess(pro_id));
 		//다가올 일정

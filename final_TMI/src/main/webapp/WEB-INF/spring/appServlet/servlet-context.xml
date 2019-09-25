@@ -40,7 +40,16 @@
 	<context:component-scan base-package="chat"></context:component-scan>
 	
 	<beans:import resource="dispatcher-user.xml"/>
-	
+	<!-- 웹소켓 사용 -->
+
+    <websocket:handlers>
+
+        <websocket:mapping path="/count" handler="myHandler"/>
+
+    </websocket:handlers>
+
+ 	<!-- 웹 소켓 핸들러  -->
+    <beans:bean id="myHandler" class="chat.WebSocketHandler"/>
 	<interceptors>
 		<interceptor>
 			<mapping path="/chat/*"/>

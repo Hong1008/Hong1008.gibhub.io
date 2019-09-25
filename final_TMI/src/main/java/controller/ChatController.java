@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.impl.io.HttpResponseParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +49,7 @@ public class ChatController {
 		mav.setViewName("chat/chatRoom");
 		return mav;
 	}
-
+@Transactional
 	@RequestMapping(value = "/chatInsertFile", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<String> park_chatInsertFile(ChattingDTO dto, HttpServletRequest req) {
 		List<MultipartFile> files = dto.getFilename();

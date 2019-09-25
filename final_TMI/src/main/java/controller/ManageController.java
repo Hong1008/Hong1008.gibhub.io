@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,41 +102,70 @@ public class ManageController {
 	
 	// 멤버 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST )
-	public @ResponseBody String memberDel(@RequestParam(value="pro_id") String pro_id,
+	public @ResponseBody List<String> memberDel(@RequestParam(value="pro_id") String pro_id,
 			@RequestParam(value="memList[]") List<String> memList) {
+		List<String> list = new ArrayList<String>();
+		
 		for(String mem : memList) {
 			ManageDTO dto = new ManageDTO();
 			dto.setPro_id(pro_id);
 			dto.setId(mem);
+			list.add(mem);
 			service.memberDelProcess(dto);
 		}		
-		String res = "success";
-		return res;
-		//return "redirect:/setting/setpeople?pro_id="+pro_id;
+		return list;
 	}
 	
 	// 멤버 추가
 	@RequestMapping("/addMember")	
-	public String memberAdd(String pro_id, String id) {
-		List<String> check = service.idcheckProcess();
-		//System.out.println(id);
-		for(String chk : check) {
-			if(chk.equals(id)) {
-				ManageDTO dto = new ManageDTO();
-				dto.setPro_id(pro_id);
-				dto.setId(id);
-				service.memberAddProcess(dto);
-				
-				return "redirect:/setting/setpeople?pro_id="+pro_id;
-			}
+	public String memberAdd(HttpSession session, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
+		String pro_id= (String) session.getAttribute("pro_id");
+		
+		for(String list : pro_team_list) {
+			ManageDTO dto = new ManageDTO();
+			dto.setPro_id(pro_id);
+			dto.setId(list);
+			service.memberAddProcess(dto);		
 		}
 		
-		System.out.println("아이디 불일치");
-		return "redirect:/setting/main";
+		return "redirect:/setting/setpeople?pro_id="+pro_id;	
 	}
-	
+	// 추가할 멤버 검색
 	@RequestMapping("/searchId")
 	public @ResponseBody List<String> searchId(String id) {
 		return service.searchIdList(id);
 	}
+	// 추가 멤버 아이디 중복 체크
+	@RequestMapping("/idcheck")
+	public @ResponseBody String idcheck(String id, HttpSession session) {		
+		String pro_id= (String) session.getAttribute("pro_id");
+		
+		List<String> check = service.idcheckProcess(pro_id);
+		for(String chk : check) {
+			if(chk.equals(id)) {
+				return "1";
+			}
+		}
+		return "0";
+	}
+	
+	@RequestMapping("/rendSet")
+	public String rendSet(HttpSession session, HttpServletRequest request) {
+		ManageDTO dto = new ManageDTO();
+		String pro_id= (String) session.getAttribute("pro_id");
+		dto.setPro_id(pro_id);
+		dto.setPro_rend(java.sql.Date.valueOf(request.getParameter("rendSetting")));
+		
+		service.rendSetProcess(dto);
+		
+		return "redirect:/setting/main";
+	}
+	
+	
+	
 }
+
+
+
+
+

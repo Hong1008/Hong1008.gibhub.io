@@ -2,12 +2,15 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script src="../js/project_addSchedule.js" type='text/javascript'></script>
+<script src="../js/project_kanbanboard.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
+					<c:choose>
+					<c:when test="${empty sdto.sch_rend}">
 					<div class="schedules">
 						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
@@ -15,6 +18,8 @@
 						<c:choose>
 						<c:when test="${not empty sdto.todoList }">
 						<c:forEach items="${sdto.todoList }" var="tdDto">
+							<c:choose>
+							<c:when test="${empty tdDto.t_rend }">
 							<div class="todo">
 								<p class='todo_name'>${tdDto.t_name }</p>
 								<c:choose>
@@ -33,6 +38,14 @@
 								</c:choose>
 								<p class='todo_mem'>${tdDto.id }</p>
 							</div>
+							</c:when>
+							<c:otherwise>
+							<div class="todo rend">
+								<p class='todo_name'>${tdDto.t_name }</p>
+								<p class='todo_mem'>완료</p>
+							</div>	
+							</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						</c:when>
 						<c:otherwise>
@@ -87,6 +100,17 @@
 
 						<input type="submit" value="할일 추가">
 					</form>
+					</c:when>
+					<c:otherwise>
+						<div class="schedules rend">
+							<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							</div>
+							<div class="todo">
+								<p class='todo_name' >종료된 스케줄입니다</p>
+							</div>
+						</div>
+					</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -117,6 +141,7 @@
 		</c:if>
 		</c:forEach>
 	</div>
+	
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
@@ -141,6 +166,10 @@
 	
 	<script type="text/javascript">
 		$('.s_name').on('click',function(){
+			if($(this).hasClass('rend')){
+				swal("Warning", "종료된 스케줄입니다","error");
+				return;
+			}
 			var sch_id = $(this).children('#sch_id').val();
 			$.ajax({
 				url:'schedule',

@@ -26,10 +26,12 @@
 						</tr>
 					</table>
 				</div>
+				<div id="btnbox">
 				<label for="file" class="btnstyle">파일첨부</label>
 				<button id="fileInsSend" class="btnstyle">파일보내기</button>
 				<button id="fileInsDel" class="btnstyle">파일삭제</button>
 				<button id="fileInsC" class="btnstyle">종료</button>
+				</div>
 				<div id="loading">
 					<img src="../resources/Chat_img/loading.gif">
 				</div>
@@ -65,11 +67,27 @@
 
 												<div class='replyMessage'>${dto.chat_content}
 													<c:if test="${dto.realfilename!=null}">
-														<img class='replyimg'
-															src="/tmi/chatting/${dto.realfilename}">
+														<c:set var="filename" value="${dto.realfilename}" />
+														<c:set var="fileN" value="${fn:toLowerCase(filename) }" />
+														<c:forTokens items="${fileN}" delims="." var="token"
+															varStatus="s">
+															<c:if test="${s.last }">
+																<c:choose>
+																	<c:when
+																		test="${token eq 'jpg' || token eq 'gif' || token eq 'png' || token eq 'bmp' }">
+																		<img class='replyimg'
+																			src="/tmi/chatting/${dto.realfilename}">
+																	</c:when>
+																	<c:otherwise>
+																		<img class='replyimg'
+																			src="../resources/Chat_img/file.png">
+																	</c:otherwise>
+																</c:choose>
+															</c:if>
+														</c:forTokens>
+														<a href="/tmi/chatting/${dto.realfilename}"
+															download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 													</c:if>
-													<a href="/tmi/chatting/${dto.realfilename}"
-														download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 												</div>
 												<br />
 											</div>
@@ -90,12 +108,28 @@
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
 												<div class='replyMessage'>${dto.chat_content}
-													<c:if test="${dto.realfilename!=null}">
-														<img class='replyimg'
-															src="/tmi/chatting/${dto.realfilename}">
+														<c:if test="${dto.realfilename!=null}">
+														<c:set var="filename" value="${dto.realfilename}" />
+														<c:set var="fileN" value="${fn:toLowerCase(filename) }" />
+														<c:forTokens items="${fileN}" delims="." var="token"
+															varStatus="s">
+															<c:if test="${s.last }">
+																<c:choose>
+																	<c:when
+																		test="${token eq 'jpg' || token eq 'gif' || token eq 'png' || token eq 'bmp' }">
+																		<img class='replyimg'
+																			src="/tmi/chatting/${dto.realfilename}">
+																	</c:when>
+																	<c:otherwise>
+																		<img class='replyimg'
+																			src="../resources/Chat_img/file.png">
+																	</c:otherwise>
+																</c:choose>
+															</c:if>
+														</c:forTokens>
+														<a href="/tmi/chatting/${dto.realfilename}"
+															download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 													</c:if>
-													<a href="/tmi/chatting/${dto.realfilename}"
-														download="${fn:substringAfter(dto.realfilename,'!park_')}">${fn:substringAfter(dto.realfilename,'!park_')}</a>
 												</div>
 												<br />
 											</div>
@@ -130,24 +164,43 @@
 				<c:forEach items="${fileList}" var="file">
 					<div class="eachFile">
 						<div class="eachFileImg">
-							<img class="efimg" src="/tmi/chatting/${file.realfilename}">
+						<c:set var="real" value="${file.realfilename}"/>
+						<c:set var="realLo" value="${fn:toLowerCase(real) }"/>
+						<c:forTokens items="${realLo}" delims="." var="v" varStatus="s">
+								<c:if test="${s.last }">
+								<c:choose>
+								<c:when test="${v eq 'jpg' || v eq 'gif' || v eq 'png' || v eq 'bmp' }"> 
+								<img class="efimg" src="/tmi/chatting/${file.realfilename}">
+								 </c:when> 
+							<c:otherwise>
+								<img class="efimg" src="../resources/Chat_img/file.png">
+								</c:otherwise>
+								</c:choose>
+								</c:if>						
+						</c:forTokens>
+							
 						</div>
 						<div class="eachFileName">
 							<small>${fn:substringAfter(file.realfilename,'!park_')}</small>
 						</div>
+						<div id="chkbBox">
 						<input type="checkbox" id="${file.realfilename }"
 							class="multiDown" value="${file.realfilename }"> <label
 							for="${file.realfilename }"></label>
+							</div>
 					</div>
 				</c:forEach>
 			</div>
+			<div id="chkSelectbox">
 			<div id="selectfilecnt">선택된 갯수 : 0</div>
-			<input id="multiDown" type="button" value="다운로드">
+			<input id="multiDown" type="button" class="btnstyle" value="다운로드">
+			<input id="disChk" type="button" class="btnstyle" value="선택 해제">
+		</div>
 		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
 		<input type="hidden" value="${myImg}" id="myprofimg"> <input
 			type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
-	<div id="footer"></div>
+	<div id="footerclear"></div>
 </body>
 </html>

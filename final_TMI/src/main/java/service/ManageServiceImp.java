@@ -49,8 +49,8 @@ public class ManageServiceImp implements ManageService{
 	}
 	
 	@Override
-	public List<String> idcheckProcess() {
-		return mapper.idcheck();
+	public List<String> idcheckProcess(String pro_id) {
+		return mapper.idcheck(pro_id);
 	}
 	
 	@Override
@@ -71,6 +71,11 @@ public class ManageServiceImp implements ManageService{
 	@Override
 	public List<String> searchIdList(String id) {
 		return mapper.searchIdList(id);
+	}
+
+	@Override
+	public void rendSetProcess(ManageDTO dto) {
+		mapper.setRend(dto);
 	}
 	
 }
