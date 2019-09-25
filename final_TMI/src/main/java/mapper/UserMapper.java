@@ -1,6 +1,9 @@
 package mapper;
 
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import dto.NotiDTO;
 import dto.UserDTO;
@@ -36,7 +39,16 @@ public interface UserMapper {
 	
 	public String select_id_uuid(String uuid);
 	
-	public NotiDTO select_notification(String id);
+	public List<NotiDTO> select_notification(String id);
 	
 	public int select_noti_count(String id);
+	
+	public List<HashMap<String,Object>> notifi_list(String id);
+	
+	//pro_team insert
+	public void pro_insert(@Param("pro_id") String pro_id,@Param("id") String id);
+	
+	public void noti_update(@Param("state") String state,@Param("pro_id") String pro_id ,@Param("id") String id);
+	
+	public void noti_insert(@Param("id") String id,@Param("pro_id") String pro_id,@Param("state") String state);
 }

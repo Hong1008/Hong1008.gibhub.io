@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -136,7 +137,7 @@ public class UserServiceImp implements UserService {
 		return dao.select_id_uuid(uuid);
 	}
 	@Override
-	public NotiDTO select_notificationProcess(String id) {
+	public List<NotiDTO> select_notificationProcess(String id) {
 		// TODO Auto-generated method stub
 		return dao.select_notification(id);
 	}
@@ -144,6 +145,26 @@ public class UserServiceImp implements UserService {
 	public int select_noti_countProcess(String id) {
 		// TODO Auto-generated method stub
 		return dao.select_noti_count(id);
+	}
+	@Override
+	public List<HashMap<String, Object>> notifi_listProcess(String id) {
+		// TODO Auto-generated method stub
+		return dao.notifi_list(id);
+	}
+	@Override
+	public void pro_insertProcess(String id, String pro_id) {
+		// TODO Auto-generated method stub
+		dao.pro_insert(id, pro_id);
+	}
+	@Override
+	public void noti_updateProcess(String state, String pro_id, String id) {
+		// TODO Auto-generated method stub
+		dao.noti_update(state, pro_id, id);
+	}
+	@Override
+	public void noti_insertProcess(String id, String pro_id, String state) {
+		// TODO Auto-generated method stub
+		dao.noti_insert(id, pro_id, state);
 	}
 	
 }
