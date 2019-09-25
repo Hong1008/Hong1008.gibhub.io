@@ -34,7 +34,8 @@
 					value="${pjcontent.pro_id }" id="pro_id" name="pro_id">
 			
 			<div class="container">
-				<h2>프로젝트 정보 수정</h2>
+			
+				<h1>프로젝트 정보 수정</h1>
 				
 					<div class="form-group">
 						<label for="pro_name">프로젝트 이름:</label>
@@ -52,12 +53,7 @@
 						<input type="date" class="form-control" id="pro_end" name="pro_end" required="required"
 						value="${pjcontent.pro_end }">
 					</div>
-					<div class="form-group">
-						<label for="pro_rend">프로젝트 실종료일:</label> 
-						<input type="date" class="form-control" id="pro_rend" name="pro_rend" required="required" readonly="readonly"
-						value="${pjcontent.pro_rend }" >
-					</div>
-					
+										
 					<div class="form-group">
 						<label for="pro_info">프로젝트 정보:</label>
 						<br/> 						
