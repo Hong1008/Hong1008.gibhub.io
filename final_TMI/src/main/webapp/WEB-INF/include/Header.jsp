@@ -123,7 +123,7 @@ $(document).ready(function(){
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
-    <div id='header' class='tmi_skin tmi_skin01'>
+    <div id='header' class='tmi_skin tmi_skin1'>
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />

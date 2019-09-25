@@ -12,7 +12,7 @@
 					<c:choose>
 					<c:when test="${empty sdto.sch_rend}">
 					<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+						<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 						</div>
 						<c:choose>
@@ -59,15 +59,15 @@
 							<div class="addTodo">
 								<div id='addTcon'>
 									할일을<br>추가하세요
-									<div id='openTModal' class='tmi_skin tmi_skin01'>
+									<div id='openTModal' class='tmi_skin tmi_skin1'>
 										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
 											value="<c:out value="${sdto.sch_end}"></c:out>">
 											<div class='circle'>
-												<div class='h   tmi_skin tmi_skin01'></div>
-												<div class='v   tmi_skin tmi_skin01'></div>
+												<div class='h   tmi_skin tmi_skin1'></div>
+												<div class='v   tmi_skin tmi_skin1'></div>
 											</div>
 										</a>
 									</div>
@@ -103,7 +103,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="schedules rend">
-							<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+							<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
 							</div>
 							<div class="todo">
 								<p class='todo_name' >종료된 스케줄입니다</p>
@@ -115,7 +115,7 @@
 			</c:when>
 			<c:otherwise>
 				<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">스케줄이 없습니다</div>
+						<div class="s_name tmi_skin tmi_skin1">스케줄이 없습니다</div>
 						<div class="todo" style="font-size: 16px;">
 								<span>프로젝트 팀장이 스케줄을 추가해주세요</span>
 						</div>
@@ -128,11 +128,11 @@
 			<div id='addScon'>
 				스케쥴을<br>추가하세요
 
-				<div id='openSModal' class=' tmi_skin tmi_skin01'>
+				<div id='openSModal' class=' tmi_skin tmi_skin1'>
 					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
-							<div class='h  tmi_skin tmi_skin01'></div>
-							<div class='v  tmi_skin tmi_skin01'></div>
+							<div class='h  tmi_skin tmi_skin1'></div>
+							<div class='v  tmi_skin tmi_skin1'></div>
 						</div>
 					</a>
 				</div>

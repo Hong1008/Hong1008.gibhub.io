@@ -135,7 +135,8 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/uptTdRend")
-	public @ResponseBody void uptTdRend(String t_id) {
-		projectService.uptTdRend(t_id);
+	public @ResponseBody void uptTdRend(String t_id,HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		projectService.uptTdRend(pro_id,t_id);
 	}
 }
