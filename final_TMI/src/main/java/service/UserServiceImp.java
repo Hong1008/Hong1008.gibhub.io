@@ -137,9 +137,9 @@ public class UserServiceImp implements UserService {
 		return dao.select_id_uuid(uuid);
 	}
 	@Override
-	public List<NotiDTO> select_notificationProcess(String id) {
+	public NotiDTO select_notificationProcess(String id,String no) {
 		// TODO Auto-generated method stub
-		return dao.select_notification(id);
+		return dao.select_notification(id,no);
 	}
 	@Override
 	public int select_noti_countProcess(String id) {
@@ -162,9 +162,9 @@ public class UserServiceImp implements UserService {
 		dao.noti_update(state, pro_id, id);
 	}
 	@Override
-	public void noti_insertProcess(String id, String pro_id, String state) {
+	public void noti_insertProcess(NotiDTO dto) {
 		// TODO Auto-generated method stub
-		dao.noti_insert(id, pro_id, state);
+		dao.noti_insert(dto);
 	}
 	
 }

@@ -39,7 +39,7 @@ public interface UserMapper {
 	
 	public String select_id_uuid(String uuid);
 	
-	public List<NotiDTO> select_notification(String id);
+	public NotiDTO select_notification(@Param("id")String id,@Param("no")String no);
 	
 	public int select_noti_count(String id);
 	
@@ -50,5 +50,5 @@ public interface UserMapper {
 	
 	public void noti_update(@Param("state") String state,@Param("pro_id") String pro_id ,@Param("id") String id);
 	
-	public void noti_insert(@Param("id") String id,@Param("pro_id") String pro_id,@Param("state") String state);
+	public void noti_insert(NotiDTO dto);
 }

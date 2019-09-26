@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ public class ProjectServiceImp implements ProjectService{
 	@Autowired
 	private ProjectMapper mapper;
 	
+	
 	@Transactional
 	@Override
 	public void insertProject(ProjectDTO pdto, String id, List<String> pro_team_list) {
@@ -43,6 +46,7 @@ public class ProjectServiceImp implements ProjectService{
 					NotiDTO nDto = new NotiDTO();
 					nDto.setId(string);
 					nDto.setState(0);
+					nDto.setNoti_id(id);
 					mapper.inviteProTeam(nDto);
 				}
 			}
@@ -171,5 +175,11 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
 		mapper.timeInsertTodo(pro_id,tdto.getT_name());
+	}
+
+	@Override
+	public String sequence_pro_id(ProjectDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.sequence_pro_id(dto);
 	}
 }

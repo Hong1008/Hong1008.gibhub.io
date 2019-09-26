@@ -36,4 +36,5 @@ public interface ProjectMapper {
 	public void firstInsertTodo(TodoDTO tdto);
 	public void timeInsertTodo(@Param("pro_id") String pro_id,@Param("t_name")String t_name);
 	public void timeInsertSchedule(@Param("pro_id") String pro_id,@Param("sch_name")String sch_name);
+	public String sequence_pro_id(ProjectDTO dto);
 }

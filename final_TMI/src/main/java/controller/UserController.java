@@ -47,6 +47,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.VerifyRecaptcha;
 import dto.AuthInfo;
+import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
 import service.ProjectService;
 import service.UserService;
@@ -57,7 +59,8 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-
+    @Autowired
+    private ProjectService pservice;
 	@Autowired
 	private ProjectService projectService;
 
@@ -78,11 +81,27 @@ public class UserController {
 		// TODO Auto-generated constructor stub
 	}
 	@RequestMapping("**/notifi_yes")
-	public @ResponseBody String notifi_yes(String id,String pro_id,String invite_id)
+	public @ResponseBody String notifi_yes(NotiDTO dto,HttpSession session)
 	{
-		service.pro_insertProcess(pro_id,id);
-		service.noti_updateProcess("2", pro_id, pro_id);
-		service.noti_insertProcess(invite_id, pro_id, "3");
+		System.out.println("id="+dto.getId());//보낸사람
+		System.out.println("NOtiid="+dto.getNoti_id());//받은사람
+		service.pro_insertProcess(String.valueOf(dto.getPro_id()),dto.getNoti_id());
+		service.noti_updateProcess("2", String.valueOf(dto.getPro_id()), dto.getNoti_id());
+		dto.setState(3);
+		service.noti_insertProcess(dto);
+		
+		
+		return "success";
+		
+	}
+	@RequestMapping("**/notifi_no")
+	public @ResponseBody String notifi_no(NotiDTO dto,HttpSession session)
+	{
+		service.noti_updateProcess("2", String.valueOf(dto.getPro_id()), dto.getNoti_id());
+		dto.setState(4);
+		service.noti_insertProcess(dto);
+		
+		
 		return "success";
 		
 	}
