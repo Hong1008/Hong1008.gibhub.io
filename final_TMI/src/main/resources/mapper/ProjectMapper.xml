@@ -142,6 +142,11 @@
 		(select t_name from TODO where t_id=#{t_id}))
 	</insert>
 	
+		<insert id="timeendSchedule" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_sch',#{pro_id},#{sch_id},'time_end',
+		(select sch_name from schedule where sch_id=#{sch_id}))
+	</insert>
+	
 	
 	
 		<!--******************************타임라인 ******************************-->

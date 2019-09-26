@@ -130,6 +130,7 @@ height: 317px;
 .sch_mem_img_wrap{
 	margin-top: 30px;
     margin-left: 29px;
+    height: 200px;
 }
 
 .sch_mem_img{
@@ -153,7 +154,7 @@ height: 317px;
 
 
 #sch_info_endBtn{
-    width: 392px;
+width: 373px;
     height: 65px;
     border: 1px solid #c7c7c799;
     color: white;
@@ -162,7 +163,6 @@ height: 317px;
     font-size: 23px;
     cursor: pointer;
     margin-top: 21px;
-
 }
 
 p{
@@ -324,18 +324,18 @@ background-size: 400%;
 						<img class="sch_mem_img" alt="" src="/tmi/profile_img/${mem.profile_img }">
 					</c:forEach>
 				</div>
-		</div>
-			</div>
-			<c:choose>
+							<c:choose>
 			<c:when test="${empty schOne.sch_rend }">
 			<button id='sch_info_endBtn' class='tmi_skin tmi_skin1'>스케쥴 끝내기
-				<input type="hidden" value="${schOne.sch_id }">
+				<input type="hidden" value="${schOne.sch_id }"/>
 			</button>
 			</c:when>
 			<c:otherwise>
 				<div>종료된 스케줄 입니다</div>
 			</c:otherwise>
 			</c:choose>
+		</div>
+			</div>
 		</div>
 	</div>
 </body>

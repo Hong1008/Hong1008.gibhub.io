@@ -5,6 +5,8 @@
 <script src="../js/project_kanbanboard.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='kanban_left_img'></div>
+	<div id='kanban_left'></div>
 	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
@@ -142,7 +144,8 @@
 		</c:if>
 		</c:forEach>
 	</div>
-	
+	<div id='kanban_right_img'></div>
+	<div id='kanban_right'></div>
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
@@ -166,6 +169,7 @@
 	</form>
 	
 	<script type="text/javascript">
+
 		$('.s_name').on('click',function(){
 			var sch_id = $(this).children('#sch_id').val();
 			$.ajax({
