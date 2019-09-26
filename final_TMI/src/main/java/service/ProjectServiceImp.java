@@ -68,7 +68,7 @@ public class ProjectServiceImp implements ProjectService{
 			for(ScheduleDTO scheduleDTO :schSelect) {
 				int tdCnt = mapper.tdSelect(scheduleDTO.getSch_id()).size();
 				int tdEndCnt = mapper.tdSelectEnd(scheduleDTO.getSch_id()).size();
-				tdCntAvgSum = (double)tdEndCnt/(double)tdCnt;
+				tdCntAvgSum += (double)tdEndCnt/(double)tdCnt;
 			}
 			
 			hashMap.put("pro_per", "");
