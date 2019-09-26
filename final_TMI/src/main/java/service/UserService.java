@@ -42,7 +42,7 @@ public interface UserService {
 	
 	public String select_id_uuidProcess(String uuid);
 	
-	public List<NotiDTO> select_notificationProcess(String id);
+	public NotiDTO select_notificationProcess(String id,String no);
 	
 	public int select_noti_countProcess(String id);
 	
@@ -52,5 +52,5 @@ public interface UserService {
 	
 	public void noti_updateProcess(String state , String pro_id ,String id );
 	
-	public void noti_insertProcess(String id,String pro_id,String state);
+	public void noti_insertProcess(NotiDTO dto);
 }

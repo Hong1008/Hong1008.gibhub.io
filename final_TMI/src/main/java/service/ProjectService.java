@@ -31,4 +31,5 @@ public interface ProjectService {
 	public void uptTdRend(String pro_id,String t_id);
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list);
 	public void insertTodo(TodoDTO tdto,String pro_id);
+	public String sequence_pro_id(ProjectDTO dto);
 }

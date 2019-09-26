@@ -46,4 +46,5 @@ public interface ProjectMapper {
 	public void timeInsertSchedule(@Param("pro_id") String pro_id,@Param("sch_name")String sch_name);
 	public void timeendTodo(@Param("pro_id") String pro_id,@Param("t_id")String t_id);
 	public void timeendSchedule(@Param("pro_id") String pro_id,@Param("sch_id")String sch_id);
+	public String sequence_pro_id(ProjectDTO dto);
 }
