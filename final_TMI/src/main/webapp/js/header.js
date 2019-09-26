@@ -10,7 +10,8 @@ $(document).ready(function(){
 		  $('#header_sign_up_mypage').removeClass('header_mypage');
 		  
 		  $('#header_notification').hide();
-		  
+		  $('#header_notiCount').hide();
+		  $('#header_notiNum').hide();
        }
 	else
 		{
@@ -22,9 +23,13 @@ $(document).ready(function(){
 		  $('#header_sign_up_mypage').removeClass('header_singUp');
 		  
 		  $('#header_notification').show();
+		  $('#header_notiCount').show();
+		  $('#header_notiNum').hide();
 		}
 	
-	  
+	  $('#header_notification').on('click',function(){
+		  $('#header_notiNum').show();
+	  })
 	  
 	  $('.header_singIn').on('click',function(){
         $(location).attr("href", "sign_in.do");

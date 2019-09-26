@@ -32,7 +32,6 @@
 #header_log button,#header_log a {
     font-family: 'Noto Sans KR', sans-serif;
     opacity: 1;
-    transition: 0.3s;
     cursor: pointer;
     color: white;
     background: rgba(0, 0, 0, 0);
@@ -96,10 +95,9 @@ width: 33px;
 }
 
 #header_notiNum{
-	    width: 320px;
+	width: 320px;
     height: 400px;
     background: #e2e2e2;
-    visibility: hidden;
     margin-left: -155px;
     margin-top: 45px;
 }

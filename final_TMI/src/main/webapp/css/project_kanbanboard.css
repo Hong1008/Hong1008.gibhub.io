@@ -8,6 +8,38 @@
     z-index: 1;
 }
 
+#kanban_right{
+	background: rgba(1,1,1,0);
+    height: 100%;
+    width: 80px;
+    position: fixed;
+    right: 0;
+}
+
+#kanban_right_img{
+	background: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 80px;
+    position: fixed;
+    right: 0;
+}
+
+#kanban_left{
+	background: rgba(1,1,1,0);
+    height: 100%;
+    width: 80px;
+    position: fixed;
+    left: 52px;
+}
+
+#kanban_left_img{
+	background: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 80px;
+    position: fixed;
+    left: 52px;
+}
+
 .schedules {
 width: 200px;
     background: white;

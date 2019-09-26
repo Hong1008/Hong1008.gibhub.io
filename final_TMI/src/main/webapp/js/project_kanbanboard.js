@@ -2,6 +2,22 @@ $(document).ready(function(){
 	var width=216*($('.schedules').length+1);
 	$('#schedules_wrap').css('width',width+'px');
 	
+	$('#kanban_right').on('mouseover',function(){
+		  var _scrollX = $('#kanban_wrap').scrollLeft()+30;
+		  $('#kanban_wrap').scrollLeft(_scrollX);
+		  $(this).animate({'width':'0px'},10,function(){
+			  $(this).animate({'width':'80px'},10);
+		  });
+	});
+	
+	$('#kanban_left').on('mouseover',function(){
+		  var _scrollX = $('#kanban_wrap').scrollLeft()-30;
+		  $('#kanban_wrap').scrollLeft(_scrollX);
+		  $(this).animate({'width':'0px'},10,function(){
+			  $(this).animate({'width':'80px'},10);
+		  });
+	});
+	
 	
 	//스케줄 시작일 종료일****************************************
     var sch_start =  $('#sch-form #sch_start').get(0);

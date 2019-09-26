@@ -165,11 +165,12 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
-	public boolean isSchLeader(String sch_id, String id) {
+	public boolean isSchLeader(String sch_id, String id,String pro_id) {
 		// TODO Auto-generated method stub
 		boolean is = false;
 		if(mapper.isSchLeader(sch_id, id)==1) {
 			mapper.uptSchRend(sch_id);
+			mapper.timeendSchedule(pro_id, sch_id);
 			is = true;
 		}
 		return is;
