@@ -56,7 +56,7 @@ $(document).on("click","#btn_yes",function(){
 	    	 swal("Good job!", "팀에 가입했습니다!", "success")
 				.then((value) => {
 					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
-					location.href="redirect:/home";
+					location.href="home";
 				});
 		    	
         }
@@ -107,7 +107,7 @@ $(document).on("click","#btn_no",function(){
 	    	 swal("Good job!", "거부하였습니다", "success")
 				.then((value) => {
 					socket.send("no,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
-					location.href="redirect:/home";
+					location.href="home";
 				});
 		    	
         }
