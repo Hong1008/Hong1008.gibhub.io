@@ -79,6 +79,14 @@
 		select * from todo where sch_id = #{sch_id} order by t_priority
 	</select>
 	
+	<select id="schSelectEnd" resultType="dto.ScheduleDTO" parameterType="string">
+		select * from schedule where pro_id = #{pro_id} and sch_rend is not null
+	</select> 
+	
+	<select id="tdSelectEnd" resultType="dto.TodoDTO" parameterType="string">
+		select * from todo where sch_id = #{sch_id} and t_rend is not null 
+	</select>
+	
 	<select id="tdViewSelect" resultType="dto.TodoDTO" parameterType="string">
 		select t_id, t_name, ceil(t_start-sysdate) t_start, ceil(t_end-sysdate) t_end, t.id id, t_rend, t_start start_date, t_end end_date, name from todo t, member m where t.id= m.id and sch_id = #{sch_id} order by t_priority
 	</select>
@@ -125,6 +133,10 @@
 	
 	<select id="cntTodo" resultType="int" parameterType="string">
 		select count(*) from todo where sch_id = #{sch_id} and id = #{id}
+	</select>
+	
+	<select id="cntEndTodo" resultType="int" parameterType="string">
+		select count(*) from todo where sch_id = #{sch_id} and id = #{id} and t_rend is not null 
 	</select>
 	
 	

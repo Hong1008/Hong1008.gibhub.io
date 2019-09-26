@@ -29,14 +29,25 @@
 								</div>
 							</div>
 							<div class="pro_body">
-								<div class="pro_per no-drag">
-									<span>매니저</span>${i.pro_man }</div>
 								<div class="pro_man no-drag">
-									<span>진행률</span>${i.pro_man }</div>
+									<span>매니저</span>${i.pro_man }</div>
+								<div class="pro_per no-drag">
+									<span>진행률</span>${i.pro_per }</div>
 								<div class="pro_end no-drag">
 									<span>종료일</span>${i.pro_end }</div>
 								<div class="pro_dday no-drag">
-									<p>D</p>-${i.pro_dday }</div>
+									<c:choose>
+										<c:when test="${i.pro_dday >0 }">
+											<p>D</p>-${i.pro_dday }
+										</c:when>
+										<c:when test="${i.pro_dday ==0 }">
+											<p>D</p>day
+										</c:when>
+										<c:when test="${i.pro_dday <0 }">
+											<p>!</p>기한초과
+										</c:when>
+									</c:choose>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -47,14 +58,15 @@
 			</c:choose>
 			<a href="#" class="btn pro_name no-drag  tmi_skin tmi_skin1">프로젝트
 				추가</a>
+				
 
 			<form id="pro-form" class="modal" action="project/insertProject">
 				<label for="pro_name">프로젝트 제목</label> <input type="text"
-					required="required" autocomplete="off" id="pro_name"
+					required="required" autocomplete="off" id="pro_name" maxlength="10"
 					name="pro_name" placeholder="프로젝트 제목"> <label
-					for="pro_info">프로젝트 간단설명</label> <input type="text"
+					for="pro_info">프로젝트 내용</label> <input type="text"
 					required="required" autocomplete="off" id="pro_info"
-					name="pro_info" placeholder="프로젝트 간단설명"> <label
+					name="pro_info" placeholder="프로젝트 내용"> <label
 					for="pro_start">프로젝트 기간</label> <input type="text"
 					readonly="readonly" required="required" id="pro_start"
 					name="pro_start" placeholder="프로젝트 시작일"> <input type="text"

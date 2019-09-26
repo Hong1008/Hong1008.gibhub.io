@@ -2,6 +2,7 @@ package service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +60,20 @@ public class ProjectServiceImp implements ProjectService{
 	@Override
 	public List<HashMap<String, Object>> projectHomeList(String id) {
 		// TODO Auto-generated method stub
-		return mapper.projectHomeList(id);
+		List<HashMap<String, Object>> homeList = mapper.projectHomeList(id);
+		Double tdCntAvgSum = 0.0;
+		for (HashMap<String, Object> hashMap : homeList) {
+			List<ScheduleDTO> schSelect = mapper.schSelect(hashMap.get("pro_id").toString());
+			List<ScheduleDTO> schSelectEnd = mapper.schSelectEnd(hashMap.get("pro_id").toString());
+			for(ScheduleDTO scheduleDTO :schSelect) {
+				int tdCnt = mapper.tdSelect(scheduleDTO.getSch_id()).size();
+				int tdEndCnt = mapper.tdSelectEnd(scheduleDTO.getSch_id()).size();
+				tdCntAvgSum = (double)tdEndCnt/(double)tdCnt;
+			}
+			
+			hashMap.put("pro_per", "");
+		}
+		return homeList;
 	}
 	
 	@Override
@@ -106,6 +120,7 @@ public class ProjectServiceImp implements ProjectService{
 		sdto.setStList(stList);
 		for (Sch_TeamDTO sch_TeamDTO : stList) {
 			sch_TeamDTO.setCntTd(mapper.cntTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
+			sch_TeamDTO.setCntEndTd(mapper.cntEndTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
 		}
 		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
 		for (TodoDTO todoDTO : tList) {

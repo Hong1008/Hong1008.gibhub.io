@@ -85,8 +85,6 @@ public class ProjectController {
 	
 	@RequestMapping("/insertProject")
 	public  @ResponseBody String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
-		
-		
 		String id = req.getSession().getAttribute("id").toString(); //보낸사람
 		String res="";
 		projectService.insertProject(pdto,id,pro_team_list);

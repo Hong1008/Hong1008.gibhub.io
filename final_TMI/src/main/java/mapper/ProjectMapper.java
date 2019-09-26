@@ -31,6 +31,8 @@ public interface ProjectMapper {
 	public String isSchLeader(@Param("sch_id") String sch_id,@Param("id") String id);
 	public List<ScheduleDTO> schSelect(String pro_id);
 	public List<TodoDTO> tdSelect(String sch_id);
+	public List<ScheduleDTO> schSelectEnd(String pro_id);
+	public List<TodoDTO> tdSelectEnd(String sch_id);
 	public List<TodoDTO> tdViewSelect(String sch_id);
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
@@ -42,6 +44,7 @@ public interface ProjectMapper {
 	public void uptTdStart(String t_id);
 	public void uptTdRend(String t_id);
 	public int cntTodo(@Param("sch_id") String sch_id,@Param("id")String id);
+	public int cntEndTodo(@Param("sch_id") String sch_id,@Param("id")String id);
 	public void timeInsertTodo(@Param("pro_id") String pro_id,@Param("t_name")String t_name);
 	public void timeInsertSchedule(@Param("pro_id") String pro_id,@Param("sch_name")String sch_name);
 	public void timeendTodo(@Param("pro_id") String pro_id,@Param("t_id")String t_id);
