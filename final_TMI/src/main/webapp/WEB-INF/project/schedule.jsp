@@ -225,11 +225,14 @@ background-size: 400%;
 }
 
 #after .g_head{
-background-size: 400%;
+	background-size: 400%;
     background-position-x: 100%;
+}
 .unsortable{
 	opacity: 0.5;
 }
+
+
 </style>
 <script>
 	

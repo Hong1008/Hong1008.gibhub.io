@@ -38,7 +38,7 @@
 										${tdDto.t_end*-1 }일째
 									</c:when>
 								</c:choose>
-								<p class='todo_mem'>${tdDto.id }</p>
+								<p class='todo_mem'>${tdDto.name }</p>
 							</div>
 							</c:when>
 							<c:otherwise>
