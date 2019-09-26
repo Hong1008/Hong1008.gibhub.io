@@ -14,6 +14,14 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<dependencies>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.8.1</version>
+</dependency>
+	
 		<!-- Google Login -->
 		<!-- https://mvnrepository.com/artifact/com.github.spring-social/spring-social-google -->
 		<dependency>
@@ -191,6 +199,11 @@
   <artifactId>spring-security-taglibs</artifactId>
 <version>5.1.3.RELEASE</version>
 </dependency>
+  <dependency>
+	       <groupId>javax.websocket</groupId>
+	       <artifactId>javax.websocket-api</artifactId>
+	       <version>1.1</version>
+        </dependency>
 		<!-- 웹소켓 끝 -->
 		<!-- 파일첨부 -->
 			<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->

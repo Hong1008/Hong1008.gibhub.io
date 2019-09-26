@@ -9,9 +9,9 @@
 <%@include file="../include/Header.jsp"%>
 <%@include file="../include/aside.jsp"%>
 
-<link
+<!-- <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/gentelella/1.4.0/css/custom.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 
 <link rel="stylesheet" href="/tmi/css/manage.css" type="text/css">
 <script
@@ -33,7 +33,6 @@
 			<tr>
 				<th>프로젝트 시작일</th>
 				<th>프로젝트 종료일</th>
-				<th>실제종료일</th>
 			</tr>
 			<tr>
 				<td>
@@ -42,18 +41,20 @@
 				<td>
 					<c:out value="${content.pro_end }" />
 				</td>
-				<td>
-					<c:choose>
+			</tr>		
+		</table>
+		<div>
+		<c:choose>
 						<c:when test="${content.pro_rend == null }">
-							<a href="#search-bar" class="btn" rel="modal:open">추가</a>
+							<input type="submit" id="SetRend" value="프로젝트 종료">
+							<!-- <a href="#search-bar" class="btn" rel="modal:open">추가</a> -->
 						</c:when>
 						<c:otherwise>
 							<c:out value="${content.pro_rend }" />
 						</c:otherwise>						
 					</c:choose>
-				</td>
-			</tr>		
-		</table>
+		</div>
+		
 		<br/>
 		
 		<div id="pj_info">
@@ -88,11 +89,11 @@
 
 	</div>
 	
-	<form id="search-bar" class="modal" action="rendSet">
+	<!-- <form id="search-bar" class="modal" action="rendSet">
 				<label for="search_id">실제 종료 날짜를 선택해주세요</label>
 				<input type="date" id="search_id" name="rendSetting">				
 				<input type="submit" value="종료일 추가">
-	</form>
+	</form> -->
 
 
 </body>

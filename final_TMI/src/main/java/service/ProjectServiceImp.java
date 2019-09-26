@@ -98,7 +98,11 @@ public class ProjectServiceImp implements ProjectService{
 	public ScheduleDTO schOneSelect(String sch_id) {
 		// TODO Auto-generated method stub
 		ScheduleDTO sdto = mapper.schOne(sch_id);
-		sdto.setStList(mapper.schTeamSelectById(sch_id));
+		List<Sch_TeamDTO> stList = mapper.schTeamSelectById(sch_id);
+		sdto.setStList(stList);
+		for (Sch_TeamDTO sch_TeamDTO : stList) {
+			sch_TeamDTO.setCntTd(mapper.cntTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
+		}
 		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
 		for (TodoDTO todoDTO : tList) {
 			todoDTO.setId(mapper.getTdId(todoDTO.getT_id()));
@@ -155,6 +159,17 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		boolean is = false;
 		if(mapper.isLeader(pro_id, id)==1) {
+			is = true;
+		}
+		return is;
+	}
+	
+	@Override
+	public boolean isSchLeader(String sch_id, String id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		if(mapper.isSchLeader(sch_id, id)==1) {
+			mapper.uptSchRend(sch_id);
 			is = true;
 		}
 		return is;
