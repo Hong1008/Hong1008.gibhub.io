@@ -1,4 +1,3 @@
-var nrno = '';
 
 $(document).ready(function(){
 	var pro_id= $('#pro_id').val();
@@ -83,7 +82,7 @@ $(document).ready(function(){
 		}				
 	});
 	
-	//검색****************************************
+	//멤버 검색****************************************
 	$('#search-bar #search_id').on({
 		focus:function(){
 			$('#search-bar #search_result').show();
@@ -112,7 +111,7 @@ $(document).ready(function(){
 		}
 	})
 	
-	//유저추가*****************************************
+	//멤버 대기열에 추가*****************************************
 	$(document).on('click', '.search-item', function(){
 		var input = $(this).text();
 		var result = false;
@@ -147,7 +146,7 @@ $(document).ready(function(){
 		
 	})
 	
-	//유저제거****************************************
+	//멤버 대기열에서 제거****************************************
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
 	})
