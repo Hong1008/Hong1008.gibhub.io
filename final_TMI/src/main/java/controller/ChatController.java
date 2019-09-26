@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.impl.io.HttpResponseParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,14 +35,21 @@ public class ChatController {
 	@RequestMapping("/chattingroom")
 	public ModelAndView park_chat(ModelAndView mav, HttpSession session) {
 		String pro_id = (String) session.getAttribute("pro_id");
+		String id = (String) session.getAttribute("id");
+		//내 정보 불러오기
+		mav.addObject("myImg", chatservice.myImg(id));
+		//채팅리스트
 		mav.addObject("chatList", chatservice.chatList(pro_id));
+		//날짜
 		mav.addObject("dateList", chatservice.dateList(pro_id));
-		mav.addObject("fileList", chatservice.fileList(pro_id));
+		//오늘인지
 		mav.addObject("today", chatservice.today());
+		//파일리스트
+		mav.addObject("fileList", chatservice.fileList(pro_id));
 		mav.setViewName("chat/chatRoom");
 		return mav;
 	}
-
+@Transactional
 	@RequestMapping(value = "/chatInsertFile", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<String> park_chatInsertFile(ChattingDTO dto, HttpServletRequest req) {
 		List<MultipartFile> files = dto.getFilename();
@@ -52,7 +60,7 @@ public class ChatController {
 				UUID random = UUID.randomUUID();
 
 				String root = req.getSession().getServletContext().getRealPath("/");
-				String saveDirectory = root + "temp" + File.separator;
+				String saveDirectory = root + "chatting" + File.separator;
 				System.out.println(saveDirectory);
 				File fe = new File(saveDirectory);
 				if (!fe.exists()) {

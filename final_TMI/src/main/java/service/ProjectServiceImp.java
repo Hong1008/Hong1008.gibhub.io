@@ -98,8 +98,16 @@ public class ProjectServiceImp implements ProjectService{
 	public ScheduleDTO schOneSelect(String sch_id) {
 		// TODO Auto-generated method stub
 		ScheduleDTO sdto = mapper.schOne(sch_id);
-		sdto.setStList(mapper.schTeamSelectById(sch_id));
-		sdto.setTodoList(mapper.tdSelect(sch_id));
+		List<Sch_TeamDTO> stList = mapper.schTeamSelectById(sch_id);
+		sdto.setStList(stList);
+		for (Sch_TeamDTO sch_TeamDTO : stList) {
+			sch_TeamDTO.setCntTd(mapper.cntTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
+		}
+		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
+		for (TodoDTO todoDTO : tList) {
+			todoDTO.setId(mapper.getTdId(todoDTO.getT_id()));
+		}
+		sdto.setTodoList(tList);
 		return sdto;
 	}
 	
@@ -140,6 +148,39 @@ public class ProjectServiceImp implements ProjectService{
 		return mapper.schTeamSelect(pro_id);
 	}
 	
+	@Override
+	public String recentProId(String id) {
+		// TODO Auto-generated method stub
+		return mapper.recentProId(id);
+	}
+	
+	@Override
+	public boolean isLeader(String pro_id, String id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		if(mapper.isLeader(pro_id, id)==1) {
+			is = true;
+		}
+		return is;
+	}
+	
+	@Override
+	public boolean isSchLeader(String sch_id, String id,String pro_id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		try {
+			if(mapper.isSchLeader(sch_id, id).equals("1")) {
+				mapper.uptSchRend(sch_id);
+				mapper.timeendSchedule(pro_id, sch_id);
+				is = true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+		return is;
+	}
+	
 	@Transactional
 	@Override
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list) {
@@ -171,5 +212,18 @@ public class ProjectServiceImp implements ProjectService{
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);
 		mapper.timeInsertTodo(pro_id,tdto.getT_name());
+	}
+	
+	@Override
+	public void uptTdRend(String pro_id,String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdRend(t_id);
+		mapper.timeendTodo(pro_id, t_id);
+	}
+	
+	@Override
+	public void uptTdStart(String t_id) {
+		// TODO Auto-generated method stub
+		mapper.uptTdStart(t_id);
 	}
 }

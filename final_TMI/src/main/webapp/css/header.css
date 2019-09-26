@@ -11,6 +11,8 @@
     width: 100%;
     height: 54px;
     border-bottom: 1px solid rgb(173, 173, 173);
+    position: relative;
+    z-index: 2;
 }
 
 /*///////////////////////header내용부분 ///////////////////////*/
@@ -30,7 +32,6 @@
 #header_log button,#header_log a {
     font-family: 'Noto Sans KR', sans-serif;
     opacity: 1;
-    transition: 0.3s;
     cursor: pointer;
     color: white;
     background: rgba(0, 0, 0, 0);
@@ -94,10 +95,9 @@ width: 33px;
 }
 
 #header_notiNum{
-	    width: 320px;
+	width: 320px;
     height: 400px;
     background: #e2e2e2;
-    visibility: hidden;
     margin-left: -155px;
     margin-top: 45px;
 }
@@ -120,6 +120,7 @@ width: 33px;
 /*////////////////////// Custom Select /////////////////////////*/
 .center{
 	display: inline-block;
+	width: 304px;
 }
 .custom-select-wrapper {
   position: relative;
@@ -133,6 +134,7 @@ width: 33px;
     position: relative;
     display: inline-block;
     margin-top: 3px;
+    min-width: 300px;
   }
     .custom-select-trigger {
       position: relative;

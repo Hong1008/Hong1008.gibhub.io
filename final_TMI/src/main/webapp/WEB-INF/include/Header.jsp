@@ -16,84 +16,159 @@
 	
 
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+<script>
+var socket = null;
+var sessionUId = null;
+$(document).ready( function() {
+    sessionUId="<%=session.getAttribute("id") %>";
+    console.log(sessionUId);
+if (sessionUId!="null")
+	{
+	connectWS();
+	console.log("btnyes클릭전");
+	
+	}
+$(document).on("click","#btn_yes",function(){
+	 var pro_id=$(this).prev().val();
+	$.ajax({
 
-    <script type="text/javascript">
-$(document).ready(function(){
-	
-	 var sessionUId = "<%=session.getAttribute("id") %>";
-		websocket = new WebSocket("ws://localhost:8090/tmi/count");
-	if(sessionUId!=null)
-		{
-		
-		websocket.onopen = onOpen;
-		websocket.onmessage = onMessage;
-	
-		
-		}
-	
+	    url: "notifi_yes", 
+	    traditional : true,
+	    data: { "id":sessionUId ,
+	            	"pro_id":pro_id
+	    },               
 
+	    type: "post",                            
+
+	    dataType: "text",
+	    success:function(res)
+	    {
+          alert("성공");
+        }
+
+	})
+	$(this).parent().css("display","none"); 
 	
-	$("#pro-form").submit(function(){
-		
-		alert("asdf");
-		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
-			swal("Warning", "날짜를 지정해주세요","error");
-			return false;
-		}
-		
-		var res=sessionUId+",";
-		$("input[name='pro_team_list']").each(function(i,v){
-	    
-			alert(v);
-			var l=$(this).length-1;
-			if(i!=l)
-				{
-				res+=$(v).val()+",";
-				}
-			else
-				{
-				res+=$(v).val();
-				}
-		
-			
-					})
-		
-					websocket.send(res);
-		  console.log("찍히나");
-		  console.log(res);
-		websocket.onmessage = onMessage;
+})	
+
+
 
 	
-   })
+$("#pro-form_btn").click(function(){
+	
+	
+	if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+		swal("Warning", "날짜를 지정해주세요","error");
+		return false;
+	}
 
-    function onOpen(evt) 
+	var pro_team_list_array=new Array();
+	$("input[name='pro_team_list']").each(function(i,v){
 
-    {
-       //로그인되면 session에있는 아이디 클라이언트로보냄
-       websocket.send(sessionUId);
-
-    }
-
-    function onMessage(evt) {
-
-    		$('#header_notiCount').append(evt.data);
-
-    }
-
-    function onError(evt) {
-
-    }
+		
+		pro_team_list_array.push($(v).val());
+	
+      
 
 })
-   
- 
-   
-   
-    		
+	$.ajax({
 
-    
+	    url: "project/insertProject", 
+	    traditional : true,
+	    data: { "pro_name": $("#pro_name").val(),
+	            	"pro_info":$("#pro_info").val(),
+	            	"pro_start":$("#pro_start").val(),
+	            	"pro_end":$("#pro_end").val(),
+	            	"pro_team_list":pro_team_list_array
+	            	
+	    
+	    },               
 
-        </script>
+	    type: "post",                            
+
+	    dataType: "text",
+	    success:function(res)
+	    {
+	    	
+	    	swal("Good job!", "프로젝트 추가 성공!", "success")
+			.then((value) => {
+				
+				if($("input[name='pro_team_list']").val()!=null)
+					{
+					$("input[name='pro_team_list']").each(function(i,v){
+
+			    		socket.send("invite,"+$(v).val());
+			    	
+			    })
+					}
+			
+				location.href="home";
+			});
+	    	
+	    	
+	    	/* var res=sessionUId+","; */
+         }
+
+	})
+		
+	
+	
+
+
+})
+});
+
+function connectWS() {
+    console.log("tttttttttttttt")
+    var ws = new WebSocket("ws://localhost:8090/tmi/count");
+    socket = ws;
+	
+    ws.onopen = function () {
+        console.log('Info: connection opened.');
+        ws.send("open,");
+    };
+
+    ws.onmessage = function (event) {
+      
+    	var res = event.data.split(",");	
+    	
+   	$('#header_notiCount').text(res[0]);
+   	if(res[1]=="invite")
+   		{
+   		$("#header_notiNum").append("<div>adsf</div>");
+   		}
+   	else
+   		{
+   		for(var i=1;i<res.length;i++)
+   			{
+   			$("#header_notiNum").append(res[i]);
+   			}
+   		   
+   		}
+   
+   	
+   /* 	header_notiNum */
+        /* console.log("ReceiveMessage:", event.data+'\n');
+        let $socketAlert = $('div#socketAlert');
+        $socketAlert.html(event.data);
+        $socketAlert.css('display', 'block');
+        
+        setTimeout( function() {
+        	$socketAlert.css('display', 'none');
+        }, 3000); */
+    };
+
+    ws.onclose = function (event) { 
+        console.log('Info: connection closed.');
+        //setTimeout( function(){ connect(); }, 1000); // retry connection!!
+    };
+    ws.onerror = function (err) { console.log('Error:', err); };
+}
+
+
+
+
+</script>  
 
 
 <%-- </security:authorize> --%>
@@ -123,7 +198,7 @@ $(document).ready(function(){
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
-    <div id='header' class='tmi_skin tmi_skin01'>
+    <div id='header' class='tmi_skin tmi_skin1'>
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />

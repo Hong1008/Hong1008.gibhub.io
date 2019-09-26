@@ -6,16 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: rgb(245, 245, 245);
-}
-
 #aside {
-position: relative;
-	position: relative;
+	position:relative;
     float: left;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(210, 210, 210);
@@ -60,6 +52,10 @@ color:white;
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	var asideH=document.body.scrollHeight;
+	$('#aside').css('height',asideH-55);
+	
 	$('.interval').hover(function(){
 		var h=$(this).offset().top-65;
 		$('#guideBox').css({'display':'block','top':h});
@@ -69,9 +65,9 @@ $(document).ready(function(){
 		$('#guideBox').css('display','none');
 	}) 
 	
-	var a = $('#aside').css('height')+'';
+/* 	var a = $('#aside').css('height')+'';
 	a = a.split('p')[0];
-	$('#aside').css('height',(a-66)+'px');
+	$('#aside').css('height',(a-66)+'px'); */
 	
 })
 </script>

@@ -2,21 +2,26 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script src="../js/project_addSchedule.js" type='text/javascript'></script>
+<script src="../js/project_kanbanboard.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='kanban_left_img'></div>
+	<div id='kanban_left'></div>
 	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
 				<c:forEach items="${schList }" var="sdto">
-					
+					<c:choose>
+					<c:when test="${empty sdto.sch_rend}">
 					<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+						<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 						</div>
 						<c:choose>
 						<c:when test="${not empty sdto.todoList }">
 						<c:forEach items="${sdto.todoList }" var="tdDto">
+							<c:choose>
+							<c:when test="${empty tdDto.t_rend }">
 							<div class="todo">
 								<p class='todo_name'>${tdDto.t_name }</p>
 								<c:choose>
@@ -33,8 +38,16 @@
 										${tdDto.t_end*-1 }일째
 									</c:when>
 								</c:choose>
-								<p class='todo_mem'>${tdDto.id }</p>
+								<p class='todo_mem'>${tdDto.name }</p>
 							</div>
+							</c:when>
+							<c:otherwise>
+							<div class="todo rend">
+								<p class='todo_name'>${tdDto.t_name }</p>
+								<p class='todo_mem'>완료</p>
+							</div>	
+							</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						</c:when>
 						<c:otherwise>
@@ -48,15 +61,15 @@
 							<div class="addTodo">
 								<div id='addTcon'>
 									할일을<br>추가하세요
-									<div id='openTModal' class='tmi_skin tmi_skin01'>
+									<div id='openTModal' class='tmi_skin tmi_skin1'>
 										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
 											value="<c:out value="${sdto.sch_end}"></c:out>">
 											<div class='circle'>
-												<div class='h   tmi_skin tmi_skin01'></div>
-												<div class='v   tmi_skin tmi_skin01'></div>
+												<div class='h   tmi_skin tmi_skin1'></div>
+												<div class='v   tmi_skin tmi_skin1'></div>
 											</div>
 										</a>
 									</div>
@@ -89,11 +102,23 @@
 
 						<input type="submit" value="할일 추가">
 					</form>
+					</c:when>
+					<c:otherwise>
+						<div class="schedules">
+							<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
+							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
+							</div>
+							<div class="todo rend">
+								<p class='todo_name' >종료된 스케줄입니다</p>
+							</div>
+						</div>
+					</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">스케줄이 없습니다</div>
+						<div class="s_name tmi_skin tmi_skin1">스케줄이 없습니다</div>
 						<div class="todo" style="font-size: 16px;">
 								<span>프로젝트 팀장이 스케줄을 추가해주세요</span>
 						</div>
@@ -106,11 +131,11 @@
 			<div id='addScon'>
 				스케쥴을<br>추가하세요
 
-				<div id='openSModal' class=' tmi_skin tmi_skin01'>
+				<div id='openSModal' class=' tmi_skin tmi_skin1'>
 					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
-							<div class='h  tmi_skin tmi_skin01'></div>
-							<div class='v  tmi_skin tmi_skin01'></div>
+							<div class='h  tmi_skin tmi_skin1'></div>
+							<div class='v  tmi_skin tmi_skin1'></div>
 						</div>
 					</a>
 				</div>
@@ -119,7 +144,8 @@
 		</c:if>
 		</c:forEach>
 	</div>
-	
+	<div id='kanban_right_img'></div>
+	<div id='kanban_right'></div>
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
@@ -143,6 +169,7 @@
 	</form>
 	
 	<script type="text/javascript">
+
 		$('.s_name').on('click',function(){
 			var sch_id = $(this).children('#sch_id').val();
 			$.ajax({

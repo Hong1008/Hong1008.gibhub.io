@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	var pColor = '#f06595';
+	var sColor = '#9775fa';
+	var tColor = '#4d638c';
+	
+	
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		plugins : [ 'dayGrid' ],
@@ -20,8 +25,12 @@ $(document).ready(function(){
 		        'padding': '10px',
 		        'color': '#696969'
 		      });
+			var conText = '작업내용: ';
+			if(info.event.extendedProps.isEnd){
+				conText = '종료됨'
+			}
 			var content = $('<strong />', {
-		        text: '작업내용: '
+		        text: conText
 		      }).css({
 		    	 'color': '#000',
 		    	 'display': 'inline-block',
@@ -61,7 +70,7 @@ $(document).ready(function(){
 					start : v.pro_start,
 					end : v.pro_end,
 					description: v.pro_info,
-					backgroundColor : '#f06595',
+					backgroundColor : pColor,
 					borderColor: $('body').css('background-color')
 				});				
 			})
@@ -80,9 +89,15 @@ $(document).ready(function(){
 					end : v.sch_end,
 					description: v.sch_info,
 					teamList: v.stList,
-					backgroundColor : '#9775fa',
+					backgroundColor : sColor,
 					borderColor: $('body').css('background-color')
 				});		
+				if(v.sch_rend!=null){
+					var event = calendar.getEventById('s'+i);
+					event.setProp('backgroundColor','#ccc');
+					event.setExtendedProp('description','')
+					event.setExtendedProp('isEnd',true)
+				}
 				$(v.todoList).each(function(j,val){
 					calendar.addEvent({
 						id : 't'+j,
@@ -92,9 +107,15 @@ $(document).ready(function(){
 						end : val.t_end,
 						description: val.t_name,
 						teamList: val.id,
-						backgroundColor : '#4d638c',
+						backgroundColor : tColor,
 						borderColor: $('body').css('background-color')
 					});	
+					if(val.t_rend!=null){
+						var event = calendar.getEventById('t'+j);
+						event.setProp('backgroundColor','#ccc');
+						event.setExtendedProp('description','')
+						event.setExtendedProp('isEnd',true)
+					}
 				})
 			})
 		}
@@ -129,4 +150,8 @@ $(document).ready(function(){
 	$('.isMe').on('change',function(){
 		calendar.rerenderEvents();
 	})
+	
+	$('#pColor.filterColor').css('background-color',pColor);
+	$('#sColor.filterColor').css('background-color',sColor);
+	$('#tColor.filterColor').css('background-color',tColor);
 })

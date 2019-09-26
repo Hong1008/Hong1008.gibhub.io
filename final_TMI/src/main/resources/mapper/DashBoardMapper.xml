@@ -24,8 +24,38 @@
 		]]>
 	</select>
 	
-	<select id="recentlist" parameterType="int"  resultType="dto.DashDTO">
-		select * from schedule where pro_id =#{pro_id} order by SCH_START DESC
+	
+	<resultMap type="dto.DashDTO" id="cntTop">
+		<result javaType="int" column="total" property="total"/>
+		<result javaType="string" column="id" property="id"/>
+	</resultMap>
+	<select id="toplist" parameterType="int" resultMap="cntTop">
+		select count(cid) total,c.pro_id,id from (
+		select count(a.id) as cid,a.t_id, a.id,pj.pro_id  from project pj, sch_team st,
+		(select sch_id,t_id,id,t_start,t_end,t_rend from todo
+		group by sch_id,t_id,id,t_start,t_end,t_rend ) a
+		where pj.pro_id = st.pro_id  and a.sch_id = st.sch_id  and pj.pro_id=#{pro_id}
+		group by a.t_id,a.id,pj.pro_id
+		order by a.t_id asc)c 
+		group by c.pro_id,c.id
+		order by total  desc
+	</select>
+		
+	
+	<!--최근 일정 목록 -->
+	<resultMap type="dto.DashDTO" id="recList">
+		<result javaType="string" column="sch_name" property="sch_name" />
+		<result javaType="string" column="sch_start" property="sch_start" />
+		<result javaType="string" column="sch_end" property="sch_end" />
+		<!-- <result javaType="string" column="sch_id" property="sch_id" /> -->
+		<result javaType="string" column="id" property="id" />
+	</resultMap>	
+	
+	<select id="recentlist" resultMap="recList">
+		<!-- select * from schedule where pro_id =#{pro_id} order by SCH_START DESC -->
+		select sc.sch_name sch_name, to_char(sc.sch_start,'YYYY-MM-dd') sch_start, to_char(sc.sch_end,'YYYY-MM-dd') sch_end ,td.id id
+		from schedule sc, todo td
+		where sc.sch_id = td.sch_id and td.id=id order by sch_start desc
 	</select>
 	
 	<select id="comminglist" parameterType="int" resultType="dto.DashDTO">
@@ -41,8 +71,8 @@
 	</resultMap>
 	<select id="timelist" parameterType="string" resultMap="tList">
 		<!-- select * from timeline where pro_id=#{pro_id} order by TL_TIME desc -->
-		select tl.tl_id tl_id,tl.tl_info tl_info,td.id id from timeline tl, schedule sc,todo td 
-		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id and td.id=#{id}
+		select DISTINCT(tl.tl_id) tl_id,tl.tl_info tl_info,td.id id from timeline tl, schedule sc,todo td 
+		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id and td.id=#{id} order by tl.tl_id desc
 	</select>
 	
 	

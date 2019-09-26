@@ -63,5 +63,10 @@ public class DashBoardServiceImp implements DashBoardService{
 	public String bgViewProcess(String id) {
 		return mapper.bgView(id);
 	}
+
+	@Override
+	public List<DashDTO> topListProcess(int pro_id) {
+		return mapper.toplist(pro_id);
+	}
 	
 }
