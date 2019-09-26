@@ -159,12 +159,12 @@
 		(select sch_name from schedule where sch_id=#{sch_id}))
 	</insert>
 	
-		
+	
 		<!--******************************타임라인 ******************************-->
 	<select id="sequence_pro_id" resultType="String" parameterType="dto.ProjectDTO">
 	select pro_id from project where pro_mgr=#{pro_mgr} and pro_name=#{pro_name} 
 	</select>
 	
-
+	
 </mapper>
 

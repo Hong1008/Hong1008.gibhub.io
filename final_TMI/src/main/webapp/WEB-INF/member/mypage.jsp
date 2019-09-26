@@ -112,13 +112,20 @@ label {
 </style>
 <script type="text/javascript">
 	$(document).ready(			
-			function() {				
+			function() {
+				
+				
+				
+				
+				var skin;
+				
 				$('.theme').on('click',function(){
 					for(var i =1; i<21;i++){
 						$('.tmi_skin').removeClass('tmi_skin'+i);
 					}					
-					 	var skin = $(this).children().val();
+					 	skin = $(this).children().val();
 					 	$('.tmi_skin').addClass(skin);
+					 	$("input[name='theme']").val(skin);
 				});
 				
 				$("#imgfile").click(function() {
@@ -219,7 +226,17 @@ System.out.println("test.jsp"+root);
 					type="file" id="file" name="file" value="이미지 변경"
 					style="display: none;" />
 			</div>
+			
 			<div id='my_theme'>
+			<c:choose>
+			<c:when test="${empty dto.theme}">
+			<input type="hidden" name="theme" value="tmi_skin1"/>
+			</c:when>
+			<c:otherwise>
+			<input type="hidden" name="theme" value='${dto.theme}'/>
+			</c:otherwise>
+			</c:choose>
+			
 				<div class='theme tmi_skin1' id='theme01'><input type="hidden" value="tmi_skin1"></div>
 				<div class='theme tmi_skin2' id='theme02'><input type="hidden" value="tmi_skin2"></div>
 				<div class='theme tmi_skin3' id='theme03'><input type="hidden" value="tmi_skin3"></div>
