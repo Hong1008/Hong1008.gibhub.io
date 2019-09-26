@@ -155,6 +155,7 @@ public class UserServiceImp implements UserService {
 	public void pro_insertProcess(String id, String pro_id) {
 		// TODO Auto-generated method stub
 		dao.pro_insert(id, pro_id);
+		dao.timeAddMem(id, pro_id);
 	}
 	@Override
 	public void noti_updateProcess(String state, String pro_id, String id) {

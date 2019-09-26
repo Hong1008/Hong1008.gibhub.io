@@ -101,6 +101,10 @@ display: inline-block;
 .pro_list_end{
 	width:200px;
 }
+.pro_dday_over{
+	top: 20px;
+    position: relative;
+}
 
 /****************** 버튼 ******************/
 .btn {

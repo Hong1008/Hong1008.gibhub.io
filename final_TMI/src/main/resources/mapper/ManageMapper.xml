@@ -46,6 +46,11 @@
 		delete from pro_team where pro_id=#{pro_id} and id=#{id}
 	</delete>
 	
+	<insert id="timeDelMem" parameterType="dto.ManageDTO">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_mem',#{pro_id},#{id},'time_remove',
+		(select name from member where id=#{id}))
+	</insert>
+	
 	<delete id="pjDel" parameterType="String">
 		delete from project where pro_id=#{pro_id}
 	</delete>

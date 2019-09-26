@@ -47,6 +47,7 @@ public interface UserMapper {
 	
 	//pro_team insert
 	public void pro_insert(@Param("pro_id") String pro_id,@Param("id") String id);
+	public void timeAddMem(@Param("pro_id") String pro_id,@Param("id") String id);
 	
 	public void noti_update(@Param("state") String state,@Param("pro_id") String pro_id ,@Param("id") String id);
 	

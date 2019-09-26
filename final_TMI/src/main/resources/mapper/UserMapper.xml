@@ -92,8 +92,14 @@ select count(*) from notification where id=#{id} and state in('0','3','4')
 <!--pro_team에 insert  -->
 <insert id="pro_insert" parameterType="string">
 insert into pro_team values(#{pro_id},#{id},0)
-
 </insert>   
+
+<insert id="timeAddMem" parameterType="string">
+		insert into timeline values(tl_id_seq.nextval,sysdate,'time_mem',#{pro_id},#{id},'time_add',
+		(select name from member where id=#{id}))
+	</insert>
+
+
 <update id="noti_update" parameterType="string">
 update notification set state=#{state} where pro_id=#{pro_id} and id=#{id}
 </update>

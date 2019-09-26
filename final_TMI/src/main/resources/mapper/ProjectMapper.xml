@@ -119,6 +119,10 @@
 		select st_level from sch_team where id = #{id} and sch_id = #{sch_id}
 	</select>
 	
+	<select id="isSchEnd" resultType="string" parameterType="string">
+		select sch_id from schedule where sch_id = #{sch_id} and sch_rend is not null
+	</select>
+	
 	<update id="uptSchRend" parameterType="string">
 		update schedule set sch_rend = sysdate where sch_id = #{sch_id}
 	</update>
