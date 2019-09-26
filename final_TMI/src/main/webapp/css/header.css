@@ -97,6 +97,7 @@ width: 33px;
 #header_notiNum{
 	width: 320px;
     height: 400px;
+    display: none;
     background: #e2e2e2;
     margin-left: -155px;
     margin-top: 45px;

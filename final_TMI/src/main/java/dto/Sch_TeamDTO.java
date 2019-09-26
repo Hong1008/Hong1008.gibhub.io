@@ -8,7 +8,14 @@ public class Sch_TeamDTO {
 	private int st_level;
 	private String sch_id;
 	private int cntTd;
+	private int cntEndTd;
 	
+	public int getCntEndTd() {
+		return cntEndTd;
+	}
+	public void setCntEndTd(int cntEndTd) {
+		this.cntEndTd = cntEndTd;
+	}
 	public void setCntTd(int cntTd) {
 		this.cntTd = cntTd;
 	}
