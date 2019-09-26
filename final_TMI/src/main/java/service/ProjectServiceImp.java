@@ -61,17 +61,28 @@ public class ProjectServiceImp implements ProjectService{
 	public List<HashMap<String, Object>> projectHomeList(String id) {
 		// TODO Auto-generated method stub
 		List<HashMap<String, Object>> homeList = mapper.projectHomeList(id);
-		Double tdCntAvgSum = 0.0;
+		
 		for (HashMap<String, Object> hashMap : homeList) {
+			Double tdCntAvgSum = 0.0;
 			List<ScheduleDTO> schSelect = mapper.schSelect(hashMap.get("pro_id").toString());
 			List<ScheduleDTO> schSelectEnd = mapper.schSelectEnd(hashMap.get("pro_id").toString());
 			for(ScheduleDTO scheduleDTO :schSelect) {
 				int tdCnt = mapper.tdSelect(scheduleDTO.getSch_id()).size();
 				int tdEndCnt = mapper.tdSelectEnd(scheduleDTO.getSch_id()).size();
+				if(tdCnt==0||tdEndCnt==0) {
+					if(mapper.isSchEnd(scheduleDTO.getSch_id())!=null){
+						tdCntAvgSum++;
+					}
+					continue;
+				}
 				tdCntAvgSum += (double)tdEndCnt/(double)tdCnt;
 			}
 			
-			hashMap.put("pro_per", "");
+			if(schSelect.size()==0) {
+				hashMap.put("pro_per", (Math.round(tdCntAvgSum))+"%");
+				continue;
+			}
+			hashMap.put("pro_per", (Math.round(tdCntAvgSum/(double)schSelect.size()*100))+"%");
 		}
 		return homeList;
 	}

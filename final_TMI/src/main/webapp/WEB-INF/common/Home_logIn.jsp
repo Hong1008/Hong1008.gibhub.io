@@ -44,7 +44,7 @@
 											<p>D</p>day
 										</c:when>
 										<c:when test="${i.pro_dday <0 }">
-											<p>!</p>기한초과
+											<strong class="pro_dday_over">기한초과</strong>
 										</c:when>
 									</c:choose>
 								</div>
@@ -53,7 +53,12 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<p>프로젝트를 생성해주세요</p>
+					<div style="text-align: center">
+						<div style="font-size: 31px;padding: 21px;">
+							프로젝트가 없어요
+						</div>
+						아래의 버튼을 눌러 프로젝트를 생성해주세요
+					</div>
 				</c:otherwise>
 			</c:choose>
 			<a href="#" class="btn pro_name no-drag  tmi_skin tmi_skin1">프로젝트
