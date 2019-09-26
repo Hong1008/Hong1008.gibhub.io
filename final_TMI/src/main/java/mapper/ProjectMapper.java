@@ -28,7 +28,7 @@ public interface ProjectMapper {
 	public String getTdId(String t_id);
 	public String recentProId(String id);
 	public int isLeader(@Param("pro_id") String pro_id,@Param("id") String id);
-	public int isSchLeader(@Param("sch_id") String sch_id,@Param("id") String id);
+	public String isSchLeader(@Param("sch_id") String sch_id,@Param("id") String id);
 	public List<ScheduleDTO> schSelect(String pro_id);
 	public List<TodoDTO> tdSelect(String sch_id);
 	public List<TodoDTO> tdViewSelect(String sch_id);

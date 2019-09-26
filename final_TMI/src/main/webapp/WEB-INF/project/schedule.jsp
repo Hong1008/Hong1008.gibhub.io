@@ -16,8 +16,12 @@
 }
 
 .g_head {
-	height: 50px;
-	border-radius: 21px 21px 0px 0px;
+	height: 37px;
+    border-radius: 21px 21px 0px 0px;
+    color: #fcfcfc;
+    text-align: center;
+    padding-top: 13px;
+    font-size: 20px;
 }
 
 .sch_todo {
@@ -43,10 +47,8 @@
 .clicked {
 	height: 140px;
     border: 1px solid #ccc8c8;
-    background: #0f1317;
-    color: white;
-    font-weight: 100;
-    font-size: 17px;
+    color: #0c0c0c;
+    font-size: 14px;
 }
 
 #sch_wrap {
@@ -170,9 +172,67 @@ p{
     padding-left: 10px;
 }
 
+.sch_todo_name{
+	border-bottom: 1px solid #ccc8c8;
+    width: 203px;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sch_todo_label{
+	border-right: 1px solid #ccc8c8;
+    height: 18px;
+    display: inline-block;
+    padding-top: 0px;
+    padding-right: 4px;
+    font-weight: 100;
+    margin-right: 5px;
+    font-size: 13px;
+}
+
+.sch_todo_body{
+	border-bottom: 1px solid #ccc8c8;
+    padding-bottom: 4px;
+    margin-top: 8px;
+    width: 203px;
+}
+
+.sch_todo_body_end{
+	border-bottom: none;
+}
+
+.sch_todo_for{
+	text-align: center;
+    display: inline-block;
+    width: 137px;
+}
+
+#before .g_head{
+background-size: 400%;
+}
+
+#progress .g_head{
+background-size: 400%;
+    background-position-x: 33%;
+}
+
+#overtime .g_head{
+    background-size: 400%;
+    background-position-x: 66%;
+}
+
+#after .g_head{
+	background-size: 400%;
+    background-position-x: 100%;
+}
 .unsortable{
 	opacity: 0.5;
 }
+
+
 </style>
 <script>
 	
@@ -182,56 +242,62 @@ p{
 	<button id='returnBtn'>뒤로가기</button>
 	<div id='sch_wrap'>
 		<div class='group' id='before'>
-			<div class='g_head tmi_skin tmi_skin1'></div>
+			<div class='g_head tmi_skin tmi_skin1'>시작전</div>
 			<ul id="sortable1" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
 						test="${tdDto.t_end>0 && tdDto.t_start>0 && empty tdDto.t_rend}">
-						<li class='sch_todo' id="${tdDto.t_id }">${tdDto.t_name}<br>
-						담당인원:${tdDto.name}						
-						<br>시작까지:${fn:substring(tdDto.start_date,0,10)}<br>종료까지: ${fn:substring(tdDto.end_date,0,10)}
+						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}	</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
 						<input type="hidden" id="mytodo" value="${tdDto.id }">
+						
 						</li>
 					</c:if>
 				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='progress'>
-			<div class='g_head tmi_skin tmi_skin1'></div>
+			<div class='g_head tmi_skin tmi_skin1'>진행중</div>
 			<ul id="sortable2" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
 						test="${tdDto.t_end>0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
-						<li class='sch_todo' id="${tdDto.t_id }">${tdDto.t_name}<br>
-						담당인원:${tdDto.name}						
-						<br>시작까지:${fn:substring(tdDto.start_date,0,10)}<br>종료까지: ${fn:substring(tdDto.end_date,0,10)}
-						<input type="hidden" id="mytodo" value="${tdDto.id }"></li>
+						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>
+						<input type="hidden" id="mytodo" value="${tdDto.id }">	
+						</li>
 					</c:if>
 				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='overtime'>
-			<div class='g_head tmi_skin tmi_skin1'></div>
+			<div class='g_head tmi_skin tmi_skin1'>기한초과</div>
 			<ul id="sortable3" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
 						test="${tdDto.t_end<=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
-						<li class='sch_todo' id="${tdDto.t_id }">${tdDto.t_name}<br>
-						담당인원:${tdDto.name}						
-						<br>시작까지:${fn:substring(tdDto.start_date,0,10)}<br>종료까지: ${fn:substring(tdDto.end_date,0,10)}
+						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
 						<input type="hidden" id="mytodo" value="${tdDto.id }"></li>
 					</c:if>
 				</c:forEach>
 			</ul>
 		</div>
 		<div class='group' id='after'>
-			<div class='g_head tmi_skin tmi_skin1'></div>
+			<div class='g_head tmi_skin tmi_skin1'>종료됨</div>
 			<ul id="sortable4" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if test="${not empty tdDto.t_rend}">
-						<li class='sch_todo' id="${tdDto.t_id }">${tdDto.t_name}<br>
-						담당인원:${tdDto.name}						
-						<br>시작까지:${fn:substring(tdDto.start_date,0,10)}<br>종료까지: ${fn:substring(tdDto.end_date,0,10)}
+						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
+						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
+						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
+						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
 						<input type="hidden" id="mytodo" value="${tdDto.id }">
 						</li>
 					</c:if>

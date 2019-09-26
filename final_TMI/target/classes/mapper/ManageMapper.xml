@@ -13,7 +13,7 @@
 	
 	<update id="pj_content_upt" parameterType="dto.ManageDTO">
 		update project set
-		pro_name=#{pro_name}, pro_info=#{pro_info}, pro_start=#{pro_start}, pro_end=#{pro_end}, pro_rend=#{pro_rend}
+		pro_name=#{pro_name}, pro_info=#{pro_info}, pro_start=#{pro_start}, pro_end=#{pro_end}
 		where pro_id=#{pro_id}		 
 	</update>
 	
@@ -59,7 +59,7 @@
 	</select>
 	
 	<update id="setRend" parameterType="dto.ManageDTO">
-		update project set pro_rend=#{pro_rend} where pro_id=#{pro_id}
+		update project set pro_rend=sysdate where pro_id=#{pro_id}
 	</update>
 	
 </mapper>

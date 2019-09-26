@@ -397,6 +397,6 @@ var programmingSkills = [
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../js/Dash_an-skill-bar.js"></script>
 <script src="../js/Dash_DashMainGraph.js"></script>
-
+<div id="parkclear" style="clear:both"></div>
 </body>
 </html>

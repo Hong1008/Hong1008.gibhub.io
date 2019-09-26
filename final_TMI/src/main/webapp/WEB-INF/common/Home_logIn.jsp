@@ -80,7 +80,7 @@
 				<ul id="search_result" hidden="" class="autocomplete-results">
 				</ul>
 				
-				<input type="submit" value="프로젝트 추가">
+				<input id="pro-form_btn" type="button" value="프로젝트 추가">
 			</form>
 
 			<a href="#" class="btn">프로젝트 추가</a>

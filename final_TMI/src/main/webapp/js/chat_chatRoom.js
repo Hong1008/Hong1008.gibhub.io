@@ -1,10 +1,10 @@
-var websocket;
+var chatwebsocket;
 // 연결
 // 배포시 아이피 바꿔야함 192.168.30.65이건 내꺼
-websocket = new WebSocket("ws://192.168.30.65:8090/tmi/chatting");
-websocket.onopen = onOpen;
-websocket.onmessage = onMessage;
-websocket.onclose = onClose;
+chatwebsocket = new WebSocket("ws://localhost:8090/tmi/chatting");
+chatwebsocket.onopen = onOpen;
+chatwebsocket.onmessage = onMessage;
+chatwebsocket.onclose = onClose;
 // 파일 담을 리스트
 var fileList = [];
 $(document)
@@ -53,10 +53,8 @@ $(document)
 										}
 
 										var formData = new FormData();
-										formData.append('id',
-												'${sessionScope.id }');
-										formData.append('pro_id',
-												'${sessionScope.pro_id}');
+										formData.append('id', userNick);
+										formData.append('pro_id', projectId);
 										if (fileList) {
 											for ( var index in fileList) {
 												formData.append('filename',
@@ -74,31 +72,21 @@ $(document)
 													data : formData,
 													type : 'POST',
 													success : function(result) {
-														$
-																.each(
-																		result,
-																		function(
-																				i,
-																				v) {
-																			console
-																					.log(v);
-																			var name = v
-																					.split('!park_');
-																			websocket
-																					.send('${sessionScope.pro_id}'
-																							+ ":"
-																							+ '${sessionScope.id }'
-																							+ ":"
-																							+ '${myImg}'
-																							+ ":"
-																							+ ":"
+														$	.each(	result,function(i,v) {
+															var name = v.split('!park_');
+																			chatwebsocket.send(projectId+ "!:p@a!rk"+ userNick+ "!:p@a!rk"
+																							+ myprofimg
+																							+ "!:p@a!rk"
+																							+ "!:p@a!rk"
 																							+ v);
-																			$(
-																					'#eachFileArea')
-																					.prepend(
-																							"<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/chatting/"
-																									+ v
-																									+ "'></div><div class='eachFileName'><small>"
+																			var type=typeChk(name[1]);
+																			var imgORnot="";
+																			if (type == '.jpg' || type == '.gif' || type == '.png' || type == '.bmp') {
+																				imgORnot="<img class='efimg' src='/tmi/chatting/"+ v+ "'>";
+																			}else{
+																				imgORnot="<img class='efimg' src='../resources/Chat_img/file.png'>"
+																			}
+																			$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'>"+imgORnot+"</div><div class='eachFileName'><small>"
 																									+ name[1]
 																									+ "</small></div><input type='checkbox' id='"
 																									+ v
@@ -107,8 +95,6 @@ $(document)
 																									+ "'><label for='"
 																									+ v
 																									+ "'></div>");
-																			console
-																					.log(v);
 																		})
 														fileInsModalHide();
 													}
@@ -122,8 +108,13 @@ $(document)
 									alert('한번에 5개까지 업로드 가능합니다.');
 									return false;
 								}
-								inputPreview(this);
 								var fileName = $(this).val();
+								if(fileName.length>99){
+									alert('파일 이름이 너무 긿어요 100자 이하로 줄여주세요.');
+									$(this).val("");
+									return false;
+								}
+								inputPreview(this);
 								var showName = $(this).val().substring(
 										$(this).val().lastIndexOf("\\") + 1);
 								var fileNameLength = fileName.lenght;
@@ -135,7 +126,7 @@ $(document)
 												+ showName + '</td></tr>');
 								fileList.push($('#file')[0].files[0]);
 							});
-					//채팅 전송
+					// 채팅 전송
 					// 엔터로 메세지 발송
 					$('#message').keypress(
 							function(event) {
@@ -148,9 +139,11 @@ $(document)
 										msg = msg.replace(/(?:\r\n|\r|\n)/g,
 												'<br/>');
 										// 메시지 전송
-										websocket.send(projectId + ":"
-												+ userNick + ":" + myprofimg
-												+ ":" + msg + ":" + null);
+										chatwebsocket.send(projectId
+												+ "!:p@a!rk" + userNick
+												+ "!:p@a!rk" + myprofimg
+												+ "!:p@a!rk" + msg + "!:p@a!rk"
+												+ null);
 										// 메시지 입력창 초기화
 										$('#message').val('');
 
@@ -158,9 +151,9 @@ $(document)
 
 								}
 							});
-					//브라우저창을 종료, 이탈 웹소켓 종료
+					// 브라우저창을 종료, 이탈 웹소켓 종료
 					$(window).on('close', function() {
-						websocket.close();
+						chatwebsocket.close();
 					});
 					$('#filelabel').click(function() {
 						$('#fileInsModal').css({
@@ -169,38 +162,49 @@ $(document)
 							'display' : 'block'
 						});
 					})
-					$('.multiDown').click(function() {
-						$('#selectfilecnt').text("선택된 갯수 : " + $(".multiDown:checked").length);
-					})
-					$('.replyimg').click(function() {
-						$('#fileprPreviewModal').css({
-							'visibility' : 'visible',
-							'z-index' : '10',
-							'display' : 'block'
-						});
-						$('#filePreviewImgSrc').attr('src', $(this).attr('src'));
-						/* $(this).attr('src') */
-					})
+					$('.multiDown')
+							.click(
+									function() {
+										$('#selectfilecnt')
+												.text(
+														"선택된 갯수 : "
+																+ $(".multiDown:checked").length);
+									})
+					$('.replyimg').click(
+							function() {
+								$('#fileprPreviewModal').css({
+									'visibility' : 'visible',
+									'z-index' : '10',
+									'display' : 'block'
+								});
+								$('#filePreviewImgSrc').attr('src',
+										$(this).attr('src'));
+								/* $(this).attr('src') */
+							})
 					$('#multiDown').click(
 							function() {
 								$('.multiDown:checked').each(
 										function() {
-											var val = $(this).val().split('!park_');
-											var a = $("<a>").attr("href",
-													"/tmi/chatting/" + $(this).val()).attr(
-													"download", val[1]).appendTo("body");
+											var val = $(this).val().split(
+													'!park_');
+											var a = $("<a>").attr(
+													"href",
+													"/tmi/chatting/"
+															+ $(this).val())
+													.attr("download", val[1])
+													.appendTo("body");
 											a[0].click();
 											a.remove();
 										})
 							})
-					$('#filePreviewImg').mouseleave(function() {
+					$('#fileprPreviewModal').click(function() {
 						$('#fileprPreviewModal').css({
 							'visibility' : 'hidden',
 							'z-index' : '0',
 							'display' : 'none'
 						});
 					})
-					//파일 첨부 모달창에서 파일올라가는 테이블의 전부 체크버튼 처리
+					// 파일 첨부 모달창에서 파일올라가는 테이블의 전부 체크버튼 처리
 					$('#chkall').change(function() {
 						if ($('#chkall').is(":checked")) {
 							$('.notall').prop("checked", true);
@@ -213,6 +217,31 @@ $(document)
 							$('#chkall').prop("checked", false);
 						}
 					});
+					$('#disChk').click(function(){
+						$('#eachFileArea input[type=checkbox]').prop('checked', false);
+					})
+					$('.eachFile').click(function(){
+						if($(this).children().children('input').is(":checked")){
+							$(this).children().children('input').prop('checked', false);
+							var test=$(this).children().children('label');
+							test.addClass('active');
+							setTimeout(function() {
+								test.removeClass('active');
+								}, 200);
+							
+							
+						}else{
+							$(this).children().children('input').prop('checked', true);
+							var test=$(this).children().children('label');
+							test.addClass('active');
+							setTimeout(function() {
+								test.removeClass('active');
+								}, 200);
+					
+						}
+					
+					})
+					
 				});
 // 파일첨부 모달 화면에서 지우기 및 내용 삭제
 function fileInsModalHide() {
@@ -226,96 +255,112 @@ function fileInsModalHide() {
 	fileList = [];
 	$('#file').val('');
 }
-//파일 미리보기
+// 파일 미리보기
 function inputPreview(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			$('#filepreviewAreaimg').html("<img src="+ e.target.result +">");
+			$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
 }
-//WebSocket이 연결된 경우 호출되는 함수
+// chatwebsocket이 연결된 경우 호출되는 함수
 function onOpen(evt) {
 	console.log("웹 소켓에 연결 성공");
 }
 
-//WebSocket이 연결 해제된 경우 호출되는 함수
+// chatwebsocket이 연결 해제된 경우 호출되는 함수
 function onClose(evt) {
 	console.log("웹 소켓에 연결 해제");
 }
 
-//서버에서 메시지가 왔을 때 호출되는 함수
+// 서버에서 메시지가 왔을 때 호출되는 함수
 function onMessage(evt) {
-	//서버가 전송한 메시지 가져오기
+	// 서버가 전송한 메시지 가져오기
 	var data = evt.data;
-	var dataSplit = data.split(':');
+	// 날짜관련
+	var dataSplit = data.split('!:p@a!rk');
 	var dateD = new Date();
 	var minut = dateD.getMinutes() < 10 ? "0" + dateD.getMinutes() : dateD
 			.getMinutes();
+	// 나인가
 	var itsme = $('#userNick').val();
+	// 랜덤이랑 짜름
 	var filepath = dataSplit[3].split('!park_');
-	//메세지 출력
-	//나 자신일때
+	// 자료형 이미지 일때
+	var filetext = "";
+	if(filepath[1]){
+		var type = typeChk(filepath[1]);
+		if (type == '.jpg' || type == '.gif' || type == '.png' || type == '.bmp') {
+			filetext = "<div class='inline' id='time'>"
+					+ dateD.getHours()
+					+ ":"
+					+ minut
+					+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/chatting/"
+					+ dataSplit[3] + "'><a href='/tmi/chatting/" + dataSplit[3]
+					+ "' download='" + filepath[1] + "'>" + filepath[1]
+					+ "</a></div><br /></div>";
+		} else {
+			filetext = "<div class='inline' id='time'>"
+					+ dateD.getHours()
+					+ ":"
+					+ minut
+					+ "</div><br/><div class='replyMessage'><img class='replyimg' src='../resources/Chat_img/file.png'><a href='/tmi/chatting/"
+					+ dataSplit[3] + "' download='" + filepath[1] + "'>"
+					+ filepath[1] + "</a></div><br /></div>";
+		}
+	}
+	
+
+	// 텍스트형
+	var text = "<div class='inline' id='time'>" + dateD.getHours() + ":"
+			+ minut + "</div><br/><div class='replyMessage'>" + dataSplit[2]
+			+ "</div><br /></div>";
+	// 메세지 출력
+	// 나 자신일때
 	if (itsme == dataSplit[0]) {
-		//자료 송신일때
+		// 자료 송신일때
 		if (dataSplit[2] == "") {
-			$('#chatMessage')
-					.append(
-							"<div class='mewrap'><div class='inline' id='time'>"
-									+ dateD.getHours()
-									+ ":"
-									+ minut
-									+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/chatting/"+dataSplit[3]+"'><a href='/tmi/chatting/"+dataSplit[3]+"' download='"+filepath[1]+"'>"
-									+ filepath[1]
-									+ "</a></div><br /></div>");
+			$('#chatMessage').append("<div class='mewrap'>" + filetext);
+		} else {
+			$('#chatMessage').append("<div class='mewrap'>" + text);
+		}
+		// 상대방일때
+		// 프로필이미지 널체크
+	} else {
+		var imgStr = "";
+		if (dataSplit[1] == "") {
+			imgStr = "<img id='img' src='../resources/memberimg/user.png'>";
+		} else {
+			imgStr = "<img id='img' src='/tmi/profile_img/" + dataSplit[1]
+					+ "'>";
+		}
+		// 자료 송신일때
+		if (dataSplit[2] == "") {
+			$('#chatMessage').append(
+					"<div class='opwrap'><div id='img' class='inline'>"
+							+ imgStr + "</div><div id='name' class='inline'>"
+							+ dataSplit[0] + "</div>&nbsp;" + filetext);
 		} else {
 			$('#chatMessage').append(
-					"<div class='mewrap'><div class='inline' id='time'>"
-							+ dateD.getHours() + ":" + minut
-							+ "</div><br/><div class='replyMessage'>"
-							+ dataSplit[2] + "</div><br /></div>");
-		}
-		//상대방일때
-		//프로필이미지 널체크
-	} else {
-		var imgStr="";
-		if(dataSplit[1]==""){
-			imgStr="<img id='img' src='../resources/memberimg/user.png'>";
-		}else{
-			imgStr="<img id='img' src='/tmi/profile_img/"+dataSplit[1]+"'>";
-		}
-		//자료 송신일때
-		if (dataSplit[2] == "") {
-			$('#chatMessage')
-					.append(
-							"<div class='opwrap'><div id='img' class='inline'>"+imgStr+"</div><div id='name' class='inline'>"
-									+ dataSplit[0]
-									+ "</div>&nbsp;<div class='inline' id='time'>"
-									+ dateD.getHours()
-									+ ":"
-									+ dateD.getMinutes()
-									+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/chatting/"+dataSplit[3]+"'><a href='/tmi/chatting/"+dataSplit[3]+"' download='"+filepath[1]+"'>"
-									+ filepath[1]
-									+ "</a></div><br /></div>");
-		} else {
-			$('#chatMessage')
-					.append(
-							"<div class='opwrap'><div id='img' class='inline'>"+imgStr+"</div><div id='name' class='inline'>"
-									+ dataSplit[0]
-									+ "</div>&nbsp;<div class='inline' id='time'>"
-									+ dateD.getHours()
-									+ ":"
-									+ dateD.getMinutes()
-									+ "</div><br/><div class='replyMessage'>"
-									+ dataSplit[2] + "</div><br /></div>");
+					"<div class='opwrap'><div id='img' class='inline'>"
+							+ imgStr + "</div><div id='name' class='inline'>"
+							+ dataSplit[0] + "</div>&nbsp;" + text);
 		}
 
 	}
-	//채팅영역에 채팅 입력 후 스크롤바 내리기 파일일경우 이미지 불러오는데 시간걸려서 딜레이 걸었음
+	// 채팅영역에 채팅 입력 후 스크롤바 내리기 파일일경우 이미지 불러오는데 시간걸려서 딜레이 걸었음
 	setTimeout(function() {
 		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	}, 8);
 
+}
+function typeChk(filename) {
+	if(filename.length){
+		var filepathlength = filename.length;
+		var lastdot = filename.lastIndexOf('.');
+		var type = filename.substring(lastdot, filepathlength).toLowerCase();
+		return type;	
+	}
 }

@@ -107,7 +107,7 @@
 		select pt_level from pro_team where id = #{id} and pro_id = #{pro_id}
 	</select>
 	
-	<select id="isSchLeader" resultType="int" parameterType="string">
+	<select id="isSchLeader" resultType="string" parameterType="string">
 		select st_level from sch_team where id = #{id} and sch_id = #{sch_id}
 	</select>
 	

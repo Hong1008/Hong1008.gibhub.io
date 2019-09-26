@@ -168,9 +168,14 @@ public class ProjectServiceImp implements ProjectService{
 	public boolean isSchLeader(String sch_id, String id) {
 		// TODO Auto-generated method stub
 		boolean is = false;
-		if(mapper.isSchLeader(sch_id, id)==1) {
-			mapper.uptSchRend(sch_id);
-			is = true;
+		try {
+			if(mapper.isSchLeader(sch_id, id).equals("1")) {
+				mapper.uptSchRend(sch_id);
+				is = true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			
 		}
 		return is;
 	}
