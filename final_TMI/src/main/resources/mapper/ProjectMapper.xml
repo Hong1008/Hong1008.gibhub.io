@@ -12,7 +12,7 @@
 	</insert>
 	
 	<insert id="inviteProTeam" parameterType="dto.NotiDTO">
-		insert into notification values (noti_seq_no.nextval,#{id},pro_id_seq.currval,#{state})
+		insert into notification values (noti_seq_no.nextval,#{id},pro_id_seq.currval,#{state},#{noti_id,jdbcType=VARCHAR})
 	</insert>
 	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
@@ -160,7 +160,11 @@
 	</insert>
 	
 	
-	
 		<!--******************************타임라인 ******************************-->
+	<select id="sequence_pro_id" resultType="String" parameterType="dto.ProjectDTO">
+	select pro_id from project where pro_mgr=#{pro_mgr} and pro_name=#{pro_name} 
+	</select>
+	
+	
 </mapper>
 

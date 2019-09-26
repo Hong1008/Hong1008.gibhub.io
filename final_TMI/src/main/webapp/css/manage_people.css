@@ -1,31 +1,39 @@
-
+/* 수정창 틀 */
 #pj_set{
 	width: 700px;
 	height: 800px;
 	margin: auto;
 }
+
+/* 프로젝트 수정창 */
 .container{	
 	width: 650px;
 }
 
+/* 프로젝트  수정 input창 */
 .form-control{
 	width: 200px;
 }
 
+/* 프로젝트 이름수정 css */
 #pro_name{
 	width: 500px;
 }
 
+/* 프로젝트 정보 css */
 #pro_info{
 	width: 600px;
 	height: 300px;
 	word-break: break-all;
 }
 
+/* 프로젝트 수정버튼, 뒤로가기 버튼 */
 #update,#back{
 	float: right;
+	margin-right: 20px;
 }
 
+/* 매니저 변경 틀 */
 #manager_form{
 	width: 550px;
 	height: 200px;
@@ -38,12 +46,14 @@
 	margin-top: 5%;
 }
 
+/* 제목 css */
 h1{
 	height: 70px;
 	line-height: 70px;
 	text-align: center;
 }
 
+/* 멤버 추가, 제거 틀 */
 #member_set{
 	width: 600px;
 	border: 2px solid red;
@@ -54,6 +64,7 @@ h1{
 	background-color: white;
 }
 
+/* 멤버 추가,제거 버튼 틀 */
 #addDel{
 	margin-top: 20px;
 	margin-right: 10px;
@@ -183,7 +194,7 @@ h1{
 	margin-right: 50px;
 }
 
-/********* 멤버 체크박스 ***********/
+/********************************** 멤버 체크박스 ************************************/
 .checks {
 	position: relative;
 	margin-left: 20px;
