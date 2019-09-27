@@ -80,7 +80,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -121,7 +121,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -155,7 +155,7 @@
 						<input type="file" id="file" name="file" multiple="multiple" />
 					</form>
 				</div>
-				<textarea id="message" cols="10" wrap="hard"></textarea>
+				<textarea id="message" cols="10" wrap="hard" placeholder="텍스트 입력 후 엔터"></textarea>
 
 			</div>
 		</div>

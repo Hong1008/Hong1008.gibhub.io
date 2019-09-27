@@ -48,15 +48,12 @@ public class ChatEchoHandler extends TextWebSocketHandler {
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		// 전송된 메시지를 모든 클라이언트에게 전송
 		String msg = (String) message.getPayload();
-		System.out.println(msg);
 		JsonParser jsonparser = new JsonParser();
 		JsonObject object=(JsonObject) jsonparser.parse(msg);
 
 		if(object.get("text")!=null) {
 			dto.setId(object.get("id").toString().substring(1,object.get("id").toString().length()-1));
 			String content=object.get("text").toString().substring(1, object.get("text").toString().length()-1);
-			System.out.println("리플이전  "+content);
-			System.out.println("리플이후  "+content);
 			dto.setChat_content(content);
 			dto.setPro_id(roomList.get(session));
 			chatservice.insertchat(dto);
