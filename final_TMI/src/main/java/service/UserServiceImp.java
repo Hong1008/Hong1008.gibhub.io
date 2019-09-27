@@ -167,5 +167,11 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		dao.noti_insert(dto);
 	}
+	@Override
+	public void noti_read(NotiDTO dto) {
+		// TODO Auto-generated method stub
+		dao.noti_read(dto);
+		
+	}
 	
 }

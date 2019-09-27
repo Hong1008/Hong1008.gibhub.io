@@ -238,6 +238,12 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
+	public String getTdSchId(String t_id) {
+		// TODO Auto-generated method stub
+		return mapper.getTdSchId(t_id);
+	}
+	
+	@Override
 	public void insertTodo(TodoDTO tdto,String pro_id) {
 		// TODO Auto-generated method stub
 		mapper.firstInsertTodo(tdto);

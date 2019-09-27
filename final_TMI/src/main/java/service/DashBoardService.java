@@ -10,18 +10,19 @@ public interface DashBoardService {
 	
 	public int AlltodoProcess(String id);
 	
-	public int remaincntProcess(int pro_id);
+	public int remaincntProcess(String id);
 	
-	public int completecntProcess(int pro_id);
+	public int completecntProcess(String id);
 	
 	
 	//top5기여도
 	public List<DashDTO> topListProcess(int pro_id);
-	
+	//도넛 그래프
+	public List<DashDTO> donutgraphProcess(String id);
 	//최근일정 목록
 	public List<DashDTO> recentlistProcess(int pro_id);
 	//다가오는 일정 목록
-	public List<DashDTO> commingProcess(int pro_id);
+	public List<DashDTO> commingProcess(String id);
 	//타임라인
 	public List<DashDTO> timelineProcess(String id);
 	
@@ -30,5 +31,8 @@ public interface DashBoardService {
 	
 	//배경화면 업데이트
 	public void bgChange(DashDTO dto);
+	
+	//그래프
+	public List<DashDTO> graphProcess(String id);
 	
 }

@@ -53,4 +53,5 @@ public interface UserService {
 	public void noti_updateProcess(String state , String pro_id ,String id );
 	
 	public void noti_insertProcess(NotiDTO dto);
+	public void noti_read(NotiDTO dto);
 }

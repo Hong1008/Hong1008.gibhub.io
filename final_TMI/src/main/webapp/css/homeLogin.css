@@ -1,8 +1,19 @@
 @charset "UTF-8";
 
 #pro_div {
-	    margin: 120px 0px 0px 0px;
+	margin: 350px auto 0px auto;
     float: none !important;
+    width: 500px;
+    transition:1.3s;
+    padding-top: 100px;
+}
+
+#overlap {
+	color: red;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 8px;
+    margin-bottom: 8px;
 }
 
 .project {
@@ -10,7 +21,7 @@
     height: 70px;
     border-bottom: 1px solid;
     overflow: hidden;
-    transition: 0.7s;
+    transition: 0.6s;
     margin: 0 auto;
     margin-bottom: 9px;
     cursor: pointer;

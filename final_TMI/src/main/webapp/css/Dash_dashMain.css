@@ -182,20 +182,81 @@ width: 49%;
 height: 38.2%;
 /* border: 1px solid black; */
 margin-left: 20.7px;
-
 float: left;
 }
 
 
 .board_chart6{
 width: 49%;
-height: 50%;
+height: 350px;
 /* border: 1px solid black; */
 margin-left: 19.5px;
 float: right;
 }
 
+.datediv{
+	width: 18%;
+	display: inline-block;
+	float: right;
+	margin-left: 8%;
+}
+
 /*틀작업 end*/
+
+
+/*도넛그래프 안에   */
+.boxsize{
+	width: 50%;  
+	height: 75%; 
+	float: left;
+}
+
+.circle1{
+width:20px;
+height:20px;
+border-radius:50%;
+background-color:#46AAFF;
+float: left;
+display: inline-block;
+  vertical-align: middle;
+}
+
+.circle2{
+width:20px;
+height:20px;
+border-radius:50%;
+background:#FF1493;
+float: left;
+display: inline-block;
+  vertical-align: middle;
+  margin-top: 3px;
+
+
+}
+
+.circle3{
+width:20px;
+height:20px;
+border-radius:50%;
+background:#C1FF6B;
+float: left;
+display: inline-block;
+  vertical-align: middle;
+  margin-top: 3px;
+
+}
+
+.circle4{
+width:20px;
+height:20px;
+border-radius:50%;
+background:#5A5AFF;
+float: left;
+display: inline-block;
+  vertical-align: middle;
+  margin-top: 3px;
+
+}
 
 
 /*일정 버튼 */

@@ -233,7 +233,7 @@ System.out.println("test.jsp"+root);
 			<input type="hidden" name="theme" value="tmi_skin1"/>
 			</c:when>
 			<c:otherwise>
-			<input type="hidden" name="theme" value='${dto.theme}'/>
+			<input type="text" name="theme" value='${dto.theme}'/>
 			</c:otherwise>
 			</c:choose>
 			
@@ -267,6 +267,17 @@ System.out.println("test.jsp"+root);
 			</div>
 			<input type="submit" value="변경하기">
 		</form>
+		<div>
+	<div>
+	프로젝트 완료 목록
+	</div>
+	<div>
+	<span>프로젝트이름</span> <span>매니저이름</span><span>종료일</span>
+	
+	</div>
+	
+	
+	</div>
 	</div>
 	<div id="bodywrap">
 		<div id='logo' class='center_div'>TMI</div>
@@ -281,6 +292,8 @@ System.out.println("test.jsp"+root);
 			</form>
 		</div>
 	</div>
-	회원탈퇴
+	
+	
+	</div>
 </body>
 </html>

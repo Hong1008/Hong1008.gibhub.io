@@ -100,6 +100,15 @@ public class UserController {
 		return "success";
 		
 	}
+	@RequestMapping("**/notiDelete")
+	public @ResponseBody String notiDelete(NotiDTO dto,HttpSession session)
+	{
+		dto.setId(session.getAttribute("id").toString());
+		dto.setState(5);//5가읽음처리된거
+		service.noti_read(dto);
+		return "success";
+		
+	}
 	@RequestMapping("**/notifi_no")
 	public @ResponseBody String notifi_no(NotiDTO dto,HttpSession session)
 	{
@@ -203,6 +212,7 @@ public class UserController {
 	
 		dto.setId(session.getAttribute("id").toString());
 		service.mypage_updateProcess(dto);
+		session.setAttribute("theme", dto.getTheme());
 		return "redirect:/home";
 	}
 	
@@ -214,12 +224,15 @@ public class UserController {
 
 		dto.setId(dto.getId()+"_google");
 		int result = service.test_idProcess(dto);
+		
 		HashMap<String, Object> map = new HashMap<>();
 		if (result == 1) {
 			// session 등록
+			dto=service.select_mypageProcess(dto.getId());
 			session.setAttribute("id", dto.getId());
 			session.setAttribute("grade", 1);
 			session.setAttribute("google", "goo");
+			session.setAttribute("theme", dto.getTheme());
 			map.put("returnUri", "home");
 			if(session.getAttribute("returnUri")!=null) {
 				map.put("returnUri", session.getAttribute("returnUri"));
@@ -349,6 +362,7 @@ public class UserController {
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
+					session.setAttribute("theme", dto.getTheme());
 					if(session.getAttribute("returnUri")!=null) {
 						return session.getAttribute("returnUri").toString();
 					}
@@ -385,6 +399,7 @@ public class UserController {
 				UserDTO udto= service.select_mypageProcess(dto.getId());
 				session.setAttribute("id", dto.getId());
 				session.setAttribute("grade", udto.getGrade());
+				session.setAttribute("theme", dto.getTheme());
 				System.out.println(udto.getGrade());
 				result = "0";
 			} else {

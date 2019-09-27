@@ -69,7 +69,10 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/schedule")
-	public ModelAndView scheduleDetail(ModelAndView mav, String sch_id) {
+	public ModelAndView scheduleDetail(ModelAndView mav, @RequestParam(required=false) String sch_id, @RequestParam(required=false) String t_id) {
+		if(sch_id==null) {
+			sch_id = projectService.getTdSchId(t_id);
+		}
 		mav.addObject("schOne", projectService.schOneSelect(sch_id));
 		mav.setViewName("project/schedule");
 		return mav;
