@@ -47,6 +47,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			return false;
 		}
 		if(uri.contains("setting") &&session.getAttribute("pro_id") != null) {
+			if(uri.contains("main")) {
+				return true;
+			}
 	       	if(!service.isLeader(session.getAttribute("pro_id").toString(), session.getAttribute("id").toString())) {
 	       		response.sendRedirect("/tmi/isLeader");
 	       		return false;

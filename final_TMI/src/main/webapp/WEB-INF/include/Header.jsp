@@ -67,7 +67,7 @@ $(document).on("click","#btn_yes",function(){
 	    	 swal("Good job!", "팀에 가입했습니다!", "success")
 				.then((value) => {
 					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
-					location.href="redirect:/home";
+					location.href="home";
 				});
 		    	
         }
@@ -118,16 +118,11 @@ $(document).on("click","#btn_no",function(){
 	    	 swal("Good job!", "거부하였습니다", "success")
 				.then((value) => {
 					socket.send("no,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
-					location.href="redirect:/home";
+					location.href="home";
 				});
-		    	
         }
-	 
-
 	}
-	  
 	)
-	
 	//socket send해줘야됨 no에도 
 	/*
 	  1. yes 눌렀을때
@@ -145,76 +140,9 @@ $(document).on("click","#btn_no",function(){
 	$(this).parent().css("display","none"); 
 	
 })	
-
-	
-$("#pro-form_btn").click(function(){
-	
-	
-	if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
-		swal("Warning", "날짜를 지정해주세요","error");
-		return false;
-	}
-
-	var pro_team_list_array=new Array();
-	if($("input[name='pro_team_list']").val()!=null)
-		{
-		$("input[name='pro_team_list']").each(function(i,v){
-
-			
-			pro_team_list_array.push($(v).val());
-		
-	      
-
-	})
-		}
-	
-	$.ajax({
-
-	    url: "project/insertProject", 
-	    traditional : true,
-	    data: { "pro_name": $("#pro_name").val(),
-	            	"pro_info":$("#pro_info").val(),
-	            	"pro_start":$("#pro_start").val(),
-	            	"pro_end":$("#pro_end").val(),
-	            	"pro_team_list":pro_team_list_array
-	            	
-	    
-	    },               
-
-	    type: "post",                            
-
-	    dataType: "text",
-	    success:function(res)
-	    {
-	    	
-	    	
-	    	swal("Good job!", "프로젝트 추가 성공!", "success")
-			.then((value) => {
-				
-				if($("input[name='pro_team_list']").val()!=null)
-					{
-					$("input[name='pro_team_list']").each(function(i,v){
-
-			    		socket.send("invite,"+$(v).val()+","+res);
-			    	
-			    })
-					}
-			
-				location.href="home";
-			});
-	    	
-	    	
-	    	/* var res=sessionUId+","; */
-         }
-
-	})
-		
-	
-	
-
-
-})
 });
+	
+
 
 function connectWS() {
     console.log("tttttttttttttt")

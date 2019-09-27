@@ -68,7 +68,9 @@
 			<form id="pro-form" class="modal" action="project/insertProject">
 				<label for="pro_name">프로젝트 제목</label> <input type="text"
 					required="required" autocomplete="off" id="pro_name" maxlength="10"
-					name="pro_name" placeholder="프로젝트 제목"> <label
+					name="pro_name" placeholder="프로젝트 제목">
+					<div id="overlap" style="display: none; color: red;">중복된 이름입니다</div>
+					 <label
 					for="pro_info">프로젝트 내용</label> <input type="text"
 					required="required" autocomplete="off" id="pro_info"
 					name="pro_info" placeholder="프로젝트 내용"> <label

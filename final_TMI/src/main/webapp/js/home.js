@@ -26,6 +26,70 @@ $(document).ready(function(){
     	  document.body.appendChild(form);
     	  form.submit();
       })
+      
+      $('input#pro_name').on('keyup',function(){
+    	 var input = $(this).val();
+    	 var overlap = false;
+    	 $('div.pro_name').each(function(i,v){
+			if($.trim($(v).text())==input){
+				overlap = true;
+				return;
+			}
+		})
+		if(overlap){
+			$('#overlap').show();
+		}else{
+			$('#overlap').hide();
+		}
+      })
+      
+      
+      $("#pro-form_btn").click(function(){
+    	  	if($('#overlap').is(':visible')){
+    	  		$('input#pro_name').focus();
+    	  		return false;
+    	  	}
+    		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+    			swal("Warning", "날짜를 지정해주세요","error");
+    			return false;
+    		}
+    		var pro_team_list_array=new Array();
+    		if($("input[name='pro_team_list']").val()!=null)
+    			{
+    			$("input[name='pro_team_list']").each(function(i,v){
+    				pro_team_list_array.push($(v).val());
+    		})
+    			}
+    		$.ajax({
+    		    url: "project/insertProject", 
+    		    traditional : true,
+    		    data: { "pro_name": $("#pro_name").val(),
+    		            	"pro_info":$("#pro_info").val(),
+    		            	"pro_start":$("#pro_start").val(),
+    		            	"pro_end":$("#pro_end").val(),
+    		            	"pro_team_list":pro_team_list_array
+    		    },
+    		    type: "post",     
+    		    dataType: "text",
+    		    success:function(res)
+    		    {
+    		    	swal("Good job!", "프로젝트 추가 성공!", "success")
+    				.then((value) => {
+    					if($("input[name='pro_team_list']").val()!=null)
+    						{
+    						$("input[name='pro_team_list']").each(function(i,v){
+    				    		socket.send("invite,"+$(v).val()+","+res);
+    				    })
+    						}
+    					location.href="home";
+    				});
+    		    	
+    		    	/* var res=sessionUId+","; */
+    	         }
+
+    			})
+    		})
+    	
      
       
     //프로젝트 시작일 종료일****************************************

@@ -54,7 +54,7 @@ insert into member(id,name) values (#{id},#{name})
 </insert>
 
 <update id="update_member" parameterType="dto.UserDTO">
-update member set profile_img=#{profile_img,jdbcType=VARCHAR},name=#{name} where id=#{id}
+update member set profile_img=#{profile_img,jdbcType=VARCHAR},name=#{name},theme=#{theme} where id=#{id}
 </update>
 
 <select id="select_mypage" parameterType="string" resultType="dto.UserDTO">
@@ -105,6 +105,7 @@ update notification set state=#{state} where pro_id=#{pro_id} and id=#{id}
 </update>
 <insert id="noti_insert" parameterType="dto.NotiDTO">
 insert into notification values(noti_seq_no.nextval,#{id},#{pro_id},#{state},#{noti_id})
-
 </insert>   
+
+
 </mapper>
