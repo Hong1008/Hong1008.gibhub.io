@@ -25,6 +25,7 @@ public interface ProjectService {
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
 	public String recentProId(String id);
+	public String getTdSchId(String t_id);
 	public boolean isLeader(String pro_id, String id);
 	public boolean isSchLeader(String sch_id, String id,String pro_id);
 	public void uptTdStart(String t_id);

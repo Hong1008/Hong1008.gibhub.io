@@ -11,12 +11,23 @@ $(document).ready(function(){
 				$(this).removeClass('time_nonchk');
 				
 			}
-			if($(this).find('.time_content').hasClass("time_sch")||$(this).find('.time_content').hasClass("time_todo")){
+			if($(this).find('.time_content').hasClass("time_sch")){
 				var sch_id = $(this).children('#type_id').val();
 				
 				$.ajax({
 					url:'schedule',
 					data:'sch_id='+sch_id,
+					type:'POST',
+					success:function(res){
+						$('.showWhat').empty();
+						$('.showWhat').html(res);
+					}
+				})
+			}else if($(this).find('.time_content').hasClass("time_todo")){
+				var t_id = $(this).children('#type_id').val();
+				$.ajax({
+					url:'schedule',
+					data:'t_id='+t_id,
 					type:'POST',
 					success:function(res){
 						$('.showWhat').empty();

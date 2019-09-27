@@ -5,6 +5,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <body>
+	
  	<div id='timeline_wrap'>
 	<div class='timelines_head'>
 		<div class='time_head'>

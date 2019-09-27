@@ -107,6 +107,10 @@
 		select id from todo where t_id = #{t_id}
 	</select>
 	
+	<select id="getTdSchId" resultType="string" parameterType="string">
+		select sch_id from todo where t_id = #{t_id}
+	</select>
+	
 	<select id="recentProId" resultType="string" parameterType="string">
 		select pro_id from timeline where pro_id in (select pro_id from pro_team where id = #{id}) and rownum = 1 order by tl_time desc
 	</select>
