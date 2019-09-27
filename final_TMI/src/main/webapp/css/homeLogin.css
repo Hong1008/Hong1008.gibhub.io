@@ -8,6 +8,14 @@
     padding-top: 100px;
 }
 
+#overlap {
+	color: red;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+
 .project {
 	width: 320px;
     height: 70px;

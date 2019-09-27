@@ -5,6 +5,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <body>
+	
  	<div id='timeline_wrap'>
 	<div class='timelines_head'>
 		<div class='time_head'>
@@ -25,6 +26,7 @@
 					class='time_content ' >${tdto.tl_content }</span>이(가)&nbsp; <span
 					class='time_result ${tdto.tl_info }'></span>되었습니다.&nbsp;
 			</div>
+			<input type="hidden" id="type_id" value="${tdto.type_id }">
 		</div>
 	</c:forEach>
 	</div>
