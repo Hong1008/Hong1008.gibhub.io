@@ -37,9 +37,10 @@ public class ChatServiceImp implements ChatService{
 		mapper.chatUpLoadFile(dto);
 	}
 	@Override
-	public String myImg(String id) {
-		return mapper.myImg(id);
+	public ChattingDTO userInfo(String id) {
+		return mapper.userInfo(id);
 	}
+
 
 	
 }

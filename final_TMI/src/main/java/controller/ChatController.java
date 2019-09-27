@@ -37,7 +37,7 @@ public class ChatController {
 		String pro_id = (String) session.getAttribute("pro_id");
 		String id = (String) session.getAttribute("id");
 		//내 정보 불러오기
-		mav.addObject("myImg", chatservice.myImg(id));
+		mav.addObject("myImg", chatservice.userInfo(id));
 		//채팅리스트
 		mav.addObject("chatList", chatservice.chatList(pro_id));
 		//날짜

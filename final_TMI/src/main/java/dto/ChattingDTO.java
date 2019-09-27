@@ -13,6 +13,7 @@ public class ChattingDTO {
 	private String chat_date;
 	private String realfilename;
 	private String profile_img;
+	private String name;
 	private List<MultipartFile> filename;
 	private List<String> upload;
 
@@ -98,6 +99,14 @@ public class ChattingDTO {
 
 	public void setProfile_img(String profile_img) {
 		this.profile_img = profile_img;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
