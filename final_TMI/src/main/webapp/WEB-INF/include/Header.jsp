@@ -8,6 +8,17 @@
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-------------------------------------- 툴팁 tippy.js -------------------------------------->
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/google.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/translucent.css" />
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
 
 <%-- <security:authorize access="isAuthenticated()" >
 
@@ -25,17 +36,23 @@ $(document).ready( function() {
 if (sessionUId!="null")
 	{
 	connectWS();
-	console.log("btnyes클릭전");
+	
 	
 	}
 $(document).on("click","#btn_yes",function(){
 	 var pro_id=$(this).prev().val();
+	 var invite_id=$(this).prev().prev().val();//초대받은사람
+	 var noti_id=$(this).prev().prev().prev().val();//초대보낸사람
+	 var pro_name=$(this).prev().prev().prev().prev().val();//프로젝트이름
+	 var result;
 	$.ajax({
 
 	    url: "notifi_yes", 
 	    traditional : true,
-	    data: { "id":sessionUId ,
-	            	"pro_id":pro_id
+	    data: { "id":noti_id , //초대보낸사람
+	            	"pro_id":pro_id, //pro_id
+	            	"noti_id":sessionUId //받은사람
+	            	
 	    },               
 
 	    type: "post",                            
@@ -43,15 +60,91 @@ $(document).on("click","#btn_yes",function(){
 	    dataType: "text",
 	    success:function(res)
 	    {
-          alert("성공");
+	    	
+	
+	    	 
+	    	 
+	    	 swal("Good job!", "팀에 가입했습니다!", "success")
+				.then((value) => {
+					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
+					location.href="home";
+				});
+		    	
         }
+	 
 
-	})
+	}
+	  
+	)
+	
+	//socket send해줘야됨 no에도 
+	/*
+	  1. yes 눌렀을때
+	       누른사람 팀에 들어감
+	       보낸사람 팀에 들어왔다고알림
+	  2. no눌렀을때
+	     보낸사람에게 팀 거절했다고알림 
+	     
+	     3. open 
+	      모든거  알려줌
+	     
+	     4. invite
+	     초대 보냄
+	*/
 	$(this).parent().css("display","none"); 
 	
 })	
 
+$(document).on("click","#btn_no",function(){
+	 var pro_id=$(this).prev().prev().val();
+	 var invite_id=$(this).prev().prev().prev().val();//초대받은사람
+	 var noti_id=$(this).prev().prev().prev().prev().val();//초대보낸사람
+	 var pro_name=$(this).prev().prev().prev().prev().prev().val();//프로젝트이름
+	 var result;
+	$.ajax({
 
+	    url: "notifi_no", 
+	    data: { "id":noti_id , //초대보낸사람
+	            	"pro_id":pro_id, //pro_id
+	            	"noti_id":sessionUId //받은사람
+	            	
+	    },               
+
+	    type: "post",                            
+	    traditional : true,
+	    dataType: "text",
+	    success:function(res)
+	    {
+	    	 swal("Good job!", "거부하였습니다", "success")
+				.then((value) => {
+					socket.send("no,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
+					location.href="home";
+				});
+		    	
+        }
+	 
+
+	}
+	  
+	)
+	
+	//socket send해줘야됨 no에도 
+	/*
+	  1. yes 눌렀을때
+	       누른사람 팀에 들어감
+	       보낸사람 팀에 들어왔다고알림
+	  2. no눌렀을때
+	     보낸사람에게 팀 거절했다고알림 
+	     
+	     3. open 
+	      모든거  알려줌
+	     
+	     4. invite
+	     초대 보냄
+	*/
+	$(this).parent().css("display","none"); 
+	
+})	
 
 	
 $("#pro-form_btn").click(function(){
@@ -63,14 +156,18 @@ $("#pro-form_btn").click(function(){
 	}
 
 	var pro_team_list_array=new Array();
-	$("input[name='pro_team_list']").each(function(i,v){
+	if($("input[name='pro_team_list']").val()!=null)
+		{
+		$("input[name='pro_team_list']").each(function(i,v){
 
+			
+			pro_team_list_array.push($(v).val());
 		
-		pro_team_list_array.push($(v).val());
-	
-      
+	      
 
-})
+	})
+		}
+	
 	$.ajax({
 
 	    url: "project/insertProject", 
@@ -90,6 +187,7 @@ $("#pro-form_btn").click(function(){
 	    success:function(res)
 	    {
 	    	
+	    	
 	    	swal("Good job!", "프로젝트 추가 성공!", "success")
 			.then((value) => {
 				
@@ -97,7 +195,7 @@ $("#pro-form_btn").click(function(){
 					{
 					$("input[name='pro_team_list']").each(function(i,v){
 
-			    		socket.send("invite,"+$(v).val());
+			    		socket.send("invite,"+$(v).val()+","+res);
 			    	
 			    })
 					}
@@ -133,10 +231,11 @@ function connectWS() {
     	var res = event.data.split(",");	
     	
    	$('#header_notiCount').text(res[0]);
-   	if(res[1]=="invite")
+   	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no")
    		{
-   		$("#header_notiNum").append("<div>adsf</div>");
+   		$("#header_notiNum").append(res[2]);
    		}
+   	
    	else
    		{
    		for(var i=1;i<res.length;i++)

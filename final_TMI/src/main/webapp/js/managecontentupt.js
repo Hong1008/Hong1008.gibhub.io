@@ -25,6 +25,7 @@ $(document).ready(function(){
 	
 	// 뒤로가기
 	$('#back').on('click', function(){
+		//location.href="main";
 		$("#set_form").attr("action", "main");
 		//$(location).attr("href", "main");
 	});

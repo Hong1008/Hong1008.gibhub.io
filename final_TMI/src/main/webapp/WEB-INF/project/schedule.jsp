@@ -225,11 +225,14 @@ background-size: 400%;
 }
 
 #after .g_head{
-background-size: 400%;
+	background-size: 400%;
     background-position-x: 100%;
+}
 .unsortable{
 	opacity: 0.5;
 }
+
+
 </style>
 <script>
 	
@@ -260,7 +263,7 @@ background-size: 400%;
 			<ul id="sortable2" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
-						test="${tdDto.t_end>0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
+						test="${tdDto.t_end>=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
 						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
@@ -276,7 +279,7 @@ background-size: 400%;
 			<ul id="sortable3" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
-						test="${tdDto.t_end<=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
+						test="${tdDto.t_end<0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
 						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
@@ -321,6 +324,7 @@ background-size: 400%;
 						<input type="hidden" id="memName" value="${mem.name }">
 						<input type="hidden" id="memLevel" value="${mem.st_level }">
 						<input type="hidden" id="memCntTd" value="${mem.cntTd }">
+						<input type="hidden" id="memCntEndTd" value="${mem.cntEndTd }">
 						<img class="sch_mem_img" alt="" src="/tmi/profile_img/${mem.profile_img }">
 					</c:forEach>
 				</div>
@@ -353,17 +357,37 @@ background-size: 400%;
 		var name = $(v).prevAll('#memName').val();
 		var level = $(v).prevAll('#memLevel').val();
 		var memCntTd = $(v).prevAll('#memCntTd').val();
+		var memCntEndTd = $(v).prevAll('#memCntEndTd').val();
 		if(level==1){
 			level = '리더'
 		}else{
 			level = '멤버'
 		}
+		var header = $('<div />', {
+	        text: name
+	      }).css({
+	    	    'font-size': '18px',
+	      		'border-bottom': '1px solid',
+	      		'padding': '10px',
+	      		'font-weight': 'bold'
+	      });
+		var content = '<table style="text-align: center;"><tr><td>아이디</td><td>'
+		+id+'</td></tr><tr><td>등급</td><td>'
+		+level+'</td></tr><tr><td>맡은할일 수</td><td>'
+		+memCntTd+'개</td></tr><tr><td>끝낸할일 수</td><td>'
+		+memCntEndTd+'개</td></tr></table>';
+		content = $(content).get(0);
+		$(content).children().children().children().css({'padding':'7px'});
+		var tag = $('<div />');
+		$(tag).append(header);
+		$(tag).append(content);
+		
 		tippy(v, {
 			  animation: 'scale',
 			  theme: 'light',
 			  trigger:'click',
 			  //content: '<strong>내용: </strong>'+info.event.extendedProps.description
-			  content: memCntTd+'<strong>아이디: </strong><div>'+id+'</div><strong>이름: </strong><div>'+name+'</div><strong>등급: </strong><div>'+level+'</div>'
+			  content: tag.get(0)
 		})
 	})
 	

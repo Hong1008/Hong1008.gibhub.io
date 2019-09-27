@@ -90,7 +90,7 @@ $(document).ready(function(){
 	});
 	//select 디자인 및 동작 끝********************************************
 		
-		$('#header').on('click',function(){
+		/*$('#header').on('click',function(){
 			var skin = $('.tmi_skin');
 			if(skin.eq(0).hasClass('tmi_skin1')){
 				skin.removeClass('tmi_skin1');
@@ -124,5 +124,5 @@ $(document).ready(function(){
 				skin.addClass('tmi_skin1');				
 			}		
 			
-		})
+		})*/
 })

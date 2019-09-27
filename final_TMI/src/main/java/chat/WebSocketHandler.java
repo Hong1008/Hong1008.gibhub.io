@@ -22,7 +22,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
+import service.ProjectService;
 import service.UserService;
 
 @Aspect
@@ -32,7 +34,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	Map<String, WebSocketSession> userSessions = new HashMap<>();
 	@Autowired
 	private UserService service;
-		
+	
+	@Autowired
+	private ProjectService proservice;
 	
 
 		private final Logger logger = LogManager.getLogger(getClass());
@@ -64,21 +68,41 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				System.out.println(strs[0]);
 				if(strs[0].equals("open"))
 				{
+				
 					WebSocketSession oSession = userSessions.get(senderId);
 			            result=service.select_noti_countProcess(senderId);
-			            List<NotiDTO> dto=service.select_notificationProcess(senderId);
+			            
+			   
+			           
 			            List<HashMap<String, Object>> notiList =service.notifi_listProcess(senderId);
+			            
 			         String res= String.valueOf(result);
 			        
 			         for(HashMap<String, Object> List:notiList)
 			         {
 			        	 if(List.get("state").toString().equals("0"))
-			        	 {
+			        	 {   //첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
 			        		 res+=",<div>"+List.get("name").toString()+"님이"+List.get("pro_name")+""
-			        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+List.get("") +"'/><input type='hidden' value='"+List.get("pro_id") +"'/><input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
+			        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+List.get("pro_name")+"'/><input type='hidden' value='"+List.get("id") +"'/><input type='hidden' value='"+senderId +"'/><input type='hidden' value='"+List.get("pro_id") +"'/><input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
 			        	 }
+			        	 else if(List.get("state").toString().equals("3"))
+			        	 {
+			        		NotiDTO dto=service.select_notificationProcess(senderId, List.get("no").toString());
+			        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
+			                
+			        		
+			        		 res+=",<div>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 수락하셨습니다.</div>";
+			        	 }
+			        	 else if(List.get("state").toString().equals("4"))
+			        	 {
+			        		 NotiDTO dto=service.select_notificationProcess(senderId, List.get("no").toString());
+				        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
+				        		 res+=",<div>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 거절하셨습니다.</div>";
+			        	 }
+			        		 
 			        	 
 			         }
+			         
 			         oSession.sendMessage(new TextMessage(res)); 
 
 					
@@ -91,26 +115,47 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					WebSocketSession oSession = userSessions.get(strs[1]);
 					result=service.select_noti_countProcess(strs[1]);
 			         String res= String.valueOf(result);
-			         res+=",invite,asdsad";
+			         UserDTO udto=service.select_mypageProcess(strs[2]);
+			         
+			         //초대보낸사람  ,프로젝트이름,  첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
+			         res+=",invite,<div>"+udto.getName()+"님이"+strs[3]
+		        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+strs[3]+"'><input type='hidden' value='"+strs[2] +"'/><input type='hidden' value='"+strs[1] +"'/>"
+		        		 				+ "<input type='hidden' value='"+strs[4] +"'/>"
+		        		 				+ "<input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
 			         oSession.sendMessage(new TextMessage(res)); 
+				}
+				else if(strs[0].equals("yes"))
+				{
+					//id는 알림받을사람 noti_id는 초대를 보낸사람 버튼을누른사람
+					WebSocketSession oSession = userSessions.get(strs[1]);
+					String pro_id=strs[2];
+					String invite_id=strs[3];//초대받은사람  1이 보낸사람
+                    String name=strs[4];
+					UserDTO dto=service.select_mypageProcess(invite_id);
+					result=service.select_noti_countProcess(strs[1]);
+			         String res= String.valueOf(result);
+			         res+=",yes,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 수락하셨습니다.</div>";
+			        		 
+			         oSession.sendMessage(new TextMessage(res)); 
+				}
+				else if(strs[0].equals("no"))
+				{
+					//id는 알림받을사람 noti_id는 초대를 보낸사람 버튼을누른사람
+					WebSocketSession oSession = userSessions.get(strs[1]);
+					String pro_id=strs[2];
+					String invite_id=strs[3];//초대받은사람  1이 보낸사람
+                    String name=strs[4];
+					UserDTO dto=service.select_mypageProcess(invite_id);
+					result=service.select_noti_countProcess(strs[1]);
+			         String res= String.valueOf(result);
+			         res+=",no,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 거절하셨습니다.</div>";
+			         oSession.sendMessage(new TextMessage(res)); 	
 				}
 				
 				
 				
 				
-			/*	if (strs != null && strs.length == 4) {
-					String cmd = strs[0];
-					String replyWriter = strs[1];
-					String boardWriter = strs[2];
-					String bno = strs[3];
-					
-					WebSocketSession boardWriterSession = userSessions.get(boardWriter);
-					if ("reply".equals(cmd) && boardWriterSession != null) {
-						TextMessage tmpMsg = new TextMessage(replyWriter + "님이 "
-								+ "<a href='/board/read?bno=" + bno + "'>" + bno + "</a>번 게시글에 댓글을 달았습니다!");
-						boardWriterSession.sendMessage(tmpMsg);
-					}
-				}*/
+		
 			}
 		}
 

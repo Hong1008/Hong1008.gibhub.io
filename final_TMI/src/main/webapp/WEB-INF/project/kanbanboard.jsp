@@ -32,13 +32,17 @@
 									<c:when test="${tdDto.t_end>0 && tdDto.t_start<=0}">
 										<p class="todo_when" id="todo_end">종료까지</p>
 										<p class='todo_day'>D</p>- ${tdDto.t_end }
+									</c:when>									
+									<c:when test="${tdDto.t_end==0 && tdDto.t_start<=0}">
+										<p class="todo_when" id="todo_end">종료까지</p>
+										<p class="todo_day">D</p>-day
 									</c:when>
-									<c:when test="${tdDto.t_end<=0 && tdDto.t_start<=0}">
+									<c:when test="${tdDto.t_end<0 && tdDto.t_start<=0}">
 										<p class="todo_when" id="todo_over">초과!</p>
 										${tdDto.t_end*-1 }일째
 									</c:when>
 								</c:choose>
-								<p class='todo_mem'>${tdDto.id }</p>
+								<p class='todo_mem'>${tdDto.name }</p>
 							</div>
 							</c:when>
 							<c:otherwise>
@@ -150,9 +154,9 @@
 
 	<form id="sch-form" class="modal" action="insertSchedule">
 				<label for="sch_name">스케줄 제목</label> 
-				<input type="text" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
-				<label for="sch_info">스케줄 간단설명</label> 
-				<input type="text" required="required" autocomplete="off" id="sch_info" name="sch_info" placeholder="스케줄 간단설명">
+				<input type="text" maxlength="" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
+				<label for="sch_info">스케줄 내용</label> 
+				<input type="text" required="required" autocomplete="off" id="sch_info" name="sch_info" placeholder="스케줄 내용">
 				<label for="sch_start">스케줄 기간</label> 
 				<input type="text" readonly="readonly" class="start" required="required" id="sch_start" name="sch_start" placeholder="스케줄 시작일">
 				<input type="text" readonly="readonly" class="end" required="required" id="sch_end" name="sch_end" placeholder="스케줄 종료일">
