@@ -231,7 +231,7 @@ function connectWS() {
     	var res = event.data.split(",");	
     	
    	$('#header_notiCount').text(res[0]);
-   	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no")
+   	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no" || res[1]=="delete")
    		{
    		$("#header_notiNum").append(res[2]);
    		}
@@ -291,13 +291,72 @@ function connectWS() {
 
 <!---------------------------------------- 웹폰트 연결 ---------------------------------------->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap" rel="stylesheet">
+<script type="text/javascript">
+$(document).ready(function(){
+	var sessionTheme="<%=session.getAttribute("theme")%>";
+	var skin = $('.tmi_skin');
+	if(sessionTheme!="null")
+		{
+		for(var i =1; i<21;i++){
+			$('.tmi_skin').removeClass('tmi_skin'+i);
+		}	
+		skin.addClass(sessionTheme);	
+		}
+	
+	$(document).on("click","#notification_deleteBtn",function(){
+		
+		var noti_id=$(this).prev().prev().val();     //받은사람
+		var pro_id= $(this).prev().val();    //pro_id
+		var header_notiCount=$("#header_notiCount").text();
+		var this_click=$(this);
+		$.ajax({
+
+		    url: "notiDelete",
+
+		    data: { "noti_id": noti_id,
+		    	     "pro_id":pro_id},                
+
+		    type: "POST",                            
+		    
+		    dataType: "text" ,
+		    success:function(res)
+		    {
+		    	$(this_click).parent().css("display","none");
+		    	$("#header_notiCount").text(header_notiCount-1);
+		    	alert(res);
+		    	
+		    }
+
+		})
+		
+		
+		 /*  var form = document.createElement("form");
+    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
+    	  form.setAttribute("action", "notiDelete");
+    	  $(form).append($(this).children('#pro_id'));
+    	  document.body.appendChild(form);
+    	  form.submit(); */
+			
+	})
+	
+})
+
+</script>
 </head>
 
 <body>
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
-    <div id='header' class='tmi_skin tmi_skin1'>
+<c:choose>
+<c:when test="${empty sessionScope.theme}">
+<div id='header' class='tmi_skin tmi_skin1'>
+</c:when>
+<c:otherwise>
+<div id='header' class='tmi_skin ${sessionScope.theme}'>
+</c:otherwise>
+</c:choose>
+    
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
