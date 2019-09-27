@@ -141,6 +141,10 @@ body {
 	display: block;
 	height: 100px;
 }
+.replynotimg{
+	display: block;
+	height: 100px;
+}
 
 .todaychk {
 	margin-top:10px;

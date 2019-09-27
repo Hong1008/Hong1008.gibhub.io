@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,10 +48,12 @@ $(document).ready(function(){
 	<div id="aside" >
 	<div class="list">
 	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드" id="das"></a>
-	<a href="/tmi/project/schedule"><img src="../resources/asideimg/calendar.png" class="interval" name="일정" id="sch"></a>
 	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트" id="man"></a>
 	<a href="/tmi/setting/main"><img src="../resources/asideimg/group.png" class="interval" name="맴버" id="mai"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅" id="cha"></a>
+	</div>
+	<div id="proMember">
+	
 	</div>
 	</div>
 </body>
