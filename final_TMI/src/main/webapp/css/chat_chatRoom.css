@@ -62,6 +62,7 @@ body {
 }
 
 #fileBtn #filelabel {
+	cursor: pointer;
 	margin-left: 20px;
 	border: 1px solid rgb(123, 104, 238);
 	border-right: none;
@@ -136,6 +137,7 @@ body {
 }
 
 .replyimg {
+	cursor: pointer;
 	display: block;
 	height: 100px;
 }
@@ -206,6 +208,11 @@ body {
 	max-height: 22px;
 	background-color: #6c7ae0;
 }
+#fileInsArea #insbox #tablewrap #filetable th:nth-child(2) small{
+font-size: 3px;
+    font-style: italic;
+}
+
 #fileInsArea #insbox #tablewrap #filetable td:nth-child(1) {
 	width: 24px;
 	height: 24px;
@@ -305,6 +312,7 @@ body {
 }
 
 .eachFile {
+	cursor: pointer;
 	float: left;
 	margin-top: 20px;
 	margin-left: 40px;
@@ -350,6 +358,7 @@ body {
 	border-radius:10px;
 	box-sizing: border-box;
 	outline: none;
+	cursor: pointer;
 }
 .btnstyle:hover{
     background-color: white;
