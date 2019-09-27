@@ -92,27 +92,15 @@ $(document)
 					// 인풋 파일 체인지 발생시
 					$('#file').change(
 							function() {
-								if (fileList.length == 8) {
-									swal ( "Oops" ,  "한번에 8개까지 업로드 가능합니다." ,  "error" );
-									return false;
-								}
 								var fileName = $(this).val();
 								if(fileName.length>99){
 									swal ( "Oops" ,  "파일 이름이 너무 긿어요 100자 이하로 줄여주세요." ,  "error" );
 									$(this).val("");
 									return false;
 								}
-								inputPreview(this);
-								var showName = $(this).val().substring(
-										$(this).val().lastIndexOf("\\") + 1);
-								var fileNameLength = fileName.lenght;
-								var latDot = fileName.lastIndexOf('.');
-								var filetype = fileName.substring(latDot,
-										fileNameLength).toLowerCase();
-								$('#filetable').append(
-										'<tr class="nothead"><td><input type="checkbox" class="notall"/></td><td>'
-												+ showName + '</td></tr>');
-								fileList.push($('#file')[0].files[0]);
+								var fileinput=document.getElementById("file");
+								var files=fileinput.files;
+								fileUpLoad(files);
 							});
 					// 채팅 전송
 					// 엔터로 메세지 발송
@@ -231,7 +219,31 @@ $(document)
 						}
 						$('#selectfilecnt').text("선택된 갯수 : "+ $(".multiDown:checked").length);
 					})
-					
+					tippy('#fileprPreviewModal', {
+						content: '<strong>틀릭 시 종료됩니다.</strong>',
+						followCursor: true,
+						})
+						//드래그 들어왔을때
+						$("#tablewrap").on('dragenter',function(e){
+									e.stopPropagation();
+											e.preventDefault();
+											$("#tablewrap").css('background-color','#E3F2FC');
+								});
+					//드래그 떠날때
+					$("#tablewrap").on('dragleave',function(e){
+				            e.stopPropagation();
+				            e.preventDefault();
+				            $("#tablewrap").css('background-color','#c4d3f6');
+				        });
+					$("#tablewrap").on('dragover',function(e){
+				            e.stopPropagation();
+				            e.preventDefault();
+				        });
+						$("#tablewrap").on('drop',function(e){
+							   e.preventDefault();
+							   $("#tablewrap").css('background-color','#c4d3f6');
+							   fileUpLoad(e.originalEvent.dataTransfer.files);
+						})
 				});
 // 파일첨부 모달 화면에서 지우기 및 내용 삭제
 function fileInsModalHide() {
@@ -247,12 +259,12 @@ function fileInsModalHide() {
 }
 // 파일 미리보기
 function inputPreview(input) {
-	if (input.files && input.files[0]) {
+	for(var i =0; i<input.length; i++){
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
 		}
-		reader.readAsDataURL(input.files[0]);
+		reader.readAsDataURL(input[i]);
 	}
 }
 // chatwebsocket이 연결된 경우 호출되는 함수
@@ -377,4 +389,19 @@ function typeChk(filename) {
 		var type = filename.substring(lastdot, filepathlength).toLowerCase();
 		return type;	
 	}
+}
+function fileUpLoad(files){
+	inputPreview(files);
+						var file;
+						for(var i =0; i<files.length; i++){
+							if (fileList.length == 8) {
+								swal ( "Oops" ,  "한번에 8개까지 업로드 가능합니다." ,  "error" );
+								return false;
+							}
+							file=files[i];
+							$('#filetable').append(
+									'<tr class="nothead"><td><input type="checkbox" class="notall"/></td><td>'
+											+ file.name + '</td></tr>');
+							fileList.push(files[i]);
+						}
 }
