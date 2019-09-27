@@ -2,9 +2,12 @@ package service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ public class ProjectServiceImp implements ProjectService{
 	@Autowired
 	private ProjectMapper mapper;
 	
+	
 	@Transactional
 	@Override
 	public void insertProject(ProjectDTO pdto, String id, List<String> pro_team_list) {
@@ -43,6 +47,7 @@ public class ProjectServiceImp implements ProjectService{
 					NotiDTO nDto = new NotiDTO();
 					nDto.setId(string);
 					nDto.setState(0);
+					nDto.setNoti_id(id);
 					mapper.inviteProTeam(nDto);
 				}
 			}
@@ -55,7 +60,31 @@ public class ProjectServiceImp implements ProjectService{
 	@Override
 	public List<HashMap<String, Object>> projectHomeList(String id) {
 		// TODO Auto-generated method stub
-		return mapper.projectHomeList(id);
+		List<HashMap<String, Object>> homeList = mapper.projectHomeList(id);
+		
+		for (HashMap<String, Object> hashMap : homeList) {
+			Double tdCntAvgSum = 0.0;
+			List<ScheduleDTO> schSelect = mapper.schSelect(hashMap.get("pro_id").toString());
+			List<ScheduleDTO> schSelectEnd = mapper.schSelectEnd(hashMap.get("pro_id").toString());
+			for(ScheduleDTO scheduleDTO :schSelect) {
+				int tdCnt = mapper.tdSelect(scheduleDTO.getSch_id()).size();
+				int tdEndCnt = mapper.tdSelectEnd(scheduleDTO.getSch_id()).size();
+				if(tdCnt==0||tdEndCnt==0) {
+					if(mapper.isSchEnd(scheduleDTO.getSch_id())!=null){
+						tdCntAvgSum++;
+					}
+					continue;
+				}
+				tdCntAvgSum += (double)tdEndCnt/(double)tdCnt;
+			}
+			
+			if(schSelect.size()==0) {
+				hashMap.put("pro_per", (Math.round(tdCntAvgSum))+"%");
+				continue;
+			}
+			hashMap.put("pro_per", (Math.round(tdCntAvgSum/(double)schSelect.size()*100))+"%");
+		}
+		return homeList;
 	}
 	
 	@Override
@@ -98,7 +127,12 @@ public class ProjectServiceImp implements ProjectService{
 	public ScheduleDTO schOneSelect(String sch_id) {
 		// TODO Auto-generated method stub
 		ScheduleDTO sdto = mapper.schOne(sch_id);
-		sdto.setStList(mapper.schTeamSelectById(sch_id));
+		List<Sch_TeamDTO> stList = mapper.schTeamSelectById(sch_id);
+		sdto.setStList(stList);
+		for (Sch_TeamDTO sch_TeamDTO : stList) {
+			sch_TeamDTO.setCntTd(mapper.cntTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
+			sch_TeamDTO.setCntEndTd(mapper.cntEndTodo(sch_TeamDTO.getSch_id(), sch_TeamDTO.getId()));
+		}
 		List<TodoDTO> tList = mapper.tdViewSelect(sch_id);
 		for (TodoDTO todoDTO : tList) {
 			todoDTO.setId(mapper.getTdId(todoDTO.getT_id()));
@@ -144,6 +178,39 @@ public class ProjectServiceImp implements ProjectService{
 		return mapper.schTeamSelect(pro_id);
 	}
 	
+	@Override
+	public String recentProId(String id) {
+		// TODO Auto-generated method stub
+		return mapper.recentProId(id);
+	}
+	
+	@Override
+	public boolean isLeader(String pro_id, String id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		if(mapper.isLeader(pro_id, id)==1) {
+			is = true;
+		}
+		return is;
+	}
+	
+	@Override
+	public boolean isSchLeader(String sch_id, String id,String pro_id) {
+		// TODO Auto-generated method stub
+		boolean is = false;
+		try {
+			if(mapper.isSchLeader(sch_id, id).equals("1")) {
+				mapper.uptSchRend(sch_id);
+				mapper.timeendSchedule(pro_id, sch_id);
+				is = true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+		return is;
+	}
+	
 	@Transactional
 	@Override
 	public void insertSchdule(ScheduleDTO sdto, String pro_id, List<String> sch_team_list) {
@@ -178,14 +245,20 @@ public class ProjectServiceImp implements ProjectService{
 	}
 	
 	@Override
-	public void uptTdRend(String t_id) {
+	public void uptTdRend(String pro_id,String t_id) {
 		// TODO Auto-generated method stub
 		mapper.uptTdRend(t_id);
+		mapper.timeendTodo(pro_id, t_id);
 	}
 	
 	@Override
 	public void uptTdStart(String t_id) {
 		// TODO Auto-generated method stub
 		mapper.uptTdStart(t_id);
+	}
+	@Override
+	public String sequence_pro_id(ProjectDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.sequence_pro_id(dto);
 	}
 }

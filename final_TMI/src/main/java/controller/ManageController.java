@@ -32,25 +32,16 @@ public class ManageController {
 		this.service = service;
 	}
 	
+	
 	// 프로젝트 관리 메인
 	@RequestMapping("/main")
-	public ModelAndView main(ModelAndView mav, HttpSession session) {
-		
+	public ModelAndView main(ModelAndView mav, HttpSession session) {		
 		String pro_id= (String) session.getAttribute("pro_id");
 		
 		mav.addObject("content", service.manageContentProcess(pro_id));
 		mav.addObject("people", service.managePeopleProcess(pro_id));
 		mav.setViewName("manage/mg_main");
 		return mav;
-	}
-	
-	// 프로젝트 삭제
-	@RequestMapping("/pjDel")
-	public String pjDel(String pro_id) {
-		
-		service.pjDelProcess(pro_id);
-		service.pjpeopleDelProcess(pro_id);
-		return null;
 	}
 	
 	// 프로젝트 설정 페이지
@@ -70,7 +61,6 @@ public class ManageController {
 		dto.setPro_info(request.getParameter("pro_info")); 
 		dto.setPro_start(java.sql.Date.valueOf(request.getParameter("pro_start")));
 		dto.setPro_end(java.sql.Date.valueOf(request.getParameter("pro_end")));
-		dto.setPro_rend(java.sql.Date.valueOf(request.getParameter("pro_rend")));
 		
 		service.manageContentUpdateProcess(dto);		
 				
@@ -79,8 +69,7 @@ public class ManageController {
 	
 	// 멤버 관리 페이지
 	@RequestMapping("/setpeople")
-	public ModelAndView pjpeople(ModelAndView mav, String pro_id) {
-		
+	public ModelAndView pjpeople(ModelAndView mav, String pro_id) {		
 		mav.addObject("people", service.managePeopleProcess(pro_id));
 		
 		mav.setViewName("manage/mg_people");
@@ -130,11 +119,13 @@ public class ManageController {
 		
 		return "redirect:/setting/setpeople?pro_id="+pro_id;	
 	}
+	
 	// 추가할 멤버 검색
 	@RequestMapping("/searchId")
 	public @ResponseBody List<String> searchId(String id) {
 		return service.searchIdList(id);
 	}
+	
 	// 추가 멤버 아이디 중복 체크
 	@RequestMapping("/idcheck")
 	public @ResponseBody String idcheck(String id, HttpSession session) {		
@@ -149,19 +140,18 @@ public class ManageController {
 		return "0";
 	}
 	
+	// 프로젝트 종료일
 	@RequestMapping("/rendSet")
-	public String rendSet(HttpSession session, HttpServletRequest request) {
+	public String rendSet(HttpSession session) {
 		ManageDTO dto = new ManageDTO();
 		String pro_id= (String) session.getAttribute("pro_id");
 		dto.setPro_id(pro_id);
-		dto.setPro_rend(java.sql.Date.valueOf(request.getParameter("rendSetting")));
 		
 		service.rendSetProcess(dto);
 		
 		return "redirect:/setting/main";
 	}
-	
-	
+		
 	
 }
 

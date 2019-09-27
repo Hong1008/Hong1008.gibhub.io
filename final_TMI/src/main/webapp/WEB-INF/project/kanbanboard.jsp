@@ -5,6 +5,8 @@
 <script src="../js/project_kanbanboard.js" type='text/javascript'></script>
 <body>
 <div id="kanban_wrap">
+	<div id='kanban_left_img'></div>
+	<div id='kanban_left'></div>
 	<div id='schedules_wrap'>
 		<c:choose>
 			<c:when test="${not empty schList }">
@@ -12,7 +14,7 @@
 					<c:choose>
 					<c:when test="${empty sdto.sch_rend}">
 					<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+						<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
 							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 						</div>
 						<c:choose>
@@ -30,13 +32,17 @@
 									<c:when test="${tdDto.t_end>0 && tdDto.t_start<=0}">
 										<p class="todo_when" id="todo_end">종료까지</p>
 										<p class='todo_day'>D</p>- ${tdDto.t_end }
+									</c:when>									
+									<c:when test="${tdDto.t_end==0 && tdDto.t_start<=0}">
+										<p class="todo_when" id="todo_end">종료까지</p>
+										<p class="todo_day">D</p>-day
 									</c:when>
-									<c:when test="${tdDto.t_end<=0 && tdDto.t_start<=0}">
+									<c:when test="${tdDto.t_end<0 && tdDto.t_start<=0}">
 										<p class="todo_when" id="todo_over">초과!</p>
 										${tdDto.t_end*-1 }일째
 									</c:when>
 								</c:choose>
-								<p class='todo_mem'>${tdDto.id }</p>
+								<p class='todo_mem'>${tdDto.name }</p>
 							</div>
 							</c:when>
 							<c:otherwise>
@@ -59,15 +65,15 @@
 							<div class="addTodo">
 								<div id='addTcon'>
 									할일을<br>추가하세요
-									<div id='openTModal' class='tmi_skin tmi_skin01'>
+									<div id='openTModal' class='tmi_skin tmi_skin1'>
 										<a href="#${sdto.sch_id }"  class="insertModal" id="td_insert">
 											<input type="hidden" id="sch_start"
 											value="<c:out value="${sdto.sch_start}"></c:out>"> <input
 											type="hidden" id="sch_end"
 											value="<c:out value="${sdto.sch_end}"></c:out>">
 											<div class='circle'>
-												<div class='h   tmi_skin tmi_skin01'></div>
-												<div class='v   tmi_skin tmi_skin01'></div>
+												<div class='h   tmi_skin tmi_skin1'></div>
+												<div class='v   tmi_skin tmi_skin1'></div>
 											</div>
 										</a>
 									</div>
@@ -102,10 +108,11 @@
 					</form>
 					</c:when>
 					<c:otherwise>
-						<div class="schedules rend">
-							<div class="s_name tmi_skin tmi_skin01">${sdto.sch_name }
+						<div class="schedules">
+							<div class="s_name tmi_skin tmi_skin1">${sdto.sch_name }
+							<input type="hidden" id="sch_id" value="${sdto.sch_id }">
 							</div>
-							<div class="todo">
+							<div class="todo rend">
 								<p class='todo_name' >종료된 스케줄입니다</p>
 							</div>
 						</div>
@@ -115,7 +122,7 @@
 			</c:when>
 			<c:otherwise>
 				<div class="schedules">
-						<div class="s_name tmi_skin tmi_skin01">스케줄이 없습니다</div>
+						<div class="s_name tmi_skin tmi_skin1">스케줄이 없습니다</div>
 						<div class="todo" style="font-size: 16px;">
 								<span>프로젝트 팀장이 스케줄을 추가해주세요</span>
 						</div>
@@ -128,11 +135,11 @@
 			<div id='addScon'>
 				스케쥴을<br>추가하세요
 
-				<div id='openSModal' class=' tmi_skin tmi_skin01'>
+				<div id='openSModal' class=' tmi_skin tmi_skin1'>
 					<a href="#sch-form" class="insertModal">
 						<div class='circle'>
-							<div class='h  tmi_skin tmi_skin01'></div>
-							<div class='v  tmi_skin tmi_skin01'></div>
+							<div class='h  tmi_skin tmi_skin1'></div>
+							<div class='v  tmi_skin tmi_skin1'></div>
 						</div>
 					</a>
 				</div>
@@ -141,14 +148,15 @@
 		</c:if>
 		</c:forEach>
 	</div>
-	
+	<div id='kanban_right_img'></div>
+	<div id='kanban_right'></div>
 </div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
 				<label for="sch_name">스케줄 제목</label> 
-				<input type="text" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
-				<label for="sch_info">스케줄 간단설명</label> 
-				<input type="text" required="required" autocomplete="off" id="sch_info" name="sch_info" placeholder="스케줄 간단설명">
+				<input type="text" maxlength="" required="required" autocomplete="off" id="sch_name" name="sch_name" placeholder="스케줄 제목">
+				<label for="sch_info">스케줄 내용</label> 
+				<input type="text" required="required" autocomplete="off" id="sch_info" name="sch_info" placeholder="스케줄 내용">
 				<label for="sch_start">스케줄 기간</label> 
 				<input type="text" readonly="readonly" class="start" required="required" id="sch_start" name="sch_start" placeholder="스케줄 시작일">
 				<input type="text" readonly="readonly" class="end" required="required" id="sch_end" name="sch_end" placeholder="스케줄 종료일">
@@ -165,11 +173,8 @@
 	</form>
 	
 	<script type="text/javascript">
+
 		$('.s_name').on('click',function(){
-			if($(this).hasClass('rend')){
-				swal("Warning", "종료된 스케줄입니다","error");
-				return;
-			}
 			var sch_id = $(this).children('#sch_id').val();
 			$.ajax({
 				url:'schedule',

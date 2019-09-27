@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +47,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.VerifyRecaptcha;
 import dto.AuthInfo;
+import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
 import service.ProjectService;
 import service.UserService;
@@ -56,7 +59,8 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-
+    @Autowired
+    private ProjectService pservice;
 	@Autowired
 	private ProjectService projectService;
 
@@ -77,13 +81,43 @@ public class UserController {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@RequestMapping("/isLeader")
+	public String isLeader(HttpSession session) {
+		return "/member/isLeader";
+	}
+	
+	@RequestMapping("**/notifi_yes")
+	public @ResponseBody String notifi_yes(NotiDTO dto,HttpSession session)
+	{
+		System.out.println("id="+dto.getId());//보낸사람
+		System.out.println("NOtiid="+dto.getNoti_id());//받은사람
+		service.pro_insertProcess(String.valueOf(dto.getPro_id()),dto.getNoti_id());
+		service.noti_updateProcess("2", String.valueOf(dto.getPro_id()), dto.getNoti_id());
+		dto.setState(3);
+		service.noti_insertProcess(dto);
+		
+		
+		return "success";
+		
+	}
+	@RequestMapping("**/notifi_no")
+	public @ResponseBody String notifi_no(NotiDTO dto,HttpSession session)
+	{
+		service.noti_updateProcess("2", String.valueOf(dto.getPro_id()), dto.getNoti_id());
+		dto.setState(4);
+		service.noti_insertProcess(dto);
+		
+		
+		return "success";
+		
+	}
 	@RequestMapping("/proList")
 	public String proList(HttpSession session) {
 		String returnUri = session.getAttribute("returnUri").toString();
 		session.removeAttribute("returnUri");
 		List<HashMap<String, Object>> phList = projectService.projectHomeList(session.getAttribute("id").toString());
 		session.setAttribute("projectHomeList",phList);
-		session.setAttribute("pro_id", phList.get(0).get("pro_id"));
+		session.setAttribute("pro_id", projectService.recentProId(session.getAttribute("id").toString()));
 		return "redirect:/"+returnUri.replaceAll("/tmi/","");
 	}
 	

@@ -1,18 +1,36 @@
-var nrno = '';
 
 $(document).ready(function(){
 	var pro_id= $('#pro_id').val();
+	
+	// 프로젝트 설정 이동
 	$('.pj_setting').on('click',function(){
 		location.href="pjset?pro_id="+pro_id
 	});
 	
+	// 멤버 관리 이동
 	$('.pj_people').on('click',function(){
 		location.href="setpeople?pro_id="+pro_id;
 	});
 	
+	// 프로젝트 종료
+	$('#SetRend').on('click',function(){
+		swal({
+			  title: "프로젝트 종료",
+			  text: "정말로 종료하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: false,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					location.href="rendSet";    
+				}
+			});
+	});
 	
+	// 매니저 설정
 	$('#manegerSet').on('click',function(){
-		var manager = $('#sel1 option:selected').val();
+		var manager = $('#selectBox option:selected').val();
 		swal({
 			  title: "매니저 변경",
 			  text: "변경하시겠습니까?",
@@ -28,13 +46,15 @@ $(document).ready(function(){
 		
 	});
 	
+	// 관리페이지로 돌아가기
 	$('#back').on('click', function(){
 		location.href="main";
 	});
 	
+	// 선택한 멤버 제거
 	$('#memDel').on('click', function(){
 		var memberArray = [];
-		$('#chkbox:checked').each(function(){
+		$('.chkbox:checked').each(function(){
 			memberArray.push($(this).val());
 		})
 		
@@ -54,19 +74,15 @@ $(document).ready(function(){
 				type : "post",
 				success: function(res){
 					var list = 0;
-					for(var i=0; i <res.length; i++){
-						console.log(res[i]);
-						
-						$('#chkbox[value="'+res[i]+'"]').parent().remove();
+					for(var i=0; i <res.length; i++){						
+						$('.chkbox[value="'+res[i]+'"]').parent().remove();
 					}
-				}
-			
+				}			
 			});
-		}
-				
+		}				
 	});
 	
-	//검색****************************************
+	//멤버 검색****************************************
 	$('#search-bar #search_id').on({
 		focus:function(){
 			$('#search-bar #search_result').show();
@@ -95,7 +111,7 @@ $(document).ready(function(){
 		}
 	})
 	
-	//유저추가*****************************************
+	//멤버 대기열에 추가*****************************************
 	$(document).on('click', '.search-item', function(){
 		var input = $(this).text();
 		var result = false;
@@ -130,7 +146,7 @@ $(document).ready(function(){
 		
 	})
 	
-	//유저제거****************************************
+	//멤버 대기열에서 제거****************************************
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
 	})

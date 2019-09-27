@@ -2,6 +2,22 @@ $(document).ready(function(){
 	var width=216*($('.schedules').length+1);
 	$('#schedules_wrap').css('width',width+'px');
 	
+	$('#kanban_right').on('mouseover',function(){
+		  var _scrollX = $('#kanban_wrap').scrollLeft()+30;
+		  $('#kanban_wrap').scrollLeft(_scrollX);
+		  $(this).animate({'width':'0px'},10,function(){
+			  $(this).animate({'width':'80px'},10);
+		  });
+	});
+	
+	$('#kanban_left').on('mouseover',function(){
+		  var _scrollX = $('#kanban_wrap').scrollLeft()-30;
+		  $('#kanban_wrap').scrollLeft(_scrollX);
+		  $(this).animate({'width':'0px'},10,function(){
+			  $(this).animate({'width':'80px'},10);
+		  });
+	});
+	
 	
 	//스케줄 시작일 종료일****************************************
     var sch_start =  $('#sch-form #sch_start').get(0);
@@ -75,10 +91,16 @@ $(document).ready(function(){
 		if(levText==undefined){
 			levText='';
 		}
+		if(levText=='leader'){
+			$(tableList).prepend('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
+					'<span class="table-list-cell"></span><span class="table-list-cell" id="level">'+levText+'</span><span class="table-list-cell" id="remove-item">x</span>'+
+					'<input type="hidden" name="'+$(tableList).attr('id')+'" value="'+input+'"/></li>');
+		}else{
+			$(tableList).append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
+					'<span class="table-list-cell"></span><span class="table-list-cell" id="level">'+levText+'</span><span class="table-list-cell" id="remove-item">x</span>'+
+					'<input type="hidden" name="'+$(tableList).attr('id')+'" value="'+input+'"/></li>');
+		}
 		
-		$(tableList).append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
-				'<span class="table-list-cell"></span><span class="table-list-cell" id="level">'+levText+'</span><span class="table-list-cell" id="remove-item">x</span>'+
-				'<input type="hidden" name="'+$(tableList).attr('id')+'" value="'+input+'"/></li>');
 		
 		if($(this).parent().attr('id')=='stList'){
 			$(this).parent().hide();
@@ -104,7 +126,8 @@ $(document).ready(function(){
 	})
 	
 	function setSchLevel(tableList, level,teamList){
-		if($(tableList).children().length>=1){
+		
+		if($(tableList).find('#level').text()=='leader'){
 			$(level).attr('id','member')
 			$(level).text('스케줄 멤버를 정해주세요')
 		}else{

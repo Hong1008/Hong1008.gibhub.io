@@ -32,6 +32,7 @@
 	<insert id="chatUpLoadFile" parameterType="dto.ChattingDTO">
 		<foreach collection="upload" item="item" separator=" " open="insert all" close="select*from dual">
 		 into pro_file(filename,chat_id) values (#{item},chat_get_seq)
+		 into timeline values (tl_id_seq.nextval,sysdate,'time_file',#{pro_id},chat_currget_seq,'time_up',#{item})
 		 into chat(chat_id,chat_content, chat_time, id, pro_id) values(chat_currget_seq,null,sysdate,#{id},#{pro_id})
 		</foreach>
 	</insert>

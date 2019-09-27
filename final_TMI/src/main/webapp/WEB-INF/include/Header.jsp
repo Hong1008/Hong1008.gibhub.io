@@ -8,6 +8,17 @@
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-------------------------------------- 툴팁 tippy.js -------------------------------------->
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/google.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/translucent.css" />
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
 
 <%-- <security:authorize access="isAuthenticated()" >
 
@@ -16,84 +27,247 @@
 	
 
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
-
-    <script type="text/javascript">
-$(document).ready(function(){
+<script>
+var socket = null;
+var sessionUId = null;
+$(document).ready( function() {
+    sessionUId="<%=session.getAttribute("id") %>";
+    console.log(sessionUId);
+if (sessionUId!="null")
+	{
+	connectWS();
 	
-	 var sessionUId = "<%=session.getAttribute("id") %>";
-		websocket = new WebSocket("ws://localhost:8090/tmi/count");
-	if(sessionUId!=null)
+	
+	}
+$(document).on("click","#btn_yes",function(){
+	 var pro_id=$(this).prev().val();
+	 var invite_id=$(this).prev().prev().val();//초대받은사람
+	 var noti_id=$(this).prev().prev().prev().val();//초대보낸사람
+	 var pro_name=$(this).prev().prev().prev().prev().val();//프로젝트이름
+	 var result;
+	$.ajax({
+
+	    url: "notifi_yes", 
+	    traditional : true,
+	    data: { "id":noti_id , //초대보낸사람
+	            	"pro_id":pro_id, //pro_id
+	            	"noti_id":sessionUId //받은사람
+	            	
+	    },               
+
+	    type: "post",                            
+
+	    dataType: "text",
+	    success:function(res)
+	    {
+	    	
+	
+	    	 
+	    	 
+	    	 swal("Good job!", "팀에 가입했습니다!", "success")
+				.then((value) => {
+					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
+					location.href="home";
+				});
+		    	
+        }
+	 
+
+	}
+	  
+	)
+	
+	//socket send해줘야됨 no에도 
+	/*
+	  1. yes 눌렀을때
+	       누른사람 팀에 들어감
+	       보낸사람 팀에 들어왔다고알림
+	  2. no눌렀을때
+	     보낸사람에게 팀 거절했다고알림 
+	     
+	     3. open 
+	      모든거  알려줌
+	     
+	     4. invite
+	     초대 보냄
+	*/
+	$(this).parent().css("display","none"); 
+	
+})	
+
+$(document).on("click","#btn_no",function(){
+	 var pro_id=$(this).prev().prev().val();
+	 var invite_id=$(this).prev().prev().prev().val();//초대받은사람
+	 var noti_id=$(this).prev().prev().prev().prev().val();//초대보낸사람
+	 var pro_name=$(this).prev().prev().prev().prev().prev().val();//프로젝트이름
+	 var result;
+	$.ajax({
+
+	    url: "notifi_no", 
+	    data: { "id":noti_id , //초대보낸사람
+	            	"pro_id":pro_id, //pro_id
+	            	"noti_id":sessionUId //받은사람
+	            	
+	    },               
+
+	    type: "post",                            
+	    traditional : true,
+	    dataType: "text",
+	    success:function(res)
+	    {
+	    	 swal("Good job!", "거부하였습니다", "success")
+				.then((value) => {
+					socket.send("no,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
+					location.href="home";
+				});
+		    	
+        }
+	 
+
+	}
+	  
+	)
+	
+	//socket send해줘야됨 no에도 
+	/*
+	  1. yes 눌렀을때
+	       누른사람 팀에 들어감
+	       보낸사람 팀에 들어왔다고알림
+	  2. no눌렀을때
+	     보낸사람에게 팀 거절했다고알림 
+	     
+	     3. open 
+	      모든거  알려줌
+	     
+	     4. invite
+	     초대 보냄
+	*/
+	$(this).parent().css("display","none"); 
+	
+})	
+
+	
+$("#pro-form_btn").click(function(){
+	
+	
+	if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+		swal("Warning", "날짜를 지정해주세요","error");
+		return false;
+	}
+
+	var pro_team_list_array=new Array();
+	if($("input[name='pro_team_list']").val()!=null)
 		{
-		
-		websocket.onopen = onOpen;
-		websocket.onmessage = onMessage;
-	
-		
-		}
-	
-
-	
-	$("#pro-form").submit(function(){
-		
-		alert("asdf");
-		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
-			swal("Warning", "날짜를 지정해주세요","error");
-			return false;
-		}
-		
-		var res=sessionUId+",";
 		$("input[name='pro_team_list']").each(function(i,v){
-	    
-			alert(v);
-			var l=$(this).length-1;
-			if(i!=l)
-				{
-				res+=$(v).val()+",";
-				}
-			else
-				{
-				res+=$(v).val();
-				}
-		
+
 			
-					})
+			pro_team_list_array.push($(v).val());
 		
-					websocket.send(res);
-		  console.log("찍히나");
-		  console.log(res);
-		websocket.onmessage = onMessage;
+	      
 
+	})
+		}
 	
-   })
+	$.ajax({
 
-    function onOpen(evt) 
+	    url: "project/insertProject", 
+	    traditional : true,
+	    data: { "pro_name": $("#pro_name").val(),
+	            	"pro_info":$("#pro_info").val(),
+	            	"pro_start":$("#pro_start").val(),
+	            	"pro_end":$("#pro_end").val(),
+	            	"pro_team_list":pro_team_list_array
+	            	
+	    
+	    },               
 
-    {
-       //로그인되면 session에있는 아이디 클라이언트로보냄
-       websocket.send(sessionUId);
+	    type: "post",                            
 
-    }
+	    dataType: "text",
+	    success:function(res)
+	    {
+	    	
+	    	
+	    	swal("Good job!", "프로젝트 추가 성공!", "success")
+			.then((value) => {
+				
+				if($("input[name='pro_team_list']").val()!=null)
+					{
+					$("input[name='pro_team_list']").each(function(i,v){
 
-    function onMessage(evt) {
+			    		socket.send("invite,"+$(v).val()+","+res);
+			    	
+			    })
+					}
+			
+				location.href="home";
+			});
+	    	
+	    	
+	    	/* var res=sessionUId+","; */
+         }
 
-    		$('#header_notiCount').append(evt.data);
+	})
+		
+	
+	
 
-    }
-
-    function onError(evt) {
-
-    }
 
 })
-   
- 
-   
-   
-    		
+});
 
-    
+function connectWS() {
+    console.log("tttttttttttttt")
+    var ws = new WebSocket("ws://localhost:8090/tmi/count");
+    socket = ws;
+	
+    ws.onopen = function () {
+        console.log('Info: connection opened.');
+        ws.send("open,");
+    };
 
-        </script>
+    ws.onmessage = function (event) {
+      
+    	var res = event.data.split(",");	
+    	
+   	$('#header_notiCount').text(res[0]);
+   	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no")
+   		{
+   		$("#header_notiNum").append(res[2]);
+   		}
+   	
+   	else
+   		{
+   		for(var i=1;i<res.length;i++)
+   			{
+   			$("#header_notiNum").append(res[i]);
+   			}
+   		   
+   		}
+   
+   	
+   /* 	header_notiNum */
+        /* console.log("ReceiveMessage:", event.data+'\n');
+        let $socketAlert = $('div#socketAlert');
+        $socketAlert.html(event.data);
+        $socketAlert.css('display', 'block');
+        
+        setTimeout( function() {
+        	$socketAlert.css('display', 'none');
+        }, 3000); */
+    };
+
+    ws.onclose = function (event) { 
+        console.log('Info: connection closed.');
+        //setTimeout( function(){ connect(); }, 1000); // retry connection!!
+    };
+    ws.onerror = function (err) { console.log('Error:', err); };
+}
+
+
+
+
+</script>  
 
 
 <%-- </security:authorize> --%>
@@ -123,7 +297,7 @@ $(document).ready(function(){
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
-    <div id='header' class='tmi_skin tmi_skin01'>
+    <div id='header' class='tmi_skin tmi_skin1'>
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,74 +18,78 @@
 <body>
 	<div id='bodywrap'>
 		<div id="pro_div">
-			<div id="pro_list">
-                	<div class="pro_list_per no-drag">진행률</div>
-                	<div class="pro_list_man no-drag">프로젝트 매니저</div>
-                	<div class="pro_list_dday no-drag">남은시간</div>
-                	<div class="pro_list_end no-drag">종료일</div>
-            </div>
-            <c:choose>
-            	<c:when test="${not empty projectHomeList }">
-            		<c:forEach items="${projectHomeList}" var="i">
+			<c:choose>
+				<c:when test="${not empty projectHomeList }">
+					<c:forEach items="${projectHomeList}" var="i">
 						<div class='project'>
-                			<div class="pro_header">
-                    				<div class="pro_name no-drag">${i.pro_name }
-                    					<input type="hidden" name="pro_id" id="pro_id" value="${i.pro_id }">
-                    				</div>
-                			</div>
-                			<div class="pro_body">
-                				<div class="pro_per no-drag">${i.pro_name }</div>
-                				<div class="pro_man no-drag">${i.pro_man }</div>
-                				<div class="pro_dday no-drag">${i.pro_dday }</div>
-                				<div class="pro_end no-drag">${i.pro_end }</div>
-                			</div>
-						</div>	
+							<input type="hidden" name="pro_id" id="pro_id"
+								value="${i.pro_id }">
+							<div class="pro_header">
+								<div class="pro_name no-drag  tmi_skin tmi_skin1">${i.pro_name }
+								</div>
+							</div>
+							<div class="pro_body">
+								<div class="pro_man no-drag">
+									<span>매니저</span>${i.pro_man }</div>
+								<div class="pro_per no-drag">
+									<span>진행률</span>${i.pro_per }</div>
+								<div class="pro_end no-drag">
+									<span>종료일</span>${i.pro_end }</div>
+								<div class="pro_dday no-drag">
+									<c:choose>
+										<c:when test="${i.pro_dday >0 }">
+											<p>D</p>-${i.pro_dday }
+										</c:when>
+										<c:when test="${i.pro_dday ==0 }">
+											<p>D</p>day
+										</c:when>
+										<c:when test="${i.pro_dday <0 }">
+											<strong class="pro_dday_over">기한초과</strong>
+										</c:when>
+									</c:choose>
+								</div>
+							</div>
+						</div>
 					</c:forEach>
-            	</c:when>
-            	<c:otherwise>
-            		<p>프로젝트를 생성해주세요</p>
-            	</c:otherwise>
-            </c:choose>            
-			<!-- <div class='project'>
-                <div class="pro_header">
-                    <div class="pro_name no-drag">project01</div>
-                </div>
-                <div class="pro_body">
-                	<div class="pro_per no-drag"><p>74</p>%</div>
-                	<div class="pro_man no-drag">홍철민</div>
-                	<div class="pro_dday no-drag"><p>27</p>day</div>
-                	<div class="pro_end no-drag"><p>10</p>월<p>08</p>일</div>
-                </div>
-			</div> -->
-			<!-- <form action="project/insertProject">
-				<input type="submit" value="프로젝트 추가">
-				<input type="text" name="pro_name">
-				<input type="text" name="pro_info">
-				<input type="date" name="pro_start">
-				<input type="date" name="pro_end">
-			</form> -->
+				</c:when>
+				<c:otherwise>
+					<div style="text-align: center">
+						<div style="font-size: 31px;padding: 21px;">
+							프로젝트가 없어요
+						</div>
+						아래의 버튼을 눌러 프로젝트를 생성해주세요
+					</div>
+				</c:otherwise>
+			</c:choose>
+			<a href="#" class="btn pro_name no-drag  tmi_skin tmi_skin1">프로젝트
+				추가</a>
+				
+
 			<form id="pro-form" class="modal" action="project/insertProject">
-				<label for="pro_name">프로젝트 제목</label> 
-				<input type="text" required="required" autocomplete="off" id="pro_name" name="pro_name" placeholder="프로젝트 제목">
-				<label for="pro_info">프로젝트 간단설명</label> 
-				<input type="text" required="required" autocomplete="off" id="pro_info" name="pro_info" placeholder="프로젝트 간단설명">
-				<label for="pro_start">프로젝트 기간</label> 
-				<input type="text" readonly="readonly"  required="required" id="pro_start" name="pro_start" placeholder="프로젝트 시작일">
-				<input type="text" readonly="readonly"  required="required" id="pro_end" name="pro_end" placeholder="프로젝트 종료일">
-				<label for="search_id">아이디로 팀원들을 찾아보세요</label>
+				<label for="pro_name">프로젝트 제목</label> <input type="text"
+					required="required" autocomplete="off" id="pro_name" maxlength="10"
+					name="pro_name" placeholder="프로젝트 제목"> <label
+					for="pro_info">프로젝트 내용</label> <input type="text"
+					required="required" autocomplete="off" id="pro_info"
+					name="pro_info" placeholder="프로젝트 내용"> <label
+					for="pro_start">프로젝트 기간</label> <input type="text"
+					readonly="readonly" required="required" id="pro_start"
+					name="pro_start" placeholder="프로젝트 시작일"> <input type="text"
+					readonly="readonly" required="required" id="pro_end" name="pro_end"
+					placeholder="프로젝트 종료일"> <label for="search_id">아이디로
+					팀원들을 찾아보세요</label>
 				<ul class="table-list" id="pro_team_list">
-					
+
 				</ul>
-				<input type="text" id="search_id" >
+				<input type="text" id="search_id">
 				<ul id="search_result" hidden="" class="autocomplete-results">
 				</ul>
-				
-				<input type="submit" value="프로젝트 추가">
+
+				<input id="pro-form_btn" type="button" value="프로젝트 추가">
 			</form>
 
-			<a href="#" class="btn">프로젝트 추가</a>
 		</div>
 	</div>
-	
+
 </body>
 </html>

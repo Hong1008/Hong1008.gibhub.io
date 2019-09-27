@@ -18,7 +18,7 @@ $(document).ready(function(){
           $(location).attr("href", "sign_up.do");
       });
       
-      $(".pro_header .pro_name").click(function(){
+      $(".project").click(function(){
     	  var form = document.createElement("form");
     	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
     	  form.setAttribute("action", "project/management");

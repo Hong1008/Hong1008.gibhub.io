@@ -5,6 +5,13 @@ public class NotiDTO {
 	private String id;
 	private int pro_id;
 	private int state;
+	private String noti_id;
+	public String getNoti_id() {
+		return noti_id;
+	}
+	public void setNoti_id(String noti_id) {
+		this.noti_id = noti_id;
+	}
 	public String getNo() {
 		return no;
 	}

@@ -84,10 +84,17 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/insertProject")
-	public String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
-		String id = req.getSession().getAttribute("id").toString();
+	public  @ResponseBody String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
+		String id = req.getSession().getAttribute("id").toString(); //보낸사람
+		String res="";
 		projectService.insertProject(pdto,id,pro_team_list);
-		return "redirect:/home";
+		//id가     noti_id가 받은사람
+				//초대보낸사람  ,프로젝트이름,  첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
+		String pro_id=projectService.sequence_pro_id(pdto);
+		System.out.println(pdto.getPro_name()+"projectContorer");
+		res=id+","+pdto.getPro_name()+","+pro_id;
+		
+		return res;
 	}
 	
 	@RequestMapping("/insertSchedule")
@@ -135,7 +142,15 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/uptTdRend")
-	public @ResponseBody void uptTdRend(String t_id) {
-		projectService.uptTdRend(t_id);
+	public @ResponseBody void uptTdRend(String t_id,HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		projectService.uptTdRend(pro_id,t_id);
+	}
+	
+	@RequestMapping("/schRend")
+	public @ResponseBody boolean schRend(String sch_id, HttpSession session) {
+		String pro_id = session.getAttribute("pro_id").toString();
+		String id = session.getAttribute("id").toString();
+		return projectService.isSchLeader(sch_id, id,pro_id);
 	}
 }
