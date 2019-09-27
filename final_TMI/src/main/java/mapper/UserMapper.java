@@ -51,4 +51,6 @@ public interface UserMapper {
 	public void noti_update(@Param("state") String state,@Param("pro_id") String pro_id ,@Param("id") String id);
 	
 	public void noti_insert(NotiDTO dto);
+	//읽음 처리
+	public void noti_read(NotiDTO dto);
 }
