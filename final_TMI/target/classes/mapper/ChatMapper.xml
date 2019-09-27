@@ -10,7 +10,7 @@
 	</insert>
 	<select id="chatList" resultType="dto.ChattingDTO"
 		parameterType="string">
-		select m.profile_img, s.* from member m,(select c.chat_id chat_id, c.chat_content chat_content,
+		select m.profile_img, m.name, s.* from member m,(select c.chat_id chat_id, c.chat_content chat_content,
 		to_char(c.chat_time,'hh24:MI') chat_time,
 		to_char(c.chat_time,'yy.mm.dd') chat_date, c.id id, p.filename realfilename
 		from chat c, pro_file p where c.chat_id=p.chat_id(+) and
@@ -36,9 +36,11 @@
 		 into chat(chat_id,chat_content, chat_time, id, pro_id) values(chat_currget_seq,null,sysdate,#{id},#{pro_id})
 		</foreach>
 	</insert>
-	<select id="myImg" resultType="string" parameterType="string">
-	select profile_img from member where id=#{id}
+	
+	<select id="userInfo" resultType="dto.ChattingDTO" parameterType="string">
+	select profile_img, name from member where id=#{id}
 	</select>
+	
 	<select id="fileList" resultType="dto.ChattingDTO"
 		parameterType="string">
 		select c.chat_id chat_id, to_char(c.chat_time,'yy.mm.dd') chat_date, c.id

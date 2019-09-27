@@ -99,12 +99,13 @@ body {
 }
 
 .inline {
-	display: inline;
+	display: inline-block;
 }
 
 #img {
 	width: 80px;
 	hegiht: 80px;
+	border-radius: 50%;
 }
 
 #time {
@@ -140,11 +141,14 @@ body {
 }
 
 .todaychk {
+	margin-top:10px;
+	margin-bottom:10px;
 	font-size: small;
 	color: gray;
 	text-align: center;
 }
 #fileInsModal {
+	 min-width: 1400px;
 	z-index: 0;
 	display: none;
 	position: fixed;
@@ -165,13 +169,14 @@ body {
 }
 
 #fileInsArea {
+	   min-width: 1000px;
 	width: 60%;
 	height: 60%;
 	position: relative;
 	top: 45%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: white;
+	background-color: #c4d3f6;
 	text-align: center;
 }
 
@@ -187,22 +192,39 @@ body {
 	height: 300px;
 	width: 500px;
 }
+#fileInsArea #insbox #tablewrap #filetable th:nth-child(1) {
+	width: 24px;
+	height: 24px;
+	background-color: #6c7ae0;
+		border-top-left-radius: 30%;
+}
 
 #fileInsArea #insbox #tablewrap #filetable th:nth-child(2) {
 	width: 450px;
 	max-width: 450;
 	height: 22px;
 	max-height: 22px;
+	background-color: #6c7ae0;
 }
-
+#fileInsArea #insbox #tablewrap #filetable td:nth-child(1) {
+	width: 24px;
+	height: 24px;
+	background-color: white;
+}
 #fileInsArea #insbox #tablewrap #filetable td:nth-child(2) {
 	font-size: small;
 	overflow: hidden;
 	width: 450px;
 	max-width: 450px;
 	word-break: break-all;
+	background-color: white;
 }
-
+#insbox #btnbox{
+	margin-top: 50px;
+}
+#insbox #loading{
+	margin-top: 20px;
+}
 #fileInsArea #filepreviewArea {
 	float: left;
 	width: 40%;
