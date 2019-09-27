@@ -66,6 +66,8 @@
             o = this.opts,
             data = o.data;
 
+
+        
         var x = o.center.x + o.radius + 50,
             step = 30,
             radius = 6,
@@ -73,7 +75,9 @@
 
         for (var i = 0; i < data.length; i++) {
             var d = data[i];
-
+            //d는 수치값        
+            
+            
             d.legend = {
                 baseCircle: s.circle(x, y, radius),
                 baseCircleRadius: radius,

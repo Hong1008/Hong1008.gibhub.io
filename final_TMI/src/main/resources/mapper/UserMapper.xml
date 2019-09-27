@@ -72,7 +72,7 @@ select * from notification where id=#{id} and no=#{no}
 </select>
 <!-- 알림 개수 -->
 <select id="select_noti_count" parameterType="string" resultType="int">
-select count(*) from notification where id=#{id} and state in('0','3','4')
+select count(*) from notification where id=#{id} and state in('0','3','4','6')
 </select>
 
 <!-- notification 보낸사람 이름 , 상태 등 가져오는거 -->
@@ -102,6 +102,9 @@ insert into pro_team values(#{pro_id},#{id},0)
 
 <update id="noti_update" parameterType="string">
 update notification set state=#{state} where pro_id=#{pro_id} and id=#{id}
+</update>
+<update id="noti_read" parameterType="dto.NotiDTO">
+update notification set state=#{state} where pro_id=#{pro_id} and id=#{id} and noti_id=#{noti_id}
 </update>
 <insert id="noti_insert" parameterType="dto.NotiDTO">
 insert into notification values(noti_seq_no.nextval,#{id},#{pro_id},#{state},#{noti_id})

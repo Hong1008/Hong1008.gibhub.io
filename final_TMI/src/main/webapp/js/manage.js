@@ -73,8 +73,11 @@ $(document).ready(function(){
 				data: params,
 				type : "post",
 				success: function(res){
+					
 					var list = 0;
-					for(var i=0; i <res.length; i++){						
+					for(var i=0; i <res.length; i++){
+						console.log(res[i]);
+						socket.send("delete,"+$('#pro_id').val()+","+res[i]);
 						$('.chkbox[value="'+res[i]+'"]').parent().remove();
 					}
 				}			

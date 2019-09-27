@@ -23,7 +23,7 @@
 					<table id="filetable">
 						<tr id="head">
 							<th><input type="checkbox" id="chkall"></th>
-							<th>파일명</th>
+							<th>파일명<small>최대 한번에 8개 까지 등록가능</small></th>
 						</tr>
 					</table>
 				</div>
@@ -80,7 +80,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -121,7 +121,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -152,10 +152,10 @@
 					<label id="filelabel"><img id="fileInsImg"
 						src="../resources/Chat_img/paperclip.png/"></label>
 					<form id="frm" method="post" enctype="multipart/form-data">
-						<input type="file" id="file" name="file" />
+						<input type="file" id="file" name="file" multiple="multiple" />
 					</form>
 				</div>
-				<textarea id="message" cols="10" wrap="hard"></textarea>
+				<textarea id="message" cols="10" wrap="hard" placeholder="텍스트 입력 후 엔터"></textarea>
 
 			</div>
 		</div>

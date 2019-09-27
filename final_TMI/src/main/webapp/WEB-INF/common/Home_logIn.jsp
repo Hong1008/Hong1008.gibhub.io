@@ -14,6 +14,36 @@
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <title>세계의 모든일 Task Universe</title>
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		var p = $('.project');
+		 for(var i=0;i<p.length;i++){
+		} 	 
+		p.css('margin-top','-80px');
+		
+		$('#pro_div').on('mouseover',function(){
+				p.css('margin-top','0px');
+
+			if(p.length>6)
+			$('#pro_div').css({'margin-top':'50px','padding-top':'0px'});
+			else{
+				$('#pro_div').css({'margin-top':450-p.length*50+'px','padding-top':'0px'});
+			}
+			
+			$('#projects').hide();
+		}).on('mouseleave',function(){
+			p.css('margin-top','-80px');
+			$('#pro_div').css({'margin-top':'350px','transition':'1.2s','width':'500px','padding-top':'100px'});
+			$('#projects').show();
+		})
+		
+		$('.project').on('mouseover',function(){
+			$('#pro_div').css({'width':'1200px','transition':'0s'});
+		}).on('mouseleave',function(){
+			$('#pro_div').css({});
+		})
+ 	})
+ </script>
 </head>
 <body>
 	<div id='bodywrap'>
@@ -51,20 +81,21 @@
 							</div>
 						</div>
 					</c:forEach>
-				</c:when>
+					<div class='project' id='projects'>
+							<div class="pro_header">
+								<div class="pro_name no-drag  tmi_skin tmi_skin1">마우스를 올려주세요
+								</div>
+							</div>
+						</div>
+					
+				</c:when>				
 				<c:otherwise>
 					<div style="text-align: center">
-						<div style="font-size: 31px;padding: 21px;">
-							프로젝트가 없어요
-						</div>
+						<div style="font-size: 31px; padding: 21px;">프로젝트가 없어요</div>
 						아래의 버튼을 눌러 프로젝트를 생성해주세요
 					</div>
 				</c:otherwise>
 			</c:choose>
-			<a href="#" class="btn pro_name no-drag  tmi_skin tmi_skin1">프로젝트
-				추가</a>
-				
-
 			<form id="pro-form" class="modal" action="project/insertProject">
 				<label for="pro_name">프로젝트 제목</label> <input type="text"
 					required="required" autocomplete="off" id="pro_name" maxlength="10"
@@ -89,8 +120,9 @@
 
 				<input id="pro-form_btn" type="button" value="프로젝트 추가">
 			</form>
-
 		</div>
+		<a href="#" class="btn pro_name no-drag  tmi_skin tmi_skin1">프로젝트
+			추가</a>
 	</div>
 
 </body>
