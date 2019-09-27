@@ -11,6 +11,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/tmi/js/chat_chatRoom.js" type='text/javascript'></script>
 <link href='/tmi/css/chat_chatRoom.css' type='text/css' rel='stylesheet'>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/aside.jsp"></jsp:include>
@@ -102,8 +103,7 @@
 													<c:if test="${dto.profile_img==null}">
 														<img id='img' src="../resources/memberimg/user.png">
 													</c:if>
-												</div>
-												<div id='name' class='inline'>${dto.id}</div>
+												</div><div id='name' class='inline'>${dto.name}</div>
 												&nbsp;
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
@@ -198,7 +198,9 @@
 		</div>
 		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
-		<input type="hidden" value="${myImg}" id="myprofimg"> <input
+		<input type="hidden" value="${myImg.name}" id="myName">
+		<input type="hidden" value="${myImg.profile_img}" id="myProfimg">
+		 <input
 			type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 	<div id="footerclear"></div>

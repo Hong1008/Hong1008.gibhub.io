@@ -11,6 +11,6 @@ public interface ChatService {
 	public List<ChattingDTO> fileList(String pro_id);
 	public String today();
 	public void chatUpLoadFile(ChattingDTO dto);
-	public String myImg(String id);
+	public ChattingDTO userInfo(String id);
 }
 
