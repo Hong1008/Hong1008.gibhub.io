@@ -11,6 +11,7 @@
 <!-------------------------------------- js,css연결 -------------------------------------->
 <script src="../js/project_management.js" type='text/javascript'></script>
 <link href='../css/project_management.css' type='text/css' rel='stylesheet'>
+<script src="../js/COMMON.js" type='text/javascript'></script>
 <link href='../css/COMMON.css' type='text/css' rel='stylesheet'>
 <link href='../css/project_schedule.css' type='text/css' rel='stylesheet'>
 <link href='../css/project_kanbanboard.css' type='text/css' rel='stylesheet'>

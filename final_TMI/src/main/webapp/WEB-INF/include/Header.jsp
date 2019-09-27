@@ -334,6 +334,7 @@ $(document).ready(function(){
 </head>
 
 <body>
+<input type="hidden" id="sessionTheme" value="${sessionScope.theme }" >
 <input type="hidden" id="sessionId" value="${sessionScope.id }" >
 <input type="hidden" id="sessionproId" value="${sessionScope.pro_id }" >
 <input type="hidden" id="sessionproIdList" value="${sessionScope.projectHomeList }" >
