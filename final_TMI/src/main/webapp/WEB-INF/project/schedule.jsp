@@ -242,7 +242,7 @@ background-size: 400%;
 	<button id='returnBtn'>뒤로가기</button>
 	<div id='sch_wrap'>
 		<div class='group' id='before'>
-			<div class='g_head tmi_skin tmi_skin1'>시작전</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>시작전</div>
 			<ul id="sortable1" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
@@ -259,7 +259,7 @@ background-size: 400%;
 			</ul>
 		</div>
 		<div class='group' id='progress'>
-			<div class='g_head tmi_skin tmi_skin1'>진행중</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>진행중</div>
 			<ul id="sortable2" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
@@ -275,7 +275,7 @@ background-size: 400%;
 			</ul>
 		</div>
 		<div class='group' id='overtime'>
-			<div class='g_head tmi_skin tmi_skin1'>기한초과</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>기한초과</div>
 			<ul id="sortable3" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if
@@ -290,7 +290,7 @@ background-size: 400%;
 			</ul>
 		</div>
 		<div class='group' id='after'>
-			<div class='g_head tmi_skin tmi_skin1'>종료됨</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>종료됨</div>
 			<ul id="sortable4" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
 					<c:if test="${not empty tdDto.t_rend}">
@@ -330,7 +330,7 @@ background-size: 400%;
 				</div>
 							<c:choose>
 			<c:when test="${empty schOne.sch_rend }">
-			<button id='sch_info_endBtn' class='tmi_skin tmi_skin1'>스케쥴 끝내기
+			<button id='sch_info_endBtn' class='tmi_skin ${sessionScope.theme}'>스케쥴 끝내기
 				<input type="hidden" value="${schOne.sch_id }"/>
 			</button>
 			</c:when>

@@ -1,9 +1,4 @@
 @charset "UTF-8";
-#kanban_wrap{	
-    margin-left: 116px;
-    margin-top: 43px;
-    overflow: scroll;
-}
 
 .schedules {
 width: 200px;
