@@ -36,7 +36,7 @@ $(document).ready(function(){
 						$('#timeline_wrap').html(res);
 						$('#timeline_wrap').css({'margin-left':'180px','margin-top':'43px'});
 					}
-				
+								
 				})
 			}else if($(this).find('.time_content').hasClass("time_file")){
 				location.href="/tmi/chat/chattingroom";
