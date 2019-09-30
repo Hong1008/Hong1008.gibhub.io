@@ -22,7 +22,7 @@ $(document).ready(function(){
 					success:function(res){
 						$('#timeline_wrap').empty();
 						$('#timeline_wrap').html(res);
-						$('#timeline_wrap').css('margin-left','180px');
+						$('#timeline_wrap').css({'margin-left':'180px','margin-top':'43px'});
 					}
 				})
 			}else if($(this).find('.time_content').hasClass("time_todo")){
@@ -34,7 +34,7 @@ $(document).ready(function(){
 					success:function(res){
 						$('#timeline_wrap').empty();
 						$('#timeline_wrap').html(res);
-						$('#timeline_wrap').css('margin-left','180px');
+						$('#timeline_wrap').css({'margin-left':'180px','margin-top':'43px'});
 					}
 				})
 			}else if($(this).find('.time_content').hasClass("time_file")){
