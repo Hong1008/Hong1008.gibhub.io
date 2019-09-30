@@ -6,8 +6,8 @@
 	rel='stylesheet'>
 <style type="text/css">
 .group {
-	    width: 255px;
-    height: 700px;
+	 width: 255px;
+    min-height: 700px;
     background: #fefefe;
     margin-right: 25px;
     float: left;
@@ -58,8 +58,18 @@
 }
 
 #returnBtn {
-	width: 50px;
-	height: 50px;
+	width: 105px;
+    height: 64px;
+    margin-left: -105px;
+    float: left;
+    margin-top: 321px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 100;
+    border: 1px solid rgb(210, 208, 208);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 6px;
 }
 
 .ui-draggable-dragging {
@@ -245,7 +255,7 @@ background-size: 400%;
 </script>
 </head>
 <body>
-	<button id='returnBtn'>뒤로가기</button>
+	<button id='returnBtn'class='${sessionScope.theme}'>칸반보드로<br/>돌아가기</button>
 	<div id='sch_wrap'>
 		<div class='group' id='before'>
 			<div class='g_head tmi_skin ${sessionScope.theme}'>시작전</div>
