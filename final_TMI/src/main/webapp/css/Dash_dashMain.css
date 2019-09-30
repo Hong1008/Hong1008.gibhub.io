@@ -83,6 +83,10 @@ height: 100%;
 /* border: 1px solid black; */
 margin-left: 5%;
 margin-top: 10px;
+max-width:1920px;
+max-height:1080px;
+min-width:1280px;
+min-height:860px;
 }
 
 .board_first {
@@ -137,62 +141,16 @@ margin-top: 10px;
 
 }
 
-.board_chart1{
-width: 49%;
-height: 30%;
-/* border: 1px solid black; */
-margin-left: 12px;
-margin-top: 1%;
-float: left;
+.secondBoardinner{
+
+display:inline-block !important;
+margin-left: 5%;
+width: 40%;
+height: 15%;
+margin-bottom: 1%;
+margin-top:1%;
 }
 
-.board_chart2{
-width: 49%;
-height: 30%;
-/* border: 1px solid black; */
-margin-left: 19px;
-margin-top: 1%;
-float: left;
-}
-
-
-
-.board_chart3{
-width: 49%;
-height: 38.2%;
-/* border: 1px solid black; */
-margin-left: 12px;
-
-float: left;
-}
-
-
-.board_chart4{
-width: 49%;
-height: 38%;
-/* border: 1px solid black; */
-margin-left: 12px;
-
-float: left;
-}
-
-
-.board_chart5{
-width: 49%;
-height: 38.2%;
-/* border: 1px solid black; */
-margin-left: 20.7px;
-float: left;
-}
-
-
-.board_chart6{
-width: 49%;
-height: 350px;
-/* border: 1px solid black; */
-margin-left: 19.5px;
-float: right;
-}
 
 .datediv{
 	width: 18%;

@@ -3,6 +3,7 @@ package controller;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.util.HashMap;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -32,13 +33,16 @@ public class DashBoardController {
 	}
 	
 	@RequestMapping("/DashMain")
-	public ModelAndView DashMain(ModelAndView mav, HttpServletRequest req) {
+	public ModelAndView DashMain(ModelAndView mav, HttpServletRequest req, HashMap<String, String> map) {
 
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id"); //user_id 
 		//int pro_id = Integer.parseInt(req.getParameter("pid"));
 		//System.out.println(req.getSession().getAttribute("pro_id") + " : dddd");
 		int pro_id = Integer.parseInt((String) req.getSession().getAttribute("pro_id")); // project_id 
+		
+		map.put("id", id);
+		map.put("pro_id", (String) req.getSession().getAttribute("pro_id"));
 		
 		mav.addObject("pjcnt",service.pjcntProcess(id));
 		mav.addObject("alltodocnt", service.AlltodoProcess(id));
@@ -56,8 +60,8 @@ public class DashBoardController {
 		mav.addObject("comlist",service.commingProcess(id));
 		//최신 타임라인
 		mav.addObject("timelist", service.timelineProcess(id));
-		//그래프 리스트 추출
-		mav.addObject("graphlist", service.graphProcess(id));
+		//그래프 추출
+		mav.addObject("graphlist", service.graphProcess(map));
 		mav.addObject("bg","../resources/Dash_images/"+service.bgViewProcess(id)+".jpg");
 		mav.setViewName("DashBoard/DashMain");
 		//그냥 메인호출햇을떄도 값 가져와야함
