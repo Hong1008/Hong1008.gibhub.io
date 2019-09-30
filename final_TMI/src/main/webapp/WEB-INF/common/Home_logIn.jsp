@@ -17,8 +17,6 @@
 <script type="text/javascript">
  	$(document).ready(function(){
 		var p = $('.project');
-		 for(var i=0;i<p.length;i++){
-		} 	 
 		p.css('margin-top','-80px');
 		
 		$('#pro_div').on('mouseover',function(){
@@ -38,9 +36,12 @@
 		})
 		
 		$('.project').on('mouseover',function(){
-			$('#pro_div').css({'width':'1200px','transition':'0s'});
+			 if($('#pro_div').css('padding-top').split('p')[0]<50) {
+				$('#pro_div').css({'width':'1200px','transition':'0s'});
+				$(this).css('width', '1170px');
+			 }
 		}).on('mouseleave',function(){
-			$('#pro_div').css({});
+			$(this).css('width', '320px');
 		})
  	})
  </script>
