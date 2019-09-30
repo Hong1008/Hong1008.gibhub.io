@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
 import mail.Mail;
 import mapper.UserMapper;
@@ -172,6 +173,26 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		dao.noti_read(dto);
 		
+	}
+	@Override
+	public List<ProjectDTO> mypage_project(String id) {
+		// TODO Auto-generated method stub
+		return dao.mypage_project(id);
+	}
+	@Override
+	public void project_delete(String pro_id) {
+		// TODO Auto-generated method stub
+		dao.project_delete(pro_id);
+	}
+	@Override
+	public void pro_team_delete(String pro_id) {
+		// TODO Auto-generated method stub
+		dao.pro_team_delete(pro_id);
+	}
+	@Override
+	public void pro_team_mydelete(String pro_id, String id) {
+		// TODO Auto-generated method stub
+		dao.pro_team_mydelete(pro_id, id);
 	}
 	
 }

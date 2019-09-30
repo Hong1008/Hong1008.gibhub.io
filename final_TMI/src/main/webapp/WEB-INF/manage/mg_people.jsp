@@ -83,7 +83,8 @@
 		<ul id="search_result" hidden="" class="results">
 		</ul>
 
-		<input type="submit" value="추가">
+		<input type="button" id="addMember"value="추가">
+		
 	</form>
 
 
