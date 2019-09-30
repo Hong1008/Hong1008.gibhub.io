@@ -142,13 +142,13 @@
 		<result javaType="int" column="wk2" property="wk2"/>
 		<result javaType="int" column="wk3" property="wk3"/>
 		<result javaType="int" column="wk4" property="wk4"/>
-		<result javaType="int" column="pid" property="pid"/>
+	<!-- 	<result javaType="int" column="pid" property="pid"/> -->
 	</resultMap>
-	<select id="graphlist" parameterType="string" resultMap="gp">
-	<![CDATA[
-		select b.pro_id as pid, sum(b.week1) as wk1 ,sum(b.week2) as wk2 ,sum(b.week3) as wk3,sum(b.week4) as wk4 from(
-		select  a.pro_id,count(a.a) week1 , count(a.b) week2, count(a.c) week3, count(a.d) week4 from
-		(select  td.t_rend, sc.pro_id,
+	<select id="graphlist" parameterType="java.util.HashMap" resultMap="gp">
+		<![CDATA[
+		select sum(b.week1) as wk1 ,sum(b.week2) as wk2 ,sum(b.week3) as wk3,sum(b.week4) as wk4 from(
+		select  count(a.a) week1 , count(a.b) week2, count(a.c) week3, count(a.d) week4 from
+		(select  td.t_rend,
 		case
 		when t_rend >= sysdate-7 then '1주전완료'
 		end as a,
@@ -162,14 +162,13 @@
 		when t_rend >= sysdate-28 then '4주전완료'
 		end as d
 		from todo td, schedule sc where td.sch_id = sc.sch_id 
-		and id in #{id}
-		group by  td.t_rend, sc.pro_id
+		and pro_id=#{pro_id} and id=#{id}
+		group by  td.t_rend
 		)a
-		group by a.pro_id,a.a,a.b,a.c,a.d,a.t_rend
-		order by a.pro_id asc)b
-		group by b.pro_id, b.week1
+		group by a.a,a.b,a.c,a.d,a.t_rend
+		)b
         order by b.week1 desc
-		]]>
+		]]> 
 	</select>
 	
 	

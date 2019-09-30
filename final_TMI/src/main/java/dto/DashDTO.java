@@ -20,7 +20,6 @@ public class DashDTO {
 	private int wk2; //그래프 2주
 	private int wk3; //그래프3주
 	private int wk4; //그래프4주
-	private int pid; //그래프 pj name
 	
 
 	public DashDTO() {
@@ -56,14 +55,6 @@ public class DashDTO {
 
 	public void setWk4(int wk4) {
 		this.wk4 = wk4;
-	}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
 	}
 
 	public int getDonut_comp() {

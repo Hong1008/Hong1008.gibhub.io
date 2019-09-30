@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dto.DashDTO;
@@ -33,6 +34,6 @@ public interface DashBoardService {
 	public void bgChange(DashDTO dto);
 	
 	//그래프
-	public List<DashDTO> graphProcess(String id);
+	public List<DashDTO> graphProcess(HashMap<String, String> map);
 	
 }
