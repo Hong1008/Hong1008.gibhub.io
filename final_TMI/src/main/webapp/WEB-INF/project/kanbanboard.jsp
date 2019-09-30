@@ -132,7 +132,7 @@
 								</div>
 								<form id="${sdto.sch_id }" class="modal" action="insertTodo">
 									<input type="hidden" name="sch_id" value="${sdto.sch_id }">
-									<label for="t_name">할일 제목</label> <input type="text"
+									<label for="t_name">할일 제목</label> <input type="text" maxlength="10"
 										required="required" autocomplete="off" id="t_name"
 										name="t_name" placeholder="할일 제목">
 									<!-- <label for="t_info">프로젝트 간단설명</label> 
@@ -206,7 +206,7 @@
 	</div>
 
 	<form id="sch-form" class="modal" action="insertSchedule">
-		<label for="sch_name">스케줄 제목</label> <input type="text" maxlength=""
+		<label for="sch_name">스케줄 제목</label> <input type="text"  maxlength="9"
 			required="required" autocomplete="off" id="sch_name" name="sch_name"
 			placeholder="스케줄 제목"> <label for="sch_info">스케줄 내용</label> <input
 			type="text" required="required" autocomplete="off" id="sch_info"

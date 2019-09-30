@@ -6,8 +6,8 @@
 	rel='stylesheet'>
 <style type="text/css">
 .group {
-	 width: 255px;
-    min-height: 700px;
+	width: 255px;
+    height: 700px;
     background: #fefefe;
     margin-right: 25px;
     float: left;
@@ -382,22 +382,29 @@ background-size: 400%;
 </body>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	
+	function tdPlaceHolder(){
 	$('.connectedSortable').each(function(i,v){
+		$(v).children('#noLi').empty();
 		if($(v).children().length<=1){
-			if($(v).attr('id')=='sortable1')
+			if($(v).attr('id')=='sortable1'){
 				$(v).children('#noLi').text('시작전 할일 목록입니다');
+			}
 			if($(v).attr('id')=='sortable2'){
 				$(v).children('#noLi').html('진행중 할일 목록입니다<br/>시작전 할일을 끌어다보세요');
 			}
-			if($(v).attr('id')=='sortable3')
+			if($(v).attr('id')=='sortable3'){
+				
 				$(v).children('#noLi').text('초과된 할일 목록입니다');
+			}
 			if($(v).attr('id')=='sortable4'){
 				$(v).children('#noLi').html('종료된 할일 목록입니다 <br/>진행중이거나 초과된 할일을 끌어다보세요');
 			}
 		}
 	})
-
+	}
+	tdPlaceHolder();
+	
+	
 	$('.sch_todo').each(function(i,v){
 		if($(v).children('#mytodo').val()!=$('#sessionId').val()){
 			$(v).addClass('unsortable');
@@ -524,6 +531,7 @@ background-size: 400%;
 					    	data:'t_id='+$(ui.item).attr('id'),
 					    	type:'POST'
 					    })
+					    tdPlaceHolder();
 					  } else {
 						  $( ".connectedSortable" ).sortable( "cancel" );
 					  }
@@ -558,6 +566,7 @@ background-size: 400%;
 					    	data:'t_id='+$(ui.item).attr('id'),
 					    	type:'POST'
 					    })
+					    tdPlaceHolder();
 					  } else {
 						  $( ".connectedSortable" ).sortable( "cancel" );
 					  }
