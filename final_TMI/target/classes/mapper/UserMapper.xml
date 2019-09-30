@@ -110,5 +110,21 @@ update notification set state=#{state} where pro_id=#{pro_id} and id=#{id} and n
 insert into notification values(noti_seq_no.nextval,#{id},#{pro_id},#{state},#{noti_id})
 </insert>   
 
+<!-- mypgae_프로젝트완료목록  -->
+<select id="mypage_project" parameterType="string" resultType="dto.ProjectDTO">
+select p.* from project p,pro_team pt where p.pro_id=pt.pro_id and pro_rend is not null and pt.id=#{id}
+</select>
 
+<delete id="project_delete" parameterType="string">
+delete from project where pro_id=#{pro_id}
+</delete>
+
+<delete id="pro_team_delete" parameterType="string">
+delete from pro_team where pro_id=#{pro_id}
+</delete>
+
+<delete id="pro_team_mydelete" parameterType="string">
+delete from pro_team where pro_id=#{pro_id} and id=#{id}
+
+</delete>
 </mapper>

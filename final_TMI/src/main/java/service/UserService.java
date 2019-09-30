@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
 
 public interface UserService {
@@ -54,4 +55,9 @@ public interface UserService {
 	
 	public void noti_insertProcess(NotiDTO dto);
 	public void noti_read(NotiDTO dto);
+	
+	public List<ProjectDTO> mypage_project(String id); 
+	public void project_delete(String pro_id);
+	public void pro_team_delete(String pro_id);
+	public void pro_team_mydelete(String pro_id,String id);
 }
