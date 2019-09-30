@@ -11,6 +11,7 @@ $(document).ready(function(){
 				$(this).removeClass('time_nonchk');
 				
 			}
+			
 			if($(this).find('.time_content').hasClass("time_sch")){
 				var sch_id = $(this).children('#type_id').val();
 				
@@ -19,8 +20,9 @@ $(document).ready(function(){
 					data:'sch_id='+sch_id,
 					type:'POST',
 					success:function(res){
-						$('.showWhat').empty();
-						$('.showWhat').html(res);
+						$('#timeline_wrap').empty();
+						$('#timeline_wrap').html(res);
+						$('#timeline_wrap').css('margin-left','180px');
 					}
 				})
 			}else if($(this).find('.time_content').hasClass("time_todo")){
@@ -30,8 +32,9 @@ $(document).ready(function(){
 					data:'t_id='+t_id,
 					type:'POST',
 					success:function(res){
-						$('.showWhat').empty();
-						$('.showWhat').html(res);
+						$('#timeline_wrap').empty();
+						$('#timeline_wrap').html(res);
+						$('#timeline_wrap').css('margin-left','180px');
 					}
 				})
 			}else if($(this).find('.time_content').hasClass("time_file")){
