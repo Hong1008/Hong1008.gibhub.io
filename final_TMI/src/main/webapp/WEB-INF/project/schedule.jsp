@@ -455,7 +455,7 @@ background-size: 400%;
 	$('#sch_info_endBtn').on('click',function(){
 		var undoSum = $('#sortable1').children().length+$('#sortable2').children().length+$('#sortable3').children().length;
 		var sch_id = $(this).children().val();
-		if(undoSum>0){
+		if(undoSum>3){
 			swal("Warning", '아직 할일이 남았습니다',"error")
 			return;
 		}

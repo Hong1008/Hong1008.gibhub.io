@@ -27,10 +27,11 @@
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 
+
 <title>세계의 모든일 Task Universe</title>
 </head>
 <body>
-	<div id='bodywrap'>
+	<div class="section" id='bodywrap'>
 		<div id="signUpArea">
 			<div id="content" class='center_box'>
 				<div id='textArea'>
@@ -63,15 +64,15 @@
 			</div>
 		</div>
 		<div id='info' class='tmi_skin tmi_skin1'></div>
+		</div>
+		<div class="section">
 		<div id='youtube'>
-			<div><img  src="/tmi/resources/tutoimg/1.png" /></div>
-			<div><img  src="/tmi/resources/tutoimg/2.png" /></div>
-			<div><img  src="/tmi/resources/tutoimg/1.png" /></div>
-			<div><img src="/tmi/resources/tutoimg/2.png" /></div>
+			
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	$('#youtube').bxSlider();
+	
+	
 </script>
 </html>

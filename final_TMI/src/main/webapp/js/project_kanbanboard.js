@@ -62,6 +62,12 @@ $(document).ready(function(){
 		}
 		e.preventDefault();
 		this.blur;
+		if(!$.modal.isActive()){
+			$('.modal input').each(function(i,v){
+				if($(v).attr('type')=='text')
+					$(v).val('');
+			})
+		}
 		$($(this).attr('href')).modal({
 			escapeClose: false,
 			clickClose: false
