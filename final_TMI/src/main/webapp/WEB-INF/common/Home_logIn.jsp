@@ -15,7 +15,7 @@
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <title>세계의 모든일 Task Universe</title>
 <script type="text/javascript">
- 	$(document).ready(function(){
+ /* 	$(document).ready(function(){
 		var p = $('.project');
 		p.css('margin-top','-80px');
 		
@@ -51,7 +51,7 @@
 			p.css('margin-top','-80px');
 			$('#pro_div').css({'margin-top':'350px','transition':'1.2s','width':'500px','padding-top':'100px'});
 			$('#projects').show();
-		})
+		}) */
 		
 /* 					$('.project').on('mouseover',function(){
 				if(p.length>6){			
@@ -68,8 +68,37 @@
 				$(this).css('width', '320px');
 			}) */
 
- 	})
+ 	/* }) */
  </script>
+ <style type="text/css">
+ .project{
+visibility: hidden;
+margin-top: -80px;
+ }
+ #projects{
+visibility: visible;
+ }
+  #pro_div{
+ }
+ #pro_div:hover{
+margin-top: 50px;
+padding-top: 0px;
+ }
+ #pro_div:hover> #projects{/*  */
+transition:0s;
+visibility: hidden;
+ }
+#pro_div:hover>.project{
+margin-top: 0px;
+visibility: visible;
+ }
+
+.project:hover{	/*  */
+  transition-delay:0.5s;
+transform: translate(-30%, 0);
+width: 1170px;
+ }
+ </style>
 </head>
 <body>
 	<div id='bodywrap'>
