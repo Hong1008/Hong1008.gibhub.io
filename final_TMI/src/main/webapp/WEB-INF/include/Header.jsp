@@ -256,14 +256,6 @@ $(document).ready(function(){
 		    }
 
 		})
-		
-		
-		 /*  var form = document.createElement("form");
-    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
-    	  form.setAttribute("action", "notiDelete");
-    	  $(form).append($(this).children('#pro_id'));
-    	  document.body.appendChild(form);
-    	  form.submit(); */
 			
 	})
 	
