@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import dto.NotiDTO;
+import dto.ProjectDTO;
 import dto.UserDTO;
 
 public interface UserMapper {
@@ -54,4 +55,10 @@ public interface UserMapper {
 	public void noti_insert(NotiDTO dto);
 	//읽음 처리
 	public void noti_read(NotiDTO dto);
+	
+	public List<ProjectDTO> mypage_project(String id);
+	
+	public void project_delete(String pro_id);
+	public void pro_team_delete(String pro_id);
+	public void pro_team_mydelete(String pro_id,String id);
 }

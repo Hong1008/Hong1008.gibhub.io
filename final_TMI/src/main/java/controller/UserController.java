@@ -80,7 +80,38 @@ public class UserController {
 	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
+	@RequestMapping("**/deleteProject")
+	public String deleteProject(String pro_id,String tf,HttpSession session)
+	{
+		System.out.println("pro_id"+pro_id);
+		System.out.println("tf는"+tf);
+		//pro_id가들어오면 project랑 pro_team 다삭제되야되는데 
+		if(tf.equals("true"))
+		{
+			//프로젝트랑
+			//proteam 삭제
+			service.pro_team_delete(pro_id);
+			service.project_delete(pro_id);
+			
+		}
+		else
+		{
+			service.pro_team_mydelete(pro_id, (String)session.getAttribute("id"));
+			//pro_team에서만삭제
+			
+		}
+		
+		return "redirect:member/mypage";
+	}
 	
+	@RequestMapping("**/getProName")
+	public @ResponseBody String getProName(String pro_id)
+	{
+		ProjectDTO dto=pservice.proSelect(pro_id);
+		
+		return dto.getPro_name();
+		
+	}
 	@RequestMapping("/isLeader")
 	public String isLeader(HttpSession session) {
 		return "/member/isLeader";
@@ -151,8 +182,9 @@ public class UserController {
 	@RequestMapping("**/mypage")
 	public ModelAndView mypage(ModelAndView mav,HttpSession session)
 	{  
-		
-		UserDTO dto=service.select_mypageProcess(session.getAttribute("id").toString()); //나중에 id 값 session id 값
+		String id=session.getAttribute("id").toString();
+		UserDTO dto=service.select_mypageProcess(id); //나중에 id 값 session id 값
+		mav.addObject("pdto", service.mypage_project(id));
 	String res[] =dto.getId().split("_");
 			dto.setId(res[0]);
 		mav.addObject("dto",dto);

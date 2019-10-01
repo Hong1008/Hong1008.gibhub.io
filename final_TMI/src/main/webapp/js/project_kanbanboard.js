@@ -3,18 +3,18 @@ $(document).ready(function(){
 	$('#schedules_wrap').css('width',width+'px');
 	
 	$('#kanban_right').on('mouseover',function(){
-		  var _scrollX = $('#kanban_wrap').scrollLeft()+30;
+		  var _scrollX = $('#kanban_wrap').scrollLeft()+20;
 		  $('#kanban_wrap').scrollLeft(_scrollX);
 		  $(this).animate({'width':'0px'},10,function(){
-			  $(this).animate({'width':'80px'},10);
+			  $(this).animate({'width':'100px'},10);
 		  });
 	});
 	
 	$('#kanban_left').on('mouseover',function(){
-		  var _scrollX = $('#kanban_wrap').scrollLeft()-30;
+		  var _scrollX = $('#kanban_wrap').scrollLeft()-20;
 		  $('#kanban_wrap').scrollLeft(_scrollX);
 		  $(this).animate({'width':'0px'},10,function(){
-			  $(this).animate({'width':'80px'},10);
+			  $(this).animate({'width':'100px'},10);
 		  });
 	});
 	

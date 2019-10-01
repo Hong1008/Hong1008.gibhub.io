@@ -220,7 +220,7 @@ $(document)
 						$('#selectfilecnt').text("선택된 갯수 : "+ $(".multiDown:checked").length);
 					})
 					tippy('#fileprPreviewModal', {
-						content: '<strong>틀릭 시 종료됩니다.</strong>',
+						content: '<strong>클릭 시 종료됩니다.</strong>',
 						followCursor: true,
 						})
 						//드래그 들어왔을때

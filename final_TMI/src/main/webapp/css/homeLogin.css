@@ -27,10 +27,6 @@
     cursor: pointer;
 }
 
-.project:hover{
-	width: 1170px;
-}
-
 .pro_header {
 	    float: left;
 }

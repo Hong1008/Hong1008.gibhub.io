@@ -114,7 +114,91 @@ label {
 	$(document).ready(			
 			function() {
 				
+			    /* 프로젝트 완료목록 클릭시 이동하는거  */
+				$(".project_success").click(function(){
+					 var form = document.createElement("form");
+			    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
+			    	  form.setAttribute("action", "project/management");
+			    	  $(form).append($(this).children('#pro_id_success'));
+			    	  document.body.appendChild(form);
+			    	  form.submit();
+				})
 				
+				
+				$(".projectDelete").click(function(){
+				
+					  var pro_mgr=$(this).prev().children(".pro_mgr").text();
+					  var form = document.createElement("form");
+			    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
+			    	  form.setAttribute("action", "deleteProject");
+			    	  $(form).append($(this).prev().children('#pro_id_success'));
+			    	  
+				  if($("#sessionId").val()==pro_mgr)
+					  {
+					  
+					  swal({
+						  title: "프로젝트 삭제",
+						  text: "프로젝트가 삭제됩니다",
+						  icon: "warning",
+						  buttons: true,
+						  dangerMode: true,
+						})
+						.then((willDelete) => {
+						  if (willDelete) {
+					    	
+							  
+						 
+							swal("Good job!", "삭제 성공!", "success")
+							.then((value) => {
+								var tf = $('<input type="hidden" value="true" name="tf">');
+								$(form).append(tf);
+								document.body.appendChild(form);
+								
+								  form.submit();
+							});
+						 
+						    
+						    
+						    
+						    
+						  } else {
+							  swal("Warning", "취소 되었습니다.",
+								"error");
+						  }
+						});
+					 
+					    
+					  }
+				  else
+					  {
+					  swal({
+						  title: "프로젝트 탈퇴",
+						  text: "프로젝트에서 탈퇴됩니다",
+						  icon: "warning",
+						  buttons: true,
+						  dangerMode: true,
+						})
+						.then((willDelete) => {
+						  if (willDelete) {
+							  
+							  
+							  swal("Good job!", "탈퇴 성공!", "success")
+								.then((value) => {
+									var tf = $('<input type="hidden" value="false" name="tf">');
+									$(form).append(tf);
+									document.body.appendChild(form);
+									  form.submit();
+								});
+							 
+						  } else {
+							  swal("Warning", "취소 되었습니다.",
+								"error");
+						  }
+						});
+					  }
+					
+					
+				})
 				
 				
 				var skin;
@@ -272,7 +356,21 @@ System.out.println("test.jsp"+root);
 	프로젝트 완료 목록
 	</div>
 	<div>
+	<c:choose>
+	<c:when test="${empty pdto}">
+	프로젝트 완료 목록이없습니다.
+	</c:when>
+	
+	<c:otherwise>
 	<span>프로젝트이름</span> <span>매니저이름</span><span>종료일</span>
+	<c:forEach items="${pdto}" var="pdto">
+		<div class="project_success"><input type="hidden" id="pro_id_success" name="pro_id" value="${pdto.pro_id}"><span>${pdto.pro_name }</span>
+		 <span class="pro_mgr">${pdto.pro_mgr }</span><span>${pdto.pro_rend}</span></div><input type="button" class="projectDelete" value="삭제"/>
+		 
+	</c:forEach>
+	</c:otherwise>
+	</c:choose>
+	
 	
 	</div>
 	
