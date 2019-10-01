@@ -383,14 +383,13 @@ border-bottom: 1px solid #1b1b1b;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 100;
     height: 40px;
-    width: 600px;
     margin: 0 auto;
     margin-top: 15px;
 }
 
 .mypage_projectName {
 display: inline-block;
-    width: 110px;
+    width: 199px;
     text-align: center;
     padding-top: 1px;
     height: 29px;
@@ -406,9 +405,9 @@ display: inline-block;
 }
 
 .pro_mgr {
-	width: 120px;
     display: inline-block;
-    text-align: center;
+    padding: 0 5px;
+    width: 455px;
 }
 
 .mypage_projectEnd {
@@ -432,13 +431,12 @@ display: inline-block;
 
 .pro_mgrt{
     display: inline-block;
-    margin-left: 19px;
+    margin-left: 23px;
     border-right: 1px solid #b7b7b7;
     padding-right: 5px;
     height: 26px;
     padding-top: 3px;
     margin-top: 6px;
-
 }
 .mypage_projectEndt{
 display: inline-block;

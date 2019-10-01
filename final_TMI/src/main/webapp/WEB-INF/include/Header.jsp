@@ -46,37 +46,23 @@ $(document).on("click","#btn_yes",function(){
 	 var pro_name=$(this).prev().prev().prev().prev().val();//프로젝트이름
 	 var result;
 	$.ajax({
-
 	    url: "notifi_yes", 
 	    traditional : true,
 	    data: { "id":noti_id , //초대보낸사람
 	            	"pro_id":pro_id, //pro_id
 	            	"noti_id":sessionUId //받은사람
-	            	
-	    },               
-
-	    type: "post",                            
-
+	    },              
+	    type: "post",
 	    dataType: "text",
 	    success:function(res)
-	    {
-	    	
-	
-	    	 
-	    	 
+	    {	    	 
 	    	 swal("Good job!", "팀에 가입했습니다!", "success")
 				.then((value) => {
 					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
 					location.href="home";
-				});
-		    	
+				});		    	
         }
-	 
-
-	}
-	  
-	)
-	
+	})	
 	//socket send해줘야됨 no에도 
 	/*
 	  1. yes 눌렀을때
@@ -91,8 +77,7 @@ $(document).on("click","#btn_yes",function(){
 	     4. invite
 	     초대 보냄
 	*/
-	$(this).parent().css("display","none"); 
-	
+	$(this).parent().css("display","none"); 	
 })	
 
 $(document).on("click","#btn_no",function(){
@@ -141,9 +126,6 @@ $(document).on("click","#btn_no",function(){
 	
 })	
 });
-	
-
-
 function connectWS() {
     console.log("tttttttttttttt")
     var ws = new WebSocket("ws://localhost:8090/tmi/count");
@@ -154,26 +136,19 @@ function connectWS() {
         ws.send("open,");
     };
 
-    ws.onmessage = function (event) {
-      
-    	var res = event.data.split(",");	
-    	
+    ws.onmessage = function (event) {      
+    	var res = event.data.split(",");	    	
    	$('#header_notiCount').text(res[0]);
    	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no" || res[1]=="delete")
    		{
    		$("#header_notiNum").append(res[2]);
-   		}
-   	
-   	else
-   		{
+   		}   	
+   	else{
    		for(var i=1;i<res.length;i++)
    			{
    			$("#header_notiNum").append(res[i]);
-   			}
-   		   
-   		}
-   
-   	
+   			}  		   
+   		}      	
    /* 	header_notiNum */
         /* console.log("ReceiveMessage:", event.data+'\n');
         let $socketAlert = $('div#socketAlert');
@@ -191,13 +166,7 @@ function connectWS() {
     };
     ws.onerror = function (err) { console.log('Error:', err); };
 }
-
-
-
-
-</script>  
-
-
+</script> 
 <%-- </security:authorize> --%>
 
 
@@ -231,34 +200,25 @@ $(document).ready(function(){
 		skin.addClass(sessionTheme);	
 		}
 	
-	$(document).on("click","#notification_deleteBtn",function(){
-		
+	$(document).on("click","#notification_deleteBtn",function(){		
 		var noti_id=$(this).prev().prev().val();     //받은사람
 		var pro_id= $(this).prev().val();    //pro_id
 		var header_notiCount=$("#header_notiCount").text();
 		var this_click=$(this);
 		$.ajax({
-
 		    url: "notiDelete",
-
 		    data: { "noti_id": noti_id,
-		    	     "pro_id":pro_id},                
-
-		    type: "POST",                            
-		    
+		    	     "pro_id":pro_id},
+		    type: "POST",  
 		    dataType: "text" ,
 		    success:function(res)
 		    {
 		    	$(this_click).parent().css("display","none");
 		    	$("#header_notiCount").text(header_notiCount-1);
 		    	alert(res);
-		    	
-		    }
-
-		})
-			
-	})
-	
+		    	}
+		})			
+	})	
 })
 
 </script>
