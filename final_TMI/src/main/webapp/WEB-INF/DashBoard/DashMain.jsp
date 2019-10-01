@@ -63,30 +63,22 @@ $(document).ready(function(){
     })  
 	
 	//graph test start
-    var sum1 = parseInt($('#wk10').val())+ parseInt($('#wk20').val())+ parseInt($('#wk30').val())+parseInt($('#wk40').val());     
-    var sum2 = parseInt($('#wk11').val())+ parseInt($('#wk21').val())+ parseInt($('#wk31').val())+parseInt($('#wk41').val());
+    var sum1 = parseInt($('#wk1').val())+ parseInt($('#wk2').val())+ parseInt($('#wk3').val())+parseInt($('#wk4').val());     
+    /* var sum2 = parseInt($('#wk11').val())+ parseInt($('#wk21').val())+ parseInt($('#wk31').val())+parseInt($('#wk41').val()); */
     
-	 var data= [{ name:$('#wk50').val(),
+	 var data= [{ name:"프로젝트",
 		  data:[
-			    {value:Math.floor(parseInt($('#wk10').val())/sum1*100), date:month+"/"+(day-5)+"/"+year},
-			    {value:Math.floor(parseInt($('#wk20').val())/sum1*100), date:month+"/"+(day-10)+"/"+year},
-			    {value:Math.floor(parseInt($('#wk30').val())/sum1*100), date:month+"/"+(day-15)+"/"+year},
-			    {value:Math.floor(parseInt($('#wk40').val())/sum1*100), date:month+"/"+(day-20)+"/"+year}    
+			    {value:Math.floor(parseInt($("#wk1").val())/sum1*100), date:month+"/"+(day-5)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk2").val())/sum1*100), date:month+"/"+(day-10)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk3").val())/sum1*100), date:month+"/"+(day-15)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk4").val())/sum1*100), date:month+"/"+(day-20)+"/"+year}    
 			    ]
-			  },
-			  { name:$('#wk51').val(),
-			  data:[
-				  {value:Math.floor(parseInt($('#wk11').val())/sum2*100), date:month+"/"+(day-5)+"/"+year},
-				  {value:Math.floor(parseInt($('#wk21').val())/sum2*100), date:month+"/"+(day-10)+"/"+year},
-				  {value:Math.floor(parseInt($('#wk31').val())/sum2*100), date:month+"/"+(day-15)+"/"+year},
-			      {value:Math.floor(parseInt($('#wk41').val())/sum2*100), date:month+"/"+(day-20)+"/"+year}    
-			    ]
-			  }
+			  } 
 		  ]
 		 // Multiple lines
 	     options={
 	       height: 150,
-	       width: 840,
+	       width: 700,
 	     }
 	  
 	   $("#multi").pista(data, options);
@@ -136,12 +128,12 @@ $(document).ready(function(){
  <input type="hidden" id="donut_bfdead" value="${te.donut_bfdead}" />
  <input type="hidden" id="donut_afdead" value="${te.donut_afdead}" />
 </c:forEach>
-<c:forEach var="te" items="${graphlist}" begin="0" end="1" varStatus = "status">
-	<input type="hidden" id="wk1${status.index}" value="${te.wk1}" />
-	<input type="hidden" id="wk2${status.index}" value="${te.wk2}" />
-	<input type="hidden" id="wk3${status.index}" value="${te.wk3}" />
-	<input type="hidden" id="wk4${status.index}" value="${te.wk4}" />
-	<input type="hidden" id="wk5${status.index}" value="${te.pid}" />
+
+<c:forEach var="te" items="${graphlist}">
+	<input type="hidden" id="wk1" value="${te.wk1}" />
+	<input type="hidden" id="wk2" value="${te.wk2}" />
+	<input type="hidden" id="wk3" value="${te.wk3}" />
+	<input type="hidden" id="wk4" value="${te.wk4}" />
 </c:forEach>      
       <!--  modal 버튼  -->
 
@@ -245,19 +237,19 @@ $(document).ready(function(){
       <!--두번째 틀  -->
       <div class="board_second">
          <!--  두번째 안에 6개 -->
-         <div class="board_chart1">
+         <div class="secondBoardinner">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme w3-large">
-                    프로젝트 진행률 (곡선그래프)
+                            프로젝트 진행률
           </div>
           </div>
           <div id="multi"></div>  
          </div>
          
-         <div class="board_chart2">
+         <div class="secondBoardinner">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme  w3-large">
-                팀원별 기여도 (가로 막대차트) 
+                           팀원별 기여도 (가로 막대차트) 
           </div>
           </div>
          
@@ -278,28 +270,6 @@ $(document).ready(function(){
                      </div>
                  </c:forEach>
                  
-                 <div class="skillbar sass" style="height:5%;">
-                       <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">jjjj</span>
-                       <span class="percent w3-small">30</span>
-                     </div>
-                     
-                     <div class="skillbar css" style="height:5%;">
-                       <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">tim3</span>
-                       <span class="percent w3-small">50</span>
-                     </div>
-                     
-                     <div class="skillbar js" style="height:5%;">
-                       <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">tim4</span>
-                       <span class="percent w3-small">50</span>
-                     </div>
-                     <div class="skillbar html" style="height:5%;">
-                       <div class="filled" data-width="15%"></div>
-                       <span class="title w3-small">tim4</span>
-                       <span class="percent w3-small">50</span>
-                     </div>
                
 <!--                      <div class="skillbar css" style="height:5%;">
                        <span class="title w3-small">ㅎㅎㅎㅎ</span>
@@ -331,40 +301,39 @@ $(document).ready(function(){
          </div>
          
          <!----차트3 다가올 일정 ---->
-         <div class="board_chart3" style="float: left;">
-         
-            <div class="verticalCarousel1">
-            <div class="verticalCarouselHeader ">
-                <h3 class="w3-theme  w3-large"> 다가올 일정</h3>
-                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
-                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
-            </div>
-            <ul class="verticalCarouselGroup vc_list">
-           		<c:forEach var="comlist" items="${comlist}">
-               <li>
-                    <p class="w3-small" style="font-weight: bold;"><a href="#">${comlist.sch_name}</a>
-                    <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${comlist.sch_start} ~ ${comlist.sch_end} 
-                    </span>
-                    </p>
-                </li>
-                </c:forEach>
-            </ul>
+         <div class="secondBoardinner">
+	            <div class="verticalCarousel1">
+	            <div class="verticalCarouselHeader ">
+	                <h3 class="w3-theme  w3-large"> 다가올 일정</h3>
+	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
+	            </div>
+	            <ul class="verticalCarouselGroup vc_list">
+	           		<c:forEach var="comlist" items="${comlist}">
+	               	 <li>
+	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${comlist.sch_name}</a>
+	                    <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${comlist.sch_start} ~ ${comlist.sch_end} 
+	                    </span>
+	                    </p>       	
+	                </li>
+	                </c:forEach>
+	            </ul>
+	       		</div>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+	        <script>
+	            $(".verticalCarousel1").verticalCarousel({
+	                currentItem: 1,
+	                showItems: 4,
+	            });
+	        </script>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel1").verticalCarousel({
-                currentItem: 1,
-                showItems: 4,
-            });
-        </script>
-            </div>
             
             <!--차트 6 도넛 그래프   -->
-         <div class="board_chart6">
+         <div class="secondBoardinner">
           <div class="verticalCarouselHeader">
             <div class="w3-container w3-theme w3-large">
-                   나의 배정 업무 
+               	    나의 배정 업무 
           </div>
           </div>
            <!--  <svg id="svg" style="height: 80%;"></svg> -->
@@ -382,39 +351,37 @@ $(document).ready(function(){
          </div>
          <!---- 차트 4 최근 일정 목록---->
          
-         <div class="board_chart4"  style="float: left; ">
-         
-            <div class="verticalCarousel2">
-            <div class="verticalCarouselHeader ">
-                <h3 class="w3-theme w3-large"> 최근(등록)일정 목록</h3>
-                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
-                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
-            </div>
-            <ul class="verticalCarouselGroup vc_list">
-           		<c:forEach var="reList" items="${relist}">
-                <li>
-                    <p class="w3-small" style="font-weight: bold;"><a href="#">${reList.sch_name}</a>
-                     <span class="datediv w3-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${reList.sch_start} ~ ${reList.sch_end} 
-                    </span>
-                    </p>
-                     <span class="w3-small" style="color: gray;">${reList.id}</span>
-                </li>
-				</c:forEach>
-            </ul>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel2").verticalCarousel({
-                currentItem: 1,
-                showItems: 4,
-            });
-        </script>
-            </div>
+         <div class="secondBoardinner">
+	            <div class="verticalCarousel2">
+	            <div class="verticalCarouselHeader ">
+	                <h3 class="w3-theme w3-large"> 최근(등록)일정 목록</h3>
+	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
+	            </div>
+	            <ul class="verticalCarouselGroup vc_list">
+	           		<c:forEach var="reList" items="${relist}">
+	                <li>
+	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${reList.sch_name}</a>
+	                     <span class="datediv w3-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${reList.sch_start} ~ ${reList.sch_end} 
+	                    </span>
+	                    </p>
+	                     <span class="w3-small" style="color: gray;">${reList.id}</span>
+	                </li>
+					</c:forEach>
+	            </ul>
+	       		</div>
+		        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+		        <script>
+		            $(".verticalCarousel2").verticalCarousel({
+		                currentItem: 1,
+		                showItems: 4,
+		            });
+		        </script>
+         </div>
             
             <!--  차트5 타임라인-->
-           <div class="board_chart5">
-            
+           <div class="secondBoardinner">
             <div class="verticalCarousel3">
             <div class="verticalCarouselHeader ">
                 <h3 class="w3-theme  w3-large"> 타임라인</h3>
@@ -430,30 +397,21 @@ $(document).ready(function(){
                 </li>
                 </c:forEach>
             </ul>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel3").verticalCarousel({
-                currentItem: 1,
-                showItems: 3,
-            });
-        </script>
-        
-        
-        
-            </div>
-         
+       	    </div>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+	        <script>
+	            $(".verticalCarousel3").verticalCarousel({
+	                currentItem: 1,
+	                showItems: 3,
+	            });
+	        </script>   
+            </div>         
         <!--  modal 버튼 -->
-                 
-                 
+                             
         </div><!--두번째틀 끝 -->    
       </div> <!--  전체틀 끝 -->
       
-      
-
-      
-
 <script src="../js/Dash_jquery.pista.min.js"></script> <!-- 곡선그래프 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../js/Dash_an-skill-bar.js"></script>

@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +74,8 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 	
 	@Override
-	public List<DashDTO> graphProcess(String id) {
-		return mapper.graphlist(id);
+	public List<DashDTO> graphProcess(HashMap<String, String> map) {
+		return mapper.graphlist(map);
 	}
 	
 }
