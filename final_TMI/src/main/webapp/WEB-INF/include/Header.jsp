@@ -282,7 +282,7 @@ $(document).ready(function(){
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="login" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
 			<c:set var="mypage" value="/tmi/WEB-INF/member/mypage.jsp" />
-        	<c:if test="${(fn:trim(URI)!=login || fn:trim(URI)!=mypage) && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
+        	<c:if test="${(fn:trim(URI)!=login && fn:trim(URI)!=mypage) && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
         		<div class="center">
         		
        			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">

@@ -130,14 +130,13 @@ label {
 				})
 				
 				
-				$(".projectDelete").click(function(){
+				$(".mypage_projectDelete").click(function(){
 				
-					  var pro_mgr=$(this).prev().children(".pro_mgr").text();
+					  var pro_mgr=$(this).prevAll("#pro_mgr").val();
 					  var form = document.createElement("form");
 			    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
 			    	  form.setAttribute("action", "deleteProject");
-			    	  $(form).append($(this).prev().children('#pro_id_success'));
-			    	  
+			    	  $(form).append($(this).prevAll('#pro_id_success'));
 				  if($("#sessionId").val()==pro_mgr)
 					  {
 					  
@@ -621,12 +620,13 @@ display: inline-block;
 										</c:otherwise>
 									</c:choose>
 									<span class='pro_mgrt'>매니저</span>
-									<span class="pro_mgr">${pdto.pro_mgr }</span>
+									<input type="hidden" id="pro_mgr" value="${pdto.pro_mgr }">
+									<span class="pro_mgr">${pdto.name }</span>
 									<span
 										class='mypage_projectEndt'>종료일</span>
 									<span
-										class='mypage_projectEnd'>${pdto.pro_rend}</span> <input
-										type="button" class="mypage_projectDelete" value="삭제" />
+										class='mypage_projectEnd'>${pdto.pro_rend}</span> 
+									<input type="button" class="mypage_projectDelete" value="삭제" />
 								</div>
 							</c:forEach>
 						</div>
