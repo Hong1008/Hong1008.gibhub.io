@@ -16,6 +16,7 @@
 	rel="stylesheet">
 
 <div class='filterBox' style="display: none;">
+
 	<label class="container">프로젝트 <input type="checkbox"
 		class="filterType" value="p" checked="checked"> <span
 		class="checkmark"></span>

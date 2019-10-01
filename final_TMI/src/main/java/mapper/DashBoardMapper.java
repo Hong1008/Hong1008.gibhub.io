@@ -1,5 +1,6 @@
 package mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dto.DashDTO;
@@ -31,6 +32,6 @@ public interface DashBoardMapper {
 	// 배경화면
 	public void bgChange(DashDTO DTO);
 	//그래프
-	public List<DashDTO> graphlist(String id);
+	public List<DashDTO> graphlist(HashMap<String, String> map);
 	
 }
