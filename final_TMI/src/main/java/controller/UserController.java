@@ -179,7 +179,7 @@ public class UserController {
 		return result;
 	}
 	//test
-	@RequestMapping("**/mypage")
+	@RequestMapping("/mypage")
 	public ModelAndView mypage(ModelAndView mav,HttpSession session)
 	{  
 		String id=session.getAttribute("id").toString();

@@ -46,7 +46,7 @@ $(document).ready(function(){
     
     $(".header_mypage").click(function(){
     	
-    	location.href="mypage";
+    	location.href="/tmi/mypage";
     	
     })
     //select 디자인 및 동작********************************************

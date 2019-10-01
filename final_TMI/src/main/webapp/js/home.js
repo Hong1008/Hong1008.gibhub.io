@@ -162,6 +162,12 @@ $(document).ready(function(){
 	$('.btn').click(function(e){
 		e.preventDefault();
 		this.blur();
+		if(!$.modal.isActive()){
+			$('.modal input').each(function(i,v){
+				if($(v).attr('type')=='text')
+					$(v).val('');
+			})
+		}
 		$('.modal').modal({
 			escapeClose: false,
 			clickClose: false

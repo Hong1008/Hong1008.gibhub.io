@@ -166,7 +166,7 @@ public class ManageController {
 		
 		service.rendSetProcess(dto);
 		
-		return "redirect:/setting/main";
+		return "redirect:/home";
 	}
 		
 	
