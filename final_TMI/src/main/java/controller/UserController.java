@@ -101,7 +101,7 @@ public class UserController {
 			
 		}
 		
-		return "redirect:member/mypage";
+		return "redirect:/mypage";
 	}
 	
 	@RequestMapping("**/getProName")

@@ -112,7 +112,7 @@ insert into notification values(noti_seq_no.nextval,#{id},#{pro_id},#{state},#{n
 
 <!-- mypgae_프로젝트완료목록  -->
 <select id="mypage_project" parameterType="string" resultType="dto.ProjectDTO">
-select p.* from project p,pro_team pt where p.pro_id=pt.pro_id and pro_rend is not null and pt.id=#{id}
+select p.pro_id,  to_char(pro_rend,'yyyy-MM-dd') pro_rend, pro_name, pro_mgr, m.name from project p,pro_team pt, member m where p.pro_id=pt.pro_id and p.pro_mgr = m.id and pro_rend is not null and pt.id=#{id}
 </select>
 
 <delete id="project_delete" parameterType="string">
