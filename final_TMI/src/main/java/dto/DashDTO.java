@@ -11,6 +11,8 @@ public class DashDTO {
 	private String sch_end; // 일정 마감일
 	private String sch_mgr; //일정 작성자
 	private String bgsel; // background color pick
+	private String tl_content; //타임라인 내용
+	private String tl_type; //타임라인 타입
 	private int total; // top5 list
 	private int donut_comp; //도넛그래프 완료
 	private int donut_haveto; //해야할 일
@@ -24,6 +26,32 @@ public class DashDTO {
 
 	public DashDTO() {
 	}
+	
+	
+
+	public String getTl_type() {
+		return tl_type;
+	}
+
+
+
+	public void setTl_type(String tl_type) {
+		this.tl_type = tl_type;
+	}
+
+
+
+	public String getTl_content() {
+		return tl_content;
+	}
+
+
+
+	public void setTl_content(String tl_content) {
+		this.tl_content = tl_content;
+	}
+
+
 
 	public int getWk1() {
 		return wk1;

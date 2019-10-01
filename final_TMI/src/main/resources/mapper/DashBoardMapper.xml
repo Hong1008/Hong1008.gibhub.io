@@ -119,13 +119,18 @@
 	<!--타임라인 일정 목록  -->
 	<resultMap type="dto.DashDTO" id="tList">
 		<result javaType="string" column="tl_id" property="tl_id" />
+		<result javaType="string" column="tl_type" property="tl_type" />
 		<result javaType="string" column="tl_info" property="tl_info" />
 		<result javaType="string" column="id" property="id" />
+		<result javaType="string" column="tl_content" property="tl_content" />
 	</resultMap> 
 	<select id="timelist" parameterType="string" resultMap="tList">
-		<!-- select * from timeline where pro_id=#{pro_id} order by TL_TIME desc -->
-		select DISTINCT(tl.tl_id) tl_id,tl.tl_info tl_info,td.id id from timeline tl, schedule sc,todo td 
-		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id and td.id=#{id} order by tl.tl_id desc
+		select DISTINCT(tl.tl_id) tl_id,
+        decode(tl_type,'time_sch','스케쥴','time_todo','할일','time_mem','멤버','time_file','파일') tl_type,
+        decode(tl_info,'time_start','생성','time_end','종료','time_add','가입','time_remove','탈퇴','time_up','업로드') tl_info,
+        td.id id,tl.tl_content tl_content
+        from timeline tl, schedule sc,todo td 
+		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id  and td.id=#{id} order by tl.tl_id desc
 	</select>
 	
 	<update id="bgChange" parameterType="dto.DashDTO">
