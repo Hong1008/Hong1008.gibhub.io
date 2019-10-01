@@ -98,23 +98,18 @@ $(document).ready(function(){
 	  var bgsel = $('#bgsel').attr('style').substring(48,52);
 	  //console.log(bgsel + " asd");
 	  window.location.href="/tmi/DashBoard/DashChange?bgsel="+bgsel;
-	  
-/* 	   $.ajax({
-		    url: 'DashChange' // 요청 할 주소
-		    type: 'POST' // GET, PUT
-		    data: { bgColor: 'ajax'}, // 전송할 데이터
-		    dataType: 'text', // xml, json, script, html
-		    success: function(jqXHR) {}, // 요청 완료 시
-		}) */
-
    });
+
+	
+    $('img[alt="nullimg"]').click(function(){
+		alert("asd");
+    })	
+    
+   	 $('img[alt="nullimg"]').attr("src","../resources/Dash_images/result_null.png");
+     $('img[alt="nullimg"]').css("width","100%").css("height","100%");
 
    
 });
-
-
-
-
 
 </script>
 
@@ -248,7 +243,7 @@ $(document).ready(function(){
            <c:forEach var="sum" items="${graphlist}" >
 	       <c:set var ="gptotal" value="${gptotal + sum.wk1 + sum.wk2 + sum.wk3 + sum.wk4}" />
            </c:forEach> 
-		  <c:if test="${gptotal==0}">내용이 없습니다</c:if>
+		  <c:if test="${gptotal==0}"> <img src="" alt="nullimg"></c:if>
           <c:if test="${gptotal!=0}">
           <div id="multi"></div> 
           </c:if>
@@ -270,7 +265,7 @@ $(document).ready(function(){
 	               <c:set var="numset" value="${st.count}" />
                </c:forEach>
                
-               <c:if test="${numset != 5}" >기여도 목록이 없습니다</c:if>
+               <c:if test="${numset != 5}" ><img src="" alt="nullimg"></c:if>
                <c:if test="${numset == 5}">
                 <c:forEach var="toplist" items="${topList}" end="4">
                      <div class="skillbar" style="height:5%;">
@@ -298,7 +293,7 @@ $(document).ready(function(){
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
 	            </div>
 	                 
-	            <c:if test="${empty comlist}">다가올 일정이 없습니다</c:if>
+	            <c:if test="${empty comlist}"><img src="" alt="nullimg"></c:if>
 	            <c:if test="${!empty comlist}">
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="comlist" items="${comlist}">
@@ -336,7 +331,7 @@ $(document).ready(function(){
            <c:forEach var="sum" items="${donut}" >
 	       <c:set var ="dntotal" value="${dntotal + sum.donut_comp + sum.donut_haveto + sum.donut_bfdead + sum.donut_afdead}" />
            </c:forEach> 
-		   <c:if test="${dntotal == 0 }">배정 업무가 없습니다</c:if>
+		   <c:if test="${dntotal == 0 }"><img src="" alt="nullimg"></c:if>
            <c:if test="${dntotal != 0}">
             <div class="boxsize">  
             <div id="dashDonut" style="width: 90%;height: 80%; position: static; float: left; margin-top: 20px;"></div>
@@ -358,7 +353,7 @@ $(document).ready(function(){
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
 	            </div>
 	            
-	            <c:if test="${empty relist}">최근 등록 일정이 없습니다</c:if>
+	            <c:if test="${empty relist}"><img src="" alt="nullimg"></c:if>
 	            <c:if test="${!empty relist}">
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="reList" items="${relist}">
@@ -391,7 +386,7 @@ $(document).ready(function(){
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
             
-            <c:if test="${empty timelist}">최근 등록 일정이 없습니다</c:if>
+            <c:if test="${empty timelist}"><img src="" alt="nullimg"></c:if>
             <c:if test="${!empty timelist}">
             <ul class="verticalCarouselGroup vc_list">
                 <c:forEach var="tmList" items="${timelist}">
