@@ -112,7 +112,6 @@ public class ManageController {
 	@RequestMapping("/addMember")	
 	public String memberAdd(HttpSession session, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String pro_id= (String) session.getAttribute("pro_id");
-		
 		//noti로 insert
 		NotiDTO dto= new NotiDTO();
 		for(int i=0; i<pro_team_list.size();i++)
