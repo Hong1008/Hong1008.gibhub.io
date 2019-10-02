@@ -27,8 +27,12 @@ $(document).ready(function(){
 		  $('#header_notiNum').hide();
 		}
 	
-	  $('#header_notification').on('click',function(){
-		  $('#header_notiNum').show();
+	  $('#header_notification, #header_notiCount').on('click',function(){
+		  if($("#header_notiNum").css("display") == "none"){
+			    $("#header_notiNum").show();
+			} else {
+			    $("#header_notiNum").hide();
+			}
 	  })
 	  
 	  $('.header_singIn').on('click',function(){
