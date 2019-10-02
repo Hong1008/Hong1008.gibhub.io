@@ -69,10 +69,10 @@
 [data-tooltip].simptip-position-bottom.half-arrow:before {
   border-right: 7px solid #323232;
 }
-[data-tooltip]:hover, [data-tooltip]:focus {
+[data-tooltip], [data-tooltip]:focus {
   background-color: transparent;
 }
-[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after {
+[data-tooltip]:before, [data-tooltip]:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after {
   opacity: 1;
   visibility: visible;
 }
@@ -124,7 +124,7 @@
 .simptip-position-right.simptip-movable:after {
   margin-left: 2px;
 }
-.simptip-position-right.simptip-movable:hover:before, .simptip-position-right.simptip-movable:hover:after {
+.simptip-position-right.simptip-movable:before, .simptip-position-right.simptip-movable:after {
   -webkit-transform: translateX(10px);
   -moz-transform: translateX(10px);
   -ms-transform: translateX(10px);
@@ -134,7 +134,7 @@
 .simptip-position-right.simptip-movable.half-arrow:before {
   margin-left: -5px;
 }
-.simptip-position-right.simptip-movable.simptip-multiline:hover:before, .simptip-position-right.simptip-movable.simptip-multiline:hover:after {
+.simptip-position-right.simptip-movable.simptip-multiline:before, .simptip-position-right.simptip-movable.simptip-multiline:after {
   -webkit-transform: translate(10px, 50%);
   -moz-transform: translate(10px, 50%);
   -ms-transform: translate(10px, 50%);
@@ -161,7 +161,7 @@
 .simptip-position-left.simptip-movable:after {
   margin-right: 2px;
 }
-.simptip-position-left.simptip-movable:hover:before, .simptip-position-left.simptip-movable:hover:after {
+.simptip-position-left.simptip-movable:before, .simptip-position-left.simptip-movable:after {
   -webkit-transform: translateX(-10px);
   -moz-transform: translateX(-10px);
   -ms-transform: translateX(-10px);
@@ -171,7 +171,7 @@
 .simptip-position-left.simptip-movable.half-arrow:before {
   margin-right: -5px;
 }
-.simptip-position-left.simptip-movable.simptip-multiline:hover:before, .simptip-position-left.simptip-movable.simptip-multiline:hover:after {
+.simptip-position-left.simptip-movable.simptip-multiline:before, .simptip-position-left.simptip-movable.simptip-multiline:after {
   -webkit-transform: translate(-10px, 50%);
   -moz-transform: translate(-10px, 50%);
   -ms-transform: translate(-10px, 50%);
@@ -208,7 +208,7 @@
 .simptip-position-bottom:after {
   margin-top: 7px;
 }
-.simptip-position-bottom:hover:before, .simptip-position-bottom:hover:after {
+.simptip-position-bottom:before, .simptip-position-bottom:after {
   -webkit-transform: translate(-50%, 0);
   -moz-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
@@ -221,7 +221,7 @@
 .simptip-position-bottom.simptip-movable:after {
   margin-top: -3px;
 }
-.simptip-position-bottom.simptip-movable:hover:before, .simptip-position-bottom.simptip-movable:hover:after {
+.simptip-position-bottom.simptip-movable:before, .simptip-position-bottom.simptip-movable:after {
   -webkit-transform: translate(-50%, 10px);
   -moz-transform: translate(-50%, 10px);
   -ms-transform: translate(-50%, 10px);
@@ -245,7 +245,7 @@
 .simptip-position-top:after {
   margin-bottom: 7px;
 }
-.simptip-position-top:hover:before, .simptip-position-top:hover:after {
+.simptip-position-top:before, .simptip-position-top:after {
   -webkit-transform: translate(-50%, 0px);
   -moz-transform: translate(-50%, 0px);
   -ms-transform: translate(-50%, 0px);
@@ -258,7 +258,7 @@
 .simptip-position-top.simptip-movable:after {
   margin-bottom: -3px;
 }
-.simptip-position-top.simptip-movable:hover:before, .simptip-position-top.simptip-movable:hover:after {
+.simptip-position-top.simptip-movable:before, .simptip-position-top.simptip-movable:after {
   -webkit-transform: translate(-50%, -10px);
   -moz-transform: translate(-50%, -10px);
   -ms-transform: translate(-50%, -10px);
