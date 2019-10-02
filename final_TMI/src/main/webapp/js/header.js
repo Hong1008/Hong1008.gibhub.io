@@ -27,8 +27,12 @@ $(document).ready(function(){
 		  $('#header_notiNum').hide();
 		}
 	
-	  $('#header_notification').on('click',function(){
-		  $('#header_notiNum').show();
+	  $('#header_notification, #header_notiCount').on('click',function(){
+		  if($("#header_notiNum").css("display") == "none"){
+			    $("#header_notiNum").show();
+			} else {
+			    $("#header_notiNum").hide();
+			}
 	  })
 	  
 	  $('.header_singIn').on('click',function(){
@@ -85,44 +89,6 @@ $(document).ready(function(){
 		  $(this).parents(".custom-select").removeClass("opened");
 		  $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 		  var pro_id = $(this).attr('data-value');
-	  	  //location.replace("/tmi/project/management?sessionChange=true&pro_id="+pro_id);
 		  location.replace("?proIdChange=true&chg_pro_id="+pro_id);
 	});
-	//select 디자인 및 동작 끝********************************************
-		
-		/*$('#header').on('click',function(){
-			var skin = $('.tmi_skin');
-			if(skin.eq(0).hasClass('tmi_skin1')){
-				skin.removeClass('tmi_skin1');
-				skin.addClass('tmi_skin2');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin2')){
-				skin.removeClass('tmi_skin2');
-				skin.addClass('tmi_skin3');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin3')){
-				skin.removeClass('tmi_skin3');
-				skin.addClass('tmi_skin4');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin4')){
-				skin.removeClass('tmi_skin4');
-				skin.addClass('tmi_skin5');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin5')){
-				skin.removeClass('tmi_skin5');
-				skin.addClass('tmi_skin6');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin6')){
-				skin.removeClass('tmi_skin6');
-				skin.addClass('tmi_skin7');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin7')){
-				skin.removeClass('tmi_skin7');
-				skin.addClass('tmi_skin8');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin8')){
-				skin.removeClass('tmi_skin8');
-				skin.addClass('tmi_skin9');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin9')){
-				skin.removeClass('tmi_skin9');
-				skin.addClass('tmi_skin10');				
-			}else 	if(skin.eq(0).hasClass('tmi_skin10')){
-				skin.removeClass('tmi_skin10');
-				skin.addClass('tmi_skin1');				
-			}		
-			
-		})*/
 })

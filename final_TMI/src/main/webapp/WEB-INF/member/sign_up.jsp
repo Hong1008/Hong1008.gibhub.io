@@ -38,10 +38,36 @@
 
 						animateDivers();
 						var id = false;
+						if($("#signUpEmail").val()!="")
+							{
+							if ($("#signUpEmail").val() != "") {
+								$.ajax({
+
+									url : "id_test?id="
+											+ $("#signUpEmail").val(),
+									type : "get",
+									async : false,
+									success : function(res) {
+										if (res == 1) {
+											id = false;
+											alert("중복검사 통과 x");
+
+										} else {
+											id = true;
+											alert("중복 검사 통과 o");
+										}
+									}
+
+								})
+							}
+							}
+						
 						$("#signUpEmail").on(
 								"blur",
 								function() {
 
+									if($("#signUpEmail").val()!="")
+									{
 									if ($("#signUpEmail").val() != "") {
 										$.ajax({
 
@@ -61,6 +87,7 @@
 											}
 
 										})
+									}
 									}
 
 								})

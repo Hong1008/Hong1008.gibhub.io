@@ -98,23 +98,18 @@ $(document).ready(function(){
 	  var bgsel = $('#bgsel').attr('style').substring(48,52);
 	  //console.log(bgsel + " asd");
 	  window.location.href="/tmi/DashBoard/DashChange?bgsel="+bgsel;
-	  
-/* 	   $.ajax({
-		    url: 'DashChange' // 요청 할 주소
-		    type: 'POST' // GET, PUT
-		    data: { bgColor: 'ajax'}, // 전송할 데이터
-		    dataType: 'text', // xml, json, script, html
-		    success: function(jqXHR) {}, // 요청 완료 시
-		}) */
-
    });
+
+	
+    $('img[alt="nullimg"]').click(function(){
+		alert("asd");
+    })	
+    
+   	 $('img[alt="nullimg"]').attr("src","../resources/Dash_images/result_null.png");
+     $('img[alt="nullimg"]').css("width","100%").css("height","100%");
 
    
 });
-
-
-
-
 
 </script>
 
@@ -243,24 +238,37 @@ $(document).ready(function(){
                             프로젝트 진행률
           </div>
           </div>
-          <div id="multi"></div>  
+
+           <c:set var = "gptotal" value="0" />
+           <c:forEach var="sum" items="${graphlist}" >
+	       <c:set var ="gptotal" value="${gptotal + sum.wk1 + sum.wk2 + sum.wk3 + sum.wk4}" />
+           </c:forEach> 
+		  <c:if test="${gptotal==0}"> <img src="" alt="nullimg"></c:if>
+          <c:if test="${gptotal!=0}">
+          <div id="multi"></div> 
+          </c:if>
          </div>
          
          <div class="secondBoardinner">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme  w3-large">
-                           팀원별 기여도 (가로 막대차트) 
+                           팀원별 기여도
           </div>
           </div>
          
             <div class="container" >
                <div id="skill">
                <c:set var = "total" value="0" />
-               <c:forEach var="sum" items="${topList}" >
-               	<c:set var ="total" value="${total + sum.total}"></c:set>
+               <c:set var="numset" />  
+               <c:forEach var="sum" items="${topList}" varStatus="st">
+               	<c:set var ="total" value="${total + sum.total}" />      	   
+	               <c:set var="numset" value="${st.count}" />
                </c:forEach>
+               
+               <c:if test="${numset != 5}" ><img src="" alt="nullimg"></c:if>
+               <c:if test="${numset == 5}">
                 <c:forEach var="toplist" items="${topList}" end="4">
-                     <div class="skillbar php" style="height:5%;">
+                     <div class="skillbar" style="height:5%;">
                        <div class="filled" data-width="${toplist.total/total*100}%"></div>
                        <span class="title w3-small">${toplist.id}</span>
                        <span class="percent w3-small">
@@ -269,33 +277,9 @@ $(document).ready(function(){
                        </span>           
                      </div>
                  </c:forEach>
-                 
-               
-<!--                      <div class="skillbar css" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">20%</span>
-                       <div class="filled" data-width="20%"></div>
-                     </div>
-               
-                     <div class="skillbar js" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">30%</span>
-                       <div class="filled" data-width="30%"></div>
-                     </div>
-               
-                     <div class="skillbar php" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">40%</span>
-                       <div class="filled" data-width="40%"></div>
-                     </div>
-               
-                     <div class="skillbar sass" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">50%</span>
-                       <div class="filled" data-width="50%"></div>
-                     </div> -->
-                     
-                 </div>       <!--  skill div end -->
+               </c:if>
+               <!-- css js php sass -->
+                 </div>  <!--  skill div end -->
               </div>    
 
          </div>
@@ -308,16 +292,21 @@ $(document).ready(function(){
 	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
 	            </div>
+	                 
+	            <c:if test="${empty comlist}"><img src="" alt="nullimg"></c:if>
+	            <c:if test="${!empty comlist}">
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="comlist" items="${comlist}">
 	               	 <li>
 	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${comlist.sch_name}</a>
-	                    <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${comlist.sch_start} ~ ${comlist.sch_end} 
+	                    <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${comlist.sch_start}~${comlist.sch_end} 
 	                    </span>
 	                    </p>       	
 	                </li>
 	                </c:forEach>
 	            </ul>
+	            </c:if>
+	             
 	       		</div>
 	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
@@ -329,6 +318,7 @@ $(document).ready(function(){
 	        </script>
         </div>
             
+            
             <!--차트 6 도넛 그래프   -->
          <div class="secondBoardinner">
           <div class="verticalCarouselHeader">
@@ -337,17 +327,21 @@ $(document).ready(function(){
           </div>
           </div>
            <!--  <svg id="svg" style="height: 80%;"></svg> -->
+           <c:set var = "dntotal" value="0" />
+           <c:forEach var="sum" items="${donut}" >
+	       <c:set var ="dntotal" value="${dntotal + sum.donut_comp + sum.donut_haveto + sum.donut_bfdead + sum.donut_afdead}" />
+           </c:forEach> 
+		   <c:if test="${dntotal == 0 }"><img src="" alt="nullimg"></c:if>
+           <c:if test="${dntotal != 0}">
             <div class="boxsize">  
-            <div id="dashDonut" style="width: 90%;height: 80%; position: static; float: left; margin-top: 20px;">
-            </div>
+            <div id="dashDonut" style="width: 90%;height: 80%; position: static; float: left; margin-top: 20px;"></div>
          	</div> 
-         	</br>
-         	</br>
-         	</br>
+         	<br /><br /><br />
          	<div class="circle1"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감지남</p>
          	<div class="circle2"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감임박</p>
          	<div class="circle3"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;계획된 일</p>
          	<div class="circle4"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;완료된 일</p>
+         	</c:if>
          </div>
          <!---- 차트 4 최근 일정 목록---->
          
@@ -358,17 +352,20 @@ $(document).ready(function(){
 	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
 	            </div>
+	            
+	            <c:if test="${empty relist}"><img src="" alt="nullimg"></c:if>
+	            <c:if test="${!empty relist}">
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="reList" items="${relist}">
 	                <li>
-	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${reList.sch_name}</a>
-	                     <span class="datediv w3-small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${reList.sch_start} ~ ${reList.sch_end} 
-	                    </span>
-	                    </p>
+	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${reList.sch_name}</a> </p>
+	                     <span class="datediv w3-small">&nbsp;&nbsp;&nbsp; ${reList.sch_start} ~ ${reList.sch_end}</span>
+	                   
 	                     <span class="w3-small" style="color: gray;">${reList.id}</span>
 	                </li>
 					</c:forEach>
 	            </ul>
+	            </c:if>
 	       		</div>
 		        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
@@ -388,15 +385,21 @@ $(document).ready(function(){
                 <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
+            
+            <c:if test="${empty timelist}"><img src="" alt="nullimg"></c:if>
+            <c:if test="${!empty timelist}">
             <ul class="verticalCarouselGroup vc_list">
                 <c:forEach var="tmList" items="${timelist}">
                 <li>
-                    <p class="w3-small" style="font-weight: bold;"><input type="hidden" value="${tmList.tl_id}" />
-                    <a href="#">${tmList.tl_info}</a></p>
-                   <span class="w3-small" style="color: gray;"> ${tmList.id} </span>
+                     <p class="w3-small" style="font-weight: bold;"><input type="hidden" value="${tmList.tl_id}" />
+                     <a href="#"><span class="w3-small" style="color: blue; float:left"> ${tmList.tl_type}${tmList.tl_info}</span>
+                     ${tmList.tl_content}가 ${tmList.tl_info} 되었습니다.</a>
+                    <%-- <a href="#">${tmList.tl_info}</a></p> --%>
+                   <span class="w3-small" style="color: gray; float:right;" > ${tmList.id} </span>
                 </li>
                 </c:forEach>
             </ul>
+            </c:if>
        	    </div>
 	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>

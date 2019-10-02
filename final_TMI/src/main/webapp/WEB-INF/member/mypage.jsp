@@ -66,6 +66,7 @@
 	box-sizing: border-box;
 	padding-top: 13px;
 	margin: 0 auto;
+	display: none;
 }
 
 #ChangeForm span {
@@ -252,6 +253,9 @@ String root=application.getRealPath("/")+"profie_img\\";
 System.out.println("test.jsp"+root);
 %> --%>
 <style type="text/css">
+body{
+	background: #fcf7fd;
+}
 #img {
 	width: 80px;
 	height: 80px;
@@ -265,9 +269,7 @@ System.out.println("test.jsp"+root);
 }
 
 #my_wrap {
-	background: #fcf7fd;
 	width: 100%;
-	height: 1700px;
 }
 
 #imgfile {
@@ -376,6 +378,10 @@ System.out.println("test.jsp"+root);
 	color: red;
 }
 
+#endProject{
+	display: none;
+}
+
 .project_success {
 border-bottom: 1px solid #1b1b1b;
     padding-bottom: 1px;
@@ -383,14 +389,13 @@ border-bottom: 1px solid #1b1b1b;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 100;
     height: 40px;
-    width: 600px;
     margin: 0 auto;
     margin-top: 15px;
 }
 
 .mypage_projectName {
 display: inline-block;
-    width: 110px;
+    width: 199px;
     text-align: center;
     padding-top: 1px;
     height: 29px;
@@ -406,9 +411,9 @@ display: inline-block;
 }
 
 .pro_mgr {
-	width: 120px;
     display: inline-block;
-    text-align: center;
+    padding: 0 5px;
+    width: 455px;
 }
 
 .mypage_projectEnd {
@@ -432,13 +437,12 @@ display: inline-block;
 
 .pro_mgrt{
     display: inline-block;
-    margin-left: 19px;
+    margin-left: 23px;
     border-right: 1px solid #b7b7b7;
     padding-right: 5px;
     height: 26px;
     padding-top: 3px;
     margin-top: 6px;
-
 }
 .mypage_projectEndt{
 display: inline-block;
@@ -448,15 +452,44 @@ display: inline-block;
     height: 26px;
     padding-top: 3px;
 }
+.btn-group{
+    text-align: center;
+    margin-top: 0;
+    background: rgb(254,254,254);
+    height: 30px;
+    padding: 8px 0px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+.btn-group button {
+    border: none;
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: rgba(252,252,252,0);
+    color: rgb(25, 92, 162);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 100;
+    font-size: 19px;
+}
+
+.btn-group button:hover {   
+	font-weight: 400;
+    font-size: 18px;
+}
 </style>
 </head>
 <body>
+	<div class="btn-group no-drag ">
+		<button id="설정b" class="mpCate">개인정보</button>
+		<button id="ChangeFormb" class="mpCate">비밀번호 변경</button>
+		<button id="endProjectb" class="mpCate">종료된 프로젝트</button>
+	</div>
 	<div id='my_wrap'>
 		<div id='mypage_left'>
 
 			<hr>
 			<span class='mypage_title'>개인정보</span>
-			<div id='설정'>
+			<div id='설정' class="cate">
 				<form name="frm" method="post" action="mypage_update"
 					enctype="multipart/form-data">
 					<div>
@@ -570,10 +603,10 @@ display: inline-block;
 				</form>
 			</div>
 
-			<hr>
-			<span class='mypage_title'>비밀번호 변경</span>
+			<!-- <hr>
+			<span class='mypage_title'>비밀번호 변경</span> -->
 
-			<div id="ChangeForm">
+			<div id="ChangeForm" class="cate">
 				<form action="change_pwd.do">
 					<label for="pwd">Password</label><input type="text" name="pwd"
 						id="pwd" /> <label for="pwdck">Confirm password</label> <input
@@ -595,9 +628,9 @@ display: inline-block;
 		</div>
 
 		<div id='mypage_right'>
-			<div>
-				<hr>
-				<span class='mypage_title'>종료된 프로젝트</span>
+			<div id="endProject" class="cate">
+				<!-- <hr>
+				<span class='mypage_title'>종료된 프로젝트</span> -->
 				<c:choose>
 					<c:when test="${empty pdto}">
 	프로젝트 완료 목록이없습니다.
@@ -642,4 +675,18 @@ display: inline-block;
 
 	</div>
 </body>
+<script type="text/javascript">
+	$('.mpCate').click(function(){
+		var choose = $(this).text();
+		var id = $(this).attr('id').replace('b','');
+		$('.cate').each(function(i,v){
+			if($.trim($(v).attr('id'))==id){
+				$(v).show();
+				$('.mypage_title').text(choose);
+			}else{
+				$(v).hide();	
+			}
+		})
+	})
+</script>
 </html>
