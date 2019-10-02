@@ -19,6 +19,8 @@
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
 <title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="/tmi/css/simptip.css" />
 <!--수정사항  -->
 <!-- 캡차 추가되서 밑에밀림 실행해서 보면알꺼임  -->
 <!-- 아이디중복검사 이메일 중복검사 말풍선 추가해야됨 지금 alert  -->
@@ -35,67 +37,144 @@
 								'background-position-x' : '-1000px'
 							}, 1000, animateDivers);
 						}
-
 						animateDivers();
 						var id = false;
-						if($("#signUpEmail").val()!="")
-							{
-							if ($("#signUpEmail").val() != "") {
-								$.ajax({
+						var id_email=false;
+						//비밀번호
+						var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+					    //이메일
+					    var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+					    $("#tooltip_email").css('display','none');
+					    $("#tooltip_pawd").css('display','none');
+					
+						if ($("#signUpEmail").val() != "") {
+							var test=$("#signUpEmail").val();
+							console.log("emailtest"+test);
+						 if(!regExp.test(test)) {
+						        //경고
+						       //비밀번호 형식에 맞지않음
+						       	$('#tooltip_email').attr('data-tooltip','이메일 형식에 맞지않습니다');
+						       	$("#tooltip_email").css('display','inline');
+						       	
+						    
 
-									url : "id_test?id="
-											+ $("#signUpEmail").val(),
-									type : "get",
-									async : false,
-									success : function(res) {
-										if (res == 1) {
-											id = false;
-											alert("중복검사 통과 x");
+						    } 
+						
+						else{
+									id_email=true;
+									$.ajax({
 
-										} else {
-											id = true;
-											alert("중복 검사 통과 o");
+										url : "id_test?id="
+												+ $("#signUpEmail").val(),
+										type : "get",
+										async : false,
+										success : function(res) {
+											if (res == 1) {
+												id = false;
+												$("#tooltip_email").css('display','inline');
+												$('#tooltip_email').attr('data-tooltip','아이디가 중복되었습니다');
+											} else {
+												id = true;
+												$("#tooltip_email").css('display','none');
+												
+											}
 										}
-									}
 
-								})
-							}
-							}
+									})
+								
+						}
+					}
+						var pawd_test=false;
+				 if($("#signUpPassword").val()!="")
+						   {
+						   var test1=$("#signUpPassword").val();
+						 console.log("paswtest"+test1);
+			    if(!regex.test(test1)) {
+					        //경고
+					       //비밀번호 형식에 맞지않음
+					         $("#tooltip_pawd").css('display','inline');
+					     
+
+					    } 
+			    else
+			    	{
+			    	$("#tooltip_pawd").css('display','none');
+			    	pawd_test=true;
+			    	}
+						   }
+				 $("#signUpPassword").on("keyup",function(){
+					
+					 if($("#signUpPassword").val()!="")
+					   {
+					   var test1=$("#signUpPassword").val();
+					 console.log("paswtest"+test1);
+		    if(!regex.test(test1)) {
+				        //경고
+				       //비밀번호 형식에 맞지않음
+				         $("#tooltip_pawd").css('display','inline');
+				     
+
+				    } 
+		    else
+		    	{
+		    	$("#tooltip_pawd").css('display','none');
+		    	pawd_test=true;
+		    	}
+					   }
+				 })
+							
 						
 						$("#signUpEmail").on(
-								"blur",
+								"keyup",
 								function() {
 
-									if($("#signUpEmail").val()!="")
-									{
+								
 									if ($("#signUpEmail").val() != "") {
-										$.ajax({
+										var test=$("#signUpEmail").val();
+										console.log("emailtest"+test);
+									 if(!regExp.test(test)) {
+									        //경고
+									       //비밀번호 형식에 맞지않음
+									       	$('#tooltip_email').attr('data-tooltip','이메일 형식에 맞지않습니다');
+									       	$("#tooltip_email").css('display','inline');
+									       	
+									    
 
-											url : "id_test?id="
-													+ $("#signUpEmail").val(),
-											type : "get",
-											async : false,
-											success : function(res) {
-												if (res == 1) {
-													id = false;
-													alert("중복검사 통과 x");
+									    } 
+									
+									else{
+												id_email=true;
+												$.ajax({
 
-												} else {
-													id = true;
-													alert("중복 검사 통과 o");
-												}
-											}
+													url : "id_test?id="
+															+ $("#signUpEmail").val(),
+													type : "get",
+													async : false,
+													success : function(res) {
+														if (res == 1) {
+															id = false;
+															$("#tooltip_email").css('display','inline');
+															$('#tooltip_email').attr('data-tooltip','아이디가 중복되었습니다');
+														} else {
+															id = true;
+															$("#tooltip_email").css('display','none');
+															
+														}
+													}
 
-										})
+												})
+											
 									}
-									}
+								}
+					
 
 								})
-						$("#signUpSubmit")
-								.click(
+								
+								
+								$("#signUpSubmit").click(
 										function() {
 											if ($("#signUpEmail").val() == "") {
-												swal("Warning", "아이디를 입력해주세요!",
+												swal("Warning", "아이디를 입  력해주세요!",
 														"error");
 											
 												return false;
@@ -109,11 +188,17 @@
 												swal("Warning", "비밀번호를 입력해주세요!",
 												"error");
 												return false;
-											} else if (id == false) {
-												swal("Warning", "아이디 중복검사를 확인해주세요!",
+											} else if (id == false &&id_email ==false) {
+												swal("Warning", "이메일을 확인해주세요!",
 												"error");
 												return false;
 											} 
+											else if(pawd_test==false)
+												{
+												swal("Warning", "비밀번호를 확인해주세요!",
+												"error");
+												return false;
+												}
 											
 											else {
 												$
@@ -167,6 +252,8 @@
 											}
 
 										});
+					
+						
 					});
 </script>
 <style>
@@ -269,6 +356,12 @@ label {
 	margin-left: 84px;
 	margin-top: 28px;
 }
+
+.aaa{
+margin-left: -8px;
+    float: right;
+    margin-right: 152px;
+}
 </style>
 
 </head>
@@ -279,13 +372,20 @@ label {
 			<form action="UserInsert" method="post">
 				<label for="signUpEmail">Email</label> <input type="text"
 					class='signUpText' name="id" id='signUpEmail' value="${dto.id }">
+					
+                            <span class="aaa simptip-position-bottom" id="tooltip_email"    data-tooltip="이메일 형식이 맞지 않습니다."></span>
+					
 				<small class="swicthtext">Please write your email</small> <label
 					for="signUpUserName">UserName</label> <input type="text"
 					class='signUpText' name="name" id='signUpUserName'
-					value="${dto.name}"> <small class="swicthtext">Please
+					value="${dto.name}">					
+					 <small class="swicthtext">Please
 					write your UserName</small> <label for="signUpPassword">Password</label> <input
 					type="password" class='signUpText' name="pwd" id='signUpPassword'
-					value="${dto.pwd }"> <small class="swicthtext">Please
+					value="${dto.pwd }">
+					
+                            <span class="aaa simptip-position-bottom"  id="tooltip_pawd" data-tooltip="비번 형식이 맞지 않습니다."></span>
+					 <small class="swicthtext">Please
 					write your password</small>
 				<div id='captcha'>
 					<div class="g-recaptcha"
