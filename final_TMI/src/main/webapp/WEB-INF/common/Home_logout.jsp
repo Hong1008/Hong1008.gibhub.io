@@ -25,7 +25,7 @@
 <!-------------------------------------- bxslider 연결 -------------------------------------->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="/tmi/css/simptip.css" />
 
 
 <title>세계의 모든일 Task Universe</title>
@@ -46,6 +46,7 @@
 				 <form action="sign_up" method="post">
 				 <label for="signUp_email">Email</label>
                             <input type="text" name="id" id="signUp_email" class="signIn" autocomplete="off">
+                            <span class="simptip-position-top" data-tooltip="Tooltip's content"> Text </span>
                             <label for="signUp_username">Username</label>
                             <input type="text" name="name" id="signUp_username" class="signIn" autocomplete="off">
                             <label for="signUp_password">Password</label>
