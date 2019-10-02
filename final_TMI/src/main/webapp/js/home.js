@@ -76,7 +76,11 @@ $(document).ready(function(){
     	  		$('input#pro_name').focus();
     	  		return false;
     	  	}
-    		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+    	  	if($(this).prevAll('#pro_name').val()=='' || $(this).prevAll('#pro_info').val()==''){
+    	  		swal("Warning", "입력칸을 작성해주세요","error");
+    	  		return false;
+    	  	}
+    		if($(this).prevAll('#pro_start').val()=='' || $(this).prevAll('#pro_end').val()==''){
     			swal("Warning", "날짜를 지정해주세요","error");
     			return false;
     		}
