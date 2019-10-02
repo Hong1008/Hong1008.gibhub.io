@@ -70,11 +70,11 @@
 				</c:forEach>
 			</div>
 		</div>
-		<input type="submit" class="button-back" id="back" value="뒤로">
+		<input type="submit" class="button-back" id="backMain" value="뒤로">
 	</div>
 
 	<!--***************** 멤버 추가 검색창 *****************-->
-	<form id="search-bar" class="modal" action="addMember">
+	<form id="search-bar" class="modal" action="addMember" onkeydown="return ReturnKey(event)">
 		<label for="search_id">아이디를 검색하세요</label>
 		<ul class="table-list" id="pro_team_list">
 
@@ -83,7 +83,7 @@
 		<ul id="search_result" hidden="" class="results">
 		</ul>
 
-		<input type="button" id="addMember"value="추가">
+		<input type="button" id="addMember" value="추가">
 		
 	</form>
 

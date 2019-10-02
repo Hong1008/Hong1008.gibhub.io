@@ -95,14 +95,47 @@ width: 33px;
 }
 
 #header_notiNum{
-	width: 320px;
+width: 320px;
     height: 400px;
     display: none;
-    background: #e2e2e2;
     margin-left: -155px;
     margin-top: 45px;
+    background: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #c7c7c77d;
 }
 
+
+.noti_ram01{
+	font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    padding: 9px;
+    border-bottom: 1px solid #cacaca;	
+}
+
+#btn_yes{
+	border: none;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    background: #525151;
+    color: white;
+        margin-left: 140px;
+}
+
+#btn_no{
+	border: none;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    background: #525151;
+    color: white;
+}
 
 /********************** 로그인 부분 END **********************/
 

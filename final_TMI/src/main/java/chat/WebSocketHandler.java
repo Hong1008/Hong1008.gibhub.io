@@ -82,7 +82,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         {
 			        	 if(List.get("state").toString().equals("0"))
 			        	 {   //첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
-			        		 res+=",<div>"+List.get("name").toString()+"님이"+List.get("pro_name")+""
+			        		 res+=",<div class='noti_ram01'>"+List.get("name").toString()+"님이"+List.get("pro_name")+""
 			        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+List.get("pro_name")+"'/><input type='hidden' value='"+List.get("id") +"'/><input type='hidden' value='"+senderId +"'/><input type='hidden' value='"+List.get("pro_id") +"'/><input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("3"))
@@ -91,21 +91,19 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
 			                
 			        	
-			        		 res+=",<div>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 수락하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>X</div></div>";
+			        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 수락하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("4"))
 			        	 {
 			        		 NotiDTO dto=service.select_notificationProcess(senderId, List.get("no").toString());
 				        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
-				        		 res+=",<div>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 거절하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>X</div></div>";
+				        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 거절하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("6"))
-			        	 {
-			        		 
+			        	 {			        		 
 							  ProjectDTO pdto=	proservice.proSelect(List.get("pro_id").toString());
-								 res+=",delete,"+pdto.getPro_name()+"프로젝트에서 제외 되셨습니다.<input type='hidden' value='"+senderId+"'><input type='hidden' value='"+List.get("pro_id").toString()+"'><div id='notification_deleteBtn'>X</div></div>";
-							
-			        	 }
+								 res+=",<div class='noti_ram01'>"+pdto.getPro_name()+"프로젝트에서 제외 되셨습니다.<input type='hidden' value='"+senderId+"'><input type='hidden' value='"+List.get("pro_id").toString()+"'><div id='notification_deleteBtn'>x</div></div>";
+										        	 }
 			        		 
 			        	 
 			         }

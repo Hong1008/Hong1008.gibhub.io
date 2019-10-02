@@ -17,12 +17,27 @@
 }
 
 #aside .list .interval{
-margin-top: 30px;
-margin-left: 10px;
-width:24px;
-height:24px;
+width: 24px;
+    height: 24px;
 }
 
+#aside .list .interval:hover{
+	opacity: 0.6;
+}
+
+.list{
+}
+
+.list a{
+border-bottom: 1px solid #d4d4d4;
+    padding-bottom: 0px;
+    margin-left: 5px;
+    width: 33px;
+    height: 30px;
+    display: block;
+    padding-left: 7px;
+        margin-top: 9px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
