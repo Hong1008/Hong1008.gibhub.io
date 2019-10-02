@@ -8,6 +8,17 @@
 <head>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-------------------------------------- 툴팁 tippy.js -------------------------------------->
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/google.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/tippy.js@4/themes/translucent.css" />
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
 
 <%-- <security:authorize access="isAuthenticated()" >
 
@@ -35,37 +46,23 @@ $(document).on("click","#btn_yes",function(){
 	 var pro_name=$(this).prev().prev().prev().prev().val();//프로젝트이름
 	 var result;
 	$.ajax({
-
 	    url: "notifi_yes", 
 	    traditional : true,
 	    data: { "id":noti_id , //초대보낸사람
 	            	"pro_id":pro_id, //pro_id
 	            	"noti_id":sessionUId //받은사람
-	            	
-	    },               
-
-	    type: "post",                            
-
+	    },              
+	    type: "post",
 	    dataType: "text",
 	    success:function(res)
-	    {
-	    	
-	
-	    	 
-	    	 
+	    {	    	 
 	    	 swal("Good job!", "팀에 가입했습니다!", "success")
 				.then((value) => {
 					socket.send("yes,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
 					location.href="home";
-				});
-		    	
+				});		    	
         }
-	 
-
-	}
-	  
-	)
-	
+	})	
 	//socket send해줘야됨 no에도 
 	/*
 	  1. yes 눌렀을때
@@ -80,8 +77,7 @@ $(document).on("click","#btn_yes",function(){
 	     4. invite
 	     초대 보냄
 	*/
-	$(this).parent().css("display","none"); 
-	
+	$(this).parent().css("display","none"); 	
 })	
 
 $(document).on("click","#btn_no",function(){
@@ -109,14 +105,9 @@ $(document).on("click","#btn_no",function(){
 					socket.send("no,"+noti_id+","+pro_id+","+sessionUId+","+pro_name);
 					location.href="home";
 				});
-		    	
         }
-	 
-
 	}
-	  
 	)
-	
 	//socket send해줘야됨 no에도 
 	/*
 	  1. yes 눌렀을때
@@ -134,77 +125,7 @@ $(document).on("click","#btn_no",function(){
 	$(this).parent().css("display","none"); 
 	
 })	
-
-	
-$("#pro-form_btn").click(function(){
-	
-	
-	if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
-		swal("Warning", "날짜를 지정해주세요","error");
-		return false;
-	}
-
-	var pro_team_list_array=new Array();
-	if($("input[name='pro_team_list']").val()!=null)
-		{
-		$("input[name='pro_team_list']").each(function(i,v){
-
-			
-			pro_team_list_array.push($(v).val());
-		
-	      
-
-	})
-		}
-	
-	$.ajax({
-
-	    url: "project/insertProject", 
-	    traditional : true,
-	    data: { "pro_name": $("#pro_name").val(),
-	            	"pro_info":$("#pro_info").val(),
-	            	"pro_start":$("#pro_start").val(),
-	            	"pro_end":$("#pro_end").val(),
-	            	"pro_team_list":pro_team_list_array
-	            	
-	    
-	    },               
-
-	    type: "post",                            
-
-	    dataType: "text",
-	    success:function(res)
-	    {
-	    	
-	    	
-	    	swal("Good job!", "프로젝트 추가 성공!", "success")
-			.then((value) => {
-				
-				if($("input[name='pro_team_list']").val()!=null)
-					{
-					$("input[name='pro_team_list']").each(function(i,v){
-
-			    		socket.send("invite,"+$(v).val()+","+res);
-			    	
-			    })
-					}
-			
-				location.href="home";
-			});
-	    	
-	    	
-	    	/* var res=sessionUId+","; */
-         }
-
-	})
-		
-	
-	
-
-
-})
 });
-
 function connectWS() {
     console.log("tttttttttttttt")
     var ws = new WebSocket("ws://localhost:8090/tmi/count");
@@ -215,26 +136,19 @@ function connectWS() {
         ws.send("open,");
     };
 
-    ws.onmessage = function (event) {
-      
-    	var res = event.data.split(",");	
-    	
+    ws.onmessage = function (event) {      
+    	var res = event.data.split(",");	    	
    	$('#header_notiCount').text(res[0]);
    	if(res[1]=="invite" ||res[1]=="yes" || res[1]=="no" || res[1]=="delete")
    		{
    		$("#header_notiNum").append(res[2]);
-   		}
-   	
-   	else
-   		{
+   		}   	
+   	else{
    		for(var i=1;i<res.length;i++)
    			{
    			$("#header_notiNum").append(res[i]);
-   			}
-   		   
-   		}
-   
-   	
+   			}  		   
+   		}      	
    /* 	header_notiNum */
         /* console.log("ReceiveMessage:", event.data+'\n');
         let $socketAlert = $('div#socketAlert');
@@ -252,13 +166,7 @@ function connectWS() {
     };
     ws.onerror = function (err) { console.log('Error:', err); };
 }
-
-
-
-
-</script>  
-
-
+</script> 
 <%-- </security:authorize> --%>
 
 
@@ -292,42 +200,25 @@ $(document).ready(function(){
 		skin.addClass(sessionTheme);	
 		}
 	
-	$(document).on("click","#notification_deleteBtn",function(){
-		
+	$(document).on("click","#notification_deleteBtn",function(){		
 		var noti_id=$(this).prev().prev().val();     //받은사람
 		var pro_id= $(this).prev().val();    //pro_id
 		var header_notiCount=$("#header_notiCount").text();
 		var this_click=$(this);
 		$.ajax({
-
 		    url: "notiDelete",
-
 		    data: { "noti_id": noti_id,
-		    	     "pro_id":pro_id},                
-
-		    type: "POST",                            
-		    
+		    	     "pro_id":pro_id},
+		    type: "POST",  
 		    dataType: "text" ,
 		    success:function(res)
 		    {
 		    	$(this_click).parent().css("display","none");
 		    	$("#header_notiCount").text(header_notiCount-1);
 		    	alert(res);
-		    	
-		    }
-
-		})
-		
-		
-		 /*  var form = document.createElement("form");
-    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
-    	  form.setAttribute("action", "notiDelete");
-    	  $(form).append($(this).children('#pro_id'));
-    	  document.body.appendChild(form);
-    	  form.submit(); */
-			
-	})
-	
+		    	}
+		})			
+	})	
 })
 
 </script>
@@ -349,9 +240,9 @@ $(document).ready(function(){
     
         <div id="header_content" class='center_box'>
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
-			<c:set var="hiddenURI" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
-		
-        	<c:if test="${fn:trim(URI)!=hiddenURI && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
+			<c:set var="login" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
+			<c:set var="mypage" value="/tmi/WEB-INF/member/mypage.jsp" />
+        	<c:if test="${(fn:trim(URI)!=login && fn:trim(URI)!=mypage) && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
         		<div class="center">
         		
        			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">

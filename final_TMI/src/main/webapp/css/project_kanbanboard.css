@@ -1,11 +1,11 @@
 @charset "UTF-8";
 #kanban_wrap{	
-    margin-left: 116px;
     margin-top: 43px;
     height: 1000px;
-    overflow: scroll;
+    overflow: hidden;
     position: relative;
     z-index: 1;
+    padding-left: 180px;
 }
 
 #kanban_right{
@@ -19,7 +19,7 @@
 #kanban_right_img{
 	background: rgba(0,0,0,0.7);
     height: 100%;
-    width: 80px;
+    width: 100px;
     position: fixed;
     right: 0;
 }
@@ -27,7 +27,7 @@
 #kanban_left{
 	background: rgba(1,1,1,0);
     height: 100%;
-    width: 80px;
+    width: 100px;
     position: fixed;
     left: 52px;
 }

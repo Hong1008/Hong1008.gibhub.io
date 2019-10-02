@@ -10,13 +10,15 @@ var fileList = [];
 $(document)
 		.ready(
 				function() {
+					$('.replyMessage').find("input, select, button, textarea").prop("disabled",true);
 					// ajax 로딩시 나올 이미지
 					$('#loading').hide();
 					// 시작 시 채팅영역 스크롤 하단으로 내리기
 					$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 					var projectId = $('#projectId').val();// 프로젝트 아이디
 					var userNick = $('#userNick').val();// 닉네임 또는 아이디
-					var myprofimg = $('#myprofimg').val();// 프로필 이미지 저장
+					var myName=$('#myName').val()//유저이름
+					var myprofimg = $('#myProfimg').val();// 프로필 이미지 저장
 					// ajax시작
 					$(window).ajaxStart(function() {
 						$('#loading').show();
@@ -48,7 +50,7 @@ $(document)
 									function() {
 										// 객체 담음
 										if (fileList == '') {
-											alert('파일이 없습니다.');
+											swal ( "Oops" ,  "파일이 없습니다." ,  "error" )
 											return false;
 										}
 
@@ -73,28 +75,14 @@ $(document)
 													type : 'POST',
 													success : function(result) {
 														$	.each(	result,function(i,v) {
-															var name = v.split('!park_');
-																			chatwebsocket.send(projectId+ "!:p@a!rk"+ userNick+ "!:p@a!rk"
-																							+ myprofimg
-																							+ "!:p@a!rk"
-																							+ "!:p@a!rk"
-																							+ v);
-																			var type=typeChk(name[1]);
-																			var imgORnot="";
-																			if (type == '.jpg' || type == '.gif' || type == '.png' || type == '.bmp') {
-																				imgORnot="<img class='efimg' src='/tmi/chatting/"+ v+ "'>";
-																			}else{
-																				imgORnot="<img class='efimg' src='../resources/Chat_img/file.png'>"
-																			}
-																			$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'>"+imgORnot+"</div><div class='eachFileName'><small>"
-																									+ name[1]
-																									+ "</small></div><input type='checkbox' id='"
-																									+ v
-																									+ "'class='multiDown' value='"
-																									+ v
-																									+ "'><label for='"
-																									+ v
-																									+ "'></div>");
+															var msg={
+																	type:"file",
+																	file:v,
+																	id:userNick,
+																	name:myName,
+																	myprofimg:myprofimg
+															};
+															chatwebsocket.send( JSON.stringify(msg));
 																		})
 														fileInsModalHide();
 													}
@@ -104,27 +92,15 @@ $(document)
 					// 인풋 파일 체인지 발생시
 					$('#file').change(
 							function() {
-								if (fileList.length == 5) {
-									alert('한번에 5개까지 업로드 가능합니다.');
-									return false;
-								}
 								var fileName = $(this).val();
 								if(fileName.length>99){
-									alert('파일 이름이 너무 긿어요 100자 이하로 줄여주세요.');
+									swal ( "Oops" ,  "파일 이름이 너무 긿어요 100자 이하로 줄여주세요." ,  "error" );
 									$(this).val("");
 									return false;
 								}
-								inputPreview(this);
-								var showName = $(this).val().substring(
-										$(this).val().lastIndexOf("\\") + 1);
-								var fileNameLength = fileName.lenght;
-								var latDot = fileName.lastIndexOf('.');
-								var filetype = fileName.substring(latDot,
-										fileNameLength).toLowerCase();
-								$('#filetable').append(
-										'<tr class="nothead"><td><input type="checkbox" class="notall"/></td><td>'
-												+ showName + '</td></tr>');
-								fileList.push($('#file')[0].files[0]);
+								var fileinput=document.getElementById("file");
+								var files=fileinput.files;
+								fileUpLoad(files);
 							});
 					// 채팅 전송
 					// 엔터로 메세지 발송
@@ -133,17 +109,27 @@ $(document)
 								if (event.keyCode == 13) {
 									if (!event.shiftKey) {
 										event.preventDefault();
-										var msg = $('#message').val();
-										if (msg == "")
+										var msg=$('#message').val();
+										if(msg.length>2000){
+											swal ( "Oops" ,  "글자수 제한 2000자입니다." ,  "error" );
+											$('#message').val('');
 											return false;
-										msg = msg.replace(/(?:\r\n|\r|\n)/g,
-												'<br/>');
-										// 메시지 전송
-										chatwebsocket.send(projectId
-												+ "!:p@a!rk" + userNick
-												+ "!:p@a!rk" + myprofimg
-												+ "!:p@a!rk" + msg + "!:p@a!rk"
-												+ null);
+										}
+								//	msg= 	msg.replace( /&/gi, "&amp;");
+										msg = 	msg.replace( /</gi, "&lt;");
+										msg= 	msg.replace( />/gi, "&gt;");
+										msg=msg.replace(/\t/g, "    ");
+										msg=msg.replace(/\"/g, "&quot;");
+										msg = msg.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+										var msgt={
+												type:"message",
+												text:msg,
+												id:userNick,
+												name:myName,
+												myprofimg:myprofimg
+										};
+										console.log(msgt);
+										chatwebsocket.send( JSON.stringify(msgt));
 										// 메시지 입력창 초기화
 										$('#message').val('');
 
@@ -162,16 +148,8 @@ $(document)
 							'display' : 'block'
 						});
 					})
-					$('.multiDown')
-							.click(
-									function() {
-										$('#selectfilecnt')
-												.text(
-														"선택된 갯수 : "
-																+ $(".multiDown:checked").length);
-									})
-					$('.replyimg').click(
-							function() {
+			
+							$(document).on('click', '.replyimg', function() {
 								$('#fileprPreviewModal').css({
 									'visibility' : 'visible',
 									'z-index' : '10',
@@ -220,7 +198,7 @@ $(document)
 					$('#disChk').click(function(){
 						$('#eachFileArea input[type=checkbox]').prop('checked', false);
 					})
-					$('.eachFile').click(function(){
+					$(document).on('click', '.eachFile', function() {	
 						if($(this).children().children('input').is(":checked")){
 							$(this).children().children('input').prop('checked', false);
 							var test=$(this).children().children('label');
@@ -239,9 +217,33 @@ $(document)
 								}, 200);
 					
 						}
-					
+						$('#selectfilecnt').text("선택된 갯수 : "+ $(".multiDown:checked").length);
 					})
-					
+					tippy('#fileprPreviewModal', {
+						content: '<strong>클릭 시 종료됩니다.</strong>',
+						followCursor: true,
+						})
+						//드래그 들어왔을때
+						$("#tablewrap").on('dragenter',function(e){
+									e.stopPropagation();
+											e.preventDefault();
+											$("#tablewrap").css('background-color','#E3F2FC');
+								});
+					//드래그 떠날때
+					$("#tablewrap").on('dragleave',function(e){
+				            e.stopPropagation();
+				            e.preventDefault();
+				            $("#tablewrap").css('background-color','#c4d3f6');
+				        });
+					$("#tablewrap").on('dragover',function(e){
+				            e.stopPropagation();
+				            e.preventDefault();
+				        });
+						$("#tablewrap").on('drop',function(e){
+							   e.preventDefault();
+							   $("#tablewrap").css('background-color','#c4d3f6');
+							   fileUpLoad(e.originalEvent.dataTransfer.files);
+						})
 				});
 // 파일첨부 모달 화면에서 지우기 및 내용 삭제
 function fileInsModalHide() {
@@ -257,12 +259,16 @@ function fileInsModalHide() {
 }
 // 파일 미리보기
 function inputPreview(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
+	for(var i =0; i<input.length; i++){
+		var name=input[i].name;
+		var type=name.substring(name.lastIndexOf('.')+1,name.length);
+		if (type == 'jpg' || type == 'gif' || type == 'png' || type == 'bmp') {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
+			}
+			reader.readAsDataURL(input[i]);
 		}
-		reader.readAsDataURL(input.files[0]);
 	}
 }
 // chatwebsocket이 연결된 경우 호출되는 함수
@@ -278,75 +284,99 @@ function onClose(evt) {
 // 서버에서 메시지가 왔을 때 호출되는 함수
 function onMessage(evt) {
 	// 서버가 전송한 메시지 가져오기
-	var data = evt.data;
+	var data = JSON.parse(evt.data);
+	console.log(data);
 	// 날짜관련
-	var dataSplit = data.split('!:p@a!rk');
 	var dateD = new Date();
 	var minut = dateD.getMinutes() < 10 ? "0" + dateD.getMinutes() : dateD
 			.getMinutes();
 	// 나인가
 	var itsme = $('#userNick').val();
 	// 랜덤이랑 짜름
-	var filepath = dataSplit[3].split('!park_');
-	// 자료형 이미지 일때
+	var randomfile ="";
 	var filetext = "";
-	if(filepath[1]){
-		var type = typeChk(filepath[1]);
+	if(data.file){
+	randomfile = data.file;
+	randomfile=randomfile.split('!park_');
+	// 자료형 이미지 파일인지 결정
+	if(randomfile[1]){
+		var type = typeChk(randomfile[1]);
 		if (type == '.jpg' || type == '.gif' || type == '.png' || type == '.bmp') {
 			filetext = "<div class='inline' id='time'>"
 					+ dateD.getHours()
 					+ ":"
 					+ minut
 					+ "</div><br/><div class='replyMessage'><img class='replyimg' src='/tmi/chatting/"
-					+ dataSplit[3] + "'><a href='/tmi/chatting/" + dataSplit[3]
-					+ "' download='" + filepath[1] + "'>" + filepath[1]
+					+ data.file + "'><a href='/tmi/chatting/" + data.file
+					+ "' download='" + randomfile[1] + "'>" + randomfile[1]
 					+ "</a></div><br /></div>";
+			$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='/tmi/chatting/"+data.file+"'></div><div class='eachFileName'><small>"
+					+ randomfile[1]
+					+ "</small></div><div id='chkbBox'><input type='checkbox' id='"
+					+ data.file
+					+ "'class='multiDown' value='"
+					+ data.file
+					+ "'><label for='"
+					+ data.file
+					+ "'></div></div>");
 		} else {
 			filetext = "<div class='inline' id='time'>"
 					+ dateD.getHours()
 					+ ":"
 					+ minut
 					+ "</div><br/><div class='replyMessage'><img class='replyimg' src='../resources/Chat_img/file.png'><a href='/tmi/chatting/"
-					+ dataSplit[3] + "' download='" + filepath[1] + "'>"
-					+ filepath[1] + "</a></div><br /></div>";
+					+ data.file + "' download='" + data.file + "'>"
+					+ randomfile[1] + "</a></div><br /></div>";
+			$('#eachFileArea').prepend("<div class='eachFile'><div class='eachFileImg'><img class='efimg' src='../resources/Chat_img/file.png'></div><div class='eachFileName'><small>"
+					+ randomfile[1]
+					+ "</small></div><div id='chkbBox'><input type='checkbox' id='"
+					+ data.file
+					+ "'class='multiDown' value='"
+					+ data.file
+					+ "'><label for='"
+					+ data.file
+					+ "'></div></div");
 		}
 	}
-	
-
+	}
 	// 텍스트형
+/*	data.text = 	data.text.replace( /&/gi, "&amp;");
+	data.text = 	data.text.replace( /</gi, "&lt;");
+	data.text = 	data.text.replace( />/gi, "&gt;");*/
 	var text = "<div class='inline' id='time'>" + dateD.getHours() + ":"
-			+ minut + "</div><br/><div class='replyMessage'>" + dataSplit[2]
+			+ minut + "</div><br/><div class='replyMessage'>" + data.text
 			+ "</div><br /></div>";
 	// 메세지 출력
 	// 나 자신일때
-	if (itsme == dataSplit[0]) {
+	if (itsme == data.id) {
 		// 자료 송신일때
-		if (dataSplit[2] == "") {
+		if (data.file) {
 			$('#chatMessage').append("<div class='mewrap'>" + filetext);
 		} else {
 			$('#chatMessage').append("<div class='mewrap'>" + text);
 		}
 		// 상대방일때
-		// 프로필이미지 널체크
 	} else {
 		var imgStr = "";
-		if (dataSplit[1] == "") {
+		// 프로필이미지 널체크
+		if (data.myprofimg== "") {
 			imgStr = "<img id='img' src='../resources/memberimg/user.png'>";
 		} else {
-			imgStr = "<img id='img' src='/tmi/profile_img/" + dataSplit[1]
+			imgStr = "<img id='img' src='/tmi/profile_img/" + data.myprofimg
 					+ "'>";
 		}
 		// 자료 송신일때
-		if (dataSplit[2] == "") {
-			$('#chatMessage').append(
+		if (data.file) {
+		$('#chatMessage').append(
 					"<div class='opwrap'><div id='img' class='inline'>"
 							+ imgStr + "</div><div id='name' class='inline'>"
-							+ dataSplit[0] + "</div>&nbsp;" + filetext);
+							+ data.name + "</div>&nbsp;" + filetext);
+		$('#eachFileArea').prepend();
 		} else {
 			$('#chatMessage').append(
 					"<div class='opwrap'><div id='img' class='inline'>"
 							+ imgStr + "</div><div id='name' class='inline'>"
-							+ dataSplit[0] + "</div>&nbsp;" + text);
+							+ data.name + "</div>&nbsp;" + text);
 		}
 
 	}
@@ -363,4 +393,19 @@ function typeChk(filename) {
 		var type = filename.substring(lastdot, filepathlength).toLowerCase();
 		return type;	
 	}
+}
+function fileUpLoad(files){
+	inputPreview(files);
+						var file;
+						for(var i =0; i<files.length; i++){
+							if (fileList.length == 8) {
+								swal ( "Oops" ,  "한번에 8개까지 업로드 가능합니다." ,  "error" );
+								return false;
+							}
+							file=files[i];
+							$('#filetable').append(
+									'<tr class="nothead"><td><input type="checkbox" class="notall"/></td><td>'
+											+ file.name + '</td></tr>');
+							fileList.push(files[i]);
+						}
 }

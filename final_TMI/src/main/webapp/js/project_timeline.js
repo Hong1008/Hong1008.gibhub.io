@@ -11,6 +11,39 @@ $(document).ready(function(){
 				$(this).removeClass('time_nonchk');
 				
 			}
+			
+			if($(this).find('.time_content').hasClass("time_sch")){
+				var sch_id = $(this).children('#type_id').val();
+				
+				$.ajax({
+					url:'schedule',
+					data:'sch_id='+sch_id,
+					type:'POST',
+					success:function(res){
+						$('#timeline_wrap').empty();
+						$('#timeline_wrap').html(res);
+						$('#timeline_wrap').css({'margin-left':'180px','margin-top':'43px'});
+					}
+				})
+			}else if($(this).find('.time_content').hasClass("time_todo")){
+				var t_id = $(this).children('#type_id').val();
+				$.ajax({
+					url:'schedule',
+					data:'t_id='+t_id,
+					type:'POST',
+					success:function(res){
+						$('#timeline_wrap').empty();
+						$('#timeline_wrap').html(res);
+						$('#timeline_wrap').css({'margin-left':'180px','margin-top':'43px'});
+					}
+								
+				})
+			}else if($(this).find('.time_content').hasClass("time_file")){
+				location.href="/tmi/chat/chattingroom";
+			}else if($(this).find('.time_content').hasClass("time_mem")){
+				location.href="/tmi/setting/main";
+			}
+			
 		})
 		
 		for(var i=0;i<a.length;i++){

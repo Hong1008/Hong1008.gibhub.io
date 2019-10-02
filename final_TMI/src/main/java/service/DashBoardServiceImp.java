@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 
 	@Override
-	public int remaincntProcess(int pro_id) {
-		return mapper.remaincnt(pro_id);
+	public int remaincntProcess(String id) {
+		return mapper.remaincnt(id);
 	}
 
 	@Override
-	public int completecntProcess(int pro_id) {
-		return mapper.compcnt(pro_id);
+	public int completecntProcess(String id) {
+		return mapper.compcnt(id);
 	}
 
 	@Override
@@ -44,9 +45,8 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 
 	@Override
-	public List<DashDTO> commingProcess(int pro_id) {
-
-		return mapper.comminglist(pro_id);
+	public List<DashDTO> commingProcess(String id) {
+		return mapper.comminglist(id);
 	}
 
 	@Override
@@ -67,6 +67,15 @@ public class DashBoardServiceImp implements DashBoardService{
 	@Override
 	public List<DashDTO> topListProcess(int pro_id) {
 		return mapper.toplist(pro_id);
+	}
+	
+	public List<DashDTO> donutgraphProcess(String id){
+		return mapper.donutgraph(id);
+	}
+	
+	@Override
+	public List<DashDTO> graphProcess(HashMap<String, String> map) {
+		return mapper.graphlist(map);
 	}
 	
 }

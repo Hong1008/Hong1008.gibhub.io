@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -20,16 +19,19 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
 	
-
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
+
+<!-------------------------------------- bxslider 연결 -------------------------------------->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 
 
 <title>세계의 모든일 Task Universe</title>
 </head>
 <body>
-	<div id='bodywrap'>
+	<div class="section" id='bodywrap'>
 		<div id="signUpArea">
 			<div id="content" class='center_box'>
 				<div id='textArea'>
@@ -62,12 +64,15 @@
 			</div>
 		</div>
 		<div id='info' class='tmi_skin tmi_skin1'></div>
+		</div>
+		<div class="section">
 		<div id='youtube'>
-			<iframe class='center_box' width="1280" height="720"
-				src="https://www.youtube.com/embed/4nKCAzdHm6A" frameborder="0"
-				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-				allowfullscreen></iframe>
+			
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	
+	
+</script>
 </html>

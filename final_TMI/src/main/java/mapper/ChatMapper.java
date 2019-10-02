@@ -12,5 +12,5 @@ public interface ChatMapper {
 	public List<ChattingDTO> fileList(String pr_id);
 	public String today();
 	public void chatUpLoadFile(ChattingDTO dto);
-	public String myImg(String id);
+	public ChattingDTO userInfo(String id);
 }

@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ManageDTO;
+import dto.NotiDTO;
 import service.ManageService;
+import service.UserService;
 
 @Controller
 @RequestMapping("/setting/*")
 public class ManageController {
 	@Autowired
 	private ManageService service;
-	
+	@Autowired
+	private UserService uservice;
 	public ManageController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -109,13 +112,26 @@ public class ManageController {
 	@RequestMapping("/addMember")	
 	public String memberAdd(HttpSession session, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String pro_id= (String) session.getAttribute("pro_id");
+		//noti로 insert
+		NotiDTO dto= new NotiDTO();
+		for(int i=0; i<pro_team_list.size();i++)
+		{
+			dto.setId(pro_team_list.get(i));
+			dto.setPro_id(Integer.valueOf(pro_id));
+			dto.setNoti_id((String)session.getAttribute("id"));
+			dto.setState(0);
+			uservice.noti_insertProcess(dto);
+		}
 		
+		
+		
+		/*//notification에 insert되야함
 		for(String list : pro_team_list) {
 			ManageDTO dto = new ManageDTO();
 			dto.setPro_id(pro_id);
 			dto.setId(list);
 			service.memberAddProcess(dto);		
-		}
+		}*/
 		
 		return "redirect:/setting/setpeople?pro_id="+pro_id;	
 	}
@@ -149,7 +165,7 @@ public class ManageController {
 		
 		service.rendSetProcess(dto);
 		
-		return "redirect:/setting/main";
+		return "redirect:/home";
 	}
 		
 	

@@ -11,6 +11,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/tmi/js/chat_chatRoom.js" type='text/javascript'></script>
 <link href='/tmi/css/chat_chatRoom.css' type='text/css' rel='stylesheet'>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <jsp:include page="../include/aside.jsp"></jsp:include>
@@ -22,7 +23,7 @@
 					<table id="filetable">
 						<tr id="head">
 							<th><input type="checkbox" id="chkall"></th>
-							<th>파일명</th>
+							<th>파일명<small>최대 한번에 8개 까지 등록가능</small></th>
 						</tr>
 					</table>
 				</div>
@@ -79,7 +80,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -102,8 +103,7 @@
 													<c:if test="${dto.profile_img==null}">
 														<img id='img' src="../resources/memberimg/user.png">
 													</c:if>
-												</div>
-												<div id='name' class='inline'>${dto.id}</div>
+												</div><div id='name' class='inline'>${dto.name}</div>
 												&nbsp;
 												<div class='inline' id='time'>${dto.chat_time}</div>
 												<br />
@@ -121,7 +121,7 @@
 																			src="/tmi/chatting/${dto.realfilename}">
 																	</c:when>
 																	<c:otherwise>
-																		<img class='replyimg'
+																		<img class='replynotimg'
 																			src="../resources/Chat_img/file.png">
 																	</c:otherwise>
 																</c:choose>
@@ -152,10 +152,10 @@
 					<label id="filelabel"><img id="fileInsImg"
 						src="../resources/Chat_img/paperclip.png/"></label>
 					<form id="frm" method="post" enctype="multipart/form-data">
-						<input type="file" id="file" name="file" />
+						<input type="file" id="file" name="file" multiple="multiple" />
 					</form>
 				</div>
-				<textarea id="message" cols="10" wrap="hard"></textarea>
+				<textarea id="message" cols="10" wrap="hard" placeholder="텍스트 입력 후 엔터"></textarea>
 
 			</div>
 		</div>
@@ -198,7 +198,9 @@
 		</div>
 		</div>
 		<input type="hidden" value="${sessionScope.id }" id="userNick">
-		<input type="hidden" value="${myImg}" id="myprofimg"> <input
+		<input type="hidden" value="${myImg.name}" id="myName">
+		<input type="hidden" value="${myImg.profile_img}" id="myProfimg">
+		 <input
 			type="hidden" value="${sessionScope.pro_id}" id="projectId">
 	</div>
 	<div id="footerclear"></div>

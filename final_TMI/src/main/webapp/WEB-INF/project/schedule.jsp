@@ -6,7 +6,7 @@
 	rel='stylesheet'>
 <style type="text/css">
 .group {
-	    width: 255px;
+	width: 255px;
     height: 700px;
     background: #fefefe;
     margin-right: 25px;
@@ -58,8 +58,18 @@
 }
 
 #returnBtn {
-	width: 50px;
-	height: 50px;
+	width: 105px;
+    height: 64px;
+    margin-left: -105px;
+    float: left;
+    margin-top: 321px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 100;
+    border: 1px solid rgb(210, 208, 208);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 6px;
 }
 
 .ui-draggable-dragging {
@@ -76,8 +86,6 @@
 	margin-right: 10px;
 	height: 100%;
 }
-
-
 
 #sch_info {
 	width: 420px;
@@ -232,20 +240,29 @@ background-size: 400%;
 	opacity: 0.5;
 }
 
-
+#noLi{
+	text-align: center;
+	position: relative;
+    top: 39%;
+    font-size: 17px;
+    text-decoration: none;
+    font-weight: bold;
+    opacity: 0.5;
+}
 </style>
 <script>
 	
 </script>
 </head>
 <body>
-	<button id='returnBtn'>뒤로가기</button>
+	<button id='returnBtn'class='${sessionScope.theme}'>칸반보드로<br/>돌아가기</button>
 	<div id='sch_wrap'>
 		<div class='group' id='before'>
-			<div class='g_head tmi_skin tmi_skin1'>시작전</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>시작전</div>
 			<ul id="sortable1" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
-					<c:if
+				<c:choose>
+					<c:when
 						test="${tdDto.t_end>0 && tdDto.t_start>0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}	</span></div>						
@@ -254,15 +271,20 @@ background-size: 400%;
 						<input type="hidden" id="mytodo" value="${tdDto.id }">
 						
 						</li>
-					</c:if>
+					</c:when>
+				</c:choose>
 				</c:forEach>
+				<div id="noLi">
+					
+				</div>
 			</ul>
 		</div>
 		<div class='group' id='progress'>
-			<div class='g_head tmi_skin tmi_skin1'>진행중</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>진행중</div>
 			<ul id="sortable2" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
-					<c:if
+					<c:choose>
+					<c:when
 						test="${tdDto.t_end>=0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
@@ -270,38 +292,53 @@ background-size: 400%;
 						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>
 						<input type="hidden" id="mytodo" value="${tdDto.id }">	
 						</li>
-					</c:if>
+					</c:when>
+					</c:choose>
 				</c:forEach>
+				<div id="noLi">
+				
+				</div>
 			</ul>
 		</div>
 		<div class='group' id='overtime'>
-			<div class='g_head tmi_skin tmi_skin1'>기한초과</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>기한초과</div>
 			<ul id="sortable3" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
-					<c:if
+					<c:choose>
+					<c:when
 						test="${tdDto.t_end<0 && tdDto.t_start<=0 && empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
 						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
 						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
 						<input type="hidden" id="mytodo" value="${tdDto.id }"></li>
-					</c:if>
+					</c:when>
+					</c:choose>
 				</c:forEach>
+				<div id="noLi">
+				
+				</div>
 			</ul>
 		</div>
 		<div class='group' id='after'>
-			<div class='g_head tmi_skin tmi_skin1'>종료됨</div>
+			<div class='g_head tmi_skin ${sessionScope.theme}'>종료됨</div>
 			<ul id="sortable4" class="connectedSortable">
 				<c:forEach items="${schOne.todoList }" var="tdDto">
-					<c:if test="${not empty tdDto.t_rend}">
+					<c:choose>
+					<c:when
+					 test="${not empty tdDto.t_rend}">
 						<li class='sch_todo' id="${tdDto.t_id }"><span class = 'sch_todo_name'>${tdDto.t_name}</span><br>
 						<div class='sch_todo_body'><span class='sch_todo_label'>담당인원</span><span class='sch_todo_for'>${tdDto.name}</span></div>						
 						<div class='sch_todo_body'><span class='sch_todo_label'>시작까지</span><span class='sch_todo_for'>${fn:substring(tdDto.start_date,0,10)}</span></div>	
 						<div class='sch_todo_body sch_todo_body_end'><span class='sch_todo_label'>종료까지</span><span class='sch_todo_for'> ${fn:substring(tdDto.end_date,0,10)}</span></div>	
 						<input type="hidden" id="mytodo" value="${tdDto.id }">
 						</li>
-					</c:if>
+					</c:when>
+					</c:choose>
 				</c:forEach>
+				<div id="noLi">
+				
+				</div>
 			</ul>
 		</div>
 		<div id='sch_info'>
@@ -330,7 +367,7 @@ background-size: 400%;
 				</div>
 							<c:choose>
 			<c:when test="${empty schOne.sch_rend }">
-			<button id='sch_info_endBtn' class='tmi_skin tmi_skin1'>스케쥴 끝내기
+			<button id='sch_info_endBtn' class='tmi_skin ${sessionScope.theme}'>스케쥴 끝내기
 				<input type="hidden" value="${schOne.sch_id }"/>
 			</button>
 			</c:when>
@@ -345,7 +382,29 @@ background-size: 400%;
 </body>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-
+	function tdPlaceHolder(){
+	$('.connectedSortable').each(function(i,v){
+		$(v).children('#noLi').empty();
+		if($(v).children().length<=1){
+			if($(v).attr('id')=='sortable1'){
+				$(v).children('#noLi').text('시작전 할일 목록입니다');
+			}
+			if($(v).attr('id')=='sortable2'){
+				$(v).children('#noLi').html('진행중 할일 목록입니다<br/>시작전 할일을 끌어다보세요');
+			}
+			if($(v).attr('id')=='sortable3'){
+				
+				$(v).children('#noLi').text('초과된 할일 목록입니다');
+			}
+			if($(v).attr('id')=='sortable4'){
+				$(v).children('#noLi').html('종료된 할일 목록입니다 <br/>진행중이거나 초과된 할일을 끌어다보세요');
+			}
+		}
+	})
+	}
+	tdPlaceHolder();
+	
+	
 	$('.sch_todo').each(function(i,v){
 		if($(v).children('#mytodo').val()!=$('#sessionId').val()){
 			$(v).addClass('unsortable');
@@ -396,7 +455,7 @@ background-size: 400%;
 	$('#sch_info_endBtn').on('click',function(){
 		var undoSum = $('#sortable1').children().length+$('#sortable2').children().length+$('#sortable3').children().length;
 		var sch_id = $(this).children().val();
-		if(undoSum>0){
+		if(undoSum>3){
 			swal("Warning", '아직 할일이 남았습니다',"error")
 			return;
 		}
@@ -472,6 +531,7 @@ background-size: 400%;
 					    	data:'t_id='+$(ui.item).attr('id'),
 					    	type:'POST'
 					    })
+					    tdPlaceHolder();
 					  } else {
 						  $( ".connectedSortable" ).sortable( "cancel" );
 					  }
@@ -506,6 +566,7 @@ background-size: 400%;
 					    	data:'t_id='+$(ui.item).attr('id'),
 					    	type:'POST'
 					    })
+					    tdPlaceHolder();
 					  } else {
 						  $( ".connectedSortable" ).sortable( "cancel" );
 					  }

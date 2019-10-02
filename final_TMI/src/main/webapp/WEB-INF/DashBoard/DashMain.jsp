@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--추가  --> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Insert title here</title>
+<title>DashBoard</title>
 <link rel="stylesheet" href="../css/Dash_dashMain.css">
 <link rel="stylesheet" href="../css/Dash_an-skill-bar.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -17,46 +18,72 @@
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 
 
+
 <!--추가  -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
       	<link rel="stylesheet" href="../css/Dash_style.css">
         <link rel="stylesheet" href="../css/Dash_jQuery.verticalCarousel.css">
-        
-        
+
+<link rel="stylesheet" href="../css/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 
 
 <script type="text/javascript">
 
 $(document).ready(function(){
-   
+	var sum = parseInt($('#donut_comp').val())+ parseInt($('#donut_haveto').val())+ parseInt($('#donut_bfdead').val())+parseInt($('#donut_afdead').val());
+	var deter = new Date(); 
+	var year = deter.getFullYear(); 
+	var month = new String(deter.getMonth()+1); 
+	var day = new String(deter.getDate()); 
+	
+	// 한자리수일 경우 0을 채워준다. 
+	if(month.length == 1){ 
+	  month = "0" + month; 
+	} 
+	if(day.length == 1){ 
+	  day = "0" + day; 
+	} 
+
+	/* 	$('#donut_haveto').val()+value: $('#donut_bfdead').val() + value: $('#donut_afdead').val()); */
+    new Morris.Donut({ 
+    	 
+        element: 'dashDonut',
+        data: [        
+                {label: "완료된 일", value: Math.floor(parseInt($('#donut_comp').val())/sum*100)},
+                {label: "계획된 일", value: Math.floor(parseInt($('#donut_haveto').val())/sum*100)},
+                {label: "마감임박", value: Math.floor(parseInt($('#donut_bfdead').val())/sum*100)},
+                {label: "마감지남", value: Math.floor(parseInt($('#donut_afdead').val())/sum*100)}
+              ],
+          colors: ["#5A5AFF", "#C1FF6B","#FF1493","#46AAFF"], //그래프 color를 지정해줍니다.
+          formatter: function (y) { return (y) + "%" } 
+    })  
+	
+	//graph test start
+    var sum1 = parseInt($('#wk1').val())+ parseInt($('#wk2').val())+ parseInt($('#wk3').val())+parseInt($('#wk4').val());     
+    /* var sum2 = parseInt($('#wk11').val())+ parseInt($('#wk21').val())+ parseInt($('#wk31').val())+parseInt($('#wk41').val()); */
+    
+	 var data= [{ name:"프로젝트",
+		  data:[
+			    {value:Math.floor(parseInt($("#wk1").val())/sum1*100), date:month+"/"+(day-5)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk2").val())/sum1*100), date:month+"/"+(day-10)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk3").val())/sum1*100), date:month+"/"+(day-15)+"/"+year},
+			    {value:Math.floor(parseInt($("#wk4").val())/sum1*100), date:month+"/"+(day-20)+"/"+year}    
+			    ]
+			  } 
+		  ]
+		 // Multiple lines
+	     options={
+	       height: 150,
+	       width: 700,
+	     }
 	  
-   var data= [   { name:"first",
-         data:[
-             {value:12, date:"12/14/2019"},
-             {value:32, date:"12/15/2019"},
-             {value:56, date:"12/17/2019"},
-             {value:45, date:"12/19/2019"}
-           
-           ]
-         },
-         { name:"second",
-         data:[
-             {value:13, date:"12/13/2019"},
-             {value:30, date:"12/15/2019"},
-             {value:26.6, date:"12/18/2019"},
-             {value:33, date:"12/19/2019"}
-           
-           ]
-         }
-     ]
-   
-     // Multiple lines
-     options={
-       height: 150,
-       width: 840,
-     }
-     $("#multi").pista(data, options);
-   
+	   $("#multi").pista(data, options);
+   	
+	//graph test end
    
    $('.bgstyle').click(function(){
 	   $('.bgstyle').css('border','');
@@ -69,55 +96,20 @@ $(document).ready(function(){
    
    $('#bgok').click(function(){
 	  var bgsel = $('#bgsel').attr('style').substring(48,52);
-	  console.log(bgsel + " asd");
+	  //console.log(bgsel + " asd");
 	  window.location.href="/tmi/DashBoard/DashChange?bgsel="+bgsel;
-	  
-/* 	   $.ajax({
-		    url: 'DashChange' // 요청 할 주소
-		    type: 'POST' // GET, PUT
-		    data: { bgColor: 'ajax'}, // 전송할 데이터
-		    dataType: 'text', // xml, json, script, html
-		    success: function(jqXHR) {}, // 요청 완료 시
-		}) */
-
    });
 
-   
+	
+    $('img[alt="nullimg"]').click(function(){
+		alert("asd");
+    })	
+    
+   	 $('img[alt="nullimg"]').attr("src","../resources/Dash_images/result_null.png");
+     $('img[alt="nullimg"]').css("width","100%").css("height","100%");
+
    
 });
-
-
-var programmingSkills = [
-    {
-      value: 20,
-      label: 'jQuery',
-      color: '#3399FF'
-    },
-    {
-      value: 23,
-      label: 'JavaScript',
-      color: '#FFC575'
-    },
-    {
-      value: 17,
-      label: 'Ruby',
-      color: '#99CC00'
-    },
-    {
-      value: 22,
-      label: 'Python',
-      color: '#FF3300'
-    },
-    {
-      value: 18,
-      label: 'CSS3',
-      color: '#944DDB'
-    },
-];
-
-
-
-
 
 </script>
 
@@ -125,9 +117,19 @@ var programmingSkills = [
 <body style="background-image:url(${bg});">
 <%@include file="../include/Header.jsp"%>
 <%@include file="../include/aside.jsp"%>
-       
-       
-       
+<c:forEach var="te" items="${donut}">
+ <input type="hidden" id="donut_comp" value="${te.donut_comp}" />
+ <input type="hidden" id="donut_haveto" value="${te.donut_haveto}" />
+ <input type="hidden" id="donut_bfdead" value="${te.donut_bfdead}" />
+ <input type="hidden" id="donut_afdead" value="${te.donut_afdead}" />
+</c:forEach>
+
+<c:forEach var="te" items="${graphlist}">
+	<input type="hidden" id="wk1" value="${te.wk1}" />
+	<input type="hidden" id="wk2" value="${te.wk2}" />
+	<input type="hidden" id="wk3" value="${te.wk3}" />
+	<input type="hidden" id="wk4" value="${te.wk4}" />
+</c:forEach>      
       <!--  modal 버튼  -->
 
  
@@ -230,169 +232,189 @@ var programmingSkills = [
       <!--두번째 틀  -->
       <div class="board_second">
          <!--  두번째 안에 6개 -->
-         <div class="board_chart1">
+         <div class="secondBoardinner">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme w3-large">
-                    프로젝트 진행률 (곡선그래프)
+                            프로젝트 진행률
           </div>
           </div>
-          <div id="multi"></div>  
+
+           <c:set var = "gptotal" value="0" />
+           <c:forEach var="sum" items="${graphlist}" >
+	       <c:set var ="gptotal" value="${gptotal + sum.wk1 + sum.wk2 + sum.wk3 + sum.wk4}" />
+           </c:forEach> 
+		  <c:if test="${gptotal==0}"> <img src="" alt="nullimg"></c:if>
+          <c:if test="${gptotal!=0}">
+          <div id="multi"></div> 
+          </c:if>
          </div>
          
-         <div class="board_chart2">
+         <div class="secondBoardinner">
           <div class="verticalCarouselHeader ">
             <div class="w3-container w3-theme  w3-large">
-                팀원별 기여도 (가로 막대차트) 
+                           팀원별 기여도
           </div>
           </div>
          
             <div class="container" >
                <div id="skill">
-                <c:forEach var="toplist" items="${topList}">
-                     <div class="skillbar html" style="height:5%;">
-                       <div class="filled" data-width="15%"></div>
+               <c:set var = "total" value="0" />
+               <c:set var="numset" />  
+               <c:forEach var="sum" items="${topList}" varStatus="st">
+               	<c:set var ="total" value="${total + sum.total}" />      	   
+	               <c:set var="numset" value="${st.count}" />
+               </c:forEach>
+               
+               <c:if test="${numset != 5}" ><img src="" alt="nullimg"></c:if>
+               <c:if test="${numset == 5}">
+                <c:forEach var="toplist" items="${topList}" end="4">
+                     <div class="skillbar" style="height:5%;">
+                       <div class="filled" data-width="${toplist.total/total*100}%"></div>
                        <span class="title w3-small">${toplist.id}</span>
-                       <span class="percent w3-small">${toplist.total}</span>
+                       <span class="percent w3-small">
+                      <%--  <fmt:formatNumber value="${toplist.total/total*100}" type="percent" maxFractionDigits="2" pattern="0.0%" /> --%>
+                       <fmt:parseNumber value="${toplist.total/total*100}" integerOnly="true" />%
+                       </span>           
                      </div>
                  </c:forEach>
-               
-<!--                      <div class="skillbar css" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">20%</span>
-                       <div class="filled" data-width="20%"></div>
-                     </div>
-               
-                     <div class="skillbar js" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">30%</span>
-                       <div class="filled" data-width="30%"></div>
-                     </div>
-               
-                     <div class="skillbar php" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">40%</span>
-                       <div class="filled" data-width="40%"></div>
-                     </div>
-               
-                     <div class="skillbar sass" style="height:5%;">
-                       <span class="title w3-small">ㅎㅎㅎㅎ</span>
-                       <span class="percent w3-small">50%</span>
-                       <div class="filled" data-width="50%"></div>
-                     </div> -->
-                     
-                 </div>       <!--  skill div end -->
+               </c:if>
+               <!-- css js php sass -->
+                 </div>  <!--  skill div end -->
               </div>    
 
          </div>
          
          <!----차트3 다가올 일정 ---->
-         <div class="board_chart3" style="float: left;">
-         
-            <div class="verticalCarousel1">
-            <div class="verticalCarouselHeader ">
-                <h3 class="w3-theme  w3-large"> 다가올 일정</h3>
-                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
-                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
-            </div>
-            <ul class="verticalCarouselGroup vc_list">
-           		<c:forEach var="cList" items="${comlist}">
-                <li>
-                    <p class="w3-small"><input type="hidden" value="${cList.sch_id}"/><a href="#">${cList.sch_info}</a></p>
-                </li>
-				</c:forEach>
-            </ul>
+         <div class="secondBoardinner">
+	            <div class="verticalCarousel1">
+	            <div class="verticalCarouselHeader ">
+	                <h3 class="w3-theme  w3-large"> 다가올 일정</h3>
+	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
+	            </div>
+	                 
+	            <c:if test="${empty comlist}"><img src="" alt="nullimg"></c:if>
+	            <c:if test="${!empty comlist}">
+	            <ul class="verticalCarouselGroup vc_list">
+	           		<c:forEach var="comlist" items="${comlist}">
+	               	 <li>
+	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${comlist.sch_name}</a>
+	                    <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${comlist.sch_start}~${comlist.sch_end} 
+	                    </span>
+	                    </p>       	
+	                </li>
+	                </c:forEach>
+	            </ul>
+	            </c:if>
+	             
+	       		</div>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+	        <script>
+	            $(".verticalCarousel1").verticalCarousel({
+	                currentItem: 1,
+	                showItems: 4,
+	            });
+	        </script>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel1").verticalCarousel({
-                currentItem: 1,
-                showItems: 4,
-            });
-        </script>
-            </div>
             
             
-         <div class="board_chart6">
-          <div class="verticalCarouselHeader ">
+            <!--차트 6 도넛 그래프   -->
+         <div class="secondBoardinner">
+          <div class="verticalCarouselHeader">
             <div class="w3-container w3-theme w3-large">
-                   나의 배정 업무
+               	    나의 배정 업무 
           </div>
           </div>
-            <svg id="svg" style="height: 80%;"></svg>
-         </div>     
-         
+           <!--  <svg id="svg" style="height: 80%;"></svg> -->
+           <c:set var = "dntotal" value="0" />
+           <c:forEach var="sum" items="${donut}" >
+	       <c:set var ="dntotal" value="${dntotal + sum.donut_comp + sum.donut_haveto + sum.donut_bfdead + sum.donut_afdead}" />
+           </c:forEach> 
+		   <c:if test="${dntotal == 0 }"><img src="" alt="nullimg"></c:if>
+           <c:if test="${dntotal != 0}">
+            <div class="boxsize">  
+            <div id="dashDonut" style="width: 90%;height: 80%; position: static; float: left; margin-top: 20px;"></div>
+         	</div> 
+         	<br /><br /><br />
+         	<div class="circle1"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감지남</p>
+         	<div class="circle2"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감임박</p>
+         	<div class="circle3"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;계획된 일</p>
+         	<div class="circle4"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;완료된 일</p>
+         	</c:if>
+         </div>
          <!---- 차트 4 최근 일정 목록---->
          
-         <div class="board_chart4"  style="float: left;">
-         
-            <div class="verticalCarousel2">
-            <div class="verticalCarouselHeader ">
-                <h3 class="w3-theme  w3-large"> 최근(등록)일정 목록</h3>
-                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
-                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
-            </div>
-            <ul class="verticalCarouselGroup vc_list">
-           		<c:forEach var="reList" items="${relist}">
-                <li>
-                    <p class="w3-small"><a href="#">${reList.sch_name}</a>
-                    ${reList.sch_start}  ${reList.sch_end}  ${reList.id}
-                    </p>
-                </li>
-				</c:forEach>
-            </ul>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel2").verticalCarousel({
-                currentItem: 1,
-                showItems: 4,
-            });
-        </script>
-            </div>
+         <div class="secondBoardinner">
+	            <div class="verticalCarousel2">
+	            <div class="verticalCarouselHeader ">
+	                <h3 class="w3-theme w3-large"> 최근(등록)일정 목록</h3>
+	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
+	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
+	            </div>
+	            
+	            <c:if test="${empty relist}"><img src="" alt="nullimg"></c:if>
+	            <c:if test="${!empty relist}">
+	            <ul class="verticalCarouselGroup vc_list">
+	           		<c:forEach var="reList" items="${relist}">
+	                <li>
+	                    <p class="w3-small" style="font-weight: bold;"><a href="#">${reList.sch_name}</a> </p>
+	                     <span class="datediv w3-small">&nbsp;&nbsp;&nbsp; ${reList.sch_start} ~ ${reList.sch_end}</span>
+	                   
+	                     <span class="w3-small" style="color: gray;">${reList.id}</span>
+	                </li>
+					</c:forEach>
+	            </ul>
+	            </c:if>
+	       		</div>
+		        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+		        <script>
+		            $(".verticalCarousel2").verticalCarousel({
+		                currentItem: 1,
+		                showItems: 4,
+		            });
+		        </script>
+         </div>
             
             <!--  차트5 타임라인-->
-           <div class="board_chart5">
-            
+           <div class="secondBoardinner">
             <div class="verticalCarousel3">
             <div class="verticalCarouselHeader ">
                 <h3 class="w3-theme  w3-large"> 타임라인</h3>
                 <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
                 <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
             </div>
+            
+            <c:if test="${empty timelist}"><img src="" alt="nullimg"></c:if>
+            <c:if test="${!empty timelist}">
             <ul class="verticalCarouselGroup vc_list">
                 <c:forEach var="tmList" items="${timelist}">
                 <li>
-                    <p><input type="hidden" value="${tmList.tl_id}" /><a href="#">${tmList.tl_info}</a></p>
-                    ${tmList.id}
+                     <p class="w3-small" style="font-weight: bold;"><input type="hidden" value="${tmList.tl_id}" />
+                     <a href="#"><span class="w3-small" style="color: blue; float:left"> ${tmList.tl_type}${tmList.tl_info}</span>
+                     ${tmList.tl_content}가 ${tmList.tl_info} 되었습니다.</a>
+                    <%-- <a href="#">${tmList.tl_info}</a></p> --%>
+                   <span class="w3-small" style="color: gray; float:right;" > ${tmList.id} </span>
                 </li>
                 </c:forEach>
             </ul>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
-        <script>
-            $(".verticalCarousel3").verticalCarousel({
-                currentItem: 1,
-                showItems: 3,
-            });
-        </script>
-        
-        
-        
-            </div>
-         
+            </c:if>
+       	    </div>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	        <script src="../js/Dash_jQuery.verticalCarousel.js"></script>
+	        <script>
+	            $(".verticalCarousel3").verticalCarousel({
+	                currentItem: 1,
+	                showItems: 3,
+	            });
+	        </script>   
+            </div>         
         <!--  modal 버튼 -->
-                 
-                 
+                             
         </div><!--두번째틀 끝 -->    
       </div> <!--  전체틀 끝 -->
       
-      
-
-      
-<script src="../js/Dash_svg-donut-chart-framework.js"></script>
 <script src="../js/Dash_jquery.pista.min.js"></script> <!-- 곡선그래프 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="../js/Dash_an-skill-bar.js"></script>

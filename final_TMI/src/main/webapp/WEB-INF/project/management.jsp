@@ -20,18 +20,6 @@
 <script src='../plugin/core/main.js'></script>
 <script src='../plugin/core/locales/ko.js'></script>
 <script src='../plugin/daygrid/main.js'></script>
-<!-------------------------------------- 툴팁 tippy.js -------------------------------------->
-<link rel="stylesheet"
-	href="https://unpkg.com/tippy.js@4/themes/light.css" />
-<link rel="stylesheet"
-	href="https://unpkg.com/tippy.js@4/themes/light-border.css" />
-<link rel="stylesheet"
-	href="https://unpkg.com/tippy.js@4/themes/google.css" />
-<link rel="stylesheet"
-	href="https://unpkg.com/tippy.js@4/themes/translucent.css" />
-<script src="https://unpkg.com/popper.js@1"></script>
-<script src="https://unpkg.com/tippy.js@4"></script>
-
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 

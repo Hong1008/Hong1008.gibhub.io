@@ -23,6 +23,8 @@ public interface ManageMapper {
 	
 	public void delMember(ManageDTO dto);
 	
+	public void timeDelMem(ManageDTO dto);
+	
 	public void pjDel(String pro_id);
 	
 	public void pjpeopleDel(String pro_id);

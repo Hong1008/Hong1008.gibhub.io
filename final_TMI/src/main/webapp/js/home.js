@@ -1,16 +1,43 @@
 $(document).ready(function(){	
-	var num=1;
+	var p = $('.project');
+	p.css('margin-top','-80px');
 	
-	/*$('#header').on('click',function(){		
-		if(!$('.tmi_skin').hasClass('tmi_skin09')){
-			$('.tmi_skin').removeClass('tmi_skin0'+num).addClass('tmi_skin0'+(num+1));
-			num++;
-		}else{
-			$('.tmi_skin').removeClass('tmi_skin09').addClass('tmi_skin01');
-			num=1;
-		}		
-	});*/
+	$('#pro_div').on('mouseover',function(){
+		p.css('margin-top','0px');
+
+		if(p.length>6)
+		$('#pro_div').css({'margin-top':'50px','padding-top':'0px'});
+		else{
+			$('#pro_div').css({'margin-top':400-p.length*50+'px','padding-top':'50px'});
+		}
+		$('#projects').hide();
 		
+		$('.project').on('mouseover',function(){
+			if(p.length>6){
+				 if($('#pro_div').css('padding-top').split('p')[0]<50) {
+						$('#pro_div').css({'width':'1200px','transition':'0s'});
+						$(this).css('width', '1170px');
+					 }
+			}else{
+				 if($('#pro_div').css('padding-top').split('p')[0]<30*(6-p.length)) {
+						$('#pro_div').css({'width':'1200px','transition':'0s'});
+						$(this).css('width', '1170px');
+					 }
+			}
+					
+		}).on('mouseleave',function(){
+			$(this).css('width', '320px');
+		})
+		
+		
+	}).on('mouseleave',function(){
+		p.css('margin-top','-80px');
+		$('#pro_div').css({'margin-top':'350px','transition':'1.2s','width':'500px','padding-top':'100px','height':'auto'});
+		$('#projects').show();
+	})
+	
+	
+	var num=1;
 	  $('#header_sign_in_out').on('click',function(){
           $(location).attr("href", "sign_in.do");
       });
@@ -26,6 +53,70 @@ $(document).ready(function(){
     	  document.body.appendChild(form);
     	  form.submit();
       })
+      
+      $('input#pro_name').on('keyup',function(){
+    	 var input = $(this).val();
+    	 var overlap = false;
+    	 $('div.pro_name').each(function(i,v){
+			if($.trim($(v).text())==input){
+				overlap = true;
+				return;
+			}
+		})
+		if(overlap){
+			$('#overlap').show();
+		}else{
+			$('#overlap').hide();
+		}
+      })
+      
+      
+      $("#pro-form_btn").click(function(){
+    	  	if($('#overlap').is(':visible')){
+    	  		$('input#pro_name').focus();
+    	  		return false;
+    	  	}
+    		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+    			swal("Warning", "날짜를 지정해주세요","error");
+    			return false;
+    		}
+    		var pro_team_list_array=new Array();
+    		if($("input[name='pro_team_list']").val()!=null)
+    			{
+    			$("input[name='pro_team_list']").each(function(i,v){
+    				pro_team_list_array.push($(v).val());
+    		})
+    			}
+    		$.ajax({
+    		    url: "project/insertProject", 
+    		    traditional : true,
+    		    data: { "pro_name": $("#pro_name").val(),
+    		            	"pro_info":$("#pro_info").val(),
+    		            	"pro_start":$("#pro_start").val(),
+    		            	"pro_end":$("#pro_end").val(),
+    		            	"pro_team_list":pro_team_list_array
+    		    },
+    		    type: "post",     
+    		    dataType: "text",
+    		    success:function(res)
+    		    {
+    		    	swal("Good job!", "프로젝트 추가 성공!", "success")
+    				.then((value) => {
+    					if($("input[name='pro_team_list']").val()!=null)
+    						{
+    						$("input[name='pro_team_list']").each(function(i,v){
+    				    		socket.send("invite,"+$(v).val()+","+res);
+    				    })
+    						}
+    					location.href="home";
+    				});
+    		    	
+    		    	/* var res=sessionUId+","; */
+    	         }
+
+    			})
+    		})
+    	
      
       
     //프로젝트 시작일 종료일****************************************
@@ -109,6 +200,12 @@ $(document).ready(function(){
 	$('.btn').click(function(e){
 		e.preventDefault();
 		this.blur();
+		if(!$.modal.isActive()){
+			$('.modal input').each(function(i,v){
+				if($(v).attr('type')=='text')
+					$(v).val('');
+			})
+		}
 		$('.modal').modal({
 			escapeClose: false,
 			clickClose: false
