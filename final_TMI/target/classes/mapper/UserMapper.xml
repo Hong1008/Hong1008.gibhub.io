@@ -6,6 +6,10 @@
 <insert id="insertMethod" parameterType="dto.UserDTO">
 insert into member(id,pwd,name,ip,grade,uuid) values(#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},0,#{uuid,jdbcType=VARCHAR})
 </insert>
+<!-- mypage 비밀변호 변경 -->
+<update id="mypage_update_pwd" parameterType="dto.UserDTO">
+update member set pwd=#{pwd} where id=#{id}
+</update>
 
 <!-- 이메일인증위한 uuid grade확인 -->
 <select id="FindEmailMethod" parameterType="string" resultType="dto.UserDTO">

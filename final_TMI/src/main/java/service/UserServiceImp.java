@@ -194,5 +194,10 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		dao.pro_team_mydelete(pro_id, id);
 	}
+	@Override
+	public void mypage_update_pwd(UserDTO dto) {
+		// TODO Auto-generated method stub
+		dao.mypage_update_pwd(dto);
+	}
 	
 }

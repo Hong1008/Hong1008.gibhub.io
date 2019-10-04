@@ -58,8 +58,7 @@
                             <input type="text" name="name" id="signUp_username" class="signIn" autocomplete="off">
                             
                             <label for="signUp_password">Password</label>
-                            <input type="text" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
-                            
+                            <input type="password" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
 								value="sign up for 주성" class='tmi_skin tmi_skin1'>

@@ -409,8 +409,8 @@ public class UserController {
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				if (ipreq.equals(iplist[i]))
-			/*	if(ipreq.equals("0"))*/
+				/*if (ipreq.equals(iplist[i]))*/
+			 if(ipreq.equals("0"))
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
@@ -518,6 +518,14 @@ public class UserController {
 		}
 
 		return "redirect:/home";
+	}
+	@RequestMapping("/mypage_change_pwd")
+	public String mypage_change_pwd(UserDTO dto,HttpSession session)
+	{
+		String id=session.getAttribute("id").toString();
+		dto.setId(id);
+		service.mypage_update_pwd(dto);
+		return "redirect:/mypage";
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
