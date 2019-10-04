@@ -110,6 +110,9 @@ $(document)
 									if (!event.shiftKey) {
 										event.preventDefault();
 										var msg=$('#message').val();
+										if(msg.length==0){
+											return false;
+										}
 										if(msg.length>2000){
 											swal ( "Oops" ,  "글자수 제한 2000자입니다." ,  "error" );
 											$('#message').val('');
@@ -224,22 +227,22 @@ $(document)
 						followCursor: true,
 						})
 						//드래그 들어왔을때
-						$("#tablewrap").on('dragenter',function(e){
+						$("#fileInsArea").on('dragenter',function(e){
 									e.stopPropagation();
 											e.preventDefault();
 											$("#tablewrap").css('background-color','#E3F2FC');
 								});
 					//드래그 떠날때
-					$("#tablewrap").on('dragleave',function(e){
+					$("#fileInsArea").on('dragleave',function(e){
 				            e.stopPropagation();
 				            e.preventDefault();
 				            $("#tablewrap").css('background-color','#c4d3f6');
 				        });
-					$("#tablewrap").on('dragover',function(e){
+					$("#fileInsArea").on('dragover',function(e){
 				            e.stopPropagation();
 				            e.preventDefault();
 				        });
-						$("#tablewrap").on('drop',function(e){
+						$("#fileInsArea").on('drop',function(e){
 							   e.preventDefault();
 							   $("#tablewrap").css('background-color','#c4d3f6');
 							   fileUpLoad(e.originalEvent.dataTransfer.files);
