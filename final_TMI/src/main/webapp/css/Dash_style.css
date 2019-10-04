@@ -18,19 +18,19 @@ body {
 .verticalCarousel1 {
   margin: auto;
   max-width: 850px;
-  background-color: #f1f1f1;
+   background-color: rgba(0, 255, 0, 0); /* 투명 (opacity: 0) */
 }
 
 .verticalCarousel2 {
   margin: auto;
   max-width: 850px;
-  background-color: #f1f1f1;
+   background-color: rgba(0, 255, 0, 0); /* 투명 (opacity: 0) */ 
 }
 
 .verticalCarousel3 {
   margin: auto;
   max-width: 850px;
-  background-color: #f1f1f1;
+  background-color: rgba(0, 255, 0, 0); /* 투명 (opacity: 0) */ 
 }
 
 /* line 24, ../sass/style.scss */

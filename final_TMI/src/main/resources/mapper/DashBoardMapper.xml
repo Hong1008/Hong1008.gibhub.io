@@ -90,13 +90,14 @@
 		<result javaType="string" column="sch_end" property="sch_end" />
 		<!-- <result javaType="string" column="sch_id" property="sch_id" /> -->
 		<result javaType="string" column="id" property="id" />
+		<result javaType="string" column="name" property="name" />
 	</resultMap>	
 	
 	<select id="recentlist" resultMap="recList">
 		<!-- select * from schedule where pro_id =#{pro_id} order by SCH_START DESC -->
-		select sc.sch_name sch_name, to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end ,td.id id
-		from schedule sc, todo td
-		where sc.sch_id = td.sch_id and td.id=id order by sch_start desc
+		select sc.sch_name sch_name, mem.name name , to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end 
+		from schedule sc, todo td, member mem
+		where sc.sch_id = td.sch_id and td.id=mem.id order by sch_start desc
 	</select>
 	
 	<!-- 다가올 일정 목록  -->
