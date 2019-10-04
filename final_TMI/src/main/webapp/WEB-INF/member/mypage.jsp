@@ -93,7 +93,7 @@ label {
 	margin-bottom: 5px;
 }
 
-#ChangeForm input[type=text] {
+#ChangeForm input[type=text],#ChangeForm input[type=password] {
 	border: 1px solid rgba(5, 5, 5, 0.2);
 	height: 48px;
 }
@@ -120,6 +120,15 @@ label {
 	$(document).ready(			
 			function() {
 				
+				$("#ChangePw_submit").click(function(){
+					
+					if($("#pwdck").val()!=$("#pwd").val())
+						{
+						swal("Warning", "비밀번호가 서로 일치 하지 않습니다.",
+						"error");
+						return false;
+						}
+				})
 			    /* 프로젝트 완료목록 클릭시 이동하는거  */
 				$(".mypage_projectName ").click(function(){
 					 var form = document.createElement("form");
@@ -607,10 +616,10 @@ display: inline-block;
 			<span class='mypage_title'>비밀번호 변경</span> -->
 
 			<div id="ChangeForm" class="cate">
-				<form action="change_pwd.do">
-					<label for="pwd">Password</label><input type="text" name="pwd"
+				<form action="mypage_change_pwd">
+					<label for="pwd">Password</label><input type="password" name="pwd"
 						id="pwd" /> <label for="pwdck">Confirm password</label> <input
-						type="text" name="pwdck" id="pwdck" /> <span>Make sure
+						type="password" name="pwdck" id="pwdck" /> <span>Make sure
 						it's at least 15 characters OR at least 8 characters including a
 						number and a lowercase letter.</span>
 					<c:choose>

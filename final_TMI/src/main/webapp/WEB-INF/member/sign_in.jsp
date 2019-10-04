@@ -302,7 +302,7 @@ padding: 0px;
 				<form action="sign_in_do" method="post">
 					<label for="signinEmail">email</label> <input type="text" name="id"
 						class='signinText' id='signinEmail'> <label
-						for="signinPassword">password</label> <input type="text"
+						for="signinPassword">password</label> <input type="password"
 						name="pwd" class='signinText' id='signinPassword'> <a
 						href="forgot_pw" id='forgot'>forgot password?</a>
 

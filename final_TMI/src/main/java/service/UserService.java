@@ -25,7 +25,7 @@ public interface UserService {
 	public UserDTO select_idProcess(UserDTO dto);
 	//중복검사
 	public int test_idProcess(UserDTO dto);
-	
+	public void mypage_update_pwd(UserDTO dto);
 	//ip검사
 	public String select_ipProcess(String ip);
 	
