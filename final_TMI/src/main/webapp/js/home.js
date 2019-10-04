@@ -169,7 +169,12 @@ $(document).ready(function(){
 	$(document).on('click', '.autocomplete-item', function(){
 		var input = $(this).text();
 		var result = false;
-
+		
+		if($('.table-list-item').length>5){
+			swal("Warning", "최대 인원은 본인포함 6명입니다.","error");
+			return;
+		}
+		
 		$('.table-list-item').each(function(i,v){
 			console.log($(v).attr('id'));
 			if($(v).attr('id')==input){
