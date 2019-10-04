@@ -59,8 +59,6 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-    @Autowired
-    private ProjectService pservice;
 	@Autowired
 	private ProjectService projectService;
 
@@ -109,7 +107,7 @@ public class UserController {
 	@RequestMapping("**/getProName")
 	public @ResponseBody String getProName(String pro_id)
 	{
-		ProjectDTO dto=pservice.proSelect(pro_id);
+		ProjectDTO dto=projectService.proSelect(pro_id);
 		
 		return dto.getPro_name();
 		
