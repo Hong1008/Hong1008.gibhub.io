@@ -13,6 +13,7 @@ public class DashDTO {
 	private String bgsel; // background color pick
 	private String tl_content; //타임라인 내용
 	private String tl_type; //타임라인 타입
+	private String name; //멤버 이름
 	private int total; // top5 list
 	private int donut_comp; //도넛그래프 완료
 	private int donut_haveto; //해야할 일
@@ -28,6 +29,18 @@ public class DashDTO {
 	}
 	
 	
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public String getTl_type() {
 		return tl_type;
