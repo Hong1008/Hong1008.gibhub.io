@@ -25,12 +25,19 @@
 <!-------------------------------------- bxslider 연결 -------------------------------------->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/tmi/css/simptip.css" />
 
-
+ <style type="text/css">
+ .aaa{
+ 	    margin-top: -30px;
+    display: block;
+    margin-bottom: 30px;
+ }
+ </style>
 <title>세계의 모든일 Task Universe</title>
 </head>
 <body>
-	<div id='bodywrap'>
+	<div class="section" id='bodywrap'>
 		<div id="signUpArea">
 			<div id="content" class='center_box'>
 				<div id='textArea'>
@@ -44,11 +51,14 @@
 				<div id='signForm'>
 				 <form action="sign_up" method="post">
 				 <label for="signUp_email">Email</label>
-                            <input type="text" name="id" id="signUp_email" class="signIn" autocomplete="off">
+                            <input type="text" name="id" id="signUp_email" 
+                            class="signIn" autocomplete="off">
+                            
                             <label for="signUp_username">Username</label>
                             <input type="text" name="name" id="signUp_username" class="signIn" autocomplete="off">
+                            
                             <label for="signUp_password">Password</label>
-                            <input type="text" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
+                            <input type="password" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
 								value="sign up for 주성" class='tmi_skin tmi_skin1'>
@@ -63,15 +73,15 @@
 			</div>
 		</div>
 		<div id='info' class='tmi_skin tmi_skin1'></div>
+		</div>
+		<div class="section">
 		<div id='youtube'>
-			<div><img  src="/tmi/resources/tutoimg/1.png" /></div>
-			<div><img  src="/tmi/resources/tutoimg/2.png" /></div>
-			<div><img  src="/tmi/resources/tutoimg/1.png" /></div>
-			<div><img src="/tmi/resources/tutoimg/2.png" /></div>
+			
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	$('#youtube').bxSlider();
+	
+	
 </script>
 </html>

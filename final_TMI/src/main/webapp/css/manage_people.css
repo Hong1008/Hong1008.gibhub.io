@@ -28,10 +28,17 @@
 }
 
 /* 프로젝트 수정버튼, 뒤로가기 버튼 */
+#backMain{
+	float: right;
+	margin-top: 30px;
+	margin-right: 50px;
+}
+
 #update,#back{
 	float: right;
 	margin-right: 20px;
 }
+
 
 /* 매니저 변경 틀 */
 #manager_form{
@@ -86,7 +93,7 @@ h1{
 	display: block;
 }
 
-#search-bar input[type=submit] {
+#search-bar input[type=button] {
   width: 100%;
   background-color: #4CAF50;
   color: white;
@@ -97,7 +104,7 @@ h1{
   cursor: pointer;
 }
 
-#search-bar input[type=submit]:hover {
+#search-bar input[type=button]:hover {
   background-color: #45a049;
 }
 
@@ -187,11 +194,6 @@ h1{
     text-align: center;
     font-weight: normal;
     text-decoration: none;
-}
-
-.button-back{
-	margin-top: 30px;
-	margin-right: 50px;
 }
 
 /********************************** 멤버 체크박스 ************************************/

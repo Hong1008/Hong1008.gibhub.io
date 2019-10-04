@@ -10,9 +10,16 @@ public class ProjectDTO {
 	private String pro_end;
 	private String pro_rend;
 	private String pro_mgr;
+	private String name;
 	private List<Pro_TeamDTO> ptList;
 	
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
 	public List<Pro_TeamDTO> getPtList() {
 		return ptList;
 	}

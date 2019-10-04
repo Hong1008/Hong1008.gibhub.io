@@ -16,7 +16,7 @@ public interface UserMapper {
 	//비밀번호찾기 select
 	public UserDTO FindEmailMethod(String email);
 	//이메일인증시 1로 upate
-	public void UpdateGrade(String uid);
+	public void UpdateGrade(String uuid);
 	//비밀번호변경
 	public void UpdatePwd(UserDTO dto);
 	//uuidupdate
@@ -61,4 +61,5 @@ public interface UserMapper {
 	public void project_delete(String pro_id);
 	public void pro_team_delete(String pro_id);
 	public void pro_team_mydelete(String pro_id,String id);
+	public void mypage_update_pwd(UserDTO dto);
 }

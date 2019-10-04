@@ -132,8 +132,8 @@ label {
       <div id="ChangeForm" class="center_div">
          <form action="change_pwd">
             <input type="hidden" name="uuid" value="<%=uid%>" /> <label
-               for="pwd">Password</label><input type="text" name="pwd" id="pwd" />
-            <label for="pwdck">Confirm password</label> <input type="text" name="pwdck"
+               for="pwd">Password</label><input type="password" name="pwd" id="pwd" />
+            <label for="pwdck">Confirm password</label> <input type="password" name="pwdck"
                id="pwdck" /> 
                <span id ='pwck_text'>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</span>
                <input id="ChangePw_submit" type="submit"

@@ -260,11 +260,15 @@ function fileInsModalHide() {
 // 파일 미리보기
 function inputPreview(input) {
 	for(var i =0; i<input.length; i++){
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
+		var name=input[i].name;
+		var type=name.substring(name.lastIndexOf('.')+1,name.length);
+		if (type == 'jpg' || type == 'gif' || type == 'png' || type == 'bmp') {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#filepreviewAreaimg').html("<img src=" + e.target.result + ">");
+			}
+			reader.readAsDataURL(input[i]);
 		}
-		reader.readAsDataURL(input[i]);
 	}
 }
 // chatwebsocket이 연결된 경우 호출되는 함수

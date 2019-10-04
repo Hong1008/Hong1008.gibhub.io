@@ -1,25 +1,62 @@
 $(document).ready(function(){	
+	var p = $('.project');
+	p.css('margin-top','-80px');
+
+	$('#pro_div').on('mouseover',function(){
+		p.css('margin-top','0px');
+
+
+		if(p.length>6)
+			$('#pro_div').css({'margin-top':'50px','padding-top':'0px'});
+		else{
+			$('#pro_div').css({'margin-top':400-p.length*40+'px','padding-top':'50px'});
+		}
+		$('#projects').hide();		
+	}).on('mouseleave',function(){
+		p.css('margin-top','-80px');
+		$('#pro_div').css({'margin-top':'350px','transition':'1.2s','width':'500px','padding-top':'100px','height':'auto'});
+		$('#projects').show();
+	});
+
+	$('.project').on('mouseover',function(){
+		if(p.length>6){
+			if($('#pro_div').css('padding-top').split('p')[0]<50) {
+				$('#pro_div').css({'width':'1200px','transition':'0s'});
+				$(this).css('width', '1170px');
+			}
+		}else{
+				$('#pro_div').css({'width':'1200px','transition':'0s'});
+				$(this).css('width', '1170px');
+				if($('#pro_div').css('padding-top').split('p')[0]<40*(6-p.length)) {
+			}
+		}
+
+	}).on('mouseleave',function(){
+		$(this).css('width', '320px');
+	})
+
+
 	var num=1;
-	  $('#header_sign_in_out').on('click',function(){
-          $(location).attr("href", "sign_in.do");
-      });
-      $('#header_sign_up').on('click',function(){
-          $(location).attr("href", "sign_up.do");
-      });
-      
-      $(".project").click(function(){
-    	  var form = document.createElement("form");
-    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
-    	  form.setAttribute("action", "project/management");
-    	  $(form).append($(this).children('#pro_id'));
-    	  document.body.appendChild(form);
-    	  form.submit();
-      })
-      
-      $('input#pro_name').on('keyup',function(){
-    	 var input = $(this).val();
-    	 var overlap = false;
-    	 $('div.pro_name').each(function(i,v){
+	$('#header_sign_in_out').on('click',function(){
+		$(location).attr("href", "sign_in.do");
+	});
+	$('#header_sign_up').on('click',function(){
+		$(location).attr("href", "sign_up.do");
+	});
+
+	$(".project").click(function(){
+		var form = document.createElement("form");
+		form.setAttribute("method", "POST"); // Get 또는 Post 입력
+		form.setAttribute("action", "project/management");
+		$(form).append($(this).children('#pro_id'));
+		document.body.appendChild(form);
+		form.submit();
+	})
+
+	$('input#pro_name').on('keyup',function(){
+		var input = $(this).val();
+		var overlap = false;
+		$('div.pro_name').each(function(i,v){
 			if($.trim($(v).text())==input){
 				overlap = true;
 				return;
@@ -38,7 +75,11 @@ $(document).ready(function(){
     	  		$('input#pro_name').focus();
     	  		return false;
     	  	}
-    		if($(this).children('#pro_start').val()=='' || $(this).children('#pro_end').val()==''){
+    	  	if($(this).prevAll('#pro_name').val()=='' || $(this).prevAll('#pro_info').val()==''){
+    	  		swal("Warning", "입력칸을 작성해주세요","error");
+    	  		return false;
+    	  	}
+    		if($(this).prevAll('#pro_start').val()=='' || $(this).prevAll('#pro_end').val()==''){
     			swal("Warning", "날짜를 지정해주세요","error");
     			return false;
     		}
@@ -86,16 +127,16 @@ $(document).ready(function(){
 	var pro_end = document.getElementById("pro_end");
 	const myPicker = new Lightpick({
 		field: pro_start,
-	    secondField: pro_end,
+		secondField: pro_end,
 		singleDate: false,
 		format:'YY/MM/DD',
 		repick:true,
 		onSelect: function(start, end){
-			
+
 		}
 	});
-	
-    //검색****************************************
+
+	//검색****************************************
 	$('#pro-form #search_id').on({
 		focus:function(){
 			$('#pro-form #search_result').show();
@@ -123,12 +164,12 @@ $(document).ready(function(){
 			})
 		}
 	})
-	
+
 	//유저추가*****************************************
 	$(document).on('click', '.autocomplete-item', function(){
 		var input = $(this).text();
 		var result = false;
-		
+
 		$('.table-list-item').each(function(i,v){
 			console.log($(v).attr('id'));
 			if($(v).attr('id')==input){
@@ -147,25 +188,31 @@ $(document).ready(function(){
 			return;
 		}
 		$('#pro_team_list').append('<li class="table-list-item" id="'+input+'"><span class="table-list-cell">'+input+'</span>'+
-		'<span class="table-list-cell"></span><span class="table-list-cell"></span><span class="table-list-cell" id="remove-item">x</span>'+
-		'<input type="hidden" name="pro_team_list" value="'+input+'"/></li>')
-		
+				'<span class="table-list-cell"></span><span class="table-list-cell"></span><span class="table-list-cell" id="remove-item">x</span>'+
+				'<input type="hidden" name="pro_team_list" value="'+input+'"/></li>')
+
 	})
-	
-	
-	
+
+
+
 	//유저제거****************************************
 	$(document).on('click','#remove-item', function(){
 		$(this).parent().remove();
 	})
-	
+
 	$('.btn').click(function(e){
 		e.preventDefault();
 		this.blur();
+		if(!$.modal.isActive()){
+			$('.modal input').each(function(i,v){
+				if($(v).attr('type')=='text')
+					$(v).val('');
+			})
+		}
 		$('.modal').modal({
 			escapeClose: false,
 			clickClose: false
 		});
 	})
-	
+
 })

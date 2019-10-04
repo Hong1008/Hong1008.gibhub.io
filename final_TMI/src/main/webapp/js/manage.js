@@ -1,20 +1,25 @@
+function ReturnKey(e){
+	 if(e.keyCode==13 && e.srcElement.type != 'textarea')
+		    return false;
+}
 
 $(document).ready(function(){
 	var pro_id= $('#pro_id').val();
 	var sessionproId= $("#sessionproId").val();
 	
-	$("#addMember").click(function(){
-	
+	$("#addMember").click(function(){	
+		 
+		if($("input[name='pro_team_list']").val()==null){
+			swal("추가할 멤버가 없습니다", "멤버를 추가하고 눌러주세요","error");
+			return false;
+		}
 		
 		$("#search-bar").submit();
 		
 		$.ajax({
 			  url: "getProName", 
-
 			    data: { "pro_id":sessionproId  },                
-
 			    type: "GET",                            
-
 			    dataType: "text",
 			    success:function(res)
 			    {
@@ -25,12 +30,7 @@ $(document).ready(function(){
 				})
 					}
 			    }
-		})
-		
-		
-		
-		
-		
+		})		
 		
 	})
 	
@@ -79,7 +79,7 @@ $(document).ready(function(){
 	});
 	
 	// 관리페이지로 돌아가기
-	$('#back').on('click', function(){
+	$('#backMain').on('click', function(){
 		location.href="main";
 	});
 	

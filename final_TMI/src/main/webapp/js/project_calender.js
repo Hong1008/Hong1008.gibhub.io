@@ -8,6 +8,7 @@ $(document).ready(function(){
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		plugins : [ 'dayGrid' ],
 		locale: 'ko',
+		height: 1000,
 		eventLimit: true, // for all non-TimeGrid views
 		views: {
 		  timeGrid: {

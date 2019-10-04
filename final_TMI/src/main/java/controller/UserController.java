@@ -80,6 +80,8 @@ public class UserController {
 	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	@RequestMapping("**/deleteProject")
 	public String deleteProject(String pro_id,String tf,HttpSession session)
 	{
@@ -101,7 +103,7 @@ public class UserController {
 			
 		}
 		
-		return "redirect:member/mypage";
+		return "redirect:/mypage";
 	}
 	
 	@RequestMapping("**/getProName")
@@ -179,7 +181,7 @@ public class UserController {
 		return result;
 	}
 	//test
-	@RequestMapping("**/mypage")
+	@RequestMapping("/mypage")
 	public ModelAndView mypage(ModelAndView mav,HttpSession session)
 	{  
 		String id=session.getAttribute("id").toString();
@@ -306,14 +308,32 @@ public class UserController {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
 				service.insertProcess(dto);
 				String subject = "TMI[이메일 인증]";// 제목
-				String content = "<div align='center'>\r\n"
-						+ "        <img src=\"https://ww.namu.la/s/34f4f86a25e4f020f4f2df539231f36df7e209a1c08137102b7bf3eb9a884b270273333c6a3e576d2a0ddf7ac4e0f782de5319f1eef41d42f4a0b170156150f02b736b9019e792a2cf3340572f21cd4ca74789532b72c843e3baf3e5d9ca705c\" style=\"width: 50%;\">\r\n"
-						+ "<p >We heard that you lost your TMI password. Sorry about that!<br>\r\n"
-						+ "        But don’t worry! You can use the following link to reset your password:</p>\r\n"
-						+ "<a href='http://localhost:8090/tmi/confirm_email?uid=" + dto.getUuid() +
-
-						"' style='text-decoration: none;\r\n" + "    font-size: 27px;\r\n"
-						+ "    font-weight: bold;\r\n" + "    color: rgb(36, 173, 228);\r\n" + "\'>Click me!</a><br>";
+				String content=
+						"<div style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">\r\n" + 
+						"	<hr style=\"border:0.5px solid #DDD; \" >\r\n" + 
+						"	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">\r\n" + 
+						"		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">Task Management Information</span><br />\r\n" + 
+						"		<span style=\"background:linear-gradient(120deg, #12c2e9, #c471ed, #f64f59);    -webkit-background-clip: text;\r\n" + 
+						"    -webkit-text-fill-color: transparent;\">메일인증</span> 안내입니다.\r\n" + 
+						"	</h1>\r\n" + 
+						"	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\r\n" + 
+						"		안녕하세요.<br />\r\n" + 
+						"		T.M.I에 가입해 주셔서 진심으로 감사드립니다.<br />\r\n" + 
+						"		아래 <b style=\"green;\">'메일 인증'</b> 버튼을 클릭하여 회원가입을 완료해 주세요.<br />\r\n" + 
+						"		감사합니다.\r\n" + 
+						"	</p>\r\n" + 
+						"\r\n" + 
+						"	<a style=\"color: #FFF; text-decoration: none; text-align: center;\" href='http://localhost:8090/tmi/confirm_email?uid=" + dto.getUuid() +"' target=\"_blank\"><p style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: linear-gradient(120deg, #12c2e9, #c471ed, #f64f59); line-height: 45px; vertical-align: middle; font-size: 16px;\">메일 인증</p></a>\r\n" + 
+						"\r\n" + 
+						"	<div style=\"border-top: 1px solid #DDD; padding: 5px;\">\r\n" + 
+						"		<p style=\"font-size: 13px; line-height: 21px; color: #555;\">\r\n" + 
+						"			만약 버튼이 정상적으로 클릭되지 않는다면, 아래 링크를 복사하여 접속해 주세요.<br />\r\n" + 
+						"			http://localhost:8090/tmi/confirm_email?uid="+dto.getUuid()+"\r\n" + 
+						"		</p>\r\n" + 
+						"	</div>\r\n" + 
+						"</div>";
+						
+						
 				service.postmailProcess(dto, subject, content);
 				return "0";
 			} else {
@@ -389,8 +409,8 @@ public class UserController {
 			String[] iplist = ip.split(",");
 			String ipreq = req.getRemoteAddr();
 			for (int i = 0; i < iplist.length; i++) {
-				if (ipreq.equals(iplist[i]))
-			/*	if(ipreq.equals("0"))*/
+				/*if (ipreq.equals(iplist[i]))*/
+			 if(ipreq.equals("0"))
 				{
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
@@ -484,6 +504,8 @@ public class UserController {
 	
 	@RequestMapping("/change_pwd")
 	public String Change_pwd_do(UserDTO dto) {
+		System.out.println(dto.getUuid()+"찍히나");
+		
 		UUID uid = UUID.randomUUID();
 		dto.setNewuuid(uid.toString());
 		try {
@@ -496,6 +518,14 @@ public class UserController {
 		}
 
 		return "redirect:/home";
+	}
+	@RequestMapping("/mypage_change_pwd")
+	public String mypage_change_pwd(UserDTO dto,HttpSession session)
+	{
+		String id=session.getAttribute("id").toString();
+		dto.setId(id);
+		service.mypage_update_pwd(dto);
+		return "redirect:/mypage";
 	}
 
 	// 비밀번호 변경 인증 링크 이메일로 보내기
@@ -514,12 +544,31 @@ public class UserController {
 		System.out.println(grade + " " + uid + " " + dto.getId());
 
 		if (uid != null && grade != 0) {
-			String subject = "EASY TASK[비밀번호 변경]";// 제목
-			String content = "<div align='center' style='border:1px solid black'>\r\n"
-					+ "<h3 style='color:#ff5722; font-size:100%;'>비밀번호 변경 링크입니다</h3>\r\n"
-					+ "<div style='font-size:130%;'><strong><a href='http://localhost:8090/tmi/change_pwd_form?uuid="
-					+ dto.getUuid() + "'>비밀번호 변경 링크</a></strong></div><br>";// 내용
-
+			String subject = "TMI[비밀번호 변경]";// 제목
+			String content=
+					"<div style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">\r\n" + 
+					"	<hr style=\"border:0.5px solid #DDD; \" >\r\n" + 
+					"	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">\r\n" + 
+					"		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">Task Management Information</span><br />\r\n" + 
+					"		<span style=\"background:linear-gradient(120deg, #12c2e9, #c471ed, #f64f59);    -webkit-background-clip: text;\r\n" + 
+					"    -webkit-text-fill-color: transparent;\">비밀번호 변경</span> 안내입니다.\r\n" + 
+					"	</h1>\r\n" + 
+					"	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\r\n" + 
+					"		안녕하세요.<br />\r\n" + 
+					"		T.M.I에 가입해 주셔서 진심으로 감사드립니다.<br />\r\n" + 
+					"		아래 <b style=\"green;\">'비밀번호 변경'</b> 버튼을 클릭하여 회원가입을 완료해 주세요.<br />\r\n" + 
+					"		감사합니다.\r\n" + 
+					"	</p>\r\n" + 
+					"\r\n" + 
+					"	<a style=\"color: #FFF; text-decoration: none; text-align: center;\" href='http://localhost:8090/tmi/change_pwd_form?uuid=" +  dto.getUuid()+"' target=\"_blank\"><p style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: linear-gradient(120deg, #12c2e9, #c471ed, #f64f59); line-height: 45px; vertical-align: middle; font-size: 16px;\">비밀번호 변경</p></a>\r\n" + 
+					"\r\n" + 
+					"	<div style=\"border-top: 1px solid #DDD; padding: 5px;\">\r\n" + 
+					"		<p style=\"font-size: 13px; line-height: 21px; color: #555;\">\r\n" + 
+					"			만약 버튼이 정상적으로 클릭되지 않는다면, 아래 링크를 복사하여 접속해 주세요.<br />\r\n" + 
+					"			http://localhost:8090/tmi/change_pwd_form?uuid=" +  dto.getUuid()+
+					"		</p>\r\n" + 
+					"	</div>\r\n" + 
+					"</div>";
 			service.postmailProcess(dto, subject, content);
 			text = "true";
 

@@ -19,6 +19,20 @@
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	function animateDivers() {
+		$('#cfe_logo').css({
+			'background-position-x' : '0px'
+		});
+		$('#cfe_logo').animate({
+			'background-position-x' : '-1000px'
+		}, 1000, animateDivers);
+	}
+	animateDivers();
+	
+})
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
