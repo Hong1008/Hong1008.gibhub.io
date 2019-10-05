@@ -48,7 +48,7 @@ $(document).ready(function(){
 	$('#SetRend').on('click',function(){
 		swal({
 			  title: "프로젝트 종료",
-			  text: "정말로 종료하시겠습니까?",
+			  text: "정말로 종료하시겠습니까? 아직 안끝난 스케줄이 있다면 모두 종료됩니다.",
 			  icon: "warning",
 			  buttons: true,
 			  dangerMode: false,

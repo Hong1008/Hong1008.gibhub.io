@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../css/Dash_jQuery.verticalCarousel.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../js/Dash_jquery.tooltip.js"></script> <!-- tooltip -->
+<!-- <script src="../js/Dash_jquery.tooltip.js"></script> tooltip -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script> <!-- 도넛그래프  -->
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 <!-- <link rel="stylesheet" href="../css/morris.css"> 
@@ -84,8 +84,8 @@ $(document).ready(function(){
         element: 'dashDonut',
         data: [        
                 {label: "완료된 일", value: Math.floor(parseInt($('#donut_comp').val())/sum*100)},
-                {label: "계획된 일", value: Math.floor(parseInt($('#donut_haveto').val())/sum*100)},
-                {label: "진행된 일", value: Math.floor(parseInt($('#donut_bfdead').val())/sum*100)},
+                {label: "시작전 일", value: Math.floor(parseInt($('#donut_haveto').val())/sum*100)},
+                {label: "진행중 일", value: Math.floor(parseInt($('#donut_bfdead').val())/sum*100)},
                 {label: "마감지남", value: Math.floor(parseInt($('#donut_afdead').val())/sum*100)}
               ],
           colors: ["#5A5AFF", "#C1FF6B","#FF1493","#46AAFF"], //그래프 color를 지정해줍니다.
@@ -97,29 +97,63 @@ $(document).ready(function(){
     var sum1 = parseInt($('#wk1').val())+ parseInt($('#wk2').val())+ parseInt($('#wk3').val())+parseInt($('#wk4').val());     
     /* var sum2 = parseInt($('#wk11').val())+ parseInt($('#wk21').val())+ parseInt($('#wk31').val())+parseInt($('#wk41').val()); */
     
+    var dataArr = new Array();
+    $('.date').each(function(i,v){
+    	var dateObj = {value:$(v).next().val(), date:$(v).val()};
+    	dataArr.push(dateObj);
+    })
+    
 	 var data= [{ 
 		  name:"project",
-		  data:[
-			    {value:Math.floor(parseInt($("#wk1").val())/sum1*100), date:month+"/"+(day-5)+"/"+year},
-			    {value:Math.floor(parseInt($("#wk2").val())/sum1*100), date:month+"/"+(day-10)+"/"+year},
-			    {value:Math.floor(parseInt($("#wk3").val())/sum1*100), date:month+"/"+(day-15)+"/"+year},
-			    {value:Math.floor(parseInt($("#wk4").val())/sum1*100), date:month+"/"+(day-20)+"/"+year}    
-			    ]
+		  data:dataArr
 			  } 
-		  ]
+		  ];
     
 		 // Multiple lines
 	     options={
 	       height: 150,
 	       width: 700,
-	     }
+	     };
 	  
 	   $("#multi").pista(data, options);
    	
 	//graph test end
 	
 	
-	
+	   tippy('#board1', {
+		   content: "자신이 속해 있는 프로젝트의 수 입니다."
+		 });
+	   tippy('#board2', {
+		   content: "해당 프로젝트 스케줄 수 입니다."
+		 });
+	   tippy('#board3', {
+		   content: "자신이 속해 있는 프로젝트의 남은 스케줄 수 입니다."
+		 });
+	   tippy('#board4', {
+		   content: "자신이 속해 있는 프로젝트의 완료된 스게줄 수 입니다."
+		 });
+	   tippy('#board5', {
+		   content: "현재 프로젝트의 진행률 입니다."
+		 });
+	   tippy('#board6', {
+		   content: "해당 프로젝트에서 기여도가 높은 팀원 top5"
+		 });
+	   tippy('#board7', {
+		   content: "스케줄에서 3일 내로 가장 가까운 일정을 알려줍니다."
+		 });
+	   tippy('#board8', {
+		   content: "스케줄에서 정해진 할 일들을 그래프로 보여줍니다.<br/>"+
+			   "마감지남: 종료일이 지났으나 완료가 되지 않은 일들.<br/>"+
+			   "시작전 일: 앞으로 계획된 할 일들<br/>"+
+			   "진행중 일: 진행중인 할 일들<br/>"+
+			   "완료된 일: 종료된 할일들."
+		 });
+	   tippy('#board9', {
+		   content: "모든 스케줄의 일정을 알려줍니다."
+		 });
+	   tippy('#board10', {
+		   content: "타임라인을 알려줍니다."
+		 });
 });
 </script>
 
@@ -135,10 +169,8 @@ $(document).ready(function(){
 </c:forEach>
 
 <c:forEach var="te" items="${graphlist}">
-	<input type="hidden" id="wk1" value="${te.wk1}" />
-	<input type="hidden" id="wk2" value="${te.wk2}" />
-	<input type="hidden" id="wk3" value="${te.wk3}" />
-	<input type="hidden" id="wk4" value="${te.wk4}" />
+	<input type="hidden" class="date" value="${te.date}" />
+	<input type="hidden" class="value" value="${te.value}" />
 </c:forEach>      
       <!--  modal 버튼  -->
 
@@ -199,10 +231,10 @@ $(document).ready(function(){
             <div class="w3-panel w3-pale-white w3-leftbar w3-border-black" style="height: 110%">
           
             <div class="con-tooltip bottom">
-                <p class="text-uppercase mar-btm text-sm w3-xlarge">프로젝트 </p>
-                <div class="tooltip"> 
+                <p class="text-uppercase mar-btm text-sm w3-xlarge" id="board1">프로젝트 </p>
+                <!-- <div class="tooltip"> 
                 <p>자신이 속해 있는 프로젝트의 수 입니다.</p>  
-                  </div>
+                  </div> -->
       </div>
              <!--   <i class="fa fa-users fa-5x"></i> -->
                <hr>
@@ -215,10 +247,10 @@ $(document).ready(function(){
             <div class="w3-panel w3-pale-white w3-leftbar w3-border-yellow"
                style="height: 90%">
                 <div class="con-tooltip bottom">
-               <p class="text-uppercase mar-btm text-sm w3-xlarge">전체 일정</p>
-               <div class="tooltip ">
+               <p class="text-uppercase mar-btm text-sm w3-xlarge" id="board2">전체 일정</p>
+               <!-- <div class="tooltip ">
                 <p>해당 프로젝트 스케줄 수 입니다.</p>
-                  </div>
+                  </div> -->
    			   </div>
               <!--  <i class="fa fa-comment fa-5x"></i> -->
                <hr>
@@ -232,11 +264,11 @@ $(document).ready(function(){
             <div class="w3-panel w3-pale-white w3-leftbar w3-border-purple" 
                style="height: 90%">
                <div class="con-tooltip bottom">
-               <p class="text-uppercase mar-btm text-sm w3-xlarge">남은 업무</p>
-               <div class="tooltip ">
+               <p class="text-uppercase mar-btm text-sm w3-xlarge" id="board3">남은 업무</p>
+<!--                <div class="tooltip ">
                 <p>자신이 속해 있는 프로젝트의 남은 프로젝트의 수 입니다.</p>
                   </div>
-   			   </div>
+ -->   			   </div>
                <!-- <i class="fa fa-shopping-cart fa-5x"></i> -->
                <hr>
                <p class="h2 text-thin"><a href="#"><c:out value="${recnt}" /></a></p>
@@ -248,10 +280,10 @@ $(document).ready(function(){
          <div class="board4">
               <div class="w3-panel w3-pale-sand w3-leftbar w3-border-dark-grey" style="height: 90%">
                 <div class="con-tooltip bottom">
-                 <p class="text-uppercase mar-btm text-sm w3-xlarge">완료업무</p>
-                   <div class="tooltip ">
+                 <p class="text-uppercase mar-btm text-sm w3-xlarge" id="board4">완료업무</p>
+                   <!-- <div class="tooltip ">
                 <p>자신이 속해 있는 프로젝트의  완료된 프로젝트 수 입니다.</p>
-                  </div>
+                  </div> -->
    			   </div>
                        <!-- <i class="fa fa-dollar fa-5x"></i> -->
                        <hr>
@@ -265,40 +297,37 @@ $(document).ready(function(){
       <!--두번째 틀  -->
       <div class="board_second">
          <!--  두번째 안에 6개 -->
-         <div class="secondBoardinner">
-          <div class="verticalCarouselHeader ">
+         <div class="secondBoardinner" >
+          <div class="verticalCarouselHeader " id="board5">
           <div class="con">
           <div class="con-tooltip right">
             <div class="w3-container w3-theme w3-large">
                             프로젝트 진행률
           </div>
-           <div class="tooltip ">
+           <!-- <div class="tooltip ">
                 <p>현재 프로젝트의 진행률 입니다.</p>
-                  </div>
+                  </div> -->
    			   </div>
           </div>
 </div>
 
            <c:set var = "gptotal" value="0" />
-           <c:forEach var="sum" items="${graphlist}" >
-	       <c:set var ="gptotal" value="${gptotal + sum.wk1 + sum.wk2 + sum.wk3 + sum.wk4}" />
-           </c:forEach> 
            
-		  <c:if test="${gptotal == 0}"><img src="../resources/Dash_images/result_null.png" alt="nullimg" width="100%" height="100%"></c:if>
-          <c:if test="${gptotal != 0}">
+		  <c:if test="${empty graphlist}"><img src="../resources/Dash_images/result_null.png" alt="nullimg" width="100%" height="100%"></c:if>
+          <c:if test="${not empty graphlist}">
           <div id="multi"></div> 
           </c:if>
          </div>
          
          <div class="secondBoardinner">
-          <div class="verticalCarouselHeader ">
+          <div class="verticalCarouselHeader " id="board6">
               <div class="con-tooltip right">
             <div class="w3-container w3-theme  w3-large">
                            팀원별 기여도
           </div>
-                 <div class="tooltip ">
+                 <!-- <div class="tooltip ">
                 <p>해당 프로젝트에서 기여도가 높은 팀원 top5</p>
-                  </div>
+                  </div> -->
    			   </div>
           </div>
          
@@ -333,12 +362,12 @@ $(document).ready(function(){
          <!----차트3 다가올 일정 ---->
          <div class="secondBoardinner">
 	            <div class="verticalCarousel1">
-	            <div class="verticalCarouselHeader ">
+	            <div class="verticalCarouselHeader " id="board7">
 	             <div class="con-tooltip right">
 	                <div class="w3-container w3-theme  w3-large"> 다가올 일정 </div>
- 				<div class="tooltip ">
+ 				<!-- <div class="tooltip ">
                 <p>스케줄에서 3일 내로 가장 가까운 일정을 알려줍니다.</p>
-                  </div>
+                  </div> -->
                   </div>
 	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
@@ -372,20 +401,20 @@ $(document).ready(function(){
             
             <!--차트 6 도넛 그래프   -->
          <div class="secondBoardinner">
-          <div class="verticalCarouselHeader " style="z-index: 50;
+          <div class="verticalCarouselHeader " id="board8" style="z-index: 50;
     position: relative;">
            <div class="con-tooltip bottom"> 
             <div class="w3-container w3-theme w3-large">
                	    나의 배정 업무  
           </div>
           
- 			<div class="tooltip ">
+ 			<!-- <div class="tooltip ">
                 <p>스케줄에서 정해진 할 일들을 그래프로 보여줍니다.<br/>
 				마감지남: 종료일이 지났으나 완료가 되지 않은 일들.<br/>
 				계획된 일: 앞으로 계획된 할 일들<br/>
 				마감임박: 3일 내로 끝내야 할 일들<br/>
 				완료된 일: 종료된 할일들.</p>
-                  </div>
+                  </div> -->
    			   </div>
           </div>
            <!--  <svg id="svg" style="height: 80%;"></svg> -->
@@ -400,8 +429,8 @@ $(document).ready(function(){
          	</div> 
          	<br /><br /><br />
          	<div class="circle1"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감지남</p>
-         	<div class="circle2"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;마감임박</p>
-         	<div class="circle3"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;계획된 일</p>
+         	<div class="circle2"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;진행중 일</p>
+         	<div class="circle3"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;시작전 일</p>
          	<div class="circle4"></div><p class="w3-large">&nbsp;&nbsp;&nbsp;완료된 일</p>
          	</c:if>
          </div>
@@ -409,14 +438,14 @@ $(document).ready(function(){
          
          <div class="secondBoardinner">
 	            <div class="verticalCarousel2">
-	            <div class="verticalCarouselHeader " style="z-index: 50;
+	            <div class="verticalCarouselHeader " id="board9" style="z-index: 50;
     position: relative;">
 	              <div class="con-tooltip top">
 	               <div class="w3-container w3-theme w3-large"> 최근(등록)일정 목록</div>
 	                
- 			<div class="tooltip ">
+ 			<!-- <div class="tooltip ">
                 <p>모든 스케줄의 일정을 알려줍니다.</p>
-                  </div>
+                  </div> -->
    			   </div>
 	                <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>
 	                <a href="#" class="vc_goUp"><i class="fa fa-fw fa-angle-up"></i></a>
@@ -449,13 +478,13 @@ $(document).ready(function(){
             <!--  차트5 타임라인-->
            <div class="secondBoardinner">
             <div class="verticalCarousel3">
-            <div class="verticalCarouselHeader " style="z-index: 50;
+            <div class="verticalCarouselHeader " id="board10"  style="z-index: 50;
     position: relative;">
             <div class="con-tooltip top">
                 <div class="w3-container w3-theme  w3-large"> 타임라인</div>
-                <div class="tooltip ">
+                <!-- <div class="tooltip ">
                 <p>타임라인을 알려줍니다.</p>
-                  </div>
+                  </div> -->
    			   </div>
    			   
                 <a href="#" class="vc_goDown"><i class="fa fa-fw fa-angle-down"></i></a>

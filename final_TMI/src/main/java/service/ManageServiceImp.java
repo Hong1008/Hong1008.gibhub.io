@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dto.ManageDTO;
 import mapper.ManageMapper;
@@ -74,9 +75,12 @@ public class ManageServiceImp implements ManageService{
 		return mapper.searchIdList(id);
 	}
 
+	@Transactional
 	@Override
 	public void rendSetProcess(ManageDTO dto) {
 		mapper.setRend(dto);
+		mapper.setSchRend(dto);
+		mapper.setTdRend(dto);
 	}
 	
 }

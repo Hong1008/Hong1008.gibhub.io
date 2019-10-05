@@ -1,5 +1,9 @@
 package service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dto.DashDTO;
+import dto.ProjectDTO;
+import dto.ScheduleDTO;
+import dto.TodoDTO;
 import mapper.DashBoardMapper;
+import mapper.ProjectMapper;
 
 @Service
 public class DashBoardServiceImp implements DashBoardService{
@@ -15,6 +23,8 @@ public class DashBoardServiceImp implements DashBoardService{
 	
 	@Autowired
 	private DashBoardMapper mapper;
+	@Autowired
+	private ProjectMapper pjMapper;
 	
 	public DashBoardServiceImp() {
 	}
@@ -74,8 +84,41 @@ public class DashBoardServiceImp implements DashBoardService{
 	}
 	
 	@Override
-	public List<DashDTO> graphProcess(HashMap<String, String> map) {
-		return mapper.graphlist(map);
+	public List<HashMap<String, Object>> graphProcess(HashMap<String, String> map) {
+		String pro_id = map.get("pro_id");
+		String id = map.get("id");
+		ProjectDTO pdto = pjMapper.proSelect(pro_id);
+		List<TodoDTO> tList = pjMapper.tdProidSelect(pro_id);
+		int tdTotal = tList.size();
+		List<TodoDTO> tListEnd = pjMapper.tdProidSelectRend(pro_id);
+		if(tList.size()==0||tListEnd.size()==0) {
+			return null;
+		}
+		SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		HashMap<String, Object> zero = new HashMap<>();
+		try {
+			zero.put("date", format.format(parse.parse(pjMapper.proSelect(pro_id).getPro_start().substring(0, 10))));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		zero.put("value", 0);
+		result.add(zero);
+		for (TodoDTO todoDTO : tListEnd) {
+			HashMap<String, Object> rendPer = new HashMap<>();
+			try {
+				rendPer.put("date", format.format(parse.parse(todoDTO.getT_rend().substring(0, 10))));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int curCnt = pjMapper.tdRendCompare(pro_id, todoDTO.getT_rend().substring(0, todoDTO.getT_rend().indexOf("."))).size();
+			rendPer.put("value", Math.round((double)curCnt/(double)tdTotal*100));
+			result.add(rendPer);
+		}
+		return result;
 	}
 	
 }
