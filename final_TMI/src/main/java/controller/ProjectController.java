@@ -40,7 +40,12 @@ public class ProjectController {
 	
 	@RequestMapping(value="/management", method=RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mav, HttpSession session, @RequestParam(value = "pro_id") String pro_id ) { 
-		session.setAttribute("pro_id", pro_id);
+		System.out.println("projectcontroller"+pro_id);
+		
+		
+		session.setAttribute("pro_id", pro_id);	
+			
+			
 		/*else if(session.getAttribute("pro_id")!=pro_id && pro_id != null) {
 			session.removeAttribute("pro_id");
 			session.setAttribute("pro_id", pro_id);
