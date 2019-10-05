@@ -85,7 +85,7 @@ $(document).ready(function(){
         data: [        
                 {label: "완료된 일", value: Math.floor(parseInt($('#donut_comp').val())/sum*100)},
                 {label: "계획된 일", value: Math.floor(parseInt($('#donut_haveto').val())/sum*100)},
-                {label: "마감임박", value: Math.floor(parseInt($('#donut_bfdead').val())/sum*100)},
+                {label: "진행된 일", value: Math.floor(parseInt($('#donut_bfdead').val())/sum*100)},
                 {label: "마감지남", value: Math.floor(parseInt($('#donut_afdead').val())/sum*100)}
               ],
           colors: ["#5A5AFF", "#C1FF6B","#FF1493","#46AAFF"], //그래프 color를 지정해줍니다.

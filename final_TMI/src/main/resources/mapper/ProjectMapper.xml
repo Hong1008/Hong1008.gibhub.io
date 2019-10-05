@@ -41,7 +41,7 @@
 		select p.pro_id pro_id,pro_name, m.name pro_man, ceil(pro_end-sysdate) pro_dday, to_char(pro_end,'yyyy-MM-dd') pro_end
 		from project p, member m, pro_team pt
 		where p.pro_mgr = m.id and pt.pro_id=p.pro_id
-		and pt.id=#{id} and p.pro_rend is null
+		and pt.id=#{id} and p.pro_rend is null order by p.pro_id desc
 	</select>
 	
 	<select id="proIdList" resultType="string" parameterType="string">
