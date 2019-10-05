@@ -67,4 +67,12 @@
 		update project set pro_rend=sysdate where pro_id=#{pro_id}
 	</update>
 	
+	<update id="setSchRend" parameterType="dto.ManageDTO">
+		update schedule set sch_rend = sysdate where pro_id = #{pro_id} and sch_rend is null
+	</update>
+	
+	<update id="setTdRend" parameterType="dto.ManageDTO">
+		update todo set t_rend = sysdate where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) and t_rend is null
+	</update>
+	
 </mapper>

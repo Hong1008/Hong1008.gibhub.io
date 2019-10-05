@@ -127,6 +127,21 @@
 		select sch_id from schedule where sch_id = #{sch_id} and sch_rend is not null
 	</select>
 	
+	<select id="tdProidSelect" resultType="dto.TodoDTO" parameterType="string">
+		select * from todo where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) order by t_rend
+	</select>
+	
+	<select id="tdProidSelectRend" resultType="dto.TodoDTO" parameterType="string">
+		select * from todo where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) and t_rend is not null order by t_rend
+	</select>
+	
+	<select id="tdRendCompare" resultType="dto.TodoDTO" parameterType="string">
+		<![CDATA[
+		select * from todo where sch_id in 
+		(select sch_id from schedule where pro_id = #{pro_id}) and t_rend <= to_date(#{t_rend},'YYYY-MM-DD HH24:MI:SS') order by t_rend
+		]]> 
+	</select>
+	
 	<update id="uptSchRend" parameterType="string">
 		update schedule set sch_rend = sysdate where sch_id = #{sch_id}
 	</update>

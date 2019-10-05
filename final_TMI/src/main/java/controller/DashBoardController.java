@@ -31,7 +31,6 @@ public class DashBoardController {
 	
 	@RequestMapping("/DashMain")
 	public ModelAndView DashMain(ModelAndView mav, HttpServletRequest req, HashMap<String, String> map) {
-
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id"); //user_id 
 		//int pro_id = Integer.parseInt(req.getParameter("pid"));
