@@ -23,7 +23,20 @@ public class DashDTO {
 	private int wk2; //그래프 2주
 	private int wk3; //그래프3주
 	private int wk4; //그래프4주
+	private String pro_id;
 	
+
+	public String getPro_id() {
+		return pro_id;
+	}
+
+
+
+	public void setPro_id(String pro_id) {
+		this.pro_id = pro_id;
+	}
+
+
 
 	public DashDTO() {
 	}

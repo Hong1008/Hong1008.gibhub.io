@@ -93,11 +93,12 @@
 		<!-- <result javaType="string" column="sch_id" property="sch_id" /> -->
 		<result javaType="string" column="id" property="id" />
 		<result javaType="string" column="name" property="name" />
+		<result javaType="string" column="pro_id" property="pro_id"/>
 	</resultMap>	
 	
 	<select id="recentlist" resultMap="recList">
 		<!-- select * from schedule where pro_id =#{pro_id} order by SCH_START DESC -->
-		select sc.sch_name sch_name, mem.name name , to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end 
+		select sc.sch_name sch_name, mem.name name , to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end ,sc.pro_id pro_id
 		from schedule sc, todo td, member mem
 		where sc.sch_id = td.sch_id and td.id=mem.id order by sch_start desc
 	</select>
@@ -108,11 +109,12 @@
 		<result javaType="string" column="sch_start" property="sch_start" />
 		<result javaType="string" column="sch_end" property="sch_end" />
 		<result javaType="string" column="id" property="id" />
+		<result javaType="string" column="pro_id" property="pro_id"/>
 		</resultMap>
 		
 	<select id="comminglist" parameterType="string" resultMap="comlist">
 	<![CDATA[
-	select sc.sch_name sch_name, to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end
+	select sc.sch_name sch_name, to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end,pt.pro_id
         from schedule sc, pro_team pt
         where sysdate+3 >= sc.sch_start and sysdate < sc.sch_start and pt.PRO_ID = sc.PRO_ID
         and pt.ID=#{id}	
@@ -126,12 +128,13 @@
 		<result javaType="string" column="tl_info" property="tl_info" />
 		<result javaType="string" column="id" property="id" />
 		<result javaType="string" column="tl_content" property="tl_content" />
+			<result javaType="string" column="pro_id" property="pro_id"/>
 	</resultMap> 
 	<select id="timelist" parameterType="string" resultMap="tList">
 		select DISTINCT(tl.tl_id) tl_id,
         decode(tl_type,'time_sch','스케쥴','time_todo','할일','time_mem','멤버','time_file','파일') tl_type,
         decode(tl_info,'time_start','생성','time_end','종료','time_add','가입','time_remove','탈퇴','time_up','업로드') tl_info,
-        td.id id,tl.tl_content tl_content
+        td.id id,tl.tl_content tl_content ,sc.pro_id pro_id
         from timeline tl, schedule sc,todo td 
 		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id  and td.id=#{id} order by tl.tl_id desc
 	</select>

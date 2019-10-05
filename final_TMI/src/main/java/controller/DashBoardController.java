@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import dto.DashDTO;
+import dto.UserDTO;
 import service.DashBoardService;
+import service.UserService;
 
 @Controller
 @RequestMapping("/DashBoard/*")
@@ -17,6 +21,9 @@ public class DashBoardController {
 	
 	@Autowired
 	private DashBoardService service;
+	
+	@Autowired
+	private UserService uservice;
 	
 	public void setService(DashBoardService service) {
 		this.service = service;
@@ -43,13 +50,30 @@ public class DashBoardController {
 		//donut 그래프
 		mav.addObject("donut",service.donutgraphProcess(id));	
 		//top5 list
-		mav.addObject("topList",service.topListProcess(pro_id));
+		List<DashDTO> ddto= service.topListProcess(pro_id);
+		if(ddto!=null)
+		{
+		for(int i=0;i<ddto.size();i++)
+		{
+			DashDTO dadto=new DashDTO();
+			dadto.setTotal(ddto.get(i).getTotal());
+			UserDTO udto=uservice.select_mypageProcess(ddto.get(i).getId());
+		  	dadto.setId(udto.getName());
+		  	ddto.set(i, dadto);
+			
+		}
+		}
+		mav.addObject("topList",ddto);
 		//최근등록 일정
 		mav.addObject("relist", service.recentlistProcess(pro_id));
+		
 		//다가올 일정
 		mav.addObject("comlist",service.commingProcess(id));
 		//최신 타임라인
 		mav.addObject("timelist", service.timelineProcess(id));
+		
+		
+		
 		//그래프 추출
 		mav.addObject("graphlist", service.graphProcess(map));
 		mav.addObject("bg","../resources/Dash_images/"+service.bgViewProcess(id)+".jpg");

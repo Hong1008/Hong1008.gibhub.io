@@ -55,11 +55,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			System.out.println("handleTextMessage:" + session + " : " + message);
 			String senderId = getId(session);
-//			for (WebSocketSession sess: sessions) {
-//				sess.sendMessage(new TextMessage(senderId + ": " + message.getPayload()));
-//			}
-			
-			//protocol: cmd,댓글작성자,게시글작성자,bno  (ex: reply,user2,user1,234)
+
 			String msg = message.getPayload();
 			int result=0;
 			if (StringUtils.isNotEmpty(msg)) {
@@ -70,6 +66,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				{
 				
 					WebSocketSession oSession = userSessions.get(senderId);
+					
+					if(oSession !=null)
+					{
+						
+				
 			            result=service.select_noti_countProcess(senderId);
 			            
 			   
@@ -109,6 +110,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         }
 			         
 			         oSession.sendMessage(new TextMessage(res)); 
+					}
 
 					
 				}
@@ -118,6 +120,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					
 					System.out.println(strs[1]);
 					WebSocketSession oSession = userSessions.get(strs[1]);
+					if(oSession !=null)
+					{
+						
 					result=service.select_noti_countProcess(strs[1]);
 			         String res= String.valueOf(result);
 			         UserDTO udto=service.select_mypageProcess(strs[2]);
@@ -128,11 +133,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		        		 				+ "<input type='hidden' value='"+strs[4] +"'/>"
 		        		 				+ "<input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
 			         oSession.sendMessage(new TextMessage(res)); 
+					}
 				}
 				else if(strs[0].equals("yes"))
 				{
 					//id는 알림받을사람 noti_id는 초대를 보낸사람 버튼을누른사람
 					WebSocketSession oSession = userSessions.get(strs[1]);
+					if(oSession !=null)
+					{
+						
 					String pro_id=strs[2];
 					String invite_id=strs[3];//초대받은사람  1이 보낸사람
                     String name=strs[4];
@@ -143,11 +152,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         res+=",yes,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 수락하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
 			        		 
 			         oSession.sendMessage(new TextMessage(res)); 
+					}
 				}
 				else if(strs[0].equals("no"))
 				{
 					//id는 알림받을사람 noti_id는 초대를 보낸사람 버튼을누른사람
 					WebSocketSession oSession = userSessions.get(strs[1]);
+					if(oSession !=null)
+					{
+						
 					String pro_id=strs[2];
 					String invite_id=strs[3];//초대받은사람  1이 보낸사람
                     String name=strs[4];
@@ -157,10 +170,14 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         //초대보낸사람 받은사람 pro_id
 			         res+=",no,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 거절하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
 			         oSession.sendMessage(new TextMessage(res)); 	
+					}
 				}
 				else if(strs[0].equals("delete"))
 				{
 					WebSocketSession oSession = userSessions.get(strs[2]);
+					if(oSession !=null)
+					{
+						
 					System.out.println(strs[2]);
 					
 					System.out.println("result"+result);
@@ -176,6 +193,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					 String res= String.valueOf(result);
 					 res+=",delete,"+pdto.getPro_name()+"프로젝트에서 제외 되셨습니다.<input type='hidden' value='"+strs[2]+"'><input type='hidden' value='"+strs[1]+"'><div id='notification_deleteBtn'>X</div></div>";
 					oSession.sendMessage(new TextMessage(res)); 	
+					}
 				}
 				
 				
@@ -203,9 +221,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
 
 	
-			//현재 수신자에게 몇개의 메세지가 와있는지 디비에서 검색함. message.getPayload();
-			//count세주는거니까 select count(*) from notification where id="" and yn in("1","2");
-			//count 두개해줘야할듯 select count(*) from notificatin where invited_id="" and yn=0; //1일때 2일떄 들어갔습니다 거부했습니다 알림할필요있나
+	
 		
 		
 

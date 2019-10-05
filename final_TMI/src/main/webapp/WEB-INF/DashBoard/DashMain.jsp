@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,11 +119,69 @@ $(document).ready(function(){
    	
 	//graph test end
 	
+	 $(".sch_name").click(function(){
+		 /* var a= $(this).prev().val(); */
+		
+	        var form = document.createElement("form");
+			form.setAttribute("method", "POST"); // Get 또는 Post 입력
+			form.setAttribute("action", "/tmi/project/management");
+			$(form).append($(this).prev('#pro_id'));
+			document.body.appendChild(form);
+			form.submit(); 
+	 })
+	 $(".reList_sch_name").click(function(){
+		 var form = document.createElement("form");
+			form.setAttribute("method", "POST"); // Get 또는 Post 입력
+			form.setAttribute("action", "/tmi/project/management");
+			$(form).append($(this).prev('#pro_id'));
+			document.body.appendChild(form);
+			form.submit(); 
+	 })
+	 $(".timeline_sch").click(function(){
+		
+		var type=$(this).prev().prev().val();
+		 var form = document.createElement("form");
+	
+	 	if(type=="스케쥴" || type=="할일")
+			{
+			
+				form.setAttribute("method", "POST"); // Get 또는 Post 입력
+				form.setAttribute("action", "/tmi/project/management");
+				$(form).append($(this).prev('#pro_id'));
+				document.body.appendChild(form);
+				form.submit(); 
+			}
+	 	//채팅으로감
+		else if(type=="파일")
+			{
+			 location.href="/tmi/chat/chattingroom";
+			}
+	 	//멤버관리
+		else {
+			
+			 location.href="/tmi/setting/main";
+		} 
+		
+	 })
+	
 	
 	
 });
 </script>
+<style type="text/css">
+.sch_name{
+cursor:pointer;
+}
+.reList_sch_name
+{
+cursor:pointer;
+}
+.timeline_sch
+{
+cursor:pointer;
+}
 
+</style>
 </head>
 <body style="background-image:url(${bg});">
 <%@include file="../include/Header.jsp"%>
@@ -311,8 +370,8 @@ $(document).ready(function(){
 	               <c:set var="numset" value="${st.count}" />
                </c:forEach>
                
-               <c:if test="${numset != 5}" ><img src="../resources/Dash_images/result_null.png" alt="nullimg" width="100%" height="100%"></c:if>
-               <c:if test="${numset == 5}">
+               <c:if test="${numset < 2}" ><img src="../resources/Dash_images/result_null.png" alt="nullimg" width="100%" height="100%"></c:if>
+               <c:if test="${numset >= 2}">
                 <c:forEach var="toplist" items="${topList}" end="4">
                      <div class="skillbar" style="height:5%;">
                        <div class="filled" data-width="${toplist.total/total*100}%"></div>
@@ -349,7 +408,9 @@ $(document).ready(function(){
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="comlist" items="${comlist}">
 	               	 <li>
-	                    <p class="w3-small" style="font-weight: bold;"><a href="/tmi/project/management">${comlist.sch_name}</a>
+	                    <p class="w3-small" style="font-weight: bold;">
+	                    <input type="hidden" id="pro_id" name="pro_id" value="${comlist.pro_id}">
+	                    <span class="sch_name">${comlist.sch_name}</span>
 	                     <span class="datediv w3-small" >&nbsp;&nbsp;&nbsp; ${comlist.sch_start} ~ ${comlist.sch_end}
 	                    </span>
 	                    </p>       	
@@ -427,7 +488,9 @@ $(document).ready(function(){
 	            <ul class="verticalCarouselGroup vc_list">
 	           		<c:forEach var="reList" items="${relist}">
 	                <li>
-	                    <p class="w3-small" style="font-weight: bold;"><a href="/tmi/project/management">${reList.sch_name}</a> 
+	                    <p class="w3-small" style="font-weight: bold;">
+	                    <input type="hidden" name="pro_id" id="pro_id" value="${reList.pro_id}"/>
+                   <span class="reList_sch_name">${reList.sch_name}</span>
 	                     <span class="datediv w3-small">${reList.sch_start} ~ ${reList.sch_end}</span>
 	                   </p>
 	                     <span class="w3-small" style="color: gray;">${reList.name}</span>
@@ -468,10 +531,22 @@ $(document).ready(function(){
                 <c:forEach var="tmList" items="${timelist}">
                 <li>
                      <p class="w3-small" style="font-weight: bold;"><input type="hidden" value="${tmList.tl_id}" />
-                     <a href="/tmi/project/timeline"><span class="w3-small w3-tag w3-blue" style="float:left"> ${tmList.tl_type}${tmList.tl_info}</span>
-                     ${tmList.tl_type} ${tmList.tl_content}가 ${tmList.tl_info} 되었습니다.</a>
-                    <%-- <a href="#">${tmList.tl_info}</a></p> --%>
-                   <span class="w3-small" style="color: gray; float:right;" > ${tmList.id} </span>
+                     <input type="hidden" value="${tmList.tl_type}"/>
+                     <input type="hidden" name="pro_id" id="pro_id" value="${tmList.pro_id}"/>
+                     <span class="timeline_sch"><span class="w3-small w3-tag w3-blue" style="float:left"> ${tmList.tl_type}${tmList.tl_info}</span>
+                    <c:choose>
+                    <c:when test="${tmList.tl_type eq '파일'}">
+                    <c:set var="checks" value="${tmList.tl_content}"/>
+                    <c:set var="check_array" value="${fn:substringAfter(checks, '!park_')}"/>
+                    ${tmList.tl_type} ${check_array}가 ${tmList.tl_info} 되었습니다.
+                    </c:when>
+                    <c:otherwise>
+                     ${tmList.tl_type} ${tmList.tl_content}가 ${tmList.tl_info} 되었습니다.
+                    </c:otherwise>
+                    </c:choose>
+                    </span>
+                  
+                   <%-- <span class="w3-small" style="color: gray; float:right;" > ${tmList.id} </span> --%>
                 </li>
                 </c:forEach>
             </ul>
