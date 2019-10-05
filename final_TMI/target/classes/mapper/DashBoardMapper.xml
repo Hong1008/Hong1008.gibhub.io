@@ -7,23 +7,25 @@
 	
 	
 	<select id="pjcnt" parameterType="string" resultType="int">
-		select count(*) from pro_team where id=#{id} 
+		select count(*) from pro_team pt, project p where id=#{id} and p.pro_id = pt.pro_id and pro_rend is null 
 	</select>
 	
 	<select id="alltodocnt" parameterType="string" resultType="int">
-		select count(*) From schedule where pro_id in(select pro_id from pro_team where id=#{id})
+		select count(*) From schedule s 
+		where pro_id in
+		(select pt.pro_id from pro_team pt, project p where pt.pro_id = p.pro_id and pro_rend is null and id=#{id})
 	</select>
 
 	<select id="remaincnt" parameterType="string" resultType="int">
 		<![CDATA[
-		select count(*) From schedule where pro_id in(select pro_id from pro_team where id=#{id})
+		select count(*) From schedule where pro_id in(select pt.pro_id from pro_team pt, project p where pt.pro_id = p.pro_id and pro_rend is null and id=#{id})
 		and sch_end >= sysdate and sch_rend is null
 		]]>
 	</select>
 	
 	<select id="compcnt" parameterType="string" resultType="int">
 		select count(*) from schedule where sch_rend is not null and  pro_id in 
-		(select pro_id from pro_team where id=#{id})
+		(select pt.pro_id from pro_team pt, project p where pt.pro_id = p.pro_id and pro_rend is null and id=#{id})
 	</select>
 	
 	
@@ -60,15 +62,15 @@
 		to_number(count(a.work4))as donut_afdead ,a.id from(
 		select id, t_start, t_end, t_rend,
 		case 
-		when t_rend is not null and sysdate > t_end then 'a'
+		when t_rend is not null then 'a'
 		end as work,
 		
 		case
-		when t_rend is null and t_start < sysdate and t_end >= sysdate then 'b' 
+		when t_rend is null and t_start > sysdate and t_end > sysdate then 'b' 
 		end as work2,
 		
 		case
-		when t_rend is null and t_end <= sysdate+3 and sysdate < t_end then 'c'
+		when t_rend is null and t_start <= sysdate and sysdate <= t_end then 'c'
 		end as work3,
 		
 		case
@@ -76,9 +78,9 @@
 		
 		end as work4
 		
-		from todo where id=#{id}
+		from todo t, schedule s, project p where id=#{id} and s.sch_id = t.sch_id and s.pro_id = p.pro_id and pro_rend is null
 		order by t_id desc)a
-		group by a.work,a.id
+		group by a.id
 		]]> 
 	</select>
 		
