@@ -62,9 +62,9 @@ $(document).ready(function(){
 <body>
 	<div id="aside" >
 	<div class="list">
-	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대쉬보드" id="das"></a>
-	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트" id="man"></a>
-	<a href="/tmi/setting/main"><img src="../resources/asideimg/group.png" class="interval" name="맴버" id="mai"></a>
+	<a href="/tmi/DashBoard/DashMain"><img src="../resources/asideimg/chart.png" class="interval" name="대시보드" id="das"></a>
+	<a href="/tmi/project/management"><img src="../resources/asideimg/folder.png" class="interval" name="프로젝트 관리" id="man"></a>
+	<a href="/tmi/setting/main"><img src="../resources/asideimg/group.png" class="interval" name="프로젝트 설정" id="mai"></a>
 	<a href="/tmi/chat/chattingroom"><img src="../resources/asideimg/chat.png" class="interval" name="채팅" id="cha"></a>
 	</div>
 	<div id="proMember">
