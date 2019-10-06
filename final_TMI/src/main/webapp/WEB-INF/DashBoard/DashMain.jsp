@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--추가  --> 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>DashBoard</title>
 <link rel="stylesheet" href="../css/Dash_dashMain.css">
 <link rel="stylesheet" href="../css/Dash_style.css">
 <link rel="stylesheet" href="../css/Dash_an-skill-bar.css">

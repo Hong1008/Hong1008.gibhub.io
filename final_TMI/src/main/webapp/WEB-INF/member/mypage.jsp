@@ -20,7 +20,6 @@
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 @charset "UTF-8";
 

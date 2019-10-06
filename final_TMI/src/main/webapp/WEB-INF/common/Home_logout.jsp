@@ -34,7 +34,6 @@
     margin-bottom: 30px;
  }
  </style>
-<title>세계의 모든일 Task Universe</title>
 </head>
 <body>
 	<div class="section" id='bodywrap'>

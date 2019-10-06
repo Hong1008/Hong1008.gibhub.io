@@ -35,6 +35,10 @@ $(document).ready(function(){
 			}
 	  })
 	  
+	  $('div').not("#header_notiNum").click(function(){
+		  console.log(this)
+	  })
+	  
 	  $('.header_singIn').on('click',function(){
         $(location).attr("href", "sign_in.do");
     });
