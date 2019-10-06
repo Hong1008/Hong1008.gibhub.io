@@ -641,7 +641,8 @@ display: inline-block;
 				<span class='mypage_title'>종료된 프로젝트</span> -->
 				<c:choose>
 					<c:when test="${empty pdto}">
-	프로젝트 완료 목록이없습니다.
+					<div style="font-size: 26px;font-weight: bold;text-align: center;">프로젝트 완료 목록이없습니다.</div>
+					<div style="text-align: center;">어서 프로젝트를 완료해주세요!</div>
 	</c:when>
 					<c:otherwise>
 						<div id='mayege_projects'>
