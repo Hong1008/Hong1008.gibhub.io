@@ -138,7 +138,7 @@
 	<select id="tdRendCompare" resultType="dto.TodoDTO" parameterType="string">
 		<![CDATA[
 		select * from todo where sch_id in 
-		(select sch_id from schedule where pro_id = #{pro_id}) and t_rend <= to_date(#{t_rend},'YYYY-MM-DD HH24:MI:SS') order by t_rend
+		(select sch_id from schedule where pro_id = #{pro_id}) and t_rend <= to_date(#{t_rend},'YYYY-MM-DD HH24:MI:SS') and t_rend is not null order by t_rend
 		]]> 
 	</select>
 	
