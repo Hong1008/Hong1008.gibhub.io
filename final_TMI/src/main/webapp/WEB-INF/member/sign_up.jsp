@@ -18,7 +18,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
-<title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="/tmi/css/simptip.css" />
 <!--수정사항  -->

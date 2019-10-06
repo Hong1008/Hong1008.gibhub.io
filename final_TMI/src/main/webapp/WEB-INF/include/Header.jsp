@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>프로젝트의 모든 것 Task Management Info</title>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-------------------------------------- 툴팁 tippy.js -------------------------------------->

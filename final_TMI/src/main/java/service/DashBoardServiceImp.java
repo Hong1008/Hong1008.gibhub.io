@@ -114,7 +114,12 @@ public class DashBoardServiceImp implements DashBoardService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			int curCnt = pjMapper.tdRendCompare(pro_id, todoDTO.getT_rend().substring(0, todoDTO.getT_rend().indexOf("."))).size();
+			int lastIdx = todoDTO.getT_rend().indexOf(".");
+			String t_rend = todoDTO.getT_rend();
+			if(lastIdx>0) {
+				t_rend = todoDTO.getT_rend().substring(0, lastIdx);
+			}
+			int curCnt = pjMapper.tdRendCompare(pro_id, t_rend).size();
 			rendPer.put("value", Math.round((double)curCnt/(double)tdTotal*100));
 			result.add(rendPer);
 		}
