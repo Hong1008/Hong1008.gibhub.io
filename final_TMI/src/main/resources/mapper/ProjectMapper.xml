@@ -72,11 +72,11 @@
 	</select>
 	
 	<select id="schSelect" resultType="dto.ScheduleDTO" parameterType="string">
-		select * from schedule where pro_id = #{pro_id}
+		select * from schedule where pro_id = #{pro_id} order by sch_id desc
 	</select> 
 	
 	<select id="tdSelect" resultType="dto.TodoDTO" parameterType="string">
-		select * from todo where sch_id = #{sch_id} order by t_priority
+		select * from todo where sch_id = #{sch_id} order by t_id desc
 	</select>
 	
 	<select id="schSelectEnd" resultType="dto.ScheduleDTO" parameterType="string">
