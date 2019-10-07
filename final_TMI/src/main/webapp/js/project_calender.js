@@ -122,6 +122,8 @@ $(document).ready(function(){
 		}
 	})
 
+
+	
 	calendar.render();
 	function filter(info){
 		var teamList = info.event.extendedProps.teamList

@@ -18,7 +18,7 @@ String name=(String)request.getAttribute("name");
 %>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>프로젝트의 모든 것 Task Management Info</title>
 <script> 
 $(document).ready(function(){
 
