@@ -9,6 +9,12 @@
 <title>프로젝트의 모든 것 Task Management Info</title>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-------------------------------------- bxslider 연결 -------------------------------------->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
 <!-------------------------------------- 툴팁 tippy.js -------------------------------------->
 <link rel="stylesheet"
 	href="https://unpkg.com/tippy.js@4/themes/light.css" />
@@ -212,7 +218,6 @@ $(document).ready(function(){
 		    {
 		    	$(this_click).parent().css("display","none");
 		    	$("#header_notiCount").text(header_notiCount-1);
-		    	alert(res);
 		    	}
 		})			
 	})	

@@ -33,6 +33,15 @@
     display: block;
     margin-bottom: 30px;
  }
+ .bx-wrapper{
+ 	margin: auto;
+ }
+ #ex{
+ 	font-size: 30px;
+    font-weight: bold;
+    margin: 15px 0px;
+ }
+ 
  </style>
 </head>
 <body>
@@ -73,14 +82,22 @@
 		</div>
 		<div id='info' class='tmi_skin tmi_skin1'></div>
 		</div>
-		<div class="section">
+		<div class="section" style="text-align: center;">
+		<div id="ex">왜 TMI인가요?</div>
 		<div id='youtube'>
-			
+			<img alt="" src="/tmi/resources/tutoImg/tuto1.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto2.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto3.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto4.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto5.png" >
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	
+
+  $('#youtube').bxSlider({
+	  slideWidth:'1500'
+  });
 	
 </script>
 </html>

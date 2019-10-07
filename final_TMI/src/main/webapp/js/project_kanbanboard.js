@@ -154,7 +154,7 @@ $(document).ready(function(){
 			swal("Warning", "날짜를 지정해주세요","error");
 			return false;
 		}
-		if($('.teamExp').attr('id')=='leader'){
+		if($('.teamExp').attr('id')=='leader'&& $(this).attr('id')=='sch-form'){
 			swal("Warning", "리더를 지정해주세요","error");
 			return false;
 		}

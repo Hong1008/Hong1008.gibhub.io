@@ -7,7 +7,6 @@ $(document).ready(function(){
 	$('input[type="text"]').attr('autocomplete','off');
 
 	var sessionTheme=$("#sessionTheme").val();
-	console.log(sessionTheme);
 	var skin = $('.tmi_skin');
 	if(sessionTheme!="")
 	{
