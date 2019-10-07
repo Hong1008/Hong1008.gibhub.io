@@ -23,7 +23,7 @@
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet' >
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<title>Document</title>
+<title>로그인</title>
 
 <!-- 1. modal 눌렀을때 나오는 모양 수정  2. 구글로그인 버튼 수정 -->
 

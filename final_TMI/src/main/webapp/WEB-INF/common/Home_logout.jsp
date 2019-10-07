@@ -60,7 +60,7 @@
                             <input type="password" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
-								value="sign up for TMI" class='tmi_skin tmi_skin1'>
+								value="Sign up for TMI" class='tmi_skin tmi_skin1'>
 							<a href="${google_url}"><img width="300" height="80"
 								src="/tmi/resources/memberimg/login_google.png" /></a>
 						</div>

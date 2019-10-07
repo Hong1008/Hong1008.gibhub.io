@@ -9,6 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<title>회원가입</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
