@@ -44,7 +44,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception{
-			System.out.println("afterConnectionEstablished:" + session);
 			sessions.add(session);
 			String senderId = getId(session);
 			userSessions.put(senderId, session);
@@ -53,7 +52,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-			System.out.println("handleTextMessage:" + session + " : " + message);
 			String senderId = getId(session);
 
 			String msg = message.getPayload();
@@ -61,7 +59,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			if (StringUtils.isNotEmpty(msg)) {
 			
 				String[] strs = msg.split(",");
-				System.out.println(strs[0]);
 				if(strs[0].equals("open"))
 				{
 				
@@ -83,8 +80,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         {
 			        	 if(List.get("state").toString().equals("0"))
 			        	 {   //첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
-			        		 res+=",<div class='noti_ram01'>"+List.get("name").toString()+"님이"+List.get("pro_name")+""
-			        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+List.get("pro_name")+"'/><input type='hidden' value='"+List.get("id") +"'/><input type='hidden' value='"+senderId +"'/><input type='hidden' value='"+List.get("pro_id") +"'/><input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
+			        		 res+=",<div class='noti_ram01'>"+List.get("name").toString()+"님이"+List.get("pro_name").toString()+""
+			        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+List.get("pro_name").toString()+"'/><input type='hidden' value='"+List.get("id") +"'/><input type='hidden' value='"+senderId +"'/><input type='hidden' value='"+List.get("pro_id") +"'/><input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("3"))
 			        	 {
@@ -92,13 +89,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
 			                
 			        	
-			        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 수락하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
+			        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name").toString()+"초대를 수락하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("4"))
 			        	 {
 			        		 NotiDTO dto=service.select_notificationProcess(senderId, List.get("no").toString());
 				        		UserDTO udto=service.select_mypageProcess(dto.getNoti_id());
-				        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name")+"초대를 거절하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
+				        		 res+=",<div class='noti_ram01'>"+udto.getName()+"님이"+List.get("pro_name").toString()+"초대를 거절하셨습니다.<input type='hidden' value='"+dto.getNoti_id()+"'><input type='hidden' value='"+List.get("pro_id")+"'><div id='notification_deleteBtn'>x</div></div>";
 			        	 }
 			        	 else if(List.get("state").toString().equals("6"))
 			        	 {			        		 
@@ -118,7 +115,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				else if(strs[0].equals("invite"))
 				{
 					
-					System.out.println(strs[1]);
 					WebSocketSession oSession = userSessions.get(strs[1]);
 					if(oSession !=null)
 					{
@@ -128,7 +124,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			         UserDTO udto=service.select_mypageProcess(strs[2]);
 			         
 			         //초대보낸사람  ,프로젝트이름,  첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
-			         res+=",invite,<div>"+udto.getName()+"님이"+strs[3]
+			         res+=",invite,<div class='noti_ram01'>"+udto.getName()+"님이"+strs[3]
 		        		 		+ "팀에 귀하를 초대하셨습니다 팀에 가입하시겠습니까?.<input type='hidden' value='"+strs[3]+"'><input type='hidden' value='"+strs[2] +"'/><input type='hidden' value='"+strs[1] +"'/>"
 		        		 				+ "<input type='hidden' value='"+strs[4] +"'/>"
 		        		 				+ "<input id='btn_yes' class='btn_yes' type='button' value='yes'/> <input id='btn_no' type='button' value='no'/> </div>";
@@ -149,7 +145,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					result=service.select_noti_countProcess(strs[1]);
 			         String res= String.valueOf(result);
 			         //알림받은사람은 session 받은사람 pro_id
-			         res+=",yes,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 수락하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
+			         res+=",yes,<div class='noti_ram01'>"+dto.getName()+"님이"+name+"프로젝트 초대를 수락하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
 			        		 
 			         oSession.sendMessage(new TextMessage(res)); 
 					}
@@ -168,7 +164,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					result=service.select_noti_countProcess(strs[1]);
 			         String res= String.valueOf(result);
 			         //초대보낸사람 받은사람 pro_id
-			         res+=",no,<div>"+dto.getName()+"님이"+name+"프로젝트 초대를 거절하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
+			         res+=",no,<div class='noti_ram01'>"+dto.getName()+"님이"+name+"프로젝트 초대를 거절하셨습니다.<input type='hidden' value='"+invite_id+"'><input type='hidden' value='"+pro_id+"'><div id='notification_deleteBtn'>X</div></div>";
 			         oSession.sendMessage(new TextMessage(res)); 	
 					}
 				}
@@ -178,9 +174,6 @@ public class WebSocketHandler extends TextWebSocketHandler{
 					if(oSession !=null)
 					{
 						
-					System.out.println(strs[2]);
-					
-					System.out.println("result"+result);
 					NotiDTO dto=new NotiDTO();
 					dto.setState(6);
 					dto.setPro_id(Integer.valueOf(strs[1]));
@@ -191,7 +184,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 				     ProjectDTO pdto=	proservice.proSelect(strs[1]);
 				     result=service.select_noti_countProcess(strs[2]);
 					 String res= String.valueOf(result);
-					 res+=",delete,"+pdto.getPro_name()+"프로젝트에서 제외 되셨습니다.<input type='hidden' value='"+strs[2]+"'><input type='hidden' value='"+strs[1]+"'><div id='notification_deleteBtn'>X</div></div>";
+					 res+=",delete,<div class='noti_ram01'>"+pdto.getPro_name()+"프로젝트에서 제외 되셨습니다.<input type='hidden' value='"+strs[2]+"'><input type='hidden' value='"+strs[1]+"'><div id='notification_deleteBtn'>X</div></div>";
 					oSession.sendMessage(new TextMessage(res)); 	
 					}
 				}
@@ -215,7 +208,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-			System.out.println("afterConnectionEstablished:" + session + ":" + status);
+			
 		}
 
 

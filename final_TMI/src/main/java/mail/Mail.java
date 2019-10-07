@@ -18,7 +18,6 @@ public class Mail {
 	  // Properties 설정
 	  // 프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
 	  Properties props = new Properties();
-	  
 	  // G-Mail SMTP 사용시
 	  props.put("mail.transport.protocol", "smtp");// 프로토콜 설정
 	  props.put("mail.smtp.host", "smtp.gmail.com");// gmail SMTP 서비스 주소(호스트)

@@ -61,7 +61,6 @@ public class ChatController {
 
 				String root = req.getSession().getServletContext().getRealPath("/");
 				String saveDirectory = root + "chatting" + File.separator;
-				System.out.println(saveDirectory);
 				File fe = new File(saveDirectory);
 				if (!fe.exists()) {
 					fe.mkdir();
@@ -80,10 +79,7 @@ public class ChatController {
 			dto.setUpload(upload);
 		}
 		upload = dto.getUpload();
-		System.out.println(upload.toString());
-		for (String string : upload) {
-			System.out.println(string);
-		}
+		
 		chatservice.chatUpLoadFile(dto);
 
 		return upload;

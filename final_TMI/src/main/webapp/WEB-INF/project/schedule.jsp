@@ -474,7 +474,6 @@ background-size: 400%;
 					swal("Warning", '스케줄 리더만 종료할 수 있습니다',"error")
 				}
 				
-				console.log(res);
 			}
 		})
 	})

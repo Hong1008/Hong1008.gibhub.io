@@ -43,7 +43,6 @@ public class DashBoardController {
 		mav.addObject("pjcnt",service.pjcntProcess(id));
 		mav.addObject("alltodocnt", service.AlltodoProcess(id));
 		mav.addObject("recnt",service.remaincntProcess(id));
-		System.out.println("recnt: " + service.remaincntProcess(id));
 		mav.addObject("comcnt", service.completecntProcess(id));
 		
 		//donut 그래프

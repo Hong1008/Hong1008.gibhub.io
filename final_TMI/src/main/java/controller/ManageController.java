@@ -93,7 +93,7 @@ public class ManageController {
 	}
 	
 	// 멤버 삭제
-	@RequestMapping(value="/delete", method=RequestMethod.POST )
+	@RequestMapping(value="/delete", method=RequestMethod.POST, produces="text/plain;charset=UTF-8" )
 	public @ResponseBody List<String> memberDel(@RequestParam(value="pro_id") String pro_id,
 			@RequestParam(value="memList[]") List<String> memList) {
 		List<String> list = new ArrayList<String>();
@@ -109,7 +109,7 @@ public class ManageController {
 	}
 	
 	// 멤버 추가
-	@RequestMapping("/addMember")	
+	@RequestMapping(value="/addMember", produces="text/plain;charset=UTF-8")	
 	public String memberAdd(HttpSession session, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String pro_id= (String) session.getAttribute("pro_id");
 		//noti로 insert
