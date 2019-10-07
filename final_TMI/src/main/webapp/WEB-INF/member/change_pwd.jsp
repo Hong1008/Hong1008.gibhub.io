@@ -124,6 +124,32 @@ label {
     margin-left: 39px;
 }
 </style>
+<script type="text/javascript">
+$(document)
+.ready(
+		function() {
+		
+			$("#ChangePw_submit").click(function(){
+				//비밀번호
+				var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+				if($("#pwdck").val()!=$("#pwd").val())
+					{
+					swal("Warning", "비밀번호가 서로 일치 하지 않습니다.",
+					"error");
+					return false;
+					}
+				
+				else if(!regex.test($("#pwd").val()))
+					{
+					swal("Warning", "비밀번호 형식이 맞지않습니다.",
+					"error");
+					return false;
+					}
+			})
+			
+		})
+
+</script>
 </head>
 
 <body>
