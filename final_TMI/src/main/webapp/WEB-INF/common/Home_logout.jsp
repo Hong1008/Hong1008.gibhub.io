@@ -41,7 +41,7 @@
 			<div id="content" class='center_box'>
 				<div id='textArea'>
 					<h1 class='no-drag tmi_skin tmi_skin1'>
-						Task <br>Management
+						Task <br>Management<br>Info
 					</h1>
 					<h3 class='no-drag tmi_skin tmi_skin1'>TMI is a project management tool
 						inspired by minimalism. From university team projects to business,
