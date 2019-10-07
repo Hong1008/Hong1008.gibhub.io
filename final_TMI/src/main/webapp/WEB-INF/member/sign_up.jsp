@@ -366,7 +366,7 @@ margin-left: -8px;
 </head>
 <div id='bodywrap'>
 	<div id='content'>
-		<div id='logo' class='center_div no-drag gotoHome'>EasyTask</div>
+		<div id='logo' class='center_div no-drag gotoHome'>T.M.info</div>
 		<div id='signUpForm' class='center_div '>
 			<form action="UserInsert" method="post">
 				<label for="signUpEmail">Email</label> <input type="text"

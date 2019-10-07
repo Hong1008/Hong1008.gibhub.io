@@ -319,7 +319,7 @@ padding: 0px;
 				</form>
 				<div id='go_to_signUp'>
 					<p>
-						New to MaraTagn? <a href="sign_up">Create Acount</a>
+						New to TMI? <a href="sign_up">Create Acount</a>
 					</p>
 				</div>
 

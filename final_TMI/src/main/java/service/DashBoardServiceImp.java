@@ -106,10 +106,21 @@ public class DashBoardServiceImp implements DashBoardService{
 		}
 		zero.put("value", 0);
 		result.add(zero);
-		for (TodoDTO todoDTO : tListEnd) {
+		
+		for (int i=0; i<tListEnd.size(); i++) {
+			TodoDTO todoDTO = tListEnd.get(i);
+			String tomorrow = "";
+			String today = "";
 			HashMap<String, Object> rendPer = new HashMap<>();
 			try {
-				rendPer.put("date", format.format(parse.parse(todoDTO.getT_rend().substring(0, 10))));
+				if(i!=tListEnd.size()-1) {
+					tomorrow = format.format(parse.parse(tListEnd.get(i+1).getT_rend().substring(0, 10)));
+				}
+				today = format.format(parse.parse(todoDTO.getT_rend().substring(0, 10)));
+				if(tomorrow.equals(today)) {
+					continue;
+				}
+				rendPer.put("date", today);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

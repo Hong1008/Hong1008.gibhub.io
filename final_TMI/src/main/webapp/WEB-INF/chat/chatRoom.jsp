@@ -144,7 +144,7 @@
 				</c:choose>
 			</div>
 			<p></p>
-
+			<c:if test="${empty sessionScope.isEnd }">
 			<div id='insBox'>
 				<hr id="bar" />
 				<div id=fileBtn>
@@ -157,6 +157,7 @@
 				<textarea id="message" cols="10" wrap="hard" placeholder="텍스트 입력 후 엔터"></textarea>
 
 			</div>
+			</c:if>
 		</div>
 		<div id="fileBox">
 			<div id="eachFileArea">

@@ -134,6 +134,7 @@ label {
 			    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
 			    	  form.setAttribute("action", "project/management");
 			    	  $(form).append($(this).prev('#pro_id_success'));
+			    	  $(form).append($(this).prevAll('#isEnd'));
 			    	  document.body.appendChild(form);
 			    	  form.submit();
 				})
@@ -648,6 +649,7 @@ display: inline-block;
 						<div id='mayege_projects'>
 							<c:forEach items="${pdto}" var="pdto">
 								<div class="project_success">
+									<input type="hidden" id="isEnd" name="isEnd" value="true">
 									<input type="hidden" id="pro_id_success" name="pro_id"
 										value="${pdto.pro_id}">
 

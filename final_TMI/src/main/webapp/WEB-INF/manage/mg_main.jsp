@@ -29,10 +29,12 @@
 	<div id="allForm">
 
 		<!--*********** 버튼바 ***********-->
+		<c:if test="${empty sessionScope.isEnd }">
 		<div id="buttonMenu">
 			<input class="pj_setting" type="submit" value="프로젝트 수정"> <input
 				class="pj_people" type="submit" value="멤버 관리">
 		</div>
+		</c:if>
 
 		<c:set value="${content }" var="content" />
 		

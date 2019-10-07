@@ -41,9 +41,9 @@
 			<div id="content" class='center_box'>
 				<div id='textArea'>
 					<h1 class='no-drag tmi_skin tmi_skin1'>
-						Project <br>Management
+						Task <br>Management
 					</h1>
-					<h3 class='no-drag tmi_skin tmi_skin1'>JooSung is a project management tool
+					<h3 class='no-drag tmi_skin tmi_skin1'>TMI is a project management tool
 						inspired by minimalism. From university team projects to business,
 						simple tasks make it easy and fast to control and manage projects.</h3>
 				</div>
@@ -60,11 +60,11 @@
                             <input type="password" name="pwd" id="signUp_password" class="signIn" autocomplete="off">
 						<div id="signUpSubmitArea">
 							<input type="submit" name="" id="signUpSubmit"
-								value="sign up for 주성" class='tmi_skin tmi_skin1'>
+								value="sign up for TMI" class='tmi_skin tmi_skin1'>
 							<a href="${google_url}"><img width="300" height="80"
 								src="/tmi/resources/memberimg/login_google.png" /></a>
 						</div>
-						<div id="signInfo">By clicking “Sign up for GitHub”, you
+						<div id="signInfo">By clicking “Sign up for TMI”, you
 							agree to our Terms of Service and Privacy Statement. We’ll
 							occasionally send you account related emails.</div>
 					</form>

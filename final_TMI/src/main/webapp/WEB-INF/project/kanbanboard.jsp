@@ -181,7 +181,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:forEach items="${ptList }" var="i">
-				<c:if test="${i.id == sessionScope.id && i.pt_level == 1 }">
+				<c:if test="${i.id == sessionScope.id && i.pt_level == 1 && empty sessionScope.isEnd}">
 					<div id="addSchedules">
 						<div id='addScon'>
 							스케쥴을<br>추가하세요
