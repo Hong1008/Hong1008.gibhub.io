@@ -33,7 +33,6 @@ var socket = null;
 var sessionUId = null;
 $(document).ready( function() {
     sessionUId="<%=session.getAttribute("id") %>";
-    console.log(sessionUId);
 if (sessionUId!="null")
 	{
 	connectWS();
@@ -128,12 +127,10 @@ $(document).on("click","#btn_no",function(){
 })	
 });
 function connectWS() {
-    console.log("tttttttttttttt")
     var ws = new WebSocket("ws://localhost:8090/tmi/count");
     socket = ws;
 	
     ws.onopen = function () {
-        console.log('Info: connection opened.');
         ws.send("open,");
     };
 
@@ -162,7 +159,6 @@ function connectWS() {
     };
 
     ws.onclose = function (event) { 
-        console.log('Info: connection closed.');
         //setTimeout( function(){ connect(); }, 1000); // retry connection!!
     };
     ws.onerror = function (err) { console.log('Error:', err); };

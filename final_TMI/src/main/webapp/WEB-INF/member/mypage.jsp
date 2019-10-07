@@ -265,7 +265,11 @@ label {
 									|| filetype[1] == 'gif') {
 								inputPreview(this);
 
-							}
+							}else
+	                        {
+		                        swal("Warning", "이미지 형식이 아닙니다!",
+		                        "error");
+		                        }
 
 						});
 

@@ -60,6 +60,6 @@ public interface UserMapper {
 	
 	public void project_delete(String pro_id);
 	public void pro_team_delete(String pro_id);
-	public void pro_team_mydelete(String pro_id,String id);
+	public void pro_team_mydelete(@Param("pro_id")String pro_id,@Param("id")String id);
 	public void mypage_update_pwd(UserDTO dto);
 }

@@ -84,7 +84,7 @@ public class ProjectController {
 		return mav;
 	}
 	
-	@RequestMapping("/insertProject")
+	@RequestMapping(value="/insertProject", produces="text/plain;charset=UTF-8")
 	public  @ResponseBody String insertProject(ProjectDTO pdto,HttpServletRequest req, @RequestParam(value="pro_team_list", required=false) List<String> pro_team_list) {
 		String id = req.getSession().getAttribute("id").toString(); //보낸사람
 		String res="";
@@ -92,7 +92,6 @@ public class ProjectController {
 		//id가     noti_id가 받은사람
 				//초대보낸사람  ,프로젝트이름,  첫번쨰 input보낸사람 두번째 input 받은사람 3번째 pro_id
 		String pro_id=projectService.sequence_pro_id(pdto);
-		System.out.println(pdto.getPro_name()+"projectContorer");
 		res=id+","+pdto.getPro_name()+","+pro_id;
 		
 		return res;

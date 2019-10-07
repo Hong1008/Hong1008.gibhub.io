@@ -83,8 +83,6 @@ public class UserController {
 	@RequestMapping("**/deleteProject")
 	public String deleteProject(String pro_id,String tf,HttpSession session)
 	{
-		System.out.println("pro_id"+pro_id);
-		System.out.println("tf는"+tf);
 		//pro_id가들어오면 project랑 pro_team 다삭제되야되는데 
 		if(tf.equals("true"))
 		{
@@ -104,7 +102,7 @@ public class UserController {
 		return "redirect:/mypage";
 	}
 	
-	@RequestMapping("**/getProName")
+	@RequestMapping(value="**/getProName",produces="text/plain;charset=UTF-8")
 	public @ResponseBody String getProName(String pro_id)
 	{
 		ProjectDTO dto=projectService.proSelect(pro_id);
@@ -120,8 +118,6 @@ public class UserController {
 	@RequestMapping("**/notifi_yes")
 	public @ResponseBody String notifi_yes(NotiDTO dto,HttpSession session)
 	{
-		System.out.println("id="+dto.getId());//보낸사람
-		System.out.println("NOtiid="+dto.getNoti_id());//받은사람
 		service.pro_insertProcess(String.valueOf(dto.getPro_id()),dto.getNoti_id());
 		service.noti_updateProcess("2", String.valueOf(dto.getPro_id()), dto.getNoti_id());
 		dto.setState(3);
@@ -197,7 +193,6 @@ public class UserController {
 	public String mypage_update(UserDTO dto,MultipartFile file,HttpServletRequest request,HttpSession session)
 	
 	{
-		System.out.println(session.getAttribute("id").toString());
 		UserDTO udto=service.select_mypageProcess(session.getAttribute("id").toString());
 		
 		//파일이 있으면 원래있던거 있으면 삭제 하고넣어줌 
@@ -206,10 +201,8 @@ public class UserController {
 			
 		    	String fileName = file.getOriginalFilename(); // 첨부파일의 이름가지고옴
 
-			System.out.println(fileName);
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String saveDriectory = root + "profile_img" + File.separator;
-			System.out.println(root);
 			
 			if(udto.getProfile_img()!=null)
 			{
@@ -338,7 +331,6 @@ public class UserController {
 				return "1";
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			return "-1";
 		}
 
@@ -385,7 +377,6 @@ public class UserController {
 
 		// 구글로그인 url
 		String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		System.out.println("/googleLogin, url : " + url);
 		mav.addObject("google_url", url);
 		mav.setViewName("/member/sign_in");
 		return mav;
@@ -450,7 +441,6 @@ public class UserController {
 				session.setAttribute("id", dto.getId());
 				session.setAttribute("grade", udto.getGrade());
 				session.setAttribute("theme", udto.getTheme());
-				System.out.println(udto.getGrade());
 				result = "0";
 			} else {
 				result = "1";
@@ -502,7 +492,6 @@ public class UserController {
 	
 	@RequestMapping("/change_pwd")
 	public String Change_pwd_do(UserDTO dto) {
-		System.out.println(dto.getUuid()+"찍히나");
 		
 		UUID uid = UUID.randomUUID();
 		dto.setNewuuid(uid.toString());
@@ -512,7 +501,6 @@ public class UserController {
 			service.update_uuidProcess(dto);
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("update 실패" + e.toString());
 		}
 
 		return "redirect:/home";
@@ -539,7 +527,6 @@ public class UserController {
 		String  uid = dto.getUuid();
 		
 	    dto.setId(id);
-		System.out.println(grade + " " + uid + " " + dto.getId());
 
 		if (uid != null && grade != 0) {
 			String subject = "TMI[비밀번호 변경]";// 제목
@@ -573,7 +560,6 @@ public class UserController {
 		} else {
 			text = "false";
 		}
-           System.out.println(text);
 		return text; // ajax값 보내줌
 	}
 

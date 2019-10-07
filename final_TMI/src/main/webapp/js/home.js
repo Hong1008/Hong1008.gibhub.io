@@ -176,7 +176,6 @@ $(document).ready(function(){
 		}
 		
 		$('.table-list-item').each(function(i,v){
-			console.log($(v).attr('id'));
 			if($(v).attr('id')==input){
 				result = true;
 				return false;

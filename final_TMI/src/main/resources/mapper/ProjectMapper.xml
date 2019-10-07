@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ProjectMapper">
 	<insert id="firstInsertProject" parameterType="dto.ProjectDTO">
-		insert into project (pro_id,pro_name,pro_info,pro_start,pro_end,pro_mgr) values (pro_id_seq.nextval,#{pro_name},#{pro_info},#{pro_start},#{pro_end},#{pro_mgr})
+		insert into project (pro_id,pro_name,pro_info,pro_start,pro_end,pro_mgr) values (pro_id_seq.nextval,#{pro_name},#{pro_info},to_date(#{pro_start},'YY/MM/DD'),to_date(#{pro_end},'YY/MM/DD'),#{pro_mgr})
 	</insert>
 	
 	<insert id="firstInsertProTeam" parameterType="dto.Pro_TeamDTO">
@@ -16,7 +16,7 @@
 	</insert>
 	
 	<insert id="firstInsertSchedule" parameterType="dto.ScheduleDTO">
-		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},#{sch_start},#{sch_end},#{pro_id},#{sch_mgr})
+		insert into schedule (sch_id,sch_name,sch_info,sch_start,sch_end,pro_id,sch_mgr) values (sch_id_seq.nextval,#{sch_name},#{sch_info},to_date(#{sch_start},'YY/MM/DD'),to_date(#{sch_end},'YY/MM/DD'),#{pro_id},#{sch_mgr})
 	</insert>
 	
 	<insert id="firstInsertSchTeam" parameterType="dto.Sch_TeamDTO">
@@ -24,7 +24,7 @@
 	</insert>
 	
 	<insert id="firstInsertTodo" parameterType="dto.TodoDTO">
-		insert into todo(t_id,t_start,t_end,t_name,sch_id,id) values (t_id_seq.nextval,#{t_start},#{t_end},#{t_name},#{sch_id},#{id})
+		insert into todo(t_id,t_start,t_end,t_name,sch_id,id) values (t_id_seq.nextval,to_date(#{t_start},'YY/MM/DD'),to_date(#{t_end},'YY/MM/DD'),#{t_name},#{sch_id},#{id})
 	</insert>
 	
 	<resultMap type="java.util.HashMap" id="proList">

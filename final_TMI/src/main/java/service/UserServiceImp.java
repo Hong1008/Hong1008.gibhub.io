@@ -63,9 +63,11 @@ public class UserServiceImp implements UserService {
 				mt.sendEmail(from, dto.getId(), cc, subject, content);
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {
+				me.printStackTrace();
 				System.out.println("메일 전송에 실패하였습니다.");
 				System.out.println("실패 이유 : " + me.getMessage());
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.out.println("메일 전송에 실패하였습니다.");
 				System.out.println("실패 이유 : " + e.getMessage());
 			}
