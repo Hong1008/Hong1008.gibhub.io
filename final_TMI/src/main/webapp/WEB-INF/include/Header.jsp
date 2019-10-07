@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>프로젝트의 모든 것 Task Management Info</title>
 <!-------------------------------------- 제이쿼리 연결 -------------------------------------->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-------------------------------------- 툴팁 tippy.js -------------------------------------->
@@ -219,6 +220,7 @@ $(document).ready(function(){
 		    	}
 		})			
 	})	
+	
 })
 
 </script>
@@ -242,7 +244,7 @@ $(document).ready(function(){
 			<c:set var="URI" value="${pageContext.request.requestURI}" />
 			<c:set var="login" value="/tmi/WEB-INF/common/Home_logIn.jsp" />
 			<c:set var="mypage" value="/tmi/WEB-INF/member/mypage.jsp" />
-        	<c:if test="${(fn:trim(URI)!=login && fn:trim(URI)!=mypage) && not empty sessionScope.id && sessionScope.grade ==1}" var="res">
+        	<c:if test="${(fn:trim(URI)!=login && fn:trim(URI)!=mypage) && not empty sessionScope.id && sessionScope.grade ==1 && empty sessionScope.isEnd}" var="res">
         		<div class="center">
         		
        			<select id="proIdList" class="custom-select sources" placeholder="프로젝트 변경">

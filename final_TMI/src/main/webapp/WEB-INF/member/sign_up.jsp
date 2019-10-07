@@ -9,6 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<title>회원가입</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700|Raleway:100,400,700,900|Dancing+Script:400,700&display=swap"
 	rel="stylesheet">
@@ -18,7 +19,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/tmi/js/COMMON.js" type='text/javascript'></script>
 <link href='/tmi/css/COMMON.css' type='text/css' rel='stylesheet'>
-<title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="/tmi/css/simptip.css" />
 <!--수정사항  -->
@@ -367,7 +367,7 @@ margin-left: -8px;
 </head>
 <div id='bodywrap'>
 	<div id='content'>
-		<div id='logo' class='center_div no-drag gotoHome'>EasyTask</div>
+		<div id='logo' class='center_div no-drag gotoHome'>T.M.info</div>
 		<div id='signUpForm' class='center_div '>
 			<form action="UserInsert" method="post">
 				<label for="signUpEmail">Email</label> <input type="text"

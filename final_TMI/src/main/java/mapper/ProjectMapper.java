@@ -39,6 +39,9 @@ public interface ProjectMapper {
 	public List<Pro_TeamDTO> proTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelect(String pro_id);
 	public List<Sch_TeamDTO> schTeamSelectById(String sch_id);
+	public List<TodoDTO> tdProidSelect(String pro_id);
+	public List<TodoDTO> tdProidSelectRend(String pro_id); 
+	public List<TodoDTO> tdRendCompare(@Param("pro_id") String pro_id,@Param("t_rend") String t_rend);
 	public void firstInsertSchedule(ScheduleDTO sdto);
 	public void firstInsertSchTeam(Sch_TeamDTO stDto);
 	public void firstInsertTodo(TodoDTO tdto);

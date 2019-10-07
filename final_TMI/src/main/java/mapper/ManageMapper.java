@@ -32,4 +32,8 @@ public interface ManageMapper {
 	public List<String> searchIdList(String id);
 	
 	public void setRend(ManageDTO dto);
+	
+	public void setSchRend(ManageDTO dto);
+	
+	public void setTdRend(ManageDTO dto);
 }

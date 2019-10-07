@@ -96,11 +96,11 @@
 		<result javaType="string" column="pro_id" property="pro_id"/>
 	</resultMap>	
 	
-	<select id="recentlist" resultMap="recList">
+	<select id="recentlist" resultMap="recList" parameterType="int">
 		<!-- select * from schedule where pro_id =#{pro_id} order by SCH_START DESC -->
 		select sc.sch_name sch_name, mem.name name , to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end ,sc.pro_id pro_id
-		from schedule sc, todo td, member mem
-		where sc.sch_id = td.sch_id and td.id=mem.id order by sch_start desc
+		from schedule sc, sch_team st, member mem, project p
+		where sc.sch_id = st.sch_id and st.id=mem.id and p.pro_id = sc.pro_id and pro_rend is null and p.pro_id = #{pro_id} order by sch_start desc
 	</select>
 	
 	<!-- 다가올 일정 목록  -->
@@ -115,8 +115,8 @@
 	<select id="comminglist" parameterType="string" resultMap="comlist">
 	<![CDATA[
 	select sc.sch_name sch_name, to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end,pt.pro_id
-        from schedule sc, pro_team pt
-        where sysdate+3 >= sc.sch_start and sysdate < sc.sch_start and pt.PRO_ID = sc.PRO_ID
+        from schedule sc, pro_team pt, project p
+        where sysdate+3 >= sc.sch_start and sysdate < sc.sch_start and pt.PRO_ID = sc.PRO_ID and sc.pro_id = p.pro_id and pro_rend is null and sch_rend is null
         and pt.ID=#{id}	
 		]]>
 	</select>
@@ -135,8 +135,8 @@
         decode(tl_type,'time_sch','스케쥴','time_todo','할일','time_mem','멤버','time_file','파일') tl_type,
         decode(tl_info,'time_start','생성','time_end','종료','time_add','가입','time_remove','탈퇴','time_up','업로드') tl_info,
         td.id id,tl.tl_content tl_content ,sc.pro_id pro_id
-        from timeline tl, schedule sc,todo td 
-		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id  and td.id=#{id} order by tl.tl_id desc
+        from timeline tl, schedule sc,todo td , project p
+		where tl.pro_id = sc.pro_id and sc.sch_id = td.sch_id  and td.id=#{id} and p.pro_id = sc.pro_id and pro_rend is null order by tl.tl_id desc
 	</select>
 	
 	<update id="bgChange" parameterType="dto.DashDTO">

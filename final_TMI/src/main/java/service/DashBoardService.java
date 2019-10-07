@@ -34,6 +34,6 @@ public interface DashBoardService {
 	public void bgChange(DashDTO dto);
 	
 	//그래프
-	public List<DashDTO> graphProcess(HashMap<String, String> map);
+	public List<HashMap<String, Object>> graphProcess(HashMap<String, String> map);
 	
 }

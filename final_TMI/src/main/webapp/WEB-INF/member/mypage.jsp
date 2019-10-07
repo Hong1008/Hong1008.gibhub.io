@@ -20,7 +20,6 @@
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 @charset "UTF-8";
 
@@ -135,6 +134,7 @@ label {
 			    	  form.setAttribute("method", "POST"); // Get 또는 Post 입력
 			    	  form.setAttribute("action", "project/management");
 			    	  $(form).append($(this).prev('#pro_id_success'));
+			    	  $(form).append($(this).prevAll('#isEnd'));
 			    	  document.body.appendChild(form);
 			    	  form.submit();
 				})
@@ -642,12 +642,14 @@ display: inline-block;
 				<span class='mypage_title'>종료된 프로젝트</span> -->
 				<c:choose>
 					<c:when test="${empty pdto}">
-	프로젝트 완료 목록이없습니다.
+					<div style="font-size: 26px;font-weight: bold;text-align: center;">프로젝트 완료 목록이없습니다.</div>
+					<div style="text-align: center;">어서 프로젝트를 완료해주세요!</div>
 	</c:when>
 					<c:otherwise>
 						<div id='mayege_projects'>
 							<c:forEach items="${pdto}" var="pdto">
 								<div class="project_success">
+									<input type="hidden" id="isEnd" name="isEnd" value="true">
 									<input type="hidden" id="pro_id_success" name="pro_id"
 										value="${pdto.pro_id}">
 

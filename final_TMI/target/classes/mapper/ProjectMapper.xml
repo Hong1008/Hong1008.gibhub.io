@@ -57,11 +57,11 @@
 	</select>
 	
 	<select id="calendarSch" resultType="dto.ScheduleDTO" parameterType="string">
-		select sch_id, sch_info, sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end, sch_rend from schedule where pro_id = #{pro_id}
+		select sch_id, sch_info, sch_name, to_char(sch_start,'yyyy-MM-dd') sch_start, to_char(sch_end,'yyyy-MM-dd') sch_end, sch_rend from schedule where pro_id = #{pro_id} order by sch_start
 	</select>
 	
 	<select id="calendarTodo" resultType="dto.TodoDTO" parameterType="string">
-		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end, id, t_rend from todo where sch_id = #{sch_id}
+		select t_name, to_char(t_start,'yyyy-MM-dd') t_start, to_char(t_end,'yyyy-MM-dd') t_end, id, t_rend from todo where sch_id = #{sch_id} order by t_start
 	</select>
 	
 	<select id="proSelect" resultType="dto.ProjectDTO" parameterType="string">
@@ -72,11 +72,11 @@
 	</select>
 	
 	<select id="schSelect" resultType="dto.ScheduleDTO" parameterType="string">
-		select * from schedule where pro_id = #{pro_id}
+		select * from schedule where pro_id = #{pro_id} order by sch_id desc
 	</select> 
 	
 	<select id="tdSelect" resultType="dto.TodoDTO" parameterType="string">
-		select * from todo where sch_id = #{sch_id} order by t_priority
+		select * from todo where sch_id = #{sch_id} order by t_id desc
 	</select>
 	
 	<select id="schSelectEnd" resultType="dto.ScheduleDTO" parameterType="string">
@@ -125,6 +125,21 @@
 	
 	<select id="isSchEnd" resultType="string" parameterType="string">
 		select sch_id from schedule where sch_id = #{sch_id} and sch_rend is not null
+	</select>
+	
+	<select id="tdProidSelect" resultType="dto.TodoDTO" parameterType="string">
+		select * from todo where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) order by t_rend
+	</select>
+	
+	<select id="tdProidSelectRend" resultType="dto.TodoDTO" parameterType="string">
+		select * from todo where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) and t_rend is not null order by t_rend
+	</select>
+	
+	<select id="tdRendCompare" resultType="dto.TodoDTO" parameterType="string">
+		<![CDATA[
+		select * from todo where sch_id in 
+		(select sch_id from schedule where pro_id = #{pro_id}) and t_rend <= to_date(#{t_rend},'YYYY-MM-DD HH24:MI:SS') and t_rend is not null order by t_rend
+		]]> 
 	</select>
 	
 	<update id="uptSchRend" parameterType="string">

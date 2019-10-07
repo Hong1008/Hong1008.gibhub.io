@@ -12,7 +12,6 @@
 
 <meta charset="UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<title>Insert title here</title>
 </head>
 <body>
 <div>이메일 인증해주세요</div>
