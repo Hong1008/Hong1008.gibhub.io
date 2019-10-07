@@ -375,18 +375,17 @@ margin-left: -8px;
 					
                             <span class="aaa simptip-position-bottom" id="tooltip_email"    data-tooltip="이메일 형식이 맞지 않습니다."></span>
 					
-				<small class="swicthtext">Please write your email</small> <label
+				<small class="swicthtext">이메일 형식에 맞게 입력해주세요.</small> <label
 					for="signUpUserName">UserName</label> <input type="text"
 					class='signUpText' name="name" id='signUpUserName'
 					value="${dto.name}">					
-					 <small class="swicthtext">Please
-					write your UserName</small> <label for="signUpPassword">Password</label> <input
+					 <small class="swicthtext">이름을 입력해주세요</small>
+					  <label for="signUpPassword">Password</label> <input
 					type="password" class='signUpText' name="pwd" id='signUpPassword'
 					value="${dto.pwd }">
 					
-                            <span class="aaa simptip-position-bottom"  id="tooltip_pawd" data-tooltip="비번 형식이 맞지 않습니다."></span>
-					 <small class="swicthtext">Please
-					write your password</small>
+                            <span class="aaa simptip-position-bottom"  id="tooltip_pawd" data-tooltip="8~15자리 영문,숫자,특수문자를 포함해주세요"></span>
+					 <small class="swicthtext">8~15자리 영문,숫자,특수문자를 포함해주세요</small>
 				<div id='captcha'>
 					<div class="g-recaptcha"
 						data-sitekey="6Ld6HLYUAAAAAPuk3EckaPrxf46ilVvdnUD3ECrQ"></div>
