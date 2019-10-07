@@ -193,7 +193,7 @@ function connectWS() {
 $(document).ready(function(){
 	var sessionTheme="<%=session.getAttribute("theme")%>";
 	var skin = $('.tmi_skin');
-	if(sessionTheme!="null")
+	if(sessionTheme!="null" && sessionTheme !="")
 		{
 		for(var i =1; i<21;i++){
 			$('.tmi_skin').removeClass('tmi_skin'+i);

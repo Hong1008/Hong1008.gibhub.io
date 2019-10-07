@@ -112,7 +112,7 @@
 	</select>
 	
 	<select id="recentProId" resultType="string" parameterType="string">
-		select pro_id from timeline where pro_id in (select pro_id from pro_team where id = #{id}) and rownum = 1 order by tl_time desc
+		select pro_id from timeline where pro_id in (select pt.pro_id from pro_team pt, project p where pt.pro_id = p.pro_id and id = #{id} and pro_rend is null ) and rownum = 1 order by tl_time desc
 	</select>
 	
 	<select id="isLeader" resultType="int" parameterType="string">

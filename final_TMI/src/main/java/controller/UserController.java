@@ -409,7 +409,7 @@ public class UserController {
 			for (int i = 0; i < iplist.length; i++) {
 				/*if (ipreq.equals(iplist[i]))*/
 			 if(ipreq.equals("0"))
-				{
+				{	
 					session.setAttribute("id", dto.getId());
 					session.setAttribute("grade", dto.getGrade());
 					session.setAttribute("theme", dto.getTheme());
@@ -449,7 +449,7 @@ public class UserController {
 				UserDTO udto= service.select_mypageProcess(dto.getId());
 				session.setAttribute("id", dto.getId());
 				session.setAttribute("grade", udto.getGrade());
-				session.setAttribute("theme", dto.getTheme());
+				session.setAttribute("theme", udto.getTheme());
 				System.out.println(udto.getGrade());
 				result = "0";
 			} else {

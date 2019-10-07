@@ -13,7 +13,6 @@
 
 <!---------------------------------------- 헤더 연결 ---------------------------------------->
 <jsp:include page="../include/Header.jsp"></jsp:include>
-<title>세계의 모든일 Task Universe</title>
 </head>
 <body>
 	<div id='bodywrap'>
