@@ -36,4 +36,6 @@ public interface ManageMapper {
 	public void setSchRend(ManageDTO dto);
 	
 	public void setTdRend(ManageDTO dto);
+	
+	public void isSchLeader(ManageDTO dto);
 }

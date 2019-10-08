@@ -93,7 +93,7 @@ public class ManageController {
 	}
 	
 	// 멤버 삭제
-	@RequestMapping(value="/delete", method=RequestMethod.POST, produces="text/plain;charset=UTF-8" )
+	@RequestMapping(value="/delete", method=RequestMethod.POST )
 	public @ResponseBody List<String> memberDel(@RequestParam(value="pro_id") String pro_id,
 			@RequestParam(value="memList[]") List<String> memList) {
 		List<String> list = new ArrayList<String>();
