@@ -58,6 +58,7 @@ public class ManageServiceImp implements ManageService{
 	public void memberDelProcess(ManageDTO dto) {
 		mapper.delMember(dto);
 		mapper.timeDelMem(dto);
+		mapper.isSchLeader(dto);
 	}
 
 	@Override

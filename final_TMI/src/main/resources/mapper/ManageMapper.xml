@@ -74,5 +74,8 @@
 	<update id="setTdRend" parameterType="dto.ManageDTO">
 		update todo set t_rend = sysdate where sch_id in (select sch_id from schedule where pro_id = #{pro_id}) and t_rend is null
 	</update>
-	
+	<delete id="isSchLeader" parameterType="dto.ManageDTO">
+	delete from schedule where sch_mgr=#{id} and pro_id=#{pro_id}
+	</delete>
+		
 </mapper>
