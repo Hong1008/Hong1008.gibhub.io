@@ -12,8 +12,35 @@
 
 <meta charset="UTF-8">
 <jsp:include page="../include/Header.jsp"></jsp:include>
+<style type="text/css">
+ #ex{
+ 	font-size: 30px;
+    font-weight: bold;
+    margin: 15px 0px;
+ }
+ .bx-wrapper{
+ 	margin: auto;
+ }
+</style>
 </head>
 <body>
-<div>이메일 인증해주세요</div>
+<div style="font-size: 28px; text-align: center; margin: 30px">이메일 인증해주세요</div><hr>
+<div class="section" style="text-align: center;">
+		<div id="ex">왜 TMI인가요?</div>
+		<div id='youtube'>
+			<img alt="" src="/tmi/resources/tutoImg/tuto1.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto2.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto3.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto4.png" >
+			<img alt="" src="/tmi/resources/tutoImg/tuto5.png" >
+		</div>
+	</div>
 </body>
+<script type="text/javascript">
+
+  $('#youtube').bxSlider({
+	  slideWidth:'1500'
+  });
+	
+</script>
 </html>
