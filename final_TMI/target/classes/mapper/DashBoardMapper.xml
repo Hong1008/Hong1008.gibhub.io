@@ -100,7 +100,7 @@
 		<!-- select * from schedule where pro_id =#{pro_id} order by SCH_START DESC -->
 		select sc.sch_name sch_name, mem.name name , to_char(sc.sch_start,'YY-MM-dd') sch_start, to_char(sc.sch_end,'YY-MM-dd') sch_end ,sc.pro_id pro_id
 		from schedule sc, sch_team st, member mem, project p
-		where sc.sch_id = st.sch_id and st.id=mem.id and p.pro_id = sc.pro_id and pro_rend is null and p.pro_id = #{pro_id} order by sch_start desc
+		where sc.sch_id = st.sch_id and st.id=mem.id and p.pro_id = sc.pro_id and pro_rend is null and p.pro_id = #{pro_id} and st_level=1 order by sch_start desc
 	</select>
 	
 	<!-- 다가올 일정 목록  -->
