@@ -372,7 +372,10 @@ background-size: 400%;
 			</button>
 			</c:when>
 			<c:otherwise>
-				<div>종료된 스케줄 입니다</div>
+				<div style="    width: 373px;
+    height: 65px;
+    margin-top: 21px;
+    display: inline-block;">종료된 스케줄 입니다</div>
 			</c:otherwise>
 			</c:choose>
 		</div>
