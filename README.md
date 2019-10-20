@@ -8,6 +8,8 @@
 - 개발도구 : jdk1.8.0_101, SQL Developer, Spring Tool Suite 5.1.3(Eclipse)
 - 데이터베이스 : AWS RDS (Oracle 12.1.0.2)
 - Language : Java, SQL, Javascript, html, css
+- 주요기술 : jquery, ajax, spring interceptor, WebSocket, Google login API, G-mail SMTP, HikariCP
+- 플러그인 : [tippy.js](https://atomiks.github.io/tippyjs/), [pista.js](https://www.jqueryscript.net/demo/jQuery-Zepto-Plugin-For-Pretty-Line-Charts-Pista-js/), [morris.js](https://morrisjs.github.io/morris.js/), [sweetalert.js](https://sweetalert.js.org/), [fullcalendar.io](https://fullcalendar.io/), [jquery-ui.js](https://jqueryui.com/sortable/)
 
 # 주요기능
 ## 1) 대시보드를 통하여 한눈에 프로젝트 정보 확인 가능하다.
