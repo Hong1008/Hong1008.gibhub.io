@@ -12,26 +12,26 @@
 - 플러그인 : [tippy.js](https://atomiks.github.io/tippyjs/), [pista.js](https://www.jqueryscript.net/demo/jQuery-Zepto-Plugin-For-Pretty-Line-Charts-Pista-js/), [morris.js](https://morrisjs.github.io/morris.js/), [sweetalert.js](https://sweetalert.js.org/), [fullcalendar.io](https://fullcalendar.io/), [jquery-ui.js](https://jqueryui.com/sortable/), [an-skill-bar](https://www.jqueryscript.net/chart-graph/animated-skills-bar.html)
 
 # 주요기능
-## 1) 대시보드를 통하여 한눈에 프로젝트 정보 확인 가능하다.
+### 1) 대시보드를 통하여 한눈에 프로젝트 정보 확인 가능하다.
 <img src="/gitImg/대시보드.png"/><br/>
 
-## 2) 칸반보드를 통하여 일정 관리를 수월하게할 수 있다.
+### 2) 칸반보드를 통하여 일정 관리를 수월하게할 수 있다.
 
 <img src="/gitImg/칸판.png"/><br/>
 
-## 3) 타임라인을 통해 현 프로젝트의 활동을 순차적으로 볼 수 있다.
+### 3) 타임라인을 통해 현 프로젝트의 활동을 순차적으로 볼 수 있다.
 
 <img src="/gitImg/9타임라인.PNG"/><br/>
 
-## 4) 프로젝트의 일정을 달력 형태로 확인할 수 있다.
+### 4) 프로젝트의 일정을 달력 형태로 확인할 수 있다.
 
 <img src="/gitImg/캘린더.png"/><br/>
 
-## 5) 맴버관리를 통해서 리더 변경 및 초대/강퇴 가능하다.
+### 5) 맴버관리를 통해서 리더 변경 및 초대/강퇴 가능하다.
 
 <img src="/gitImg/프로젝트 설정 페이지.png"/><br/>
 
-## 6) 채팅을 통해 실시간 회의/자료공유 및 기록을 남길 수 있다.
+### 6) 채팅을 통해 실시간 회의/자료공유 및 기록을 남길 수 있다.
 
 <img src="/gitImg/채팅6.PNG"/><br/>
 
