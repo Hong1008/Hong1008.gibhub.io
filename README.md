@@ -5,7 +5,7 @@
 무료 협업툴을 찾는 사람들을 위한 협업 스케줄러 
 # 개발환경
 - 운영체제 : Windows10,Ubuntu Server 18.04 LTS (AWS)
-- 개발도구 : jdk1.8.0_101, SQL Developer, Spring Tool Suite 5.1.3(Eclipse)
+- 개발도구 : jdk1.8.0_101, SQL Developer, Spring Tool Suite 3.9.1(Eclipse)
 - 데이터베이스 : AWS RDS (Oracle 12.1.0.2)
 - 언어 : Java, SQL, Javascript, html, css
 - 주요기술 : jquery, ajax, spring interceptor, WebSocket, Google login API, G-mail SMTP, HikariCP, mybatis
